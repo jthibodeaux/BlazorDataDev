@@ -1,0 +1,310 @@
+@inject ITableService TableService
+@inject NavigationManager Navigation
+@implements IDisposable
+
+<div class="nav-menu">
+    <!-- Branding -->
+    <div class="text-center mb-4">
+        <img src="/images/logo.svg" alt="Blazor DataDev" style="width: 80px; height: 80px; margin-bottom: 0.5rem;" />
+        <h5 style="margin: 0; font-weight: 600; font-size: 0.95rem;">Blazor DataDev</h5>
+        <small style="color: #6c757d; font-size: 0.75rem;">Local DB Testing Platform</small>
+    </div>
+    
+    <UserInfo />
+
+    <!-- Main Navigation -->
+    <div class="nav-section">
+    <h6 class="nav-section-title">🏠 MAIN</h6>
+        <NavLink class="nav-menu-item" href="/" Match="NavLinkMatch.All">
+     <span class="nav-icon">🏠</span> Dashboard
+        </NavLink>
+     
+        <NavLink class="nav-menu-item" href="/settings">
+            <span class="nav-icon">⚙️</span> Settings
+     </NavLink>
+    </div>
+
+    <!-- Data Management -->
+    <div class="nav-section">
+        <h6 class="nav-section-title">📊 DATA MANAGEMENT</h6>
+        
+        <NavLink class="nav-menu-item" href="/startup">
+            <span class="nav-icon">🚀</span> Startup Wizard
+        </NavLink>
+        
+      <NavLink class="nav-menu-item" href="/offline-editor">
+        <span class="nav-icon">📝</span> Schema Editor
+        </NavLink>
+        
+    <NavLink class="nav-menu-item" href="/data-editor">
+  <span class="nav-icon">✏️</span> Data Editor
+        </NavLink>
+        
+     <NavLink class="nav-menu-item" href="/sql-query">
+         <span class="nav-icon">🔍</span> SQL Query
+   </NavLink>
+    </div>
+
+    <!-- Integration Tools -->
+    <div class="nav-section">
+    <h6 class="nav-section-title">🔌 INTEGRATIONS</h6>
+        
+        <NavLink class="nav-menu-item" href="/live-data">
+            <span class="nav-icon">📡</span> Live Data
+        </NavLink>
+        
+        <NavLink class="nav-menu-item" href="/external-explorer">
+     <span class="nav-icon">🌐</span> External DB
+        </NavLink>
+        
+        <NavLink class="nav-menu-item" href="/migration-manager">
+            <span class="nav-icon">🔄</span> Migration
+     </NavLink>
+    </div>
+
+ <!-- Utilities -->
+  <div class="nav-section">
+<h6 class="nav-section-title">🛠️ UTILITIES</h6>
+     
+        <NavLink class="nav-menu-item" href="/ddl-merger">
+            <span class="nav-icon">🔗</span> DDL Merger
+        </NavLink>
+        
+        <NavLink class="nav-menu-item" href="/workspace-manager">
+<span class="nav-icon">💾</span> Workspace
+        </NavLink>
+    </div>
+
+    <!-- API & Documentation -->
+    <div class="nav-section">
+   <h6 class="nav-section-title">📚 API & DOCS</h6>
+        
+        <a class="nav-menu-item" href="/swagger" target="_blank">
+            <span class="nav-icon">🌐</span> Swagger API
+            <span class="external-icon">↗</span>
+        </a>
+        
+  <NavLink class="nav-menu-item" href="/documentation">
+ <span class="nav-icon">📖</span> Documentation
+        </NavLink>
+    
+        <NavLink class="nav-menu-item" href="/about">
+      <span class="nav-icon">ℹ️</span> About
+ </NavLink>
+ </div>
+
+    <!-- Dynamic Tables Section -->
+    @if (!IsOfflinePage())
+    {
+        <div class="nav-section">
+       <h6 class="nav-section-title">📋 TABLES (@tables?.Count ?? 0)</h6>
+        
+            @if (tables == null)
+   {
+   <div class="nav-loading">Loading tables...</div>
+   }
+            else if (!tables.Any())
+       {
+         <div class="nav-empty">No tables loaded</div>
+    }
+    else
+      {
+                <div class="nav-table-list">
+@foreach (var table in tables.Take(10))
+                {
+   <NavLink class="nav-table-item" href="@($"/table/{table}")">
+   <span class="nav-icon">📄</span> @table
+       </NavLink>
+            }
+     @if (tables.Count > 10)
+      {
+    <div class="nav-more">
+            <a href="/tables" class="text-muted">
+ + @(tables.Count - 10) more tables
+  </a>
+   </div>
+     }
+            </div>
+     }
+        </div>
+    }
+    else
+    {
+      <div class="nav-section">
+            <h6 class="nav-section-title">📋 DDL TABLES (@OfflineEditorState.Tables.Count)</h6>
+ 
+          @if (OfflineEditorState.Tables.Any())
+{
+      <div class="nav-table-list">
+          @foreach (var table in OfflineEditorState.Tables.Take(10))
+      {
+          <a class="nav-table-item @(OfflineEditorState.SelectedTable == table ? "active" : "")" 
+         href="#" 
+   @onclick="() => SelectTable(table)"
+     @onclick:preventDefault>
+      <span class="nav-icon">📄</span> @table
+     </a>
+             }
+      @if (OfflineEditorState.Tables.Count > 10)
+    {
+      <div class="nav-more">
+     <span class="text-muted">
+           + @(OfflineEditorState.Tables.Count - 10) more
+        </span>
+         </div>
+         }
+         </div>
+            }
+ else
+        {
+           <div class="nav-empty">
+  <small>Load DDL to see tables</small>
+   </div>
+     }
+        </div>
+    }
+
+    <!-- Footer -->
+  <div class="nav-footer">
+        <small class="text-muted">v2.0.0 | Blazor DataDev</small>
+    </div>
+</div>
+
+<style>
+    .nav-menu {
+        height: 100vh;
+        overflow-y: auto;
+        padding: 1rem;
+        background: linear-gradient(180deg, var(--nav-bg-start, #f8f9fa) 0%, var(--nav-bg-end, #ffffff) 100%);
+    }
+
+    .nav-section {
+        margin-bottom: 1.5rem;
+    }
+
+    .nav-section-title {
+        font-size: 0.75rem;
+      font-weight: 700;
+        color: var(--nav-title-color, #6c757d);
+        margin-bottom: 0.5rem;
+        padding: 0.25rem 0.5rem;
+        border-bottom: 1px solid var(--nav-border-color, #e9ecef);
+    }
+
+    .nav-menu-item, .nav-table-item {
+        display: flex;
+        align-items: center;
+      padding: 0.5rem 0.75rem;
+        margin-bottom: 0.25rem;
+        border-radius: 0.5rem;
+        color: var(--nav-item-color, #495057);
+     text-decoration: none;
+    transition: all 0.2s;
+        font-size: 0.9rem;
+    }
+
+    .nav-menu-item:hover, .nav-table-item:hover {
+    background: var(--nav-hover-bg, #e7f3ff);
+        color: var(--nav-hover-color, #0056b3);
+        transform: translateX(3px);
+    }
+
+    .nav-menu-item.active, .nav-table-item.active {
+  background: var(--nav-active-bg, linear-gradient(135deg, #4facfe 0%, #00f2fe 100%));
+        color: var(--nav-active-color, white);
+        font-weight: 600;
+    }
+
+    .nav-icon {
+        margin-right: 0.5rem;
+        font-size: 1rem;
+    }
+
+    .external-icon {
+    margin-left: auto;
+        font-size: 0.8rem;
+    }
+
+    .nav-loading, .nav-empty {
+padding: 0.5rem 0.75rem;
+     color: var(--nav-muted-color, #6c757d);
+        font-size: 0.85rem;
+ font-style: italic;
+    }
+
+    .nav-table-list {
+        max-height: 300px;
+   overflow-y: auto;
+    }
+
+    .nav-more {
+        padding: 0.5rem 0.75rem;
+    text-align: center;
+        font-size: 0.85rem;
+    }
+
+    .nav-footer {
+        position: sticky;
+        bottom: 0;
+        padding: 1rem 0.5rem;
+        text-align: center;
+        background: var(--nav-footer-bg, white);
+        border-top: 1px solid var(--nav-border-color, #e9ecef);
+        margin-top: 2rem;
+    }
+</style>
+
+@code {
+    private List<string>? tables;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+   {
+            if (!IsOfflinePage())
+    {
+     tables = await TableService.GetTablesAsync();
+       }
+            else
+  {
+      tables = new List<string>();
+       }
+        }
+        catch (Exception ex)
+    {
+         Console.WriteLine($"Error loading tables: {ex.Message}");
+    tables = new List<string>();
+        }
+
+        OfflineEditorState.OnChange += StateHasChanged;
+    }
+
+    private bool IsOfflinePage()
+    {
+        return Navigation.Uri.Contains("/offline", StringComparison.OrdinalIgnoreCase) ||
+ Navigation.Uri.Contains("/startup", StringComparison.OrdinalIgnoreCase);
+    }
+
+    public void Dispose()
+    {
+        OfflineEditorState.OnChange -= StateHasChanged;
+    }
+
+    private void SelectTable(string tableName)
+    {
+        OfflineEditorState.SelectedTable = tableName;
+  OfflineEditorState.NotifyStateChanged();
+    }
+
+    public static class OfflineEditorState
+    {
+        public static List<string> Tables { get; set; } = new List<string>();
+      public static string SelectedTable { get; set; } = "";
+        public static event Action? OnChange;
+
+        public static void NotifyStateChanged()
+        {
+OnChange?.Invoke();
+        }
+    }
+}

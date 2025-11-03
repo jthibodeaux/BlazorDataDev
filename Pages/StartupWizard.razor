@@ -1,0 +1,270 @@
+@page "/startup"
+@using BlazorDbEditor.Services
+@inject IStartupAutomationService StartupService
+@inject NavigationManager Navigation
+
+<PageTitle>Startup Wizard - Blazor DataDev</PageTitle>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+       <div class="card shadow">
+  <div class="card-header bg-primary text-white">
+   <h3 class="mb-0">&#128640; Startup Wizard</h3>
+         </div>
+              <div class="card-body">
+  @if (!workflowStarted)
+      {
+   <div class="text-center p-4">
+       <h4>Welcome to Blazor DataDev - Setup Loadables</h4>
+             <p class="lead">Choose your startup option:</p>
+  
+     <div class="row mt-4">
+    <div class="col-md-6">
+   <div class="card border-primary h-100">
+         <div class="card-body">
+        <h5 class="card-title">&#128229; Auto-Load Data</h5>
+  <p class="card-text">
+       Automatically load DDL and CSV files from the <code>Loadables</code> folder.
+             </p>
+ <ul class="text-start">
+    <li>Load DDL (.sql file)</li>
+          <li>Load all CSV files</li>
+         <li>Generate SQL script</li>
+             <li>Save workspace</li>
+    </ul>
+      <button class="btn btn-primary mt-3" @onclick="StartAutoWorkflow">
+         Start Auto-Load
+       </button>
+       </div>
+     </div>
+             </div>
+   
+       <div class="col-md-6">
+   <div class="card border-secondary h-100">
+      <div class="card-body">
+          <h5 class="card-title">&#128194; Load Workspace</h5>
+         <p class="card-text">
+         Load a previously saved workspace from the <code>Loadables/output</code> folder.
+   </p>
+          <ul class="text-start">
+      <li>Restore schemas</li>
+ <li>Quick startup</li>
+                 <li>Import data separately</li>
+  </ul>
+    <button class="btn btn-secondary mt-3" @onclick="ShowWorkspaceList" disabled="@(!hasWorkspaces)">
+           @(hasWorkspaces ? "Load Workspace" : "No workspaces found")
+           </button>
+   </div>
+       </div>
+      </div>
+      </div>
+      
+      <hr class="my-4" />
+  
+          <div class="alert alert-info">
+             <strong>&#128193; Loadables Folder Structure:</strong>
+         <pre class="mb-0">
+Loadables/
+&#9500;&#9472;&#9472; schema.sql           &#8592; Your DDL file
+&#9500;&#9472;&#9472; table1.csv   &#8592; CSV files (filename = table name)
+&#9500;&#9472;&#9472; table2.csv
+&#9492;&#9472;&#9472; output/ &#8592; Generated files
+    &#9500;&#9472;&#9472; generated_inserts_*.sql
+    &#9492;&#9472;&#9472; auto_workspace_*.json
+       </pre>
+  </div>
+ 
+      <button class="btn btn-link" @onclick="SkipToOfflineEditor">
+            Skip to Offline Editor &#8594;
+      </button>
+             </div>
+      }
+          else if (isProcessing)
+                 {
+   <div class="text-center p-5">
+    <div class="spinner-border text-primary mb-3" role="status" style="width: 3rem; height: 3rem;">
+    <span class="visually-hidden">Loading...</span>
+   </div>
+   <h5>@processingMessage</h5>
+             </div>
+          }
+else if (result != null)
+ {
+  <div class="p-3">
+      @if (result.Success)
+  {
+      <div class="alert alert-success">
+            <h5>&#9989; Startup Completed Successfully!</h5>
+           </div>
+        }
+     else
+   {
+   <div class="alert alert-danger">
+         <h5>&#10060; Startup Failed</h5>
+           </div>
+   }
+    
+   @if (result.Messages.Any())
+       {
+           <div class="card mb-3">
+    <div class="card-header bg-light">
+      <strong>&#128203; Messages</strong>
+       </div>
+    <div class="card-body">
+    <ul class="mb-0">
+       @foreach (var msg in result.Messages)
+            {
+   <li>@msg</li>
+       }
+     </ul>
+     </div>
+       </div>
+   }
+          
+     @if (result.Warnings.Any())
+   {
+    <div class="alert alert-warning">
+         <strong>&#9888; Warnings:</strong>
+    <ul class="mb-0">
+             @foreach (var warning in result.Warnings)
+      {
+     <li>@warning</li>
+   }
+    </ul>
+      </div>
+        }
+          
+   @if (result.Errors.Any())
+ {
+        <div class="alert alert-danger">
+         <strong>&#10060; Errors:</strong>
+<ul class="mb-0">
+       @foreach (var error in result.Errors)
+       {
+         <li>@error</li>
+  }
+ </ul>
+  </div>
+   }
+      
+   @if (result.Success)
+  {
+  <div class="card mb-3">
+<div class="card-header bg-success text-white">
+    <strong>&#128202; Summary</strong>
+      </div>
+         <div class="card-body">
+        <ul>
+     <li><strong>Tables Loaded:</strong> @result.TableSchemas.Count</li>
+       <li><strong>Total Rows:</strong> @result.TotalRowsLoaded</li>
+        @if (!string.IsNullOrEmpty(result.SqlScriptPath))
+    {
+     <li><strong>SQL Script:</strong> @Path.GetFileName(result.SqlScriptPath)</li>
+    }
+          @if (!string.IsNullOrEmpty(result.WorkspacePath))
+ {
+   <li><strong>Workspace:</strong> @Path.GetFileName(result.WorkspacePath)</li>
+  }
+            </ul>
+ </div>
+       </div>
+    
+     <div class="d-grid gap-2">
+         <button class="btn btn-primary btn-lg" @onclick="GoToDataEditor">
+    Continue to Data Editor &#8594;
+   </button>
+      <button class="btn btn-outline-primary" @onclick="GoToOfflineEditor">
+       Go to Offline Editor
+         </button>
+         <button class="btn btn-outline-secondary" @onclick="GoToSwagger">
+       Open Swagger API
+  </button>
+         </div>
+    }
+    else
+             {
+         <div class="d-grid gap-2">
+    <button class="btn btn-primary" @onclick="RestartWorkflow">
+ Try Again
+   </button>
+    <button class="btn btn-secondary" @onclick="SkipToOfflineEditor">
+         Go to Offline Editor
+      </button>
+         </div>
+       }
+      </div>
+         }
+     </div>
+   </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private bool workflowStarted = false;
+    private bool isProcessing = false;
+    private string processingMessage = "Processing...";
+  private StartupResult? result;
+    private bool hasWorkspaces = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Check if workspaces exist
+        hasWorkspaces = await StartupService.CheckForExistingWorkspaceAsync();
+    }
+
+    private async Task StartAutoWorkflow()
+    {
+        workflowStarted = true;
+    isProcessing = true;
+        processingMessage = "Loading DDL and CSV files from Loadables folder...";
+        
+  await Task.Delay(100); // Allow UI to update
+    StateHasChanged();
+ 
+        result = await StartupService.ExecuteStartupWorkflowAsync();
+        
+        // Sync loaded tables to NavMenu state so Offline Editor can see them
+      if (result.Success && result.TableSchemas.Any())
+     {
+       BlazorDbEditor.Components.NavMenu.OfflineEditorState.Tables = result.TableSchemas.Keys.ToList();
+   BlazorDbEditor.Components.NavMenu.OfflineEditorState.NotifyStateChanged();
+        }
+        
+ isProcessing = false;
+        StateHasChanged();
+    }
+
+    private void ShowWorkspaceList()
+    {
+        // TODO: Implement workspace selection dialog
+     Navigation.NavigateTo("/offline-editor");
+    }
+
+    private void RestartWorkflow()
+    {
+        workflowStarted = false;
+        result = null;
+  }
+
+    private void SkipToOfflineEditor()
+    {
+        Navigation.NavigateTo("/offline-editor");
+    }
+
+    private void GoToOfflineEditor()
+    {
+        Navigation.NavigateTo("/offline-editor");
+    }
+
+    private void GoToDataEditor()
+    {
+      Navigation.NavigateTo("/data-editor");
+    }
+
+    private void GoToSwagger()
+    {
+        Navigation.NavigateTo("/swagger");
+    }
+}

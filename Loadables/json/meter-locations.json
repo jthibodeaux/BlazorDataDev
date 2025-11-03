@@ -1,0 +1,23 @@
+{
+"tc_meterlocations": [
+	{
+		"ap_meter" : 220030,
+		"location" : "HARPER"
+	},
+	{
+		"ap_meter" : 220530,
+		"location" : "WILL COUNTY"
+	},
+	{
+		"ap_meter" : 220960,
+		"location" : "VENTURA"
+	},
+	{
+		"ap_meter" : 230240,
+		"location" : "MONCHY"
+	},
+	{
+		"ap_meter" : 230500,
+		"location" : "SPRING CREEK"
+	}
+]}

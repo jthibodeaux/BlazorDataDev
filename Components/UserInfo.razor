@@ -1,0 +1,176 @@
+@using System.Security.Claims
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<div class="user-info-container">
+    @if (isAuthenticated)
+    {
+        <div class="user-card">
+            <div class="user-avatar">
+                <span>@GetInitials()</span>
+            </div>
+            <div class="user-details">
+                <div class="user-name">@userName</div>
+                <div class="user-email">@userEmail</div>
+                <div class="user-roles">
+                    @foreach (var role in userRoles)
+                    {
+                        <span class="role-badge role-@role.ToLower()">@role</span>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="user-card">
+            <div class="text-muted">
+                <small>Not authenticated</small>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    .user-info-container {
+        padding: 1rem;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .user-card {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .user-avatar {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 600;
+        font-size: 1.2rem;
+        flex-shrink: 0;
+    }
+
+    .user-details {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .user-name {
+        font-weight: 600;
+        font-size: 0.95rem;
+        color: #333;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .user-email {
+        font-size: 0.8rem;
+        color: #6c757d;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .user-roles {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.25rem;
+        margin-top: 0.5rem;
+    }
+
+    .role-badge {
+        display: inline-block;
+        padding: 0.15rem 0.5rem;
+        font-size: 0.7rem;
+        font-weight: 600;
+        border-radius: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .role-admin {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .role-editor {
+        background-color: #ffc107;
+        color: #333;
+    }
+
+    .role-user {
+        background-color: #0dcaf0;
+        color: #333;
+    }
+
+    .role-viewer {
+        background-color: #6c757d;
+        color: white;
+    }
+
+    .role-loggedin {
+        background-color: #198754;
+        color: white;
+    }
+</style>
+
+@code {
+    private bool isAuthenticated = false;
+    private string userName = "";
+    private string userEmail = "";
+    private List<string> userRoles = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        isAuthenticated = user.Identity?.IsAuthenticated ?? false;
+
+        if (isAuthenticated)
+        {
+            // Get user name
+            userName = user.Identity?.Name ?? "Unknown User";
+
+            // Get email from claims
+            userEmail = user.FindFirst(ClaimTypes.Email)?.Value
+                       ?? user.FindFirst(ClaimTypes.Upn)?.Value
+                       ?? user.FindFirst(ClaimTypes.Name)?.Value
+                       ?? "";
+
+            // Get all roles
+            userRoles = user.FindAll(ClaimTypes.Role)
+                           .Select(c => c.Value)
+                           .ToList();
+        }
+    }
+
+    private string GetInitials()
+    {
+        if (string.IsNullOrEmpty(userName))
+            return "?";
+
+        var parts = userName.Split(new[] { ' ', '\\', '@' }, StringSplitOptions.RemoveEmptyEntries);
+        if (parts.Length >= 2)
+        {
+            return $"{parts[0][0]}{parts[1][0]}".ToUpper();
+        }
+        else if (parts.Length == 1 && parts[0].Length >= 2)
+        {
+            return parts[0].Substring(0, 2).ToUpper();
+        }
+        else if (parts.Length == 1)
+        {
+            return parts[0][0].ToString().ToUpper();
+        }
+
+        return "?";
+    }
+}

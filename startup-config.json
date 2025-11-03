@@ -1,0 +1,69 @@
+{
+  "startupMode": "automated",
+  "workflowSteps": [
+    {
+      "step": 1,
+      "action": "loadDDL",
+      "description": "Load database schema from DDL file",
+      "ddlFilePath": "data/schema.sql",
+      "enabled": true
+    },
+    {
+      "step": 2,
+    "action": "loadCSVFiles",
+      "description": "Load CSV data files",
+      "csvMappings": [
+        {
+          "tableName": "tc_compressordata",
+          "csvFilePath": "data/tc_compressordata.csv"
+        },
+        {
+          "tableName": "tc_compressorplan",
+      "csvFilePath": "data/tc_compressorplan.csv"
+        },
+        {
+      "tableName": "tc_dailymeterreadings",
+ "csvFilePath": "data/tc_dailymeterreadings.csv"
+  },
+        {
+          "tableName": "tc_pipemeasurements",
+          "csvFilePath": "data/tc_pipemeasurements.csv"
+        }
+      ],
+      "autoDetectTableName": true,
+      "enabled": true
+    },
+    {
+      "step": 3,
+"action": "generateSQL",
+      "description": "Generate SQL script with INSERT statements",
+      "outputFilePath": "output/generated_inserts.sql",
+      "enabled": true
+    },
+    {
+      "step": 4,
+      "action": "saveWorkspace",
+      "description": "Save workspace for quick reload",
+    "workspaceFilePath": "workspaces/auto_workspace.json",
+      "enabled": true
+    }
+  ],
+  "onStartup": {
+    "checkForWorkspace": true,
+    "preferWorkspaceIfExists": true,
+    "workspacePath": "workspaces/auto_workspace.json",
+    "showStartupMenu": true
+  },
+  "dataPaths": {
+    "ddlDirectory": "data",
+    "csvDirectory": "data",
+    "workspaceDirectory": "workspaces",
+    "outputDirectory": "output"
+  },
+  "options": {
+    "autoSaveOnComplete": true,
+    "generateSQLOnLoad": true,
+    "dateShiftToToday": false,
+    "verboseLogging": true
+  }
+}

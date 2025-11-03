@@ -1,0 +1,213 @@
+@page "/settings"
+@inject IJSRuntime JSRuntime
+
+<PageTitle>Settings - Blazor DataDev</PageTitle>
+
+<Breadcrumb CurrentPage="Settings" BackUrl="/" />
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-8">
+   <div class="page-header">
+    <h1>?? Settings</h1>
+  <p class="lead">Configure Blazor DataDev</p>
+      </div>
+
+    <!-- Appearance -->
+     <div class="card shadow-sm mb-4">
+        <div class="card-header bg-primary text-white">
+      <h5 class="mb-0">Appearance</h5>
+ </div>
+    <div class="card-body">
+      <div class="mb-3">
+      <label class="form-label">Theme</label>
+    <select class="form-select" @onchange="ChangeTheme">
+<option value="default">Default (Blue/Teal Gradient)</option>
+           <option value="dark">Dark Mode</option>
+      <option value="light">Light Mode</option>
+        <option value="custom">Custom Colors</option>
+   </select>
+       </div>
+
+    @if (showCustomColors)
+      {
+        <div class="border p-3 rounded bg-light">
+      <h6>Custom Color Variables (CSS)</h6>
+      <p class="small text-muted">Edit these CSS variables in <code>wwwroot/css/custom.css</code></p>
+  
+         <div class="row">
+   <div class="col-md-6">
+        <div class="mb-2">
+      <label class="form-label small">--nav-bg-start</label>
+        <input type="color" class="form-control form-control-sm" value="#f8f9fa" />
+     </div>
+       <div class="mb-2">
+   <label class="form-label small">--nav-bg-end</label>
+     <input type="color" class="form-control form-control-sm" value="#ffffff" />
+    </div>
+   </div>
+       <div class="col-md-6">
+          <div class="mb-2">
+  <label class="form-label small">--nav-active-bg</label>
+     <input type="color" class="form-control form-control-sm" value="#4facfe" />
+   </div>
+  <div class="mb-2">
+ <label class="form-label small">--nav-hover-bg</label>
+<input type="color" class="form-control form-control-sm" value="#e7f3ff" />
+   </div>
+    </div>
+    </div>
+
+      <button class="btn btn-sm btn-outline-primary mt-2">Apply Custom Colors</button>
+     </div>
+      }
+  </div>
+      </div>
+
+    <!-- Database -->
+     <div class="card shadow-sm mb-4">
+    <div class="card-header bg-success text-white">
+    <h5 class="mb-0">Database Load Settings</h5>
+   </div>
+    <div class="card-body">
+       <div class="mb-3">
+      <label class="form-label">Default DDL Folder</label>
+ <input type="text" class="form-control" value="Loadables/ddls" />
+       <small class="text-muted">Where merged DDL files are saved</small>
+ </div>
+
+      <div class="mb-3">
+     <label class="form-label">Default CSV Folder</label>
+    <input type="text" class="form-control" value="Loadables/csv" />
+       <small class="text-muted">Where CSV data files are stored</small>
+   </div>
+
+  <div class="form-check mb-3">
+    <input class="form-check-input" type="checkbox" id="autoLoad" checked />
+ <label class="form-check-label" for="autoLoad">
+      Auto-load DDL and CSV on startup
+    </label>
+      </div>
+
+      <div class="form-check">
+       <input class="form-check-input" type="checkbox" id="validateCsv" checked />
+      <label class="form-check-label" for="validateCsv">
+Validate CSV column names against schema
+     </label>
+       </div>
+    </div>
+    </div>
+
+       <!-- External DB -->
+      <div class="card shadow-sm mb-4">
+    <div class="card-header bg-info text-white">
+         <h5 class="mb-0">Database Load Settings</h5>
+  </div>
+     <div class="card-body">
+      <div class="mb-3">
+   <label class="form-label">Connection Timeout (seconds)</label>
+<input type="number" class="form-control" value="30" />
+      </div>
+
+ <div class="mb-3">
+      <label class="form-label">Max Rows to Export (per table)</label>
+    <input type="number" class="form-control" value="1000" />
+        <small class="text-muted">Limit sample data export size</small>
+     </div>
+
+     <div class="form-check">
+   <input class="form-check-input" type="checkbox" id="useSsl" checked />
+  <label class="form-check-label" for="useSsl">
+     Use SSL for external connections
+ </label>
+   </div>
+     </div>
+  </div>
+
+   <!-- API -->
+   <div class="card shadow-sm mb-4">
+    <div class="card-header bg-warning text-dark">
+    <h5 class="mb-0">Dynamic API Settings</h5>
+       </div>
+  <div class="card-body">
+      <div class="mb-3">
+         <label class="form-label">API Base URL</label>
+     <input type="text" class="form-control" value="http://localhost:5000/api" readonly />
+<small class="text-muted">Your application should connect to this URL</small>
+       </div>
+
+     <div class="mb-3">
+      <label class="form-label">Default Page Size</label>
+   <input type="number" class="form-control" value="50" />
+   <small class="text-muted">Default rows per page in API responses</small>
+     </div>
+
+      <div class="form-check">
+    <input class="form-check-input" type="checkbox" id="enableCors" checked />
+        <label class="form-check-label" for="enableCors">
+      Enable CORS for external applications
+       </label>
+   </div>
+  </div>
+   </div>
+
+     <div class="d-flex gap-2">
+   <button class="btn btn-success">Save Settings</button>
+ <button class="btn btn-outline-secondary">Reset to Defaults</button>
+   </div>
+        </div>
+
+  <div class="col-lg-4">
+ <!-- Info Card -->
+   <div class="card shadow-sm mb-3">
+        <div class="card-header bg-secondary text-white">
+    <h6 class="mb-0">About Settings</h6>
+      </div>
+      <div class="card-body">
+      <p class="small">Settings are stored in:</p>
+    <ul class="small mb-0">
+     <li><code>appsettings.json</code></li>
+ <li><code>startup-config.json</code></li>
+       <li><code>livedata-config.json</code></li>
+    <li><code>external-db-config.json</code></li>
+       </ul>
+    </div>
+   </div>
+
+  <!-- CSS Variables -->
+    <div class="card shadow-sm">
+  <div class="card-header bg-info text-white">
+        <h6 class="mb-0">Integrated CSS Variables</h6>
+   </div>
+     <div class="card-body">
+        <p class="small"><strong>Customize appearance by editing:</strong></p>
+     <p class="small"><code>wwwroot/css/custom.css</code></p>
+ 
+      <p class="small"><strong>Available variables:</strong></p>
+   <ul class="small mb-0" style="font-family: monospace; font-size: 0.75rem;">
+<li>--nav-bg-start</li>
+  <li>--nav-bg-end</li>
+    <li>--nav-title-color</li>
+   <li>--nav-item-color</li>
+  <li>--nav-hover-bg</li>
+    <li>--nav-hover-color</li>
+   <li>--nav-active-bg</li>
+      <li>--nav-active-color</li>
+  <li>--nav-border-color</li>
+     <li>--nav-footer-bg</li>
+     </ul>
+ </div>
+     </div>
+   </div>
+    </div>
+</div>
+
+@code {
+    private bool showCustomColors = false;
+
+    private void ChangeTheme(ChangeEventArgs e)
+    {
+   var theme = e.Value?.ToString();
+ showCustomColors = theme == "custom";
+  }
+}

@@ -1,0 +1,72 @@
+@page "/workspace-manager"
+@inject NavigationManager Navigation
+
+<PageTitle>Workspace Manager - Blazor DataDev</PageTitle>
+
+<Breadcrumb CurrentPage="Workspace Manager" BackUrl="/" />
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+     <div class="page-header">
+   <h1>?? Workspace Manager</h1>
+       <p class="lead">Manage your Loadables folder and data files</p>
+    </div>
+        </div>
+    </div>
+
+    <div class="row">
+     <div class="col-md-6">
+ <div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+<h5 class="mb-0">?? Quick Actions</h5>
+          </div>
+    <div class="card-body">
+   <div class="d-grid gap-2">
+     <a href="/file-explorer?path=Loadables/ddls" class="btn btn-outline-primary">
+      ?? Browse DDL Files
+   </a>
+      <a href="/file-explorer?path=Loadables/csv" class="btn btn-outline-success">
+  ?? Browse CSV Files
+      </a>
+       <a href="/file-explorer?path=Loadables/json" class="btn btn-outline-info">
+   ?? Browse JSON Files
+      </a>
+      <a href="/file-explorer?path=Loadables/external" class="btn btn-outline-warning">
+    ?? Browse External Exports
+      </a>
+       </div>
+       </div>
+   </div>
+     </div>
+
+        <div class="col-md-6">
+          <div class="card shadow-sm">
+   <div class="card-header bg-info text-white">
+    <h5 class="mb-0">?? Workspace Info</h5>
+     </div>
+       <div class="card-body">
+   <p><strong>Loadables Folder Structure:</strong></p>
+      <pre class="bg-light p-3 rounded"><code>Loadables/
+??? ddls/      (DDL files)
+??? csv/       (CSV data files)
+??? json/      (JSON data files)
+??? external/  (Exported from external DBs)
+    ??? {database}/
+        ??? ddls/
+        ??? csv/
+        ??? metadata/</code></pre>
+   </div>
+            </div>
+      </div>
+  </div>
+
+    <div class="alert alert-info mt-4">
+        <h6>?? Full File Browser Coming Soon!</h6>
+ <p class="mb-0">For now, access files directly in File Explorer: <code>C\Loadables\</code></p>
+    </div>
+</div>
+
+@code {
+    // Placeholder - full file browser implementation would go here
+}

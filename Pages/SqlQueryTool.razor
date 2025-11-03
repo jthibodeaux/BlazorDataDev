@@ -1,0 +1,37 @@
+@page "/sql-query"
+
+<PageTitle>SQL Query Tool - Blazor DataDev</PageTitle>
+
+<Breadcrumb CurrentPage="SQL Query Tool" BackUrl="/" />
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+  <div class="page-header">
+    <h1>?? SQL Query Tool</h1>
+       <p class="lead">Execute SQL queries against loaded tables</p>
+   </div>
+        </div>
+    </div>
+
+    <div class="alert alert-info">
+        <h5>?? Coming Soon!</h5>
+        <p>The SQL Query Tool is being enhanced. For now, you can:</p>
+     <ul>
+     <li>Use <a href="/swagger" target="_blank">Swagger UI</a> to execute queries via API</li>
+        <li>POST to <code>/api/sql/execute</code> with your SQL query</li>
+            <li>Use the Data Editor to browse and filter data</li>
+        </ul>
+   <h6 class="mt-3">Example API Call:</h6>
+        <pre class="bg-light p-3 rounded"><code>POST http://localhost:5000/api/sql/execute
+Content-Type: application/json
+
+{
+  "query": "SELECT * FROM your_table LIMIT 10"
+}</code></pre>
+    </div>
+</div>
+
+@code {
+
+}

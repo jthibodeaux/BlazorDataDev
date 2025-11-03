@@ -1,0 +1,1809 @@
+{
+"tc_compressordata": [
+	{
+		"ap_compressor" : "GlenUllin_Unit01",
+		"timestamp" : "2025-10-18T18:00:00.000Z",
+		"ap_compressorunit_gtn" : "6",
+		"bhp" : 0.0,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Clark_Unit01",
+		"timestamp" : "2025-10-18T18:00:00.000Z",
+		"ap_compressorunit_gtn" : "10",
+		"bhp" : 29165.14648438,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "LoneTree_Unit01",
+		"timestamp" : "2025-10-18T18:00:00.000Z",
+		"ap_compressorunit_gtn" : "15",
+		"bhp" : null,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Garvin_Unit01",
+		"timestamp" : "2025-10-18T18:00:00.000Z",
+		"ap_compressorunit_gtn" : "12",
+		"bhp" : 28221.78710938,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "LaMoille_Unit01",
+		"timestamp" : "2025-10-18T18:00:00.000Z",
+		"ap_compressorunit_gtn" : "17",
+		"bhp" : 1845.99255371,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "GrundyCenter_Unit01",
+		"timestamp" : "2025-10-18T18:00:00.000Z",
+		"ap_compressorunit_gtn" : "14",
+		"bhp" : -5.66363859,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Trimont_Unit01",
+		"timestamp" : "2025-10-18T18:00:00.000Z",
+		"ap_compressorunit_gtn" : "13",
+		"bhp" : 93.56423187,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Manning_Unit01",
+		"timestamp" : "2025-10-18T18:00:00.000Z",
+		"ap_compressorunit_gtn" : "5",
+		"bhp" : 23278.90625,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "StAnthony_Unit01",
+		"timestamp" : "2025-10-18T18:00:00.000Z",
+		"ap_compressorunit_gtn" : "7",
+		"bhp" : 12.81701756,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Glasgow_Unit01",
+		"timestamp" : "2025-10-18T18:00:00.000Z",
+		"ap_compressorunit_gtn" : "1",
+		"bhp" : 1.0,
+		"enginestatus" : "U"
+	},
+	{
+		"ap_compressor" : "Desplains_Unit01",
+		"timestamp" : "2025-10-18T18:00:00.000Z",
+		"ap_compressorunit_gtn" : "18",
+		"bhp" : 0.0,
+		"enginestatus" : "U"
+	},
+	{
+		"ap_compressor" : "Estelline_Unit01",
+		"timestamp" : "2025-10-18T18:00:00.000Z",
+		"ap_compressorunit_gtn" : "11",
+		"bhp" : 28453.99023438,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Culbertson_Unit01",
+		"timestamp" : "2025-10-18T18:00:00.000Z",
+		"ap_compressorunit_gtn" : "3",
+		"bhp" : 0.0,
+		"enginestatus" : "U"
+	},
+	{
+		"ap_compressor" : "Wetonka_Unit01",
+		"timestamp" : "2025-10-18T18:00:00.000Z",
+		"ap_compressorunit_gtn" : "9",
+		"bhp" : 30898.62304688,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Arnegard_Unit01",
+		"timestamp" : "2025-10-18T18:00:00.000Z",
+		"ap_compressorunit_gtn" : "4",
+		"bhp" : 0.0,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "WolfPoint_Unit01",
+		"timestamp" : "2025-10-18T18:00:00.000Z",
+		"ap_compressorunit_gtn" : "2",
+		"bhp" : 0.74141049,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Eldridge_Unit01",
+		"timestamp" : "2025-10-18T18:00:00.000Z",
+		"ap_compressorunit_gtn" : "16",
+		"bhp" : -7.03839397,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Zeeland_Unit01",
+		"timestamp" : "2025-10-18T18:00:00.000Z",
+		"ap_compressorunit_gtn" : "8",
+		"bhp" : 12.81701756,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Garvin_Unit01",
+		"timestamp" : "2025-10-18T17:00:00.000Z",
+		"ap_compressorunit_gtn" : "12",
+		"bhp" : 28321.76367188,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Estelline_Unit01",
+		"timestamp" : "2025-10-18T17:00:00.000Z",
+		"ap_compressorunit_gtn" : "11",
+		"bhp" : 28624.88476563,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Arnegard_Unit01",
+		"timestamp" : "2025-10-18T17:00:00.000Z",
+		"ap_compressorunit_gtn" : "4",
+		"bhp" : 0.0,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "LoneTree_Unit01",
+		"timestamp" : "2025-10-18T17:00:00.000Z",
+		"ap_compressorunit_gtn" : "15",
+		"bhp" : null,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "GlenUllin_Unit01",
+		"timestamp" : "2025-10-18T17:00:00.000Z",
+		"ap_compressorunit_gtn" : "6",
+		"bhp" : 0.0,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Clark_Unit01",
+		"timestamp" : "2025-10-18T17:00:00.000Z",
+		"ap_compressorunit_gtn" : "10",
+		"bhp" : 29376.46875,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Trimont_Unit01",
+		"timestamp" : "2025-10-18T17:00:00.000Z",
+		"ap_compressorunit_gtn" : "13",
+		"bhp" : 102.53614044,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Zeeland_Unit01",
+		"timestamp" : "2025-10-18T17:00:00.000Z",
+		"ap_compressorunit_gtn" : "8",
+		"bhp" : 12.81701756,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Eldridge_Unit01",
+		"timestamp" : "2025-10-18T17:00:00.000Z",
+		"ap_compressorunit_gtn" : "16",
+		"bhp" : -7.45419121,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Culbertson_Unit01",
+		"timestamp" : "2025-10-18T17:00:00.000Z",
+		"ap_compressorunit_gtn" : "3",
+		"bhp" : 0.0,
+		"enginestatus" : "U"
+	},
+	{
+		"ap_compressor" : "LaMoille_Unit01",
+		"timestamp" : "2025-10-18T17:00:00.000Z",
+		"ap_compressorunit_gtn" : "17",
+		"bhp" : 1924.23071289,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "GrundyCenter_Unit01",
+		"timestamp" : "2025-10-18T17:00:00.000Z",
+		"ap_compressorunit_gtn" : "14",
+		"bhp" : -5.59800863,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Glasgow_Unit01",
+		"timestamp" : "2025-10-18T17:00:00.000Z",
+		"ap_compressorunit_gtn" : "1",
+		"bhp" : 1.0,
+		"enginestatus" : "U"
+	},
+	{
+		"ap_compressor" : "Desplains_Unit01",
+		"timestamp" : "2025-10-18T17:00:00.000Z",
+		"ap_compressorunit_gtn" : "18",
+		"bhp" : 22937.90039063,
+		"enginestatus" : "U"
+	},
+	{
+		"ap_compressor" : "Wetonka_Unit01",
+		"timestamp" : "2025-10-18T17:00:00.000Z",
+		"ap_compressorunit_gtn" : "9",
+		"bhp" : 30994.75,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "WolfPoint_Unit01",
+		"timestamp" : "2025-10-18T17:00:00.000Z",
+		"ap_compressorunit_gtn" : "2",
+		"bhp" : 0.74141049,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Manning_Unit01",
+		"timestamp" : "2025-10-18T17:00:00.000Z",
+		"ap_compressorunit_gtn" : "5",
+		"bhp" : 23173.80664063,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "StAnthony_Unit01",
+		"timestamp" : "2025-10-18T17:00:00.000Z",
+		"ap_compressorunit_gtn" : "7",
+		"bhp" : 12.81701756,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Desplains_Unit01",
+		"timestamp" : "2025-10-18T16:00:00.000Z",
+		"ap_compressorunit_gtn" : "18",
+		"bhp" : 42597.75,
+		"enginestatus" : "U"
+	},
+	{
+		"ap_compressor" : "LaMoille_Unit01",
+		"timestamp" : "2025-10-18T16:00:00.000Z",
+		"ap_compressorunit_gtn" : "17",
+		"bhp" : 1985.37145996,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Manning_Unit01",
+		"timestamp" : "2025-10-18T16:00:00.000Z",
+		"ap_compressorunit_gtn" : "5",
+		"bhp" : 23121.8984375,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Garvin_Unit01",
+		"timestamp" : "2025-10-18T16:00:00.000Z",
+		"ap_compressorunit_gtn" : "12",
+		"bhp" : 28155.140625,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Eldridge_Unit01",
+		"timestamp" : "2025-10-18T16:00:00.000Z",
+		"ap_compressorunit_gtn" : "16",
+		"bhp" : -7.0865674,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Glasgow_Unit01",
+		"timestamp" : "2025-10-18T16:00:00.000Z",
+		"ap_compressorunit_gtn" : "1",
+		"bhp" : 1.0,
+		"enginestatus" : "U"
+	},
+	{
+		"ap_compressor" : "WolfPoint_Unit01",
+		"timestamp" : "2025-10-18T16:00:00.000Z",
+		"ap_compressorunit_gtn" : "2",
+		"bhp" : 1.27122414,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Trimont_Unit01",
+		"timestamp" : "2025-10-18T16:00:00.000Z",
+		"ap_compressorunit_gtn" : "13",
+		"bhp" : 94.20507813,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Wetonka_Unit01",
+		"timestamp" : "2025-10-18T16:00:00.000Z",
+		"ap_compressorunit_gtn" : "9",
+		"bhp" : 30962.06835938,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "LoneTree_Unit01",
+		"timestamp" : "2025-10-18T16:00:00.000Z",
+		"ap_compressorunit_gtn" : "15",
+		"bhp" : null,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Estelline_Unit01",
+		"timestamp" : "2025-10-18T16:00:00.000Z",
+		"ap_compressorunit_gtn" : "11",
+		"bhp" : 28859.14257813,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "GlenUllin_Unit01",
+		"timestamp" : "2025-10-18T16:00:00.000Z",
+		"ap_compressorunit_gtn" : "6",
+		"bhp" : 0.0,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "StAnthony_Unit01",
+		"timestamp" : "2025-10-18T16:00:00.000Z",
+		"ap_compressorunit_gtn" : "7",
+		"bhp" : 12.81701756,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Arnegard_Unit01",
+		"timestamp" : "2025-10-18T16:00:00.000Z",
+		"ap_compressorunit_gtn" : "4",
+		"bhp" : 0.0,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "GrundyCenter_Unit01",
+		"timestamp" : "2025-10-18T16:00:00.000Z",
+		"ap_compressorunit_gtn" : "14",
+		"bhp" : -5.71111774,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Culbertson_Unit01",
+		"timestamp" : "2025-10-18T16:00:00.000Z",
+		"ap_compressorunit_gtn" : "3",
+		"bhp" : 0.0,
+		"enginestatus" : "U"
+	},
+	{
+		"ap_compressor" : "Zeeland_Unit01",
+		"timestamp" : "2025-10-18T16:00:00.000Z",
+		"ap_compressorunit_gtn" : "8",
+		"bhp" : 12.81701756,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Clark_Unit01",
+		"timestamp" : "2025-10-18T16:00:00.000Z",
+		"ap_compressorunit_gtn" : "10",
+		"bhp" : 29322.09179688,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "GrundyCenter_Unit01",
+		"timestamp" : "2025-10-18T15:00:00.000Z",
+		"ap_compressorunit_gtn" : "14",
+		"bhp" : -5.71530437,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Estelline_Unit01",
+		"timestamp" : "2025-10-18T15:00:00.000Z",
+		"ap_compressorunit_gtn" : "11",
+		"bhp" : 28922.03320313,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Glasgow_Unit01",
+		"timestamp" : "2025-10-18T15:00:00.000Z",
+		"ap_compressorunit_gtn" : "1",
+		"bhp" : 1.0,
+		"enginestatus" : "U"
+	},
+	{
+		"ap_compressor" : "WolfPoint_Unit01",
+		"timestamp" : "2025-10-18T15:00:00.000Z",
+		"ap_compressorunit_gtn" : "2",
+		"bhp" : 0.74141049,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "LaMoille_Unit01",
+		"timestamp" : "2025-10-18T15:00:00.000Z",
+		"ap_compressorunit_gtn" : "17",
+		"bhp" : 2092.23950195,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Desplains_Unit01",
+		"timestamp" : "2025-10-18T15:00:00.000Z",
+		"ap_compressorunit_gtn" : "18",
+		"bhp" : 22937.25,
+		"enginestatus" : "U"
+	},
+	{
+		"ap_compressor" : "StAnthony_Unit01",
+		"timestamp" : "2025-10-18T15:00:00.000Z",
+		"ap_compressorunit_gtn" : "7",
+		"bhp" : 12.81701756,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Eldridge_Unit01",
+		"timestamp" : "2025-10-18T15:00:00.000Z",
+		"ap_compressorunit_gtn" : "16",
+		"bhp" : -6.9806757,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Arnegard_Unit01",
+		"timestamp" : "2025-10-18T15:00:00.000Z",
+		"ap_compressorunit_gtn" : "4",
+		"bhp" : 0.0,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Zeeland_Unit01",
+		"timestamp" : "2025-10-18T15:00:00.000Z",
+		"ap_compressorunit_gtn" : "8",
+		"bhp" : 12.81701756,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Clark_Unit01",
+		"timestamp" : "2025-10-18T15:00:00.000Z",
+		"ap_compressorunit_gtn" : "10",
+		"bhp" : 29286.37304688,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Culbertson_Unit01",
+		"timestamp" : "2025-10-18T15:00:00.000Z",
+		"ap_compressorunit_gtn" : "3",
+		"bhp" : 0.0,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "GlenUllin_Unit01",
+		"timestamp" : "2025-10-18T15:00:00.000Z",
+		"ap_compressorunit_gtn" : "6",
+		"bhp" : 0.0,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Wetonka_Unit01",
+		"timestamp" : "2025-10-18T15:00:00.000Z",
+		"ap_compressorunit_gtn" : "9",
+		"bhp" : 30946.6875,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Manning_Unit01",
+		"timestamp" : "2025-10-18T15:00:00.000Z",
+		"ap_compressorunit_gtn" : "5",
+		"bhp" : 23087.29296875,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "LoneTree_Unit01",
+		"timestamp" : "2025-10-18T15:00:00.000Z",
+		"ap_compressorunit_gtn" : "15",
+		"bhp" : null,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Garvin_Unit01",
+		"timestamp" : "2025-10-18T15:00:00.000Z",
+		"ap_compressorunit_gtn" : "12",
+		"bhp" : 28130.1484375,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Trimont_Unit01",
+		"timestamp" : "2025-10-18T15:00:00.000Z",
+		"ap_compressorunit_gtn" : "13",
+		"bhp" : 98.05017853,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Wetonka_Unit01",
+		"timestamp" : "2025-10-18T14:00:00.000Z",
+		"ap_compressorunit_gtn" : "9",
+		"bhp" : 30922.9765625,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Trimont_Unit01",
+		"timestamp" : "2025-10-18T14:00:00.000Z",
+		"ap_compressorunit_gtn" : "13",
+		"bhp" : 89.71911621,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "StAnthony_Unit01",
+		"timestamp" : "2025-10-18T14:00:00.000Z",
+		"ap_compressorunit_gtn" : "7",
+		"bhp" : 12.81701756,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Manning_Unit01",
+		"timestamp" : "2025-10-18T14:00:00.000Z",
+		"ap_compressorunit_gtn" : "5",
+		"bhp" : 23093.06054688,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Arnegard_Unit01",
+		"timestamp" : "2025-10-18T14:00:00.000Z",
+		"ap_compressorunit_gtn" : "4",
+		"bhp" : 0.0,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Desplains_Unit01",
+		"timestamp" : "2025-10-18T14:00:00.000Z",
+		"ap_compressorunit_gtn" : "18",
+		"bhp" : 65535.0,
+		"enginestatus" : "U"
+	},
+	{
+		"ap_compressor" : "Clark_Unit01",
+		"timestamp" : "2025-10-18T14:00:00.000Z",
+		"ap_compressorunit_gtn" : "10",
+		"bhp" : 29602.78125,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "WolfPoint_Unit01",
+		"timestamp" : "2025-10-18T14:00:00.000Z",
+		"ap_compressorunit_gtn" : "2",
+		"bhp" : 0.74141049,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Estelline_Unit01",
+		"timestamp" : "2025-10-18T14:00:00.000Z",
+		"ap_compressorunit_gtn" : "11",
+		"bhp" : 28825.47070313,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "GrundyCenter_Unit01",
+		"timestamp" : "2025-10-18T14:00:00.000Z",
+		"ap_compressorunit_gtn" : "14",
+		"bhp" : -5.61118317,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "LaMoille_Unit01",
+		"timestamp" : "2025-10-18T14:00:00.000Z",
+		"ap_compressorunit_gtn" : "17",
+		"bhp" : 2131.9296875,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Glasgow_Unit01",
+		"timestamp" : "2025-10-18T14:00:00.000Z",
+		"ap_compressorunit_gtn" : "1",
+		"bhp" : 1.0,
+		"enginestatus" : "U"
+	},
+	{
+		"ap_compressor" : "Culbertson_Unit01",
+		"timestamp" : "2025-10-18T14:00:00.000Z",
+		"ap_compressorunit_gtn" : "3",
+		"bhp" : 0.0,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Eldridge_Unit01",
+		"timestamp" : "2025-10-18T14:00:00.000Z",
+		"ap_compressorunit_gtn" : "16",
+		"bhp" : -6.96665812,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Zeeland_Unit01",
+		"timestamp" : "2025-10-18T14:00:00.000Z",
+		"ap_compressorunit_gtn" : "8",
+		"bhp" : 12.81701756,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "GlenUllin_Unit01",
+		"timestamp" : "2025-10-18T14:00:00.000Z",
+		"ap_compressorunit_gtn" : "6",
+		"bhp" : 0.0,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "LoneTree_Unit01",
+		"timestamp" : "2025-10-18T14:00:00.000Z",
+		"ap_compressorunit_gtn" : "15",
+		"bhp" : null,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Garvin_Unit01",
+		"timestamp" : "2025-10-18T14:00:00.000Z",
+		"ap_compressorunit_gtn" : "12",
+		"bhp" : 28049.40234375,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Manning_Unit01",
+		"timestamp" : "2025-10-18T13:00:00.000Z",
+		"ap_compressorunit_gtn" : "5",
+		"bhp" : 23096.90429688,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Culbertson_Unit01",
+		"timestamp" : "2025-10-18T13:00:00.000Z",
+		"ap_compressorunit_gtn" : "3",
+		"bhp" : 0.0,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Glasgow_Unit01",
+		"timestamp" : "2025-10-18T13:00:00.000Z",
+		"ap_compressorunit_gtn" : "1",
+		"bhp" : 1.0,
+		"enginestatus" : "U"
+	},
+	{
+		"ap_compressor" : "WolfPoint_Unit01",
+		"timestamp" : "2025-10-18T13:00:00.000Z",
+		"ap_compressorunit_gtn" : "2",
+		"bhp" : 0.74141049,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Trimont_Unit01",
+		"timestamp" : "2025-10-18T13:00:00.000Z",
+		"ap_compressorunit_gtn" : "13",
+		"bhp" : 102.53614044,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "GlenUllin_Unit01",
+		"timestamp" : "2025-10-18T13:00:00.000Z",
+		"ap_compressorunit_gtn" : "6",
+		"bhp" : 0.0,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "StAnthony_Unit01",
+		"timestamp" : "2025-10-18T13:00:00.000Z",
+		"ap_compressorunit_gtn" : "7",
+		"bhp" : 12.81701756,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "GrundyCenter_Unit01",
+		"timestamp" : "2025-10-18T13:00:00.000Z",
+		"ap_compressorunit_gtn" : "14",
+		"bhp" : -5.73381805,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Zeeland_Unit01",
+		"timestamp" : "2025-10-18T13:00:00.000Z",
+		"ap_compressorunit_gtn" : "8",
+		"bhp" : 12.81701756,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Clark_Unit01",
+		"timestamp" : "2025-10-18T13:00:00.000Z",
+		"ap_compressorunit_gtn" : "10",
+		"bhp" : 29210.41601563,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Wetonka_Unit01",
+		"timestamp" : "2025-10-18T13:00:00.000Z",
+		"ap_compressorunit_gtn" : "9",
+		"bhp" : 30962.70898438,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "LaMoille_Unit01",
+		"timestamp" : "2025-10-18T13:00:00.000Z",
+		"ap_compressorunit_gtn" : "17",
+		"bhp" : 2124.07983398,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Desplains_Unit01",
+		"timestamp" : "2025-10-18T13:00:00.000Z",
+		"ap_compressorunit_gtn" : "18",
+		"bhp" : 65535.0,
+		"enginestatus" : "U"
+	},
+	{
+		"ap_compressor" : "Arnegard_Unit01",
+		"timestamp" : "2025-10-18T13:00:00.000Z",
+		"ap_compressorunit_gtn" : "4",
+		"bhp" : 0.0,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "LoneTree_Unit01",
+		"timestamp" : "2025-10-18T13:00:00.000Z",
+		"ap_compressorunit_gtn" : "15",
+		"bhp" : null,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Garvin_Unit01",
+		"timestamp" : "2025-10-18T13:00:00.000Z",
+		"ap_compressorunit_gtn" : "12",
+		"bhp" : 27996.20898438,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Eldridge_Unit01",
+		"timestamp" : "2025-10-18T13:00:00.000Z",
+		"ap_compressorunit_gtn" : "16",
+		"bhp" : -6.86033869,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Estelline_Unit01",
+		"timestamp" : "2025-10-18T13:00:00.000Z",
+		"ap_compressorunit_gtn" : "11",
+		"bhp" : 28748.57421875,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "LoneTree_Unit01",
+		"timestamp" : "2025-10-18T12:00:00.000Z",
+		"ap_compressorunit_gtn" : "15",
+		"bhp" : null,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Wetonka_Unit01",
+		"timestamp" : "2025-10-18T12:00:00.000Z",
+		"ap_compressorunit_gtn" : "9",
+		"bhp" : 30896.703125,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "StAnthony_Unit01",
+		"timestamp" : "2025-10-18T12:00:00.000Z",
+		"ap_compressorunit_gtn" : "7",
+		"bhp" : 12.81701756,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Culbertson_Unit01",
+		"timestamp" : "2025-10-18T12:00:00.000Z",
+		"ap_compressorunit_gtn" : "3",
+		"bhp" : 0.0,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Manning_Unit01",
+		"timestamp" : "2025-10-18T12:00:00.000Z",
+		"ap_compressorunit_gtn" : "5",
+		"bhp" : 23143.046875,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Arnegard_Unit01",
+		"timestamp" : "2025-10-18T12:00:00.000Z",
+		"ap_compressorunit_gtn" : "4",
+		"bhp" : 0.0,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Zeeland_Unit01",
+		"timestamp" : "2025-10-18T12:00:00.000Z",
+		"ap_compressorunit_gtn" : "8",
+		"bhp" : 12.81701756,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "WolfPoint_Unit01",
+		"timestamp" : "2025-10-18T12:00:00.000Z",
+		"ap_compressorunit_gtn" : "2",
+		"bhp" : 0.74141049,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Glasgow_Unit01",
+		"timestamp" : "2025-10-18T12:00:00.000Z",
+		"ap_compressorunit_gtn" : "1",
+		"bhp" : 1.0,
+		"enginestatus" : "U"
+	},
+	{
+		"ap_compressor" : "GrundyCenter_Unit01",
+		"timestamp" : "2025-10-18T12:00:00.000Z",
+		"ap_compressorunit_gtn" : "14",
+		"bhp" : -5.65407276,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Clark_Unit01",
+		"timestamp" : "2025-10-18T12:00:00.000Z",
+		"ap_compressorunit_gtn" : "10",
+		"bhp" : 29329.06835938,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Eldridge_Unit01",
+		"timestamp" : "2025-10-18T12:00:00.000Z",
+		"ap_compressorunit_gtn" : "16",
+		"bhp" : -7.49509144,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Garvin_Unit01",
+		"timestamp" : "2025-10-18T12:00:00.000Z",
+		"ap_compressorunit_gtn" : "12",
+		"bhp" : 27978.90820313,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Trimont_Unit01",
+		"timestamp" : "2025-10-18T12:00:00.000Z",
+		"ap_compressorunit_gtn" : "13",
+		"bhp" : 94.20507813,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Estelline_Unit01",
+		"timestamp" : "2025-10-18T12:00:00.000Z",
+		"ap_compressorunit_gtn" : "11",
+		"bhp" : 26527.86523438,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Desplains_Unit01",
+		"timestamp" : "2025-10-18T12:00:00.000Z",
+		"ap_compressorunit_gtn" : "18",
+		"bhp" : 22938.55078125,
+		"enginestatus" : "U"
+	},
+	{
+		"ap_compressor" : "LaMoille_Unit01",
+		"timestamp" : "2025-10-18T12:00:00.000Z",
+		"ap_compressorunit_gtn" : "17",
+		"bhp" : 2137.21630859,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "GlenUllin_Unit01",
+		"timestamp" : "2025-10-18T12:00:00.000Z",
+		"ap_compressorunit_gtn" : "6",
+		"bhp" : 0.0,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Clark_Unit01",
+		"timestamp" : "2025-10-18T11:00:00.000Z",
+		"ap_compressorunit_gtn" : "10",
+		"bhp" : 29246.1328125,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Zeeland_Unit01",
+		"timestamp" : "2025-10-18T11:00:00.000Z",
+		"ap_compressorunit_gtn" : "8",
+		"bhp" : 12.81701756,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Manning_Unit01",
+		"timestamp" : "2025-10-18T11:00:00.000Z",
+		"ap_compressorunit_gtn" : "5",
+		"bhp" : 23220.58789063,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "GrundyCenter_Unit01",
+		"timestamp" : "2025-10-18T11:00:00.000Z",
+		"ap_compressorunit_gtn" : "14",
+		"bhp" : -5.70410395,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Desplains_Unit01",
+		"timestamp" : "2025-10-18T11:00:00.000Z",
+		"ap_compressorunit_gtn" : "18",
+		"bhp" : 42597.75,
+		"enginestatus" : "U"
+	},
+	{
+		"ap_compressor" : "Arnegard_Unit01",
+		"timestamp" : "2025-10-18T11:00:00.000Z",
+		"ap_compressorunit_gtn" : "4",
+		"bhp" : 0.0,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "StAnthony_Unit01",
+		"timestamp" : "2025-10-18T11:00:00.000Z",
+		"ap_compressorunit_gtn" : "7",
+		"bhp" : 12.81701756,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "LoneTree_Unit01",
+		"timestamp" : "2025-10-18T11:00:00.000Z",
+		"ap_compressorunit_gtn" : "15",
+		"bhp" : null,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "GlenUllin_Unit01",
+		"timestamp" : "2025-10-18T11:00:00.000Z",
+		"ap_compressorunit_gtn" : "6",
+		"bhp" : 0.0,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Trimont_Unit01",
+		"timestamp" : "2025-10-18T11:00:00.000Z",
+		"ap_compressorunit_gtn" : "13",
+		"bhp" : 89.71911621,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Garvin_Unit01",
+		"timestamp" : "2025-10-18T11:00:00.000Z",
+		"ap_compressorunit_gtn" : "12",
+		"bhp" : 27941.73828125,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Wetonka_Unit01",
+		"timestamp" : "2025-10-18T11:00:00.000Z",
+		"ap_compressorunit_gtn" : "9",
+		"bhp" : 30915.28515625,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Eldridge_Unit01",
+		"timestamp" : "2025-10-18T11:00:00.000Z",
+		"ap_compressorunit_gtn" : "16",
+		"bhp" : -7.17355108,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Glasgow_Unit01",
+		"timestamp" : "2025-10-18T11:00:00.000Z",
+		"ap_compressorunit_gtn" : "1",
+		"bhp" : 1.0,
+		"enginestatus" : "U"
+	},
+	{
+		"ap_compressor" : "WolfPoint_Unit01",
+		"timestamp" : "2025-10-18T11:00:00.000Z",
+		"ap_compressorunit_gtn" : "2",
+		"bhp" : 0.74141049,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Culbertson_Unit01",
+		"timestamp" : "2025-10-18T11:00:00.000Z",
+		"ap_compressorunit_gtn" : "3",
+		"bhp" : 0.0,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "LaMoille_Unit01",
+		"timestamp" : "2025-10-18T11:00:00.000Z",
+		"ap_compressorunit_gtn" : "17",
+		"bhp" : 2107.27685547,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Estelline_Unit01",
+		"timestamp" : "2025-10-18T11:00:00.000Z",
+		"ap_compressorunit_gtn" : "11",
+		"bhp" : 28707.984375,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Culbertson_Unit01",
+		"timestamp" : "2025-10-18T10:00:00.000Z",
+		"ap_compressorunit_gtn" : "3",
+		"bhp" : 0.0,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "GlenUllin_Unit01",
+		"timestamp" : "2025-10-18T10:00:00.000Z",
+		"ap_compressorunit_gtn" : "6",
+		"bhp" : 0.0,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Trimont_Unit01",
+		"timestamp" : "2025-10-18T10:00:00.000Z",
+		"ap_compressorunit_gtn" : "13",
+		"bhp" : 98.05018616,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Garvin_Unit01",
+		"timestamp" : "2025-10-18T10:00:00.000Z",
+		"ap_compressorunit_gtn" : "12",
+		"bhp" : 27971.21679688,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Zeeland_Unit01",
+		"timestamp" : "2025-10-18T10:00:00.000Z",
+		"ap_compressorunit_gtn" : "8",
+		"bhp" : 12.81701756,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Eldridge_Unit01",
+		"timestamp" : "2025-10-18T10:00:00.000Z",
+		"ap_compressorunit_gtn" : "16",
+		"bhp" : -7.31789064,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "GrundyCenter_Unit01",
+		"timestamp" : "2025-10-18T10:00:00.000Z",
+		"ap_compressorunit_gtn" : "14",
+		"bhp" : -5.67068815,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Wetonka_Unit01",
+		"timestamp" : "2025-10-18T10:00:00.000Z",
+		"ap_compressorunit_gtn" : "9",
+		"bhp" : 30944.125,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "LaMoille_Unit01",
+		"timestamp" : "2025-10-18T10:00:00.000Z",
+		"ap_compressorunit_gtn" : "17",
+		"bhp" : 2065.00830078,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Glasgow_Unit01",
+		"timestamp" : "2025-10-18T10:00:00.000Z",
+		"ap_compressorunit_gtn" : "1",
+		"bhp" : 1.0,
+		"enginestatus" : "U"
+	},
+	{
+		"ap_compressor" : "Manning_Unit01",
+		"timestamp" : "2025-10-18T10:00:00.000Z",
+		"ap_compressorunit_gtn" : "5",
+		"bhp" : 23112.92773438,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Clark_Unit01",
+		"timestamp" : "2025-10-18T10:00:00.000Z",
+		"ap_compressorunit_gtn" : "10",
+		"bhp" : 29271.0859375,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Arnegard_Unit01",
+		"timestamp" : "2025-10-18T10:00:00.000Z",
+		"ap_compressorunit_gtn" : "4",
+		"bhp" : 0.0,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "StAnthony_Unit01",
+		"timestamp" : "2025-10-18T10:00:00.000Z",
+		"ap_compressorunit_gtn" : "7",
+		"bhp" : 8.33106136,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Estelline_Unit01",
+		"timestamp" : "2025-10-18T10:00:00.000Z",
+		"ap_compressorunit_gtn" : "11",
+		"bhp" : 28684.484375,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "LoneTree_Unit01",
+		"timestamp" : "2025-10-18T10:00:00.000Z",
+		"ap_compressorunit_gtn" : "15",
+		"bhp" : null,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "WolfPoint_Unit01",
+		"timestamp" : "2025-10-18T10:00:00.000Z",
+		"ap_compressorunit_gtn" : "2",
+		"bhp" : 0.74141049,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Desplains_Unit01",
+		"timestamp" : "2025-10-18T10:00:00.000Z",
+		"ap_compressorunit_gtn" : "18",
+		"bhp" : 65535.0,
+		"enginestatus" : "U"
+	},
+	{
+		"ap_compressor" : "Desplains_Unit01",
+		"timestamp" : "2025-10-18T09:00:00.000Z",
+		"ap_compressorunit_gtn" : "18",
+		"bhp" : 22937.25,
+		"enginestatus" : "U"
+	},
+	{
+		"ap_compressor" : "WolfPoint_Unit01",
+		"timestamp" : "2025-10-18T09:00:00.000Z",
+		"ap_compressorunit_gtn" : "2",
+		"bhp" : 1.27122414,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Arnegard_Unit01",
+		"timestamp" : "2025-10-18T09:00:00.000Z",
+		"ap_compressorunit_gtn" : "4",
+		"bhp" : 0.0,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "GlenUllin_Unit01",
+		"timestamp" : "2025-10-18T09:00:00.000Z",
+		"ap_compressorunit_gtn" : "6",
+		"bhp" : 0.0,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Glasgow_Unit01",
+		"timestamp" : "2025-10-18T09:00:00.000Z",
+		"ap_compressorunit_gtn" : "1",
+		"bhp" : 1.0,
+		"enginestatus" : "U"
+	},
+	{
+		"ap_compressor" : "Wetonka_Unit01",
+		"timestamp" : "2025-10-18T09:00:00.000Z",
+		"ap_compressorunit_gtn" : "9",
+		"bhp" : 30978.73046875,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Zeeland_Unit01",
+		"timestamp" : "2025-10-18T09:00:00.000Z",
+		"ap_compressorunit_gtn" : "8",
+		"bhp" : 12.81701756,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Culbertson_Unit01",
+		"timestamp" : "2025-10-18T09:00:00.000Z",
+		"ap_compressorunit_gtn" : "3",
+		"bhp" : 0.0,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "GrundyCenter_Unit01",
+		"timestamp" : "2025-10-18T09:00:00.000Z",
+		"ap_compressorunit_gtn" : "14",
+		"bhp" : -5.61739635,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Clark_Unit01",
+		"timestamp" : "2025-10-18T09:00:00.000Z",
+		"ap_compressorunit_gtn" : "10",
+		"bhp" : 29244.62109375,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Trimont_Unit01",
+		"timestamp" : "2025-10-18T09:00:00.000Z",
+		"ap_compressorunit_gtn" : "13",
+		"bhp" : 102.53614044,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Garvin_Unit01",
+		"timestamp" : "2025-10-18T09:00:00.000Z",
+		"ap_compressorunit_gtn" : "12",
+		"bhp" : 27968.01171875,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Eldridge_Unit01",
+		"timestamp" : "2025-10-18T09:00:00.000Z",
+		"ap_compressorunit_gtn" : "16",
+		"bhp" : -6.88261318,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Estelline_Unit01",
+		"timestamp" : "2025-10-18T09:00:00.000Z",
+		"ap_compressorunit_gtn" : "11",
+		"bhp" : 28565.27734375,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "LaMoille_Unit01",
+		"timestamp" : "2025-10-18T09:00:00.000Z",
+		"ap_compressorunit_gtn" : "17",
+		"bhp" : 2130.21313477,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "StAnthony_Unit01",
+		"timestamp" : "2025-10-18T09:00:00.000Z",
+		"ap_compressorunit_gtn" : "7",
+		"bhp" : 12.81701756,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "LoneTree_Unit01",
+		"timestamp" : "2025-10-18T09:00:00.000Z",
+		"ap_compressorunit_gtn" : "15",
+		"bhp" : null,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Manning_Unit01",
+		"timestamp" : "2025-10-18T09:00:00.000Z",
+		"ap_compressorunit_gtn" : "5",
+		"bhp" : 23121.8984375,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Trimont_Unit01",
+		"timestamp" : "2025-10-18T08:00:00.000Z",
+		"ap_compressorunit_gtn" : "13",
+		"bhp" : 102.53614044,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Glasgow_Unit01",
+		"timestamp" : "2025-10-18T08:00:00.000Z",
+		"ap_compressorunit_gtn" : "1",
+		"bhp" : 1.0,
+		"enginestatus" : "U"
+	},
+	{
+		"ap_compressor" : "GlenUllin_Unit01",
+		"timestamp" : "2025-10-18T08:00:00.000Z",
+		"ap_compressorunit_gtn" : "6",
+		"bhp" : 0.0,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "GrundyCenter_Unit01",
+		"timestamp" : "2025-10-18T08:00:00.000Z",
+		"ap_compressorunit_gtn" : "14",
+		"bhp" : -5.67222166,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Clark_Unit01",
+		"timestamp" : "2025-10-18T08:00:00.000Z",
+		"ap_compressorunit_gtn" : "10",
+		"bhp" : 29149.84960938,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "LaMoille_Unit01",
+		"timestamp" : "2025-10-18T08:00:00.000Z",
+		"ap_compressorunit_gtn" : "17",
+		"bhp" : 2114.23413086,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "LoneTree_Unit01",
+		"timestamp" : "2025-10-18T08:00:00.000Z",
+		"ap_compressorunit_gtn" : "15",
+		"bhp" : null,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Garvin_Unit01",
+		"timestamp" : "2025-10-18T08:00:00.000Z",
+		"ap_compressorunit_gtn" : "12",
+		"bhp" : 27896.87890625,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Culbertson_Unit01",
+		"timestamp" : "2025-10-18T08:00:00.000Z",
+		"ap_compressorunit_gtn" : "3",
+		"bhp" : 0.0,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Estelline_Unit01",
+		"timestamp" : "2025-10-18T08:00:00.000Z",
+		"ap_compressorunit_gtn" : "11",
+		"bhp" : 28543.9140625,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Eldridge_Unit01",
+		"timestamp" : "2025-10-18T08:00:00.000Z",
+		"ap_compressorunit_gtn" : "16",
+		"bhp" : -7.66719818,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Arnegard_Unit01",
+		"timestamp" : "2025-10-18T08:00:00.000Z",
+		"ap_compressorunit_gtn" : "4",
+		"bhp" : 0.0,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Desplains_Unit01",
+		"timestamp" : "2025-10-18T08:00:00.000Z",
+		"ap_compressorunit_gtn" : "18",
+		"bhp" : 42598.44921875,
+		"enginestatus" : "U"
+	},
+	{
+		"ap_compressor" : "Manning_Unit01",
+		"timestamp" : "2025-10-18T08:00:00.000Z",
+		"ap_compressorunit_gtn" : "5",
+		"bhp" : 23117.41210938,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Zeeland_Unit01",
+		"timestamp" : "2025-10-18T08:00:00.000Z",
+		"ap_compressorunit_gtn" : "8",
+		"bhp" : 12.81701756,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "StAnthony_Unit01",
+		"timestamp" : "2025-10-18T08:00:00.000Z",
+		"ap_compressorunit_gtn" : "7",
+		"bhp" : 12.81701756,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "WolfPoint_Unit01",
+		"timestamp" : "2025-10-18T08:00:00.000Z",
+		"ap_compressorunit_gtn" : "2",
+		"bhp" : 0.74141049,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Wetonka_Unit01",
+		"timestamp" : "2025-10-18T08:00:00.000Z",
+		"ap_compressorunit_gtn" : "9",
+		"bhp" : 31111.38671875,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Culbertson_Unit01",
+		"timestamp" : "2025-10-18T07:00:00.000Z",
+		"ap_compressorunit_gtn" : "3",
+		"bhp" : 0.0,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Glasgow_Unit01",
+		"timestamp" : "2025-10-18T07:00:00.000Z",
+		"ap_compressorunit_gtn" : "1",
+		"bhp" : 1.0,
+		"enginestatus" : "U"
+	},
+	{
+		"ap_compressor" : "Desplains_Unit01",
+		"timestamp" : "2025-10-18T07:00:00.000Z",
+		"ap_compressorunit_gtn" : "18",
+		"bhp" : 65535.0,
+		"enginestatus" : "U"
+	},
+	{
+		"ap_compressor" : "LaMoille_Unit01",
+		"timestamp" : "2025-10-18T07:00:00.000Z",
+		"ap_compressorunit_gtn" : "17",
+		"bhp" : 2110.71557617,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "GrundyCenter_Unit01",
+		"timestamp" : "2025-10-18T07:00:00.000Z",
+		"ap_compressorunit_gtn" : "14",
+		"bhp" : -5.73486376,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Eldridge_Unit01",
+		"timestamp" : "2025-10-18T07:00:00.000Z",
+		"ap_compressorunit_gtn" : "16",
+		"bhp" : -7.11057758,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Manning_Unit01",
+		"timestamp" : "2025-10-18T07:00:00.000Z",
+		"ap_compressorunit_gtn" : "5",
+		"bhp" : 23202.00585938,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Trimont_Unit01",
+		"timestamp" : "2025-10-18T07:00:00.000Z",
+		"ap_compressorunit_gtn" : "13",
+		"bhp" : 89.71911621,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Wetonka_Unit01",
+		"timestamp" : "2025-10-18T07:00:00.000Z",
+		"ap_compressorunit_gtn" : "9",
+		"bhp" : 31108.82421875,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "LoneTree_Unit01",
+		"timestamp" : "2025-10-18T07:00:00.000Z",
+		"ap_compressorunit_gtn" : "15",
+		"bhp" : null,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Garvin_Unit01",
+		"timestamp" : "2025-10-18T07:00:00.000Z",
+		"ap_compressorunit_gtn" : "12",
+		"bhp" : 27848.17382813,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Estelline_Unit01",
+		"timestamp" : "2025-10-18T07:00:00.000Z",
+		"ap_compressorunit_gtn" : "11",
+		"bhp" : 28569.1328125,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "StAnthony_Unit01",
+		"timestamp" : "2025-10-18T07:00:00.000Z",
+		"ap_compressorunit_gtn" : "7",
+		"bhp" : 12.81701756,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "GlenUllin_Unit01",
+		"timestamp" : "2025-10-18T07:00:00.000Z",
+		"ap_compressorunit_gtn" : "6",
+		"bhp" : 0.0,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Arnegard_Unit01",
+		"timestamp" : "2025-10-18T07:00:00.000Z",
+		"ap_compressorunit_gtn" : "4",
+		"bhp" : 0.0,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "WolfPoint_Unit01",
+		"timestamp" : "2025-10-18T07:00:00.000Z",
+		"ap_compressorunit_gtn" : "2",
+		"bhp" : 0.74141049,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Clark_Unit01",
+		"timestamp" : "2025-10-18T07:00:00.000Z",
+		"ap_compressorunit_gtn" : "10",
+		"bhp" : 29321.87109375,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Zeeland_Unit01",
+		"timestamp" : "2025-10-18T07:00:00.000Z",
+		"ap_compressorunit_gtn" : "8",
+		"bhp" : 12.81701756,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "LoneTree_Unit01",
+		"timestamp" : "2025-10-18T06:00:00.000Z",
+		"ap_compressorunit_gtn" : "15",
+		"bhp" : null,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Clark_Unit01",
+		"timestamp" : "2025-10-18T06:00:00.000Z",
+		"ap_compressorunit_gtn" : "10",
+		"bhp" : 29162.77929688,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Arnegard_Unit01",
+		"timestamp" : "2025-10-18T06:00:00.000Z",
+		"ap_compressorunit_gtn" : "4",
+		"bhp" : 0.0,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "StAnthony_Unit01",
+		"timestamp" : "2025-10-18T06:00:00.000Z",
+		"ap_compressorunit_gtn" : "7",
+		"bhp" : 12.81701756,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Manning_Unit01",
+		"timestamp" : "2025-10-18T06:00:00.000Z",
+		"ap_compressorunit_gtn" : "5",
+		"bhp" : 23032.81835938,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "WolfPoint_Unit01",
+		"timestamp" : "2025-10-18T06:00:00.000Z",
+		"ap_compressorunit_gtn" : "2",
+		"bhp" : 0.74141049,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Culbertson_Unit01",
+		"timestamp" : "2025-10-18T06:00:00.000Z",
+		"ap_compressorunit_gtn" : "3",
+		"bhp" : 0.0,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Estelline_Unit01",
+		"timestamp" : "2025-10-18T06:00:00.000Z",
+		"ap_compressorunit_gtn" : "11",
+		"bhp" : 28490.9453125,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "GrundyCenter_Unit01",
+		"timestamp" : "2025-10-18T06:00:00.000Z",
+		"ap_compressorunit_gtn" : "14",
+		"bhp" : -5.54534864,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Trimont_Unit01",
+		"timestamp" : "2025-10-18T06:00:00.000Z",
+		"ap_compressorunit_gtn" : "13",
+		"bhp" : 94.20507813,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Zeeland_Unit01",
+		"timestamp" : "2025-10-18T06:00:00.000Z",
+		"ap_compressorunit_gtn" : "8",
+		"bhp" : 12.81701756,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Garvin_Unit01",
+		"timestamp" : "2025-10-18T06:00:00.000Z",
+		"ap_compressorunit_gtn" : "12",
+		"bhp" : 27816.7734375,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Wetonka_Unit01",
+		"timestamp" : "2025-10-18T06:00:00.000Z",
+		"ap_compressorunit_gtn" : "9",
+		"bhp" : 31169.0625,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Eldridge_Unit01",
+		"timestamp" : "2025-10-18T06:00:00.000Z",
+		"ap_compressorunit_gtn" : "16",
+		"bhp" : -7.15541983,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Desplains_Unit01",
+		"timestamp" : "2025-10-18T06:00:00.000Z",
+		"ap_compressorunit_gtn" : "18",
+		"bhp" : 42598.1015625,
+		"enginestatus" : "U"
+	},
+	{
+		"ap_compressor" : "LaMoille_Unit01",
+		"timestamp" : "2025-10-18T06:00:00.000Z",
+		"ap_compressorunit_gtn" : "17",
+		"bhp" : 2181.61328125,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "GlenUllin_Unit01",
+		"timestamp" : "2025-10-18T06:00:00.000Z",
+		"ap_compressorunit_gtn" : "6",
+		"bhp" : 0.0,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Glasgow_Unit01",
+		"timestamp" : "2025-10-18T06:00:00.000Z",
+		"ap_compressorunit_gtn" : "1",
+		"bhp" : 1.0,
+		"enginestatus" : "U"
+	},
+	{
+		"ap_compressor" : "Desplains_Unit01",
+		"timestamp" : "2025-10-18T05:00:00.000Z",
+		"ap_compressorunit_gtn" : "18",
+		"bhp" : 22937.25,
+		"enginestatus" : "U"
+	},
+	{
+		"ap_compressor" : "GrundyCenter_Unit01",
+		"timestamp" : "2025-10-18T05:00:00.000Z",
+		"ap_compressorunit_gtn" : "14",
+		"bhp" : -5.69478703,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Zeeland_Unit01",
+		"timestamp" : "2025-10-18T05:00:00.000Z",
+		"ap_compressorunit_gtn" : "8",
+		"bhp" : 12.81701756,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Clark_Unit01",
+		"timestamp" : "2025-10-18T05:00:00.000Z",
+		"ap_compressorunit_gtn" : "10",
+		"bhp" : 29244.93945313,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "LaMoille_Unit01",
+		"timestamp" : "2025-10-18T05:00:00.000Z",
+		"ap_compressorunit_gtn" : "17",
+		"bhp" : 2134.16577148,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Arnegard_Unit01",
+		"timestamp" : "2025-10-18T05:00:00.000Z",
+		"ap_compressorunit_gtn" : "4",
+		"bhp" : 0.0,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Estelline_Unit01",
+		"timestamp" : "2025-10-18T05:00:00.000Z",
+		"ap_compressorunit_gtn" : "11",
+		"bhp" : 28296.5,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "WolfPoint_Unit01",
+		"timestamp" : "2025-10-18T05:00:00.000Z",
+		"ap_compressorunit_gtn" : "2",
+		"bhp" : 0.74141049,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "GlenUllin_Unit01",
+		"timestamp" : "2025-10-18T05:00:00.000Z",
+		"ap_compressorunit_gtn" : "6",
+		"bhp" : 0.0,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Manning_Unit01",
+		"timestamp" : "2025-10-18T05:00:00.000Z",
+		"ap_compressorunit_gtn" : "5",
+		"bhp" : 22895.67773438,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Glasgow_Unit01",
+		"timestamp" : "2025-10-18T05:00:00.000Z",
+		"ap_compressorunit_gtn" : "1",
+		"bhp" : 1.0,
+		"enginestatus" : "U"
+	},
+	{
+		"ap_compressor" : "StAnthony_Unit01",
+		"timestamp" : "2025-10-18T05:00:00.000Z",
+		"ap_compressorunit_gtn" : "7",
+		"bhp" : 12.81701756,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Garvin_Unit01",
+		"timestamp" : "2025-10-18T05:00:00.000Z",
+		"ap_compressorunit_gtn" : "12",
+		"bhp" : 27710.39257813,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Culbertson_Unit01",
+		"timestamp" : "2025-10-18T05:00:00.000Z",
+		"ap_compressorunit_gtn" : "3",
+		"bhp" : 0.0,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "LoneTree_Unit01",
+		"timestamp" : "2025-10-18T05:00:00.000Z",
+		"ap_compressorunit_gtn" : "15",
+		"bhp" : null,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Trimont_Unit01",
+		"timestamp" : "2025-10-18T05:00:00.000Z",
+		"ap_compressorunit_gtn" : "13",
+		"bhp" : 89.71911621,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Wetonka_Unit01",
+		"timestamp" : "2025-10-18T05:00:00.000Z",
+		"ap_compressorunit_gtn" : "9",
+		"bhp" : 31346.578125,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Eldridge_Unit01",
+		"timestamp" : "2025-10-18T05:00:00.000Z",
+		"ap_compressorunit_gtn" : "16",
+		"bhp" : -7.15868711,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "GrundyCenter_Unit01",
+		"timestamp" : "2025-10-18T04:00:00.000Z",
+		"ap_compressorunit_gtn" : "14",
+		"bhp" : -5.63714695,
+		"enginestatus" : "A"
+	},
+	{
+		"ap_compressor" : "Clark_Unit01",
+		"timestamp" : "2025-10-18T04:00:00.000Z",
+		"ap_compressorunit_gtn" : "10",
+		"bhp" : 28996.27929688,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Desplains_Unit01",
+		"timestamp" : "2025-10-18T04:00:00.000Z",
+		"ap_compressorunit_gtn" : "18",
+		"bhp" : 65535.0,
+		"enginestatus" : "U"
+	},
+	{
+		"ap_compressor" : "Estelline_Unit01",
+		"timestamp" : "2025-10-18T04:00:00.000Z",
+		"ap_compressorunit_gtn" : "11",
+		"bhp" : 28229.15429688,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Wetonka_Unit01",
+		"timestamp" : "2025-10-18T04:00:00.000Z",
+		"ap_compressorunit_gtn" : "9",
+		"bhp" : 31192.13476563,
+		"enginestatus" : "R"
+	},
+	{
+		"ap_compressor" : "Trimont_Unit01",
+		"timestamp" : "2025-10-18T04:00:00.000Z",
+		"ap_compressorunit_gtn" : "13",
+		"bhp" : 81.38806152,
+		"enginestatus" : "R"
+	}
+]}

@@ -1,0 +1,115 @@
+@page "/about"
+
+<PageTitle>About - Blazor DataDev</PageTitle>
+
+<Breadcrumb CurrentPage="About" BackUrl="/" />
+
+<div class="container-fluid">
+    <div class="row">
+ <div class="col-lg-8 mx-auto">
+<div class="text-center mb-5">
+         <img src="/images/logo.svg" alt="Blazor DataDev" style="width: 120px; height: 120px; margin-bottom: 1rem;" />
+<h1>Blazor DataDev</h1>
+ <p class="lead">Local Database Testing & Development Platform</p>
+     <p class="text-muted">Version 2.0.0</p>
+</div>
+
+   <div class="card shadow-sm mb-4">
+  <div class="card-header bg-primary text-white">
+       <h5 class="mb-0">?? What Is This?</h5>
+      </div>
+      <div class="card-body">
+  <p><strong>Blazor DataDev</strong> is an in-memory database testing platform that allows developers to:</p>
+       <ul>
+   <li>Fetch schemas from multiple external databases (AWS + Internal Plato)</li>
+       <li>Combine DDL files into a unified schema</li>
+    <li>Load tables and data locally without a real database</li>
+         <li>Test application code against local REST API</li>
+   <li>Make table changes to Plato and generate migration scripts</li>
+      <li>Deploy changes to production with confidence</li>
+   </ul>
+   <p class="mb-0"><strong>Why?</strong> Because we have <em>no dev servers</em>, this gives developers a safe local environment to test both code and database changes.</p>
+  </div>
+    </div>
+
+       <div class="card shadow-sm mb-4">
+      <div class="card-header bg-success text-white">
+<h5 class="mb-0">?? Primary Workflow</h5>
+     </div>
+   <div class="card-body">
+      <ol>
+      <li><strong>Fetch DDLs</strong> from 3 external DBs + Plato (Internal)</li>
+     <li><strong>Merge DDLs</strong> into one file using <a href="/ddl-merger">DDL Merger</a></li>
+         <li><strong>Save</strong> to Loadables/ddls/</li>
+   <li><strong>Load</strong> via <a href="/startup">Startup Wizard</a></li>
+    <li><strong>Add test data</strong> via CSV import or manual entry</li>
+     <li><strong>Start your application</strong> pointing to <code>http://localhost:5000/api/</code></li>
+   <li><strong>Test code changes</strong> and <strong>Plato table changes</strong> locally</li>
+      <li><strong>Generate SQL migration scripts</strong> for Plato</li>
+      <li><strong>Apply migrations</strong> to real Plato when ready</li>
+  </ol>
+    </div>
+       </div>
+
+    <div class="card shadow-sm mb-4">
+     <div class="card-header bg-info text-white">
+<h5 class="mb-0">??? Technical Stack</h5>
+       </div>
+   <div class="card-body">
+     <ul class="mb-0">
+  <li><strong>.NET 8</strong> - Runtime</li>
+      <li><strong>Blazor Server</strong> - Web UI framework</li>
+  <li><strong>SQLite (In-Memory)</strong> - Database engine</li>
+    <li><strong>Npgsql</strong> - PostgreSQL/Redshift connectivity</li>
+       <li><strong>Dapper</strong> - Data access</li>
+    <li><strong>Swagger/OpenAPI</strong> - API documentation</li>
+   </ul>
+      </div>
+  </div>
+
+     <div class="card shadow-sm mb-4">
+      <div class="card-header bg-warning text-dark">
+<h5 class="mb-0">?? Important Notes</h5>
+  </div>
+      <div class="card-body">
+   <ul class="mb-0">
+ <li><strong>In-Memory:</strong> All data is stored in RAM. Restart clears everything (unless auto-loaded)</li>
+  <li><strong>No Dev Servers:</strong> This platform is your dev environment for database testing</li>
+     <li><strong>Plato Changes Only:</strong> Only Plato (internal DB) can be modified locally</li>
+      <li><strong>Migration Scripts:</strong> Always generate scripts before applying changes to real Plato</li>
+    <li><strong>Test First:</strong> Validate all changes in this environment before production</li>
+  </ul>
+  </div>
+ </div>
+
+     <div class="card shadow-sm">
+   <div class="card-header bg-secondary text-white">
+   <h5 class="mb-0">?? Support & Resources</h5>
+       </div>
+       <div class="card-body">
+  <p><strong>Documentation:</strong></p>
+  <ul>
+     <li><a href="/documentation">Full Documentation</a></li>
+    <li><a href="/swagger" target="_blank">API Reference (Swagger)</a></li>
+ <li><a href="https://github.com/your-repo" target="_blank">GitHub Repository</a></li>
+   </ul>
+
+      <p><strong>Contact:</strong></p>
+    <ul class="mb-0">
+  <li>Email: support@tceenergy.com</li>
+     <li>Internal Team: DataDev Support</li>
+     </ul>
+  </div>
+     </div>
+
+  <div class="text-center mt-5">
+    <p class="text-muted">Built with Microsoft Visual Studio in C#</p>
+     <p class="text-muted small">Shoreless AI - All rights reserved.</p>
+</div>
+      </div>
+ </div>
+</div>
+
+@code {
+
+}

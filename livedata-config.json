@@ -1,0 +1,50 @@
+{
+  "LiveDataConnections": {
+    "SavedConnections": [
+      {
+        "name": "Local PostgreSQL",
+        "connectionString": "Host=localhost;Port=5432;Database=postgres;Username=postgres;Password=postgres",
+        "schema": "dbo",
+        "enabled": true
+      },
+      {
+  "name": "AWS RDS - Production",
+        "connectionString": "Host=your-rds-endpoint.amazonaws.com;Port=5432;Database=nbpl;Username=readonly_user;Password=****",
+        "schema": "dbo",
+        "enabled": false,
+        "notes": "Production database - use readonly user"
+      },
+   {
+   "name": "AWS RDS - Staging",
+ "connectionString": "Host=staging-rds.amazonaws.com;Port=5432;Database=nbpl_staging;Username=user;Password=****",
+ "schema": "dbo",
+        "enabled": true
+ }
+ ],
+    "DefaultOptions": {
+      "daysBack": 1,
+      "maxRows": 10000,
+      "autoDetectDateColumn": true,
+      "commonDateColumns": [
+        "timestamp",
+        "created_at",
+        "created_date",
+        "updated_at",
+        "date",
+        "flowdate",
+        "gasday"
+      ]
+    },
+    "TableFilters": {
+      "includePatterns": [
+"tc_*",
+   "dbo.*"
+      ],
+      "excludePatterns": [
+        "*_history",
+        "*_archive",
+     "*_backup"
+    ]
+ }
+  }
+}

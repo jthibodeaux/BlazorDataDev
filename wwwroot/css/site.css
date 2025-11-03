@@ -1,0 +1,82 @@
+@import url('bootstrap/bootstrap.min.css');
+
+html, body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.page {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #f8f9fa;
+    border-right: 1px solid #dee2e6;
+    overflow-y: auto;
+    padding: 1rem;
+}
+
+main {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.top-row {
+    background-color: #fff;
+    border-bottom: 1px solid #dee2e6;
+    padding: 1rem;
+}
+
+.content {
+    padding: 1.5rem;
+}
+
+.nav-menu h4 {
+    margin-bottom: 1rem;
+    color: #495057;
+}
+
+.nav-menu .nav-link {
+    color: #212529;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+}
+
+.nav-menu .nav-link:hover {
+    background-color: #e9ecef;
+}
+
+.nav-menu .nav-link.active {
+    background-color: #007bff;
+    color: white;
+}
+
+.table-responsive {
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.modal {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#blazor-error-ui {
+    background: lightyellow;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+#blazor-error-ui .dismiss {
+    cursor: pointer;
+    position: absolute;
+    right: 0.75rem;
+    top: 0.5rem;
+}

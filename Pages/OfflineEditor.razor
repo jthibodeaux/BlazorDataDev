@@ -1,0 +1,1634 @@
+@page "/offline-editor"
+@using System.Text
+@using System.Text.Json
+@using BlazorDbEditor.Services
+@inject IJSRuntime JSRuntime
+@inject IInMemoryDataStore DataStore
+@inject ISqliteQueryService SqliteService
+@implements IDisposable
+
+<PageTitle>Offline Editor - Blazor DB Editor</PageTitle>
+
+<style>
+    body.dark-mode {
+        background-color: #1e1e1e;
+        color: #e0e0e0;
+    }
+    .dark-mode .card {
+        background-color: #2d2d2d;
+        border-color: #3d3d3d;
+        color: #e0e0e0;
+    }
+    .dark-mode .card-header {
+        background-color: #252525;
+        border-color: #3d3d3d;
+        color: #e0e0e0;
+    }
+    .dark-mode .form-control, .dark-mode .form-select {
+        background-color: #3d3d3d;
+        border-color: #4d4d4d;
+        color: #e0e0e0;
+    }
+    .dark-mode .table {
+        color: #e0e0e0;
+    }
+    .dark-mode .table-bordered {
+        border-color: #4d4d4d;
+    }
+    .dark-mode .table-bordered td, .dark-mode .table-bordered th {
+        border-color: #4d4d4d;
+    }
+    .dark-mode .alert-info {
+        background-color: #1a3a52;
+        border-color: #2a5a82;
+        color: #a0c4e0;
+    }
+    .dark-mode .alert-success {
+        background-color: #1a4d2e;
+        border-color: #2a7d4e;
+        color: #a0e0b0;
+    }
+    .dark-mode pre {
+        background-color: #252525 !important;
+        color: #e0e0e0;
+    }
+    .dark-mode .bg-light {
+        background-color: #3d3d3d !important;
+    }
+    .theme-toggle {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+    }
+</style>
+
+<button class="btn btn-sm btn-outline-secondary theme-toggle" @onclick="ToggleDarkMode">
+    @(isDarkMode ? "☀️ Light" : "🌙 Dark")
+</button>
+
+<h2>Offline SQL Script Generator</h2>
+
+<div class="alert alert-info">
+    <strong>Offline Mode:</strong> Work with your DDL file offline and generate SQL scripts to execute later when connected to the database.
+</div>
+
+@if (!string.IsNullOrEmpty(statusMessage))
+{
+    <div class="alert alert-success alert-dismissible fade show">
+        @statusMessage
+        <button type="button" class="btn-close" @onclick="() => statusMessage = string.Empty"></button>
+    </div>
+}
+
+<div class="mb-3">
+    <div class="btn-group">
+        <button class="btn btn-outline-primary" @onclick="SaveWorkspace">
+            💾 Save Workspace
+        </button>
+        <button class="btn btn-outline-primary" @onclick="TriggerLoadWorkspace">
+            📂 Load Workspace
+        </button>
+        <button class="btn btn-outline-secondary" @onclick="TriggerImportSql">
+            📥 Import SQL
+        </button>
+        <button class="btn btn-outline-secondary" @onclick="() => showSettings = !showSettings">
+            ⚙️ Settings
+        </button>
+        <button class="btn btn-outline-success" @onclick="ExportDDL" disabled="@(!tables.Any())">
+            📤 Export DDL
+        </button>
+        <button class="btn btn-outline-danger" @onclick="ClearEverything" disabled="@(!tables.Any())">
+            🗑️ Clear Everything
+        </button>
+    </div>
+    <InputFile @ref="loadWorkspaceInput" OnChange="HandleWorkspaceLoad" accept=".json" style="display:none;" id="loadWorkspaceInput" />
+    <InputFile @ref="importSqlInput" OnChange="HandleDataImport" accept=".sql,.txt,.csv,.json" style="display:none;" id="importSqlInput" />
+</div>
+
+@if (showSettings)
+{
+    <div class="card mb-3">
+        <div class="card-header">
+            <h5>Download Settings</h5>
+        </div>
+        <div class="card-body">
+            <div class="mb-3">
+                <label class="form-label">Folder Prefix</label>
+                <input type="text" class="form-control" @bind="downloadFolderPrefix" placeholder="BlazorDbEditor" />
+                <small class="form-text text-muted">
+                    Files will be downloaded as: <code>@downloadFolderPrefix/workspaces/workspace_*.json</code> and <code>@downloadFolderPrefix/sql_scripts/generated_*.sql</code>
+                </small>
+            </div>
+            <div class="alert alert-info">
+                <strong>Note:</strong> Your browser's download folder will be used. The folder prefix creates a subfolder structure in the filename.
+                To choose where files are saved, enable "Ask where to save each file" in your browser's download settings.
+            </div>
+        </div>
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-5">
+        <div class="card mb-3">
+            <div class="card-header">
+                <h5>1. Load DDL File</h5>
+            </div>
+            <div class="card-body">
+                <InputFile OnChange="HandleDDLUpload" class="form-control" accept=".txt,.sql" />
+                @if (!string.IsNullOrEmpty(ddlContent))
+                {
+                    <div class="mt-2 text-success">
+                        ✓ DDL loaded (@tables.Count tables found)
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="card mb-3">
+            <div class="card-header">
+                <h5>2. Select Table</h5>
+            </div>
+            <div class="card-body">
+                @if (tables.Any())
+                {
+                    <select class="form-select" @bind="selectedTable" @bind:after="OnTableSelected">
+                        <option value="">-- Select a table --</option>
+                        @foreach (var table in tables)
+                        {
+                            <option value="@table">@table</option>
+                        }
+                    </select>
+                }
+                else
+                {
+                    <p class="text-muted">Load a DDL file or workspace first</p>
+                }
+            </div>
+        </div>
+
+        @if (!string.IsNullOrEmpty(selectedTable))
+        {
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h5>3. Add Data Row</h5>
+                </div>
+                <div class="card-body">
+                    <button class="btn btn-primary" @onclick="ShowAddRowForm">Add New Row</button>
+                    
+                    @if (showAddRowForm)
+                    {
+                        <div class="mt-3">
+                            <h6>Enter values for @selectedTable:</h6>
+                            <div style="max-height: 400px; overflow-y: auto;">
+                                @foreach (var column in GetTableColumns(selectedTable))
+                                {
+                                    <div class="mb-2">
+                                        <label class="form-label">
+                                            @column.Name (@column.Type)
+                                            @if (column.IsNew)
+                                            {
+                                                <span class="badge bg-success">NEW</span>
+                                            }
+                                        </label>
+                                        <input type="text" class="form-control" 
+                                               placeholder="@(column.Nullable ? "NULL allowed" : "Required")"
+                                               @bind="newRowData[column.Name]" />
+                                    </div>
+                                }
+                            </div>
+                            <div class="mt-3">
+                                <button class="btn btn-success" @onclick="AddRowToScript">Add to Script</button>
+                                <button class="btn btn-secondary" @onclick="CancelAddRow">Cancel</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="col-md-7">
+        @if (!string.IsNullOrEmpty(selectedTable))
+        {
+            <div class="card mb-3">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5>Table Schema: @selectedTable</h5>
+                    <div>
+                        <button class="btn btn-sm btn-success" @onclick="ShowAddColumnForm">Add Column</button>
+                        <button class="btn btn-sm btn-primary" @onclick="GenerateSchemaSQL" disabled="@(!HasSchemaChanges())">
+                            Generate ALTER TABLE
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    @if (showAddColumnForm)
+                    {
+                        <div class="border p-3 mb-3 bg-light">
+                            <h6>Add New Column</h6>
+                            <div class="row">
+                                <div class="col-md-4 mb-2">
+                                    <label class="form-label">Column Name</label>
+                                    <input type="text" class="form-control form-control-sm" @bind="newColumnName" />
+                                </div>
+                                <div class="col-md-4 mb-2">
+                                    <label class="form-label">Data Type</label>
+                                    <select class="form-select form-select-sm" @bind="newColumnType">
+                                        <option value="varchar(255)">varchar(255)</option>
+                                        <option value="text">text</option>
+                                        <option value="int4">int4</option>
+                                        <option value="int8">int8</option>
+                                        <option value="float8">float8</option>
+                                        <option value="bool">bool</option>
+                                        <option value="timestamp">timestamp</option>
+                                        <option value="date">date</option>
+                                        <option value="uuid">uuid</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mb-2">
+                                    <label class="form-label">Nullable</label>
+                                    <div class="form-check mt-2">
+                                        <input type="checkbox" class="form-check-input" @bind="newColumnNullable" />
+                                        <label class="form-check-label">Yes</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <button class="btn btn-sm btn-primary" @onclick="AddColumn">Add</button>
+                                <button class="btn btn-sm btn-secondary" @onclick="CancelAddColumn">Cancel</button>
+                            </div>
+                        </div>
+                    }
+
+                    <div class="table-responsive" style="max-height: 350px; overflow-y: auto;">
+                        <table class="table table-sm table-bordered table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Column Name</th>
+                                    <th>Data Type</th>
+                                    <th>Nullable</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var column in GetTableColumns(selectedTable))
+                                {
+                                    <tr class="@(column.IsNew ? "table-success" : "")">
+                                        <td>
+                                            <strong>@column.Name</strong>
+                                            @if (column.IsNew)
+                                            {
+                                                <span class="badge bg-success ms-1">NEW</span>
+                                            }
+                                        </td>
+                                        <td><code>@column.Type</code></td>
+                                        <td>@(column.Nullable ? "✓ Yes" : "✗ No")</td>
+                                        <td>
+                                            @if (column.IsNew)
+                                            {
+                                                <button class="btn btn-sm btn-danger" @onclick="() => RemoveColumn(column.Name)">Remove</button>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-muted">Original</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-2 text-muted">
+                        @GetTableColumns(selectedTable).Count columns
+                        @if (HasSchemaChanges())
+                        {
+                            <span class="text-success">(@GetNewColumnsCount() new)</span>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5>Generated SQL Script</h5>
+                <div>
+                    <button class="btn btn-sm btn-success" @onclick="DownloadScript" disabled="@(generatedSQL.Length == 0)">
+                        Download Script
+                    </button>
+                    <button class="btn btn-sm btn-danger" @onclick="ClearScript">Clear</button>
+                </div>
+            </div>
+            <div class="card-body">
+                @if (generatedSQL.Length > 0)
+                {
+                    <pre style="max-height: 400px; overflow-y: auto; background-color: #f8f9fa; padding: 1rem; border-radius: 0.25rem; font-size: 0.85rem;">@generatedSQL.ToString()</pre>
+                    <div class="mt-2 text-muted">
+                        @scriptLineCount lines | @scriptAlterCount ALTER statements | @scriptRowCount INSERT statements
+                    </div>
+                }
+                else
+                {
+                    <p class="text-muted">No SQL generated yet. Add columns or data rows to generate SQL statements.</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Import Preview Modal *@
+@if (showImportPreview)
+{
+    <div class="modal fade show" style="display: block; background-color: rgba(0,0,0,0.5);" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Import Preview - @importFileName</h5>
+                    <button type="button" class="btn-close" @onclick="CancelImport"></button>
+                </div>
+                <div class="modal-body">
+                    @if (previewData.Any())
+                    {
+                        <div class="alert alert-info">
+                            <strong>@previewData.Count rows</strong> ready to import into <code>@selectedTable</code>
+                        </div>
+                        
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="shiftDatesCheck" @bind="shiftDatesToToday" />
+                            <label class="form-check-label" for="shiftDatesCheck">
+                                <strong>📅 Shift dates to today</strong> - Automatically adjust all date columns to be relative to today
+                            </label>
+                        </div>
+                        
+                        @if (shiftDatesToToday && detectedDateColumns.Any())
+                        {
+                            <div class="alert alert-warning">
+                                <small>
+                                    <strong>Date columns detected:</strong> @string.Join(", ", detectedDateColumns)
+                                    <br />
+                                    Dates will be shifted to make the most recent date equal to today.
+                                </small>
+                            </div>
+                        }
+                        
+                        <h6>Data Preview (first 10 rows):</h6>
+                        <div style="max-height: 300px; overflow: auto;">
+                            <table class="table table-sm table-bordered">
+                                <thead>
+                                    <tr>
+                                        @foreach (var key in previewData.First().Keys)
+                                        {
+                                            <th>@key</th>
+                                        }
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var row in previewData.Take(10))
+                                    {
+                                        <tr>
+                                            @foreach (var value in row.Values)
+                                            {
+                                                <td>@value</td>
+                                            }
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        @if (previewData.Count > 10)
+                        {
+                            <p class="text-muted mt-2">... and @(previewData.Count - 10) more rows</p>
+                        }
+                        
+                        <hr />
+                        <h6>Generated SQL Preview:</h6>
+                        <pre style="max-height: 200px; overflow-y: auto; background-color: #f8f9fa; padding: 1rem; border-radius: 0.25rem; font-size: 0.85rem;">@previewSql</pre>
+                    }
+                    else
+                    {
+                        <div class="alert alert-warning">
+                            SQL file detected. No data preview available.
+                        </div>
+                        <pre style="max-height: 400px; overflow-y: auto; background-color: #f8f9fa; padding: 1rem; border-radius: 0.25rem; font-size: 0.85rem;">@previewSql</pre>
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="CancelImport">Cancel</button>
+                    <button type="button" class="btn btn-success" @onclick="ConfirmImport">
+                        <i class="bi bi-check-circle"></i> Add to Script
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private string ddlContent = "";
+    private List<string> tables = new List<string>();
+    private string selectedTable = "";
+    private bool showAddRowForm = false;
+    private bool showAddColumnForm = false;
+    private bool isDarkMode = false;
+    private string statusMessage = "";
+    private Dictionary<string, string> newRowData = new Dictionary<string, string>();
+    private StringBuilder generatedSQL = new StringBuilder();
+    private int scriptLineCount = 0;
+    private int scriptRowCount = 0;
+    private int scriptAlterCount = 0;
+    private Dictionary<string, List<ColumnDefinition>> tableSchemas = new Dictionary<string, List<ColumnDefinition>>();
+    private Dictionary<string, List<ColumnDefinition>> originalSchemas = new Dictionary<string, List<ColumnDefinition>>();
+    
+    private string newColumnName = "";
+    private string newColumnType = "varchar(255)";
+    private bool newColumnNullable = true;
+    
+    private InputFile? loadWorkspaceInput;
+    private InputFile? importSqlInput;
+    
+    // Download settings
+    private string downloadFolderPrefix = "BlazorDbEditor";
+    private bool showSettings = false;
+    
+    // Import preview
+    private bool showImportPreview = false;
+    private string importFileName = "";
+    private string previewSql = "";
+    private List<Dictionary<string, string>> previewData = new();
+    private bool shiftDatesToToday = false;
+    private List<string> detectedDateColumns = new();
+    private int dateShiftDays = 0;
+
+    protected override void OnInitialized()
+    {
+        BlazorDbEditor.Components.NavMenu.OfflineEditorState.OnChange += OnSidebarTableSelected;
+   
+        // Check if tables were already loaded (e.g., from Startup Wizard)
+        if (BlazorDbEditor.Components.NavMenu.OfflineEditorState.Tables.Any() && !tables.Any())
+        {
+            tables = new List<string>(BlazorDbEditor.Components.NavMenu.OfflineEditorState.Tables);
+     
+   // Also restore schemas from DataStore if available
+     foreach (var tableName in tables)
+         {
+var schema = DataStore.GetTableSchema(tableName);
+         if (schema != null)
+    {
+  tableSchemas[tableName] = schema.Select(c => new ColumnDefinition
+      {
+             Name = c.Name,
+      Type = c.Type,
+    Nullable = c.Nullable,
+     IsNew = false
+         }).ToList();
+  
+         originalSchemas[tableName] = schema.Select(c => new ColumnDefinition
+ {
+       Name = c.Name,
+         Type = c.Type,
+          Nullable = c.Nullable,
+    IsNew = false
+   }).ToList();
+          }
+     }
+       
+    statusMessage = $"✓ Loaded {tables.Count} tables from previous session";
+        }
+    }
+
+    public void Dispose()
+    {
+        BlazorDbEditor.Components.NavMenu.OfflineEditorState.OnChange -= OnSidebarTableSelected;
+    }
+
+    private void OnSidebarTableSelected()
+    {
+        var newSelection = BlazorDbEditor.Components.NavMenu.OfflineEditorState.SelectedTable;
+        if (!string.IsNullOrEmpty(newSelection) && newSelection != selectedTable)
+        {            selectedTable = newSelection;
+            showAddRowForm = false;
+            showAddColumnForm = false;
+            StateHasChanged();
+        }
+    }
+
+    private class ColumnDefinition
+    {
+        public string Name { get; set; } = "";
+        public string Type { get; set; } = "";
+        public bool Nullable { get; set; } = true;
+        public string? DefaultValue { get; set; }
+        public bool IsNew { get; set; } = false;
+    }
+
+    private class WorkspaceData
+    {
+        public string DdlContent { get; set; } = "";
+        public Dictionary<string, List<ColumnDefinition>> TableSchemas { get; set; } = new();
+        public Dictionary<string, List<ColumnDefinition>> OriginalSchemas { get; set; } = new();
+        public string SelectedTable { get; set; } = "";
+        public DateTime SavedAt { get; set; } = DateTime.Now;
+        public int TableCount { get; set; }
+    }
+
+    private async Task ToggleDarkMode()
+    {
+        isDarkMode = !isDarkMode;
+        await JSRuntime.InvokeVoidAsync("eval", isDarkMode 
+            ? "document.body.classList.add('dark-mode')" 
+            : "document.body.classList.remove('dark-mode')");
+    }
+
+    private async Task HandleDDLUpload(InputFileChangeEventArgs e)
+    {
+        try
+        {
+            var file = e.File;
+            using var stream = file.OpenReadStream(maxAllowedSize: 10 * 1024 * 1024);
+            using var reader = new StreamReader(stream);
+            ddlContent = await reader.ReadToEndAsync();
+            
+            ParseDDL();
+            selectedTable = "";
+            showAddRowForm = false;
+            showAddColumnForm = false;
+            statusMessage = $"DDL loaded successfully ({tables.Count} tables found)";
+        }
+        catch (Exception ex)
+        {
+            statusMessage = $"Error loading DDL: {ex.Message}";
+            Console.WriteLine($"Error loading DDL: {ex.Message}");
+        }
+    }
+
+    private async Task TriggerLoadWorkspace()
+    {
+        try
+        {
+            var success = await JSRuntime.InvokeAsync<bool>("triggerFileInput", "loadWorkspaceInput");
+            if (!success)
+            {
+                statusMessage = "Error: Could not open file picker. Please try again.";
+            }
+        }
+        catch (Exception ex)
+        {
+            statusMessage = $"Error opening file picker: {ex.Message}";
+            Console.WriteLine($"Error in TriggerLoadWorkspace: {ex}");
+        }
+    }
+
+    private async Task TriggerImportSql()
+    {
+        try
+        {
+            var success = await JSRuntime.InvokeAsync<bool>("triggerFileInput", "importSqlInput");
+            if (!success)
+            {
+                statusMessage = "Error: Could not open file picker. Please try again.";
+            }
+        }
+        catch (Exception ex)
+        {
+            statusMessage = $"Error opening file picker: {ex.Message}";
+            Console.WriteLine($"Error in TriggerImportSql: {ex}");
+        }
+    }
+
+    private async Task SaveWorkspace()
+    {
+        try
+        {
+            var workspace = new WorkspaceData
+            {
+                DdlContent = ddlContent,
+                TableSchemas = tableSchemas,
+                OriginalSchemas = originalSchemas,
+                SelectedTable = selectedTable,
+                SavedAt = DateTime.Now,
+                TableCount = tables.Count
+            };
+
+            var json = JsonSerializer.Serialize(workspace, new JsonSerializerOptions { WriteIndented = true });
+            var fileName = $"{downloadFolderPrefix}/workspaces/workspace_{DateTime.Now:yyyyMMdd_HHmmss}.json";
+            
+            statusMessage = $"Workspace saved: {tables.Count} tables, DDL and schemas only (no generated SQL)";
+            
+            await JSRuntime.InvokeVoidAsync("downloadFile", fileName, json);
+            statusMessage = "Workspace saved successfully!";
+        }
+        catch (Exception ex)
+        {
+            statusMessage = $"Error saving workspace: {ex.Message}";
+        }
+    }
+
+    private async Task HandleWorkspaceLoad(InputFileChangeEventArgs e)
+    {
+        try
+        {
+            var file = e.File;
+            using var stream = file.OpenReadStream(maxAllowedSize: 50 * 1024 * 1024);
+            using var reader = new StreamReader(stream);
+            var json = await reader.ReadToEndAsync();
+            
+            var workspace = JsonSerializer.Deserialize<WorkspaceData>(json);
+            if (workspace != null)
+            {
+                ddlContent = workspace.DdlContent;
+                tableSchemas = workspace.TableSchemas;
+                originalSchemas = workspace.OriginalSchemas;
+                selectedTable = workspace.SelectedTable;
+                
+                // Reset generated SQL since workspace no longer stores it
+                generatedSQL = new StringBuilder();
+                scriptAlterCount = 0;
+                scriptRowCount = 0;
+                scriptLineCount = 0;
+                
+                tables = tableSchemas.Keys.ToList();
+                
+                // Sync schemas to data store for API access
+                SyncSchemaToDataStore();
+                
+                // Update NavMenu
+                BlazorDbEditor.Components.NavMenu.OfflineEditorState.Tables = new List<string>(tables);
+                BlazorDbEditor.Components.NavMenu.OfflineEditorState.NotifyStateChanged();
+                
+                statusMessage = $"Workspace loaded successfully! ({tables.Count} tables found, saved at {workspace.SavedAt:yyyy-MM-dd HH:mm:ss}). Import data separately if needed.";
+            }
+        }
+        catch (Exception ex)
+        {
+            statusMessage = $"Error loading workspace: {ex.Message}";
+        }
+    }
+
+    private async Task HandleDataImport(InputFileChangeEventArgs e)
+    {
+        try
+        {
+            var file = e.File;
+            var fileName = file.Name.ToLower();
+            using var stream = file.OpenReadStream(maxAllowedSize: 50 * 1024 * 1024);
+            using var reader = new StreamReader(stream);
+            var fileContent = await reader.ReadToEndAsync();
+            
+            importFileName = file.Name;
+            
+            if (fileName.EndsWith(".csv"))
+            {
+                (previewSql, previewData) = ParseCsvToSqlWithData(fileContent);
+            }
+            else if (fileName.EndsWith(".json"))
+            {
+                // Try to auto-detect table name from JSON structure
+                var detectedTable = TryDetectTableNameFromJson(fileContent);
+                if (!string.IsNullOrEmpty(detectedTable))
+                {
+                    if (tables.Contains(detectedTable))
+                    {
+                        selectedTable = detectedTable;
+                        statusMessage = $"Auto-detected table: {detectedTable}";
+                    }
+                    else
+                    {
+                        statusMessage = $"Warning: Table '{detectedTable}' not found in loaded DDL. Please select a table.";
+                    }
+                }
+                
+                (previewSql, previewData) = ParseJsonToSqlWithData(fileContent);
+            }
+            else // .sql or .txt
+            {
+                previewSql = fileContent;
+                previewData = new List<Dictionary<string, string>>();
+                // For SQL files, just show the SQL without preview table
+            }
+            
+            // Detect date columns
+            detectedDateColumns.Clear();
+            if (previewData.Any() && !string.IsNullOrEmpty(selectedTable) && tableSchemas.ContainsKey(selectedTable))
+            {
+                // Convert ColumnDefinition to ColumnInfo for DateShiftUtility
+        var columnInfos = tableSchemas[selectedTable].Select(c => new ColumnInfo
+  {
+      Name = c.Name,
+  Type = c.Type,
+           Nullable = c.Nullable
+            }).ToList();
+      detectedDateColumns = DateShiftUtility.DetectDateColumns(columnInfos);
+          }
+            
+            // Show preview modal
+            showImportPreview = true;
+            statusMessage = $"Preview ready: {previewData.Count} rows from {file.Name}";
+            shiftDatesToToday = false; // Reset checkbox
+        }
+        catch (Exception ex)
+        {
+            statusMessage = $"Error importing data: {ex.Message}";
+            Console.WriteLine($"Import error: {ex}");
+        }
+    }
+    
+    private void ConfirmImport()
+    {
+        try
+        {
+            var sqlToAdd = previewSql;
+            var dataToSync = previewData;
+            
+            // Apply date shifting if enabled
+            if (shiftDatesToToday && detectedDateColumns.Any())
+            {
+                // Convert preview data to proper format
+   var shifterRows = previewData.Select(row => 
+          row.ToDictionary(kvp => kvp.Key, kvp => (object?)kvp.Value)
+           ).ToList();
+  
+     // Shift dates
+                var (shiftedRows, dayOffset, originalMaxDate) = DateShiftUtility.ShiftDatesToToday(
+     shifterRows, 
+   detectedDateColumns
+                );
+                
+                dateShiftDays = dayOffset;
+                
+                // Update preview data
+                dataToSync = shiftedRows.Select(row => 
+                    row.ToDictionary(kvp => kvp.Key, kvp => kvp.Value?.ToString() ?? "")
+                ).ToList();
+                
+                // Shift dates in SQL
+                sqlToAdd = DateShiftUtility.ShiftDatesInSql(previewSql, dayOffset);
+                
+                if (originalMaxDate.HasValue)
+                {
+                    statusMessage = $"Dates shifted by {dayOffset} days (from {originalMaxDate.Value:yyyy-MM-dd} to {DateTime.Today:yyyy-MM-dd})";
+                }
+            }
+            
+            // Append generated SQL
+            generatedSQL.AppendLine($"-- Imported from {importFileName}");
+            if (shiftDatesToToday && dateShiftDays != 0)
+            {
+                generatedSQL.AppendLine($"-- Dates shifted by {dateShiftDays} days to match today");
+            }
+            generatedSQL.AppendLine(sqlToAdd);
+            generatedSQL.AppendLine();
+            
+            scriptRowCount += previewData.Count;
+            scriptLineCount = generatedSQL.ToString().Split('\n').Length;
+            
+            // Sync imported data to data store for API access
+            foreach (var row in dataToSync)
+            {
+                SyncRowToDataStore(selectedTable, row);
+            }
+            
+            // Load data into SQLite for SQL query support
+            var rowsAsObjects = dataToSync.Select(row => 
+                row.ToDictionary(kvp => kvp.Key, kvp => (object?)kvp.Value)
+            ).ToList();
+            LoadDataIntoSqlite(selectedTable, rowsAsObjects);
+            
+            statusMessage = $"✓ Data imported successfully! ({previewData.Count} rows from {importFileName})";
+            
+            // Close preview
+            showImportPreview = false;
+            previewData.Clear();
+            previewSql = "";
+        }
+        catch (Exception ex)
+        {
+            statusMessage = $"Error adding import to script: {ex.Message}";
+        }
+    }
+    
+    private void CancelImport()
+    {
+        showImportPreview = false;
+        previewData.Clear();
+        previewSql = "";
+        statusMessage = "Import cancelled";
+    }
+
+    private void ParseDDL()
+    {
+        tables.Clear();
+        tableSchemas.Clear();
+        originalSchemas.Clear();
+        BlazorDbEditor.Components.NavMenu.OfflineEditorState.Tables.Clear();
+
+        var lines = ddlContent.Split('\n');
+        string? currentTable = null;
+        List<ColumnDefinition>? currentColumns = null;
+        bool inTableDef = false;
+
+        foreach (var line in lines)
+        {
+            var trimmed = line.Trim();
+
+            if (trimmed.StartsWith("CREATE TABLE", StringComparison.OrdinalIgnoreCase))
+            {
+                var parts = trimmed.Split(new[] { ' ', '(' }, StringSplitOptions.RemoveEmptyEntries);
+                if (parts.Length >= 3)
+                {
+                    currentTable = parts[2].Replace("dbo.", "").Replace(";", "");
+                    tables.Add(currentTable);
+                    currentColumns = new List<ColumnDefinition>();
+                    tableSchemas[currentTable] = currentColumns;
+                    inTableDef = true;
+                }
+            }
+            else if (inTableDef && !trimmed.StartsWith("CONSTRAINT") && !trimmed.StartsWith(");") && !trimmed.StartsWith("--"))
+            {
+                if (trimmed.Contains(" ") && !string.IsNullOrWhiteSpace(trimmed))
+                {
+                    var parts = trimmed.Split(new[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+                    if (parts.Length >= 2 && !parts[0].StartsWith("--"))
+                    {
+                        var colName = parts[0].Trim('"', ',');
+                        var colType = parts[1].Trim(',');
+                        var nullable = !trimmed.Contains("NOT NULL", StringComparison.OrdinalIgnoreCase);
+
+                        currentColumns?.Add(new ColumnDefinition
+                        {
+                            Name = colName,
+                            Type = colType,
+                            Nullable = nullable,
+                            IsNew = false
+                        });
+                    }
+                }
+            }
+            else if (trimmed.StartsWith(");"))
+            {
+                inTableDef = false;
+                currentTable = null;
+                currentColumns = null;
+            }
+        }
+        
+        // Save original schemas for comparison
+        foreach (var kvp in tableSchemas)
+        {
+            originalSchemas[kvp.Key] = kvp.Value.Select(c => new ColumnDefinition
+            {
+                Name = c.Name,
+                Type = c.Type,
+                Nullable = c.Nullable,
+                IsNew = false
+            }).ToList();
+        }
+        
+        // Sync schemas to data store for API access
+        SyncSchemaToDataStore();
+        
+        // Load schema into SQLite for SQL query support
+        LoadSchemaIntoSqlite();
+        
+        // Notify NavMenu of table changes
+        BlazorDbEditor.Components.NavMenu.OfflineEditorState.Tables = new List<string>(tables);
+        BlazorDbEditor.Components.NavMenu.OfflineEditorState.NotifyStateChanged();
+    }
+
+    private List<ColumnDefinition> GetTableColumns(string tableName)
+    {
+        return tableSchemas.ContainsKey(tableName) ? tableSchemas[tableName] : new List<ColumnDefinition>();
+    }
+
+    private void OnTableSelected()
+    {
+        showAddRowForm = false;
+        showAddColumnForm = false;
+        BlazorDbEditor.Components.NavMenu.OfflineEditorState.SelectedTable = selectedTable;
+        BlazorDbEditor.Components.NavMenu.OfflineEditorState.NotifyStateChanged();
+    }
+
+    private void ShowAddColumnForm()
+    {
+        showAddColumnForm = true;
+        newColumnName = "";
+        newColumnType = "varchar(255)";
+        newColumnNullable = true;
+    }
+
+    private void CancelAddColumn()
+    {
+        showAddColumnForm = false;
+    }
+
+    private void AddColumn()
+    {
+        if (string.IsNullOrWhiteSpace(newColumnName) || string.IsNullOrEmpty(selectedTable))
+            return;
+
+        var columns = GetTableColumns(selectedTable);
+        columns.Add(new ColumnDefinition
+        {
+            Name = newColumnName,
+            Type = newColumnType,
+            Nullable = newColumnNullable,
+            IsNew = true
+        });
+
+        // If add row form is open, update newRowData with the new column
+        if (showAddRowForm)
+        {
+            newRowData[newColumnName] = "";
+        }
+        
+        // Sync updated schema to data store
+        SyncSchemaToDataStore();
+
+        showAddColumnForm = false;
+        statusMessage = $"Column '{newColumnName}' added to {selectedTable}";
+    }
+
+    private void RemoveColumn(string columnName)
+    {
+        if (string.IsNullOrEmpty(selectedTable))
+            return;
+
+        var columns = GetTableColumns(selectedTable);
+        var column = columns.FirstOrDefault(c => c.Name == columnName);
+        if (column != null && column.IsNew)
+        {
+            columns.Remove(column);
+            
+            // If add row form is open, remove from newRowData
+            if (showAddRowForm && newRowData.ContainsKey(columnName))
+            {
+                newRowData.Remove(columnName);
+            }
+            
+            statusMessage = $"Column '{columnName}' removed from {selectedTable}";
+        }
+    }
+
+    private bool HasSchemaChanges()
+    {
+        if (string.IsNullOrEmpty(selectedTable))
+            return false;
+            
+        return GetTableColumns(selectedTable).Any(c => c.IsNew);
+    }
+
+    private int GetNewColumnsCount()
+    {
+        if (string.IsNullOrEmpty(selectedTable))
+            return 0;
+            
+        return GetTableColumns(selectedTable).Count(c => c.IsNew);
+    }
+
+    private void GenerateSchemaSQL()
+    {
+        if (string.IsNullOrEmpty(selectedTable) || !HasSchemaChanges())
+            return;
+
+        var newColumns = GetTableColumns(selectedTable).Where(c => c.IsNew).ToList();
+        
+        generatedSQL.AppendLine($"-- Schema changes for {selectedTable}");
+        foreach (var column in newColumns)
+        {
+            var nullConstraint = column.Nullable ? "" : " NOT NULL";
+            generatedSQL.AppendLine($"ALTER TABLE dbo.{selectedTable} ADD COLUMN {column.Name} {column.Type}{nullConstraint};");
+            scriptAlterCount++;
+        }
+        generatedSQL.AppendLine();
+        
+        scriptLineCount = generatedSQL.ToString().Split('\n').Length;
+        statusMessage = $"Generated {newColumns.Count} ALTER TABLE statements for {selectedTable}";
+    }
+
+    private void ShowAddRowForm()
+    {
+        showAddRowForm = true;
+        newRowData.Clear();
+        
+        foreach (var column in GetTableColumns(selectedTable))
+        {
+            newRowData[column.Name] = "";
+        }
+    }
+
+    private void CancelAddRow()
+    {
+        showAddRowForm = false;
+        newRowData.Clear();
+    }
+
+    private void AddRowToScript()
+    {
+        if (string.IsNullOrEmpty(selectedTable)) return;
+
+        var columns = GetTableColumns(selectedTable);
+        var columnNames = new List<string>();
+        var values = new List<string>();
+
+        foreach (var column in columns)
+        {
+            if (newRowData.ContainsKey(column.Name) && !string.IsNullOrWhiteSpace(newRowData[column.Name]))
+            {
+                columnNames.Add(column.Name);
+                var value = newRowData[column.Name];
+                
+                if (column.Type.Contains("varchar") || column.Type.Contains("text") || 
+                    column.Type.Contains("uuid") || column.Type.Contains("timestamp") || 
+                    column.Type.Contains("date"))
+                {
+                    var escapedValue = value.Replace("'", "''");
+                    values.Add($"'{escapedValue}'");
+                }
+                else if (column.Type.Contains("bool"))
+                {
+                    values.Add(value.ToLower() == "true" || value == "1" ? "true" : "false");
+                }
+                else
+                {
+                    values.Add(value);
+                }
+            }
+        }
+
+        if (columnNames.Any())
+        {
+            generatedSQL.AppendLine($"INSERT INTO dbo.{selectedTable} ({string.Join(", ", columnNames)})");
+            generatedSQL.AppendLine($"VALUES ({string.Join(", ", values)});");
+            generatedSQL.AppendLine();
+            
+            scriptRowCount++;
+            scriptLineCount = generatedSQL.ToString().Split('\n').Length;
+            
+            // Sync to data store for API access
+            SyncRowToDataStore(selectedTable, newRowData);
+            
+            statusMessage = $"Row added to {selectedTable}";
+        }
+
+        showAddRowForm = false;
+        newRowData.Clear();
+    }
+
+    private void ClearScript()
+    {
+        generatedSQL.Clear();
+        scriptLineCount = 0;
+        scriptRowCount = 0;
+        scriptAlterCount = 0;
+        statusMessage = "Script cleared";
+    }
+
+    private async Task DownloadScript()
+    {
+        var fileName = $"{downloadFolderPrefix}/sql_scripts/generated_sql_{DateTime.Now:yyyyMMdd_HHmmss}.sql";
+        var content = generatedSQL.ToString();
+        
+        await JSRuntime.InvokeVoidAsync("downloadFile", fileName, content);
+        statusMessage = $"Script downloaded as {fileName}";
+    }
+
+    private async Task ExportDDL()
+    {
+        try
+        {
+            var ddlBuilder = new StringBuilder();
+            ddlBuilder.AppendLine("-- PostgreSQL DDL Export");
+            ddlBuilder.AppendLine($"-- Generated: {DateTime.Now:yyyy-MM-dd HH:mm:ss}");
+            ddlBuilder.AppendLine($"-- Tables: {tables.Count}");
+            ddlBuilder.AppendLine();
+
+            foreach (var tableName in tables.OrderBy(t => t))
+            {
+                var columns = GetTableColumns(tableName);
+                if (!columns.Any()) continue;
+
+                ddlBuilder.AppendLine($"-- dbo.{tableName} definition");
+                ddlBuilder.AppendLine();
+                ddlBuilder.AppendLine($"CREATE TABLE dbo.{tableName} (");
+
+                var columnDefs = new List<string>();
+                foreach (var column in columns)
+                {
+                    var nullConstraint = column.Nullable ? "NULL" : "NOT NULL";
+                    var columnDef = $"\t{column.Name} {column.Type} {nullConstraint}";
+                    columnDefs.Add(columnDef);
+                }
+
+                ddlBuilder.AppendLine(string.Join(",\n", columnDefs));
+                ddlBuilder.AppendLine(");");
+                ddlBuilder.AppendLine();
+            }
+
+            var fileName = $"{downloadFolderPrefix}/ddl/exported_ddl_{DateTime.Now:yyyyMMdd_HHmmss}.sql";
+            var content = ddlBuilder.ToString();
+            
+            await JSRuntime.InvokeVoidAsync("downloadFile", fileName, content);
+            statusMessage = $"DDL exported successfully! ({tables.Count} tables)";
+        }
+        catch (Exception ex)
+        {
+            statusMessage = $"Error exporting DDL: {ex.Message}";
+        }
+    }
+
+    private (string sql, int rowCount) ParseCsvToSql(string csvContent)
+    {
+        try
+        {
+            if (string.IsNullOrEmpty(selectedTable))
+            {
+                throw new Exception("Please select a table first");
+            }
+
+            var lines = csvContent.Split('\n').Where(l => !string.IsNullOrWhiteSpace(l)).ToList();
+            if (lines.Count < 2)
+            {
+                throw new Exception("CSV file must have at least a header row and one data row");
+            }
+
+            // Parse header
+            var headers = lines[0].Split(',').Select(h => h.Trim().Trim('"')).ToList();
+            
+            var sqlBuilder = new StringBuilder();
+            sqlBuilder.AppendLine($"-- CSV Import for {selectedTable}");
+            
+            int rowCount = 0;
+            for (int i = 1; i < lines.Count; i++)
+            {
+                var values = ParseCsvLine(lines[i]);
+                if (values.Count != headers.Count)
+                {
+                    Console.WriteLine($"Skipping row {i}: column count mismatch");
+                    continue;
+                }
+
+                var formattedValues = new List<string>();
+                for (int j = 0; j < values.Count; j++)
+                {
+                    var value = values[j];
+                    if (string.IsNullOrEmpty(value) || value.Equals("NULL", StringComparison.OrdinalIgnoreCase))
+                    {
+                        formattedValues.Add("NULL");
+                    }
+                    else
+                    {
+                        // Escape single quotes
+                        var escapedValue = value.Replace("'", "''");
+                        formattedValues.Add($"'{escapedValue}'");
+                    }
+                }
+
+                sqlBuilder.AppendLine($"INSERT INTO dbo.{selectedTable} ({string.Join(", ", headers)}) VALUES ({string.Join(", ", formattedValues)});");
+                rowCount++;
+            }
+
+            return (sqlBuilder.ToString(), rowCount);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Error parsing CSV: {ex.Message}");
+        }
+    }
+
+    private List<string> ParseCsvLine(string line)
+    {
+        var values = new List<string>();
+        var currentValue = new StringBuilder();
+        bool inQuotes = false;
+
+        for (int i = 0; i < line.Length; i++)
+        {
+            char c = line[i];
+
+            if (c == '"')
+            {
+                if (inQuotes && i + 1 < line.Length && line[i + 1] == '"')
+                {
+                    currentValue.Append('"');
+                    i++; // Skip next quote
+                }
+                else
+                {
+                    inQuotes = !inQuotes;
+                }
+            }
+            else if (c == ',' && !inQuotes)
+            {
+                values.Add(currentValue.ToString());
+                currentValue.Clear();
+            }
+            else
+            {
+                currentValue.Append(c);
+            }
+        }
+        values.Add(currentValue.ToString());
+
+        return values;
+    }
+
+    private (string sql, int rowCount) ParseJsonToSql(string jsonContent)
+    {
+        try
+        {
+            if (string.IsNullOrEmpty(selectedTable))
+            {
+                throw new Exception("Please select a table first");
+            }
+
+            // Try to parse as JSON array
+            var jsonDoc = System.Text.Json.JsonDocument.Parse(jsonContent);
+            var sqlBuilder = new StringBuilder();
+            sqlBuilder.AppendLine($"-- JSON Import for {selectedTable}");
+            
+            int rowCount = 0;
+            
+            if (jsonDoc.RootElement.ValueKind == System.Text.Json.JsonValueKind.Array)
+            {
+                foreach (var item in jsonDoc.RootElement.EnumerateArray())
+                {
+                    var columns = new List<string>();
+                    var values = new List<string>();
+
+                    foreach (var property in item.EnumerateObject())
+                    {
+                        columns.Add(property.Name);
+                        
+                        if (property.Value.ValueKind == System.Text.Json.JsonValueKind.Null)
+                        {
+                            values.Add("NULL");
+                        }
+                        else if (property.Value.ValueKind == System.Text.Json.JsonValueKind.String)
+                        {
+                            var strValue = property.Value.GetString() ?? "";
+                            var escapedValue = strValue.Replace("'", "''");
+                            values.Add($"'{escapedValue}'");
+                        }
+                        else if (property.Value.ValueKind == System.Text.Json.JsonValueKind.Number)
+                        {
+                            values.Add(property.Value.ToString());
+                        }
+                        else if (property.Value.ValueKind == System.Text.Json.JsonValueKind.True)
+                        {
+                            values.Add("true");
+                        }
+                        else if (property.Value.ValueKind == System.Text.Json.JsonValueKind.False)
+                        {
+                            values.Add("false");
+                        }
+                        else
+                        {
+                            values.Add("NULL");
+                        }
+                    }
+
+                    sqlBuilder.AppendLine($"INSERT INTO dbo.{selectedTable} ({string.Join(", ", columns)}) VALUES ({string.Join(", ", values)});");
+                    rowCount++;
+                }
+            }
+            else
+            {
+                throw new Exception("JSON must be an array of objects");
+            }
+
+            return (sqlBuilder.ToString(), rowCount);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Error parsing JSON: {ex.Message}");
+        }
+    }
+
+    private (string sql, List<Dictionary<string, string>> data) ParseCsvToSqlWithData(string csvContent)
+    {
+        try
+        {
+            if (string.IsNullOrEmpty(selectedTable))
+            {
+                throw new Exception("Please select a table first");
+            }
+
+            var lines = csvContent.Split('\n').Where(l => !string.IsNullOrWhiteSpace(l)).ToList();
+            if (lines.Count < 2)
+            {
+                throw new Exception("CSV file must have at least a header row and one data row");
+            }
+
+            // Parse header
+            var headers = lines[0].Split(',').Select(h => h.Trim().Trim('"')).ToList();
+            
+            var sqlBuilder = new StringBuilder();
+            sqlBuilder.AppendLine($"-- CSV Import for {selectedTable}");
+            
+            var previewData = new List<Dictionary<string, string>>();
+            
+            for (int i = 1; i < lines.Count; i++)
+            {
+                var values = ParseCsvLine(lines[i]);
+                if (values.Count != headers.Count)
+                {
+                    Console.WriteLine($"Skipping row {i}: column count mismatch");
+                    continue;
+                }
+
+                var rowData = new Dictionary<string, string>();
+                var formattedValues = new List<string>();
+                
+                for (int j = 0; j < values.Count; j++)
+                {
+                    var value = values[j];
+                    rowData[headers[j]] = value;
+                    
+                    if (string.IsNullOrEmpty(value) || value.Equals("NULL", StringComparison.OrdinalIgnoreCase))
+                    {
+                        formattedValues.Add("NULL");
+                    }
+                    else
+                    {
+                        var escapedValue = value.Replace("'", "''");
+                        formattedValues.Add($"'{escapedValue}'");
+                    }
+                }
+
+                previewData.Add(rowData);
+                sqlBuilder.AppendLine($"INSERT INTO dbo.{selectedTable} ({string.Join(", ", headers)}) VALUES ({string.Join(", ", formattedValues)});");
+            }
+
+            return (sqlBuilder.ToString(), previewData);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Error parsing CSV: {ex.Message}");
+        }
+    }
+
+    private (string sql, List<Dictionary<string, string>> data) ParseJsonToSqlWithData(string jsonContent)
+    {
+        try
+        {
+            if (string.IsNullOrEmpty(selectedTable))
+            {
+                throw new Exception("Please select a table first");
+            }
+
+            var jsonDoc = System.Text.Json.JsonDocument.Parse(jsonContent);
+            var sqlBuilder = new StringBuilder();
+            sqlBuilder.AppendLine($"-- JSON Import for {selectedTable}");
+            
+            var previewData = new List<Dictionary<string, string>>();
+            
+            JsonElement dataArray;
+            
+            // Check if JSON is wrapped with table name: { "table_name": [...] }
+            if (jsonDoc.RootElement.ValueKind == System.Text.Json.JsonValueKind.Object)
+            {
+                var properties = jsonDoc.RootElement.EnumerateObject().ToList();
+                if (properties.Count == 1 && properties[0].Value.ValueKind == System.Text.Json.JsonValueKind.Array)
+                {
+                    // Unwrap the array
+                    dataArray = properties[0].Value;
+                }
+                else
+                {
+                    throw new Exception("JSON must be an array of objects or { \"table_name\": [...] }");
+                }
+            }
+            else if (jsonDoc.RootElement.ValueKind == System.Text.Json.JsonValueKind.Array)
+            {
+                dataArray = jsonDoc.RootElement;
+            }
+            else
+            {
+                throw new Exception("JSON must be an array of objects or { \"table_name\": [...] }");
+            }
+            
+            if (dataArray.ValueKind == System.Text.Json.JsonValueKind.Array)
+            {
+                foreach (var item in dataArray.EnumerateArray())
+                {
+                    var columns = new List<string>();
+                    var values = new List<string>();
+                    var rowData = new Dictionary<string, string>();
+
+                    foreach (var property in item.EnumerateObject())
+                    {
+                        columns.Add(property.Name);
+                        
+                        string displayValue = "";
+                        string sqlValue = "";
+                        
+                        if (property.Value.ValueKind == System.Text.Json.JsonValueKind.Null)
+                        {
+                            displayValue = "NULL";
+                            sqlValue = "NULL";
+                        }
+                        else if (property.Value.ValueKind == System.Text.Json.JsonValueKind.String)
+                        {
+                            displayValue = property.Value.GetString() ?? "";
+                            var escapedValue = displayValue.Replace("'", "''");
+                            sqlValue = $"'{escapedValue}'";
+                        }
+                        else if (property.Value.ValueKind == System.Text.Json.JsonValueKind.Number)
+                        {
+                            displayValue = property.Value.ToString();
+                            sqlValue = displayValue;
+                        }
+                        else if (property.Value.ValueKind == System.Text.Json.JsonValueKind.True)
+                        {
+                            displayValue = "true";
+                            sqlValue = "true";
+                        }
+                        else if (property.Value.ValueKind == System.Text.Json.JsonValueKind.False)
+                        {
+                            displayValue = "false";
+                            sqlValue = "false";
+                        }
+                        else
+                        {
+                            displayValue = "NULL";
+                            sqlValue = "NULL";
+                        }
+                        
+                        rowData[property.Name] = displayValue;
+                        values.Add(sqlValue);
+                    }
+
+                    previewData.Add(rowData);
+                    sqlBuilder.AppendLine($"INSERT INTO dbo.{selectedTable} ({string.Join(", ", columns)}) VALUES ({string.Join(", ", values)});");
+                }
+            }
+            else
+            {
+                throw new Exception("JSON must be an array of objects");
+            }
+
+            return (sqlBuilder.ToString(), previewData);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Error parsing JSON: {ex.Message}");
+        }
+    }
+
+    // Auto-detect table name from JSON structure
+    private string? TryDetectTableNameFromJson(string jsonContent)
+    {
+        try
+        {
+            using var doc = JsonDocument.Parse(jsonContent);
+            var root = doc.RootElement;
+            
+            // Check if JSON is an object with a single property (table name)
+            if (root.ValueKind == JsonValueKind.Object)
+            {
+                var properties = root.EnumerateObject().ToList();
+                if (properties.Count == 1)
+                {
+                    var tableName = properties[0].Name;
+                    var value = properties[0].Value;
+                    
+                    // Verify the value is an array (rows)
+                    if (value.ValueKind == JsonValueKind.Array)
+                    {
+                        return tableName;
+                    }
+                }
+            }
+            
+            return null;
+        }
+        catch
+        {
+            return null;
+        }
+    }
+
+    // Sync methods for API data store
+    private void SyncSchemaToDataStore()
+    {
+        try
+        {
+            foreach (var tableName in tables)
+            {
+                var columns = GetTableColumns(tableName);
+                var columnInfos = columns.Select(c => new ColumnInfo
+                {
+                    Name = c.Name,
+                    Type = c.Type,
+                    Nullable = c.Nullable,
+                    IsPrimaryKey = c.Name.Equals("id", StringComparison.OrdinalIgnoreCase) || 
+                                   c.Name.EndsWith("_id", StringComparison.OrdinalIgnoreCase),
+                    ForeignKeyTable = null,
+                    ForeignKeyColumn = null
+                }).ToList();
+                
+                DataStore.LoadSchema(tableName, columnInfos);
+            }
+            
+            Console.WriteLine($"Synced {tables.Count} table schemas to data store");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error syncing schema to data store: {ex.Message}");
+        }
+    }
+
+    private void LoadSchemaIntoSqlite()
+    {
+        try
+        {
+            // Convert table schemas to ColumnInfo format
+            var schemaDict = new Dictionary<string, List<ColumnInfo>>();
+        
+     foreach (var tableName in tables)
+            {
+    var columns = GetTableColumns(tableName);
+                var columnInfos = columns.Select(c => new ColumnInfo
+     {
+                Name = c.Name,
+             Type = c.Type,
+        Nullable = c.Nullable,
+         IsPrimaryKey = c.Name.Equals("id", StringComparison.OrdinalIgnoreCase) || 
+     c.Name.EndsWith("_id", StringComparison.OrdinalIgnoreCase)
+      }).ToList();
+          
+         schemaDict[tableName] = columnInfos;
+     }
+     
+      SqliteService.LoadSchema(schemaDict);
+            Console.WriteLine($"Loaded {tables.Count} table schemas into SQLite");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading schema into SQLite: {ex.Message}");
+        }
+    }
+    
+    private void LoadDataIntoSqlite(string tableName, List<Dictionary<string, object?>> rows)
+    {
+        try
+        {
+            SqliteService.LoadData(tableName, rows);
+            Console.WriteLine($"Loaded {rows.Count} rows into SQLite table {tableName}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading data into SQLite: {ex.Message}");
+        }
+    }
+
+    private void SyncRowToDataStore(string tableName, Dictionary<string, string> rowData)
+    {
+        try
+        {
+            var row = new Dictionary<string, object?>();
+            foreach (var kvp in rowData)
+            {
+                row[kvp.Key] = string.IsNullOrWhiteSpace(kvp.Value) ? null : kvp.Value;
+            }
+            
+            DataStore.AddRow(tableName, row);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error syncing row to data store: {ex.Message}");
+        }
+    }
+
+    private async Task ClearEverything()
+    {
+        var confirmed = await JSRuntime.InvokeAsync<bool>("confirm", "Are you sure you want to clear everything? This will reset all tables, schemas, and generated SQL. This action cannot be undone.");
+        
+        if (confirmed)
+        {
+            // Clear all data
+            tables = new List<string>();
+            tableSchemas = new Dictionary<string, List<ColumnDefinition>>();
+            originalSchemas = new Dictionary<string, List<ColumnDefinition>>();
+            generatedSQL = new StringBuilder();
+            ddlContent = "";
+            selectedTable = "";
+            scriptLineCount = 0;
+            scriptRowCount = 0;
+            scriptAlterCount = 0;
+            
+            // Clear data store
+        DataStore.ClearAll();
+        
+        // Clear SQLite database
+        SqliteService.ClearAll();
+            
+            // Update NavMenu
+            BlazorDbEditor.Components.NavMenu.OfflineEditorState.Tables = new List<string>();
+            BlazorDbEditor.Components.NavMenu.OfflineEditorState.SelectedTable = "";
+            BlazorDbEditor.Components.NavMenu.OfflineEditorState.NotifyStateChanged();
+            
+            statusMessage = "✓ Everything cleared! Start fresh by loading a DDL file.";
+        }
+    }
+}

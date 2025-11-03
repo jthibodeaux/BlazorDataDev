@@ -1,0 +1,154 @@
+@page "/documentation"
+@inject NavigationManager Navigation
+
+<PageTitle>Documentation - Blazor DataDev</PageTitle>
+
+<Breadcrumb CurrentPage="Documentation" BackUrl="/" />
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+   <div class="page-header">
+    <h1>?? Documentation</h1>
+  <p class="lead">Complete guide to Blazor DataDev</p>
+          </div>
+        </div>
+ </div>
+
+    <div class="row">
+        <div class="col-lg-8">
+   <!-- Quick Start -->
+   <div class="card shadow-sm mb-4">
+        <div class="card-header bg-primary text-white">
+   <h5 class="mb-0">?? Quick Start</h5>
+        </div>
+    <div class="card-body">
+    <h6>Your Primary Workflow:</h6>
+        <ol>
+ <li><strong>Fetch DDLs</strong> from 3 external DBs + Plato (Internal)</li>
+     <li><strong>Merge DDLs</strong> using <a href="/ddl-merger">DDL Merger</a></li>
+   <li><strong>Save</strong> merged DDL to Loadables/ddls/</li>
+    <li><strong>Load</strong> via <a href="/startup">Startup Wizard</a></li>
+       <li><strong>Add test data</strong> via <a href="/data-editor">Data Editor</a></li>
+    <li><strong>Test your app</strong> against <code>http://localhost:5000/api/</code></li>
+         <li><strong>Make changes</strong> to Plato tables locally</li>
+    <li><strong>Generate migration scripts</strong> for real Plato</li>
+    </ol>
+     </div>
+       </div>
+
+ <!-- Features -->
+     <div class="card shadow-sm mb-4">
+       <div class="card-header bg-success text-white">
+  <h5 class="mb-0">? Features</h5>
+  </div>
+ <div class="card-body">
+        <div class="row">
+    <div class="col-md-6">
+     <h6>?? External DB Explorer</h6>
+       <p class="small">Connect to AWS databases, fetch schemas and sample data</p>
+    <a href="/external-explorer" class="btn btn-sm btn-outline-primary mb-3">Open ?</a>
+
+  <h6>?? DDL Merger</h6>
+ <p class="small">Combine multiple DDL files into one unified schema</p>
+  <a href="/ddl-merger" class="btn btn-sm btn-outline-primary mb-3">Open ?</a>
+
+       <h6>?? Schema Editor</h6>
+<p class="small">Load and modify DDL files offline</p>
+  <a href="/offline-editor" class="btn btn-sm btn-outline-primary mb-3">Open ?</a>
+   </div>
+
+           <div class="col-md-6">
+<h6>?? Data Editor</h6>
+    <p class="small">Add, edit, and delete rows in tables</p>
+    <a href="/data-editor" class="btn btn-sm btn-outline-primary mb-3">Open ?</a>
+
+  <h6>?? SQL Query Tool</h6>
+     <p class="small">Execute SQL queries against loaded tables</p>
+   <a href="/sql-query" class="btn btn-sm btn-outline-primary mb-3">Open ?</a>
+
+    <h6>?? REST API</h6>
+   <p class="small">Auto-generated CRUD endpoints</p>
+ <a href="/swagger" target="_blank" class="btn btn-sm btn-outline-success mb-3">Open Swagger ?</a>
+   </div>
+  </div>
+ </div>
+  </div>
+
+       <!-- API Reference -->
+  <div class="card shadow-sm mb-4">
+<div class="card-header bg-info text-white">
+   <h5 class="mb-0">?? API Endpoints</h5>
+  </div>
+         <div class="card-body">
+    <p><strong>Once tables are loaded:</strong></p>
+     
+    <h6>Standard CRUD:</h6>
+     <ul class="small">
+  <li><code>GET /api/tables</code> - List all tables</li>
+<li><code>GET /api/tables/{name}/rows</code> - Get rows</li>
+     <li><code>POST /api/tables/{name}/rows</code> - Create row</li>
+     <li><code>PUT /api/tables/{name}/rows/{id}</code> - Update row</li>
+       <li><code>DELETE /api/tables/{name}/rows/{id}</code> - Delete row</li>
+   </ul>
+
+     <h6>Advanced:</h6>
+    <ul class="small">
+<li><code>POST /api/tables/{name}/query</code> - Query with filters</li>
+       <li><code>POST /api/tables/query/join</code> - JOIN tables</li>
+   <li><code>POST /api/sql/execute</code> - Execute raw SQL</li>
+    </ul>
+
+         <a href="/swagger" target="_blank" class="btn btn-outline-info mt-2">View Full API Docs ?</a>
+  </div>
+       </div>
+        </div>
+
+   <div class="col-lg-4">
+   <!-- Guides -->
+  <div class="card shadow-sm mb-3">
+   <div class="card-header bg-warning text-dark">
+        <h6 class="mb-0">?? Detailed Guides</h6>
+         </div>
+       <div class="list-group list-group-flush">
+  <a href="#" class="list-group-item list-group-item-action" @onclick='() => ShowGuide("startup")'>
+   Startup Automation Guide
+         </a>
+    <a href="#" class="list-group-item list-group-item-action" @onclick='() => ShowGuide("aws")'>
+        AWS Data Loading Guide
+</a>
+      <a href="#" class="list-group-item list-group-item-action" @onclick='() => ShowGuide("live")'>
+     Live Data Feature
+  </a>
+   <a href="#" class="list-group-item list-group-item-action" @onclick='() => ShowGuide("folders")'>
+  Flexible Folder Structure
+    </a>
+       </div>
+  </div>
+
+   <!-- Support -->
+ <div class="card shadow-sm">
+         <div class="card-header bg-secondary text-white">
+   <h6 class="mb-0">?? Support</h6>
+      </div>
+   <div class="card-body">
+<p class="small"><strong>Need help?</strong></p>
+    <ul class="small mb-0">
+      <li><a href="/about">About This Platform</a></li>
+    <li><a href="/swagger" target="_blank">API Documentation</a></li>
+         <li><a href="https://github.com/your-repo" target="_blank">GitHub Repository</a></li>
+  <li>Contact: support@tceenergy.com</li>
+   </ul>
+       </div>
+   </div>
+   </div>
+    </div>
+</div>
+
+@code {
+    private void ShowGuide(string guide)
+    {
+   // Navigate to specific guide or show in modal
+Navigation.NavigateTo($"/guides/{guide}");
+    }
+}

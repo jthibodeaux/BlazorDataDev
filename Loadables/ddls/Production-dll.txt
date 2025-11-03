@@ -1,0 +1,1079 @@
+-- dbo.historicalpalrecommendations definition
+
+-- Drop table
+
+-- DROP TABLE dbo.historicalpalrecommendations;
+
+CREATE TABLE dbo.historicalpalrecommendations (
+	id uuid DEFAULT gen_random_uuid() NOT NULL,
+	analysis_date date NOT NULL,
+	analysis_timestamp timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	asset_abbreviation varchar(10) DEFAULT 'NBPL'::character varying NOT NULL,
+	asset_number int4 DEFAULT 3 NOT NULL,
+	maximum_cap_percentage int4 DEFAULT 40 NOT NULL,
+	max_daily_unpark_mdth float8 DEFAULT 5.0 NOT NULL,
+	max_daily_payback_mdth float8 DEFAULT 5.0 NOT NULL,
+	temperature_f int4 NULL,
+	weather_conditions varchar(100) NULL,
+	heating_degree_days int4 NULL,
+	total_profit_opportunities int4 DEFAULT 0 NOT NULL,
+	total_potential_profit float8 DEFAULT 0.0 NOT NULL,
+	best_opportunity_1_json jsonb NULL,
+	best_opportunity_2_json jsonb NULL,
+	best_opportunity_3_json jsonb NULL,
+	recommended_park_volumes_json jsonb NULL,
+	recommended_loan_volumes_json jsonb NULL,
+	profit_opportunities_json jsonb DEFAULT '[]'::jsonb NOT NULL,
+	volume_recommendations_json jsonb DEFAULT '[]'::jsonb NOT NULL,
+	dashboard_data_json jsonb NULL,
+	processing_time_ms int4 NULL,
+	email_sent bool DEFAULT false NOT NULL,
+	email_recipients text NULL,
+	error_message text NULL,
+	created_date timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	created_by varchar(100) DEFAULT 'PalRecommendationJob'::character varying NOT NULL,
+	modified_date timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	modified_by varchar(100) DEFAULT 'PalRecommendationJob'::character varying NOT NULL,
+	is_active bool DEFAULT true NOT NULL,
+	is_deleted bool DEFAULT false NOT NULL,
+	CONSTRAINT historicalpalrecommendations_pkey PRIMARY KEY (id),
+	CONSTRAINT idx_historical_pal_analysis_date UNIQUE (analysis_date)
+);
+CREATE INDEX idx_historical_pal_active ON dbo.historicalpalrecommendations USING btree (is_active, is_deleted);
+CREATE INDEX idx_historical_pal_analysis_timestamp ON dbo.historicalpalrecommendations USING btree (analysis_timestamp);
+CREATE INDEX idx_historical_pal_asset ON dbo.historicalpalrecommendations USING btree (asset_abbreviation, asset_number);
+CREATE INDEX idx_historical_pal_profit ON dbo.historicalpalrecommendations USING btree (total_potential_profit DESC);
+
+
+-- dbo.pipeline_configurations definition
+
+-- Drop table
+
+-- DROP TABLE dbo.pipeline_configurations;
+
+CREATE TABLE dbo.pipeline_configurations (
+	id uuid DEFAULT gen_random_uuid() NOT NULL,
+	row_version int8 DEFAULT 1 NULL,
+	created_date timestamptz NULL,
+	modified_date timestamptz NULL,
+	is_active bool DEFAULT true NOT NULL,
+	is_deleted bool DEFAULT false NOT NULL,
+	created_by text NULL,
+	modified_by text NULL,
+	tenant_id uuid NULL,
+	configuration_json text NOT NULL,
+	change_reason varchar(500) NULL,
+	version_number int4 DEFAULT 1 NOT NULL,
+	config_hash varchar(64) NULL,
+	CONSTRAINT pipeline_configurations_pkey PRIMARY KEY (id)
+);
+
+
+-- dbo.tc_capacity_configurations definition
+
+-- Drop table
+
+-- DROP TABLE dbo.tc_capacity_configurations;
+
+CREATE TABLE dbo.tc_capacity_configurations (
+	id uuid NOT NULL,
+	seasonal_factor_weight float8 DEFAULT 30 NOT NULL,
+	system_health_weight float8 DEFAULT 30 NOT NULL,
+	outage_impact_weight float8 DEFAULT 20 NOT NULL,
+	market_opportunities_weight float8 DEFAULT 10 NOT NULL,
+	consultation_weight float8 DEFAULT 10 NOT NULL,
+	no_risk_min_score float8 DEFAULT 0 NOT NULL,
+	no_risk_max_score float8 DEFAULT 2.5 NOT NULL,
+	low_risk_min_score float8 DEFAULT 2.51 NOT NULL,
+	low_risk_max_score float8 DEFAULT 5.0 NOT NULL,
+	moderate_risk_min_score float8 DEFAULT 5.01 NOT NULL,
+	moderate_risk_max_score float8 DEFAULT 7.5 NOT NULL,
+	high_risk_min_score float8 DEFAULT 7.51 NOT NULL,
+	high_risk_max_score float8 DEFAULT 10.0 NOT NULL,
+	no_risk_capacity int4 DEFAULT 0 NOT NULL,
+	low_risk_capacity int4 DEFAULT 10 NOT NULL,
+	moderate_risk_capacity int4 DEFAULT 25 NOT NULL,
+	high_risk_capacity int4 DEFAULT 50 NOT NULL,
+	gas_control_weight float8 DEFAULT 40 NOT NULL,
+	marketing_weight float8 DEFAULT 15 NOT NULL,
+	field_operations_weight float8 DEFAULT 15 NOT NULL,
+	reliability_team_weight float8 DEFAULT 15 NOT NULL,
+	ghg_team_weight float8 DEFAULT 10 NOT NULL,
+	reputation_team_weight float8 DEFAULT 5 NOT NULL,
+	distribution_list varchar(1000) NULL,
+	emergency_distribution_list varchar(1000) NULL,
+	email_delivery_time time DEFAULT '06:00:00'::time without time zone NOT NULL,
+	data_collection_time time DEFAULT '04:00:00'::time without time zone NOT NULL,
+	fallback_rankings_json jsonb NULL,
+	created_date timestamp DEFAULT now() NOT NULL,
+	modified_date timestamp DEFAULT now() NOT NULL,
+	is_active bool DEFAULT true NOT NULL,
+	is_deleted bool DEFAULT false NOT NULL,
+	created_by varchar(256) NULL,
+	modified_by varchar(256) NULL,
+	tenant_id uuid NULL,
+	row_version bytea NULL,
+	scoring_lookup_tables_json jsonb DEFAULT '{}'::jsonb NOT NULL,
+	oba_long_threshold float8 DEFAULT 100000 NOT NULL,
+	oba_short_threshold float8 DEFAULT '-100000'::integer NOT NULL,
+	market_opportunity_high_demand_threshold float8 DEFAULT 25 NOT NULL,
+	market_opportunity_normal_threshold float8 DEFAULT 10 NOT NULL,
+	pull_cap_high_relative_threshold float8 DEFAULT 1.3 NOT NULL,
+	pull_cap_medium_relative_threshold float8 DEFAULT 1.1 NOT NULL,
+	pull_cap_low_relative_threshold float8 DEFAULT 0.9 NOT NULL,
+	pull_cap_high_utilization_threshold float8 DEFAULT 0.9 NOT NULL,
+	pull_cap_medium_utilization_threshold float8 DEFAULT 0.7 NOT NULL,
+	pull_cap_low_utilization_threshold float8 DEFAULT 0.5 NOT NULL,
+	downstream_very_high_threshold float8 DEFAULT 4000 NOT NULL,
+	downstream_high_threshold float8 DEFAULT 3000 NOT NULL,
+	downstream_medium_threshold float8 DEFAULT 2000 NOT NULL,
+	downstream_low_threshold float8 DEFAULT 1000 NOT NULL,
+	long_term_very_high_threshold float8 DEFAULT 1.3 NOT NULL,
+	long_term_high_threshold float8 DEFAULT 1.1 NOT NULL,
+	long_term_medium_threshold float8 DEFAULT 0.9 NOT NULL,
+	long_term_low_threshold float8 DEFAULT 0.7 NOT NULL,
+	long_term_very_low_threshold float8 DEFAULT 0.5 NOT NULL,
+	imbalances_very_low_threshold float8 DEFAULT 10 NOT NULL,
+	imbalances_low_threshold float8 DEFAULT 30 NOT NULL,
+	imbalances_medium_threshold float8 DEFAULT 50 NOT NULL,
+	pull_cap_weight float8 DEFAULT 0.2 NOT NULL,
+	downstream_movement_weight float8 DEFAULT 0.4 NOT NULL,
+	long_term_impact_weight float8 DEFAULT 0.3 NOT NULL,
+	oba_position_weight float8 DEFAULT 0.1 NOT NULL,
+	morning_analysis_time time DEFAULT '09:00:00'::time without time zone NULL,
+	afternoon_analysis_time time DEFAULT '14:00:00'::time without time zone NULL,
+	send_morning_emails bool DEFAULT true NULL,
+	send_afternoon_emails bool DEFAULT true NULL,
+	max_daily_imbalance_mdth float8 DEFAULT 100 NULL,
+	min_temperature_fahrenheit float8 DEFAULT '-5'::integer NULL,
+	max_cushion_usage_percent float8 DEFAULT 90 NULL,
+	max_recent_constraint_hours int4 DEFAULT 3 NULL,
+	enable_cold_weather_override bool DEFAULT true NULL,
+	enable_high_imbalance_override bool DEFAULT true NULL,
+	enable_cushion_usage_override bool DEFAULT true NULL,
+	enable_constraint_override bool DEFAULT true NULL,
+	enable_system_health_veto bool DEFAULT true NULL,
+	system_health_veto_threshold float8 DEFAULT 3.0 NULL,
+	system_health_veto_max_score float8 DEFAULT 3.0 NULL,
+	enable_outage_veto bool DEFAULT true NULL,
+	outage_veto_threshold float8 DEFAULT 3.0 NULL,
+	outage_veto_max_score float8 DEFAULT 4.0 NULL,
+	enable_capacity_analysis_veto bool DEFAULT true NULL,
+	capacity_analysis_veto_threshold float8 DEFAULT 2.0 NULL,
+	capacity_analysis_veto_max_score float8 DEFAULT 2.0 NULL,
+	pal_recommendation_email_time time DEFAULT '06:00:00'::time without time zone NULL,
+	pal_recommendation_email_recipients varchar(2000) DEFAULT ''::character varying NULL,
+	combination_rules_json text NULL,
+	enable_combinations bool DEFAULT false NULL,
+	seasonal_configuration_json text NULL,
+	enable_seasonality bool DEFAULT false NULL,
+	monthly_max_daily_unpark_json text NULL,
+	CONSTRAINT tc_capacity_configurations_pkey PRIMARY KEY (id)
+);
+CREATE INDEX idx_tc_capacity_configurations_is_active ON dbo.tc_capacity_configurations USING btree (is_active) WHERE (is_active = true);
+
+
+-- dbo.tc_capacity_decisions definition
+
+-- Drop table
+
+-- DROP TABLE dbo.tc_capacity_decisions;
+
+CREATE TABLE dbo.tc_capacity_decisions (
+	id uuid NOT NULL,
+	capacity_amount int4 NOT NULL,
+	decision_date date NOT NULL,
+	risk_level varchar(100) NOT NULL,
+	final_score float8 NOT NULL,
+	seasonal_factor_score float8 NOT NULL,
+	system_health_score float8 NOT NULL,
+	outage_score float8 NOT NULL,
+	opportunity_score float8 NOT NULL,
+	consultation_score float8 NOT NULL,
+	justification_summary text NULL,
+	primary_factors text NULL,
+	persona_insights text NULL,
+	risk_assessment text NULL,
+	safety_assessment text NULL,
+	is_safety_override bool DEFAULT false NOT NULL,
+	email_sent bool DEFAULT false NOT NULL,
+	email_sent_time timestamp NULL,
+	pipeline_state_json jsonb NULL,
+	persona_rankings_json jsonb NULL,
+	created_date timestamp DEFAULT now() NOT NULL,
+	modified_date timestamp DEFAULT now() NOT NULL,
+	is_active bool DEFAULT true NOT NULL,
+	is_deleted bool DEFAULT false NOT NULL,
+	created_by varchar(256) NULL,
+	modified_by varchar(256) NULL,
+	tenant_id uuid NULL,
+	row_version bytea NULL,
+	capacity_analysis_score float8 DEFAULT 0 NOT NULL,
+	history_constraint_score float8 DEFAULT 0 NOT NULL,
+	forecast_constraint_score float8 DEFAULT 0 NOT NULL,
+	month_score float8 DEFAULT 0 NOT NULL,
+	day_of_week_score float8 DEFAULT 0 NOT NULL,
+	time_period_score float8 DEFAULT 0 NOT NULL,
+	day_type_score float8 DEFAULT 0 NOT NULL,
+	outage_duration_score float8 DEFAULT 0 NOT NULL,
+	outage_impact_score float8 DEFAULT 0 NOT NULL,
+	outage_cycle_score float8 DEFAULT 0 NOT NULL,
+	outage_impact_group_score float8 DEFAULT 0 NOT NULL,
+	linepack_score float8 DEFAULT 0 NOT NULL,
+	throughput_score float8 DEFAULT 0 NOT NULL,
+	imbalances_score float8 DEFAULT 0 NOT NULL,
+	equipment_score float8 DEFAULT 0 NOT NULL,
+	pull_cap_score float8 DEFAULT 0 NOT NULL,
+	downstream_movement_score float8 DEFAULT 0 NOT NULL,
+	long_term_impact_score float8 DEFAULT 0 NOT NULL,
+	metadata text DEFAULT ''::text NULL,
+	pre_veto_score numeric(5, 2) NULL,
+	applied_vetoes_json text NULL,
+	safety_issues_json text NULL,
+	validation_errors_json text NULL,
+	processing_time_ms int8 NULL,
+	calculation_method varchar(50) NULL,
+	is_validated bool DEFAULT false NULL,
+	email_recipients text NULL,
+	email_subject varchar(200) NULL,
+	safety_override_reason text NULL,
+	configuration_snapshot_json jsonb NULL,
+	extended_properties_json jsonb NULL,
+	CONSTRAINT tc_capacity_decisions_pkey PRIMARY KEY (id)
+);
+CREATE INDEX idx_tc_capacity_decisions_decision_date ON dbo.tc_capacity_decisions USING btree (decision_date);
+CREATE INDEX idx_tc_capacity_decisions_email_sent ON dbo.tc_capacity_decisions USING btree (email_sent);
+CREATE INDEX idx_tc_capacity_decisions_is_safety_override ON dbo.tc_capacity_decisions USING btree (is_safety_override);
+CREATE INDEX idx_tc_capacity_decisions_not_deleted ON dbo.tc_capacity_decisions USING btree (is_deleted) WHERE (is_deleted = false);
+
+
+-- dbo.tc_compressordata definition
+
+-- Drop table
+
+-- DROP TABLE dbo.tc_compressordata;
+
+CREATE TABLE dbo.tc_compressordata (
+	ap_compressor varchar(50) NOT NULL,
+	"timestamp" timestamp(6) NOT NULL,
+	ap_compressorunit_gtn varchar(50) NOT NULL,
+	bhp float8 NULL,
+	enginestatus varchar(50) NULL
+);
+
+
+-- dbo.tc_meterlocations definition
+
+-- Drop table
+
+-- DROP TABLE dbo.tc_meterlocations;
+
+CREATE TABLE dbo.tc_meterlocations (
+	ap_meter int4 NULL,
+	"location" text NULL
+);
+
+
+-- dbo.tc_persona_configs definition
+
+-- Drop table
+
+-- DROP TABLE dbo.tc_persona_configs;
+
+CREATE TABLE dbo.tc_persona_configs (
+	id uuid NOT NULL,
+	persona_type int4 NOT NULL,
+	description text NULL,
+	context_template text NOT NULL,
+	priority_goals text NOT NULL,
+	default_rankings text NOT NULL,
+	is_active bool DEFAULT true NOT NULL,
+	is_deleted bool DEFAULT false NOT NULL,
+	created_date timestamptz NOT NULL,
+	modified_date timestamptz NOT NULL,
+	created_by varchar(100) NOT NULL,
+	modified_by varchar(100) NOT NULL,
+	tenant_id uuid NOT NULL,
+	display_name varchar(100) NULL,
+	kpi_rules jsonb DEFAULT '[]'::jsonb NULL,
+	CONSTRAINT tc_persona_configs_pkey PRIMARY KEY (id)
+);
+CREATE INDEX idx_tc_persona_configs_type ON dbo.tc_persona_configs USING btree (persona_type);
+
+
+-- dbo.tc_persona_configs_history definition
+
+-- Drop table
+
+-- DROP TABLE dbo.tc_persona_configs_history;
+
+CREATE TABLE dbo.tc_persona_configs_history (
+	id uuid NOT NULL,
+	configs_id uuid NOT NULL,
+	persona_type int4 NOT NULL,
+	description text NULL,
+	context_template text NOT NULL,
+	priority_goals text NOT NULL,
+	default_rankings text NOT NULL,
+	is_active bool DEFAULT true NOT NULL,
+	is_deleted bool DEFAULT false NOT NULL,
+	created_date timestamptz NOT NULL,
+	modified_date timestamptz NOT NULL,
+	created_by varchar(100) NOT NULL,
+	modified_by varchar(100) NOT NULL,
+	tenant_id uuid NOT NULL,
+	display_name varchar(100) NULL,
+	kpi_rules jsonb DEFAULT '[]'::jsonb NULL,
+	change_type text NOT NULL,
+	CONSTRAINT tc_persona_configs_history_pkey PRIMARY KEY (id)
+);
+CREATE INDEX idx_tc_persona_configs_history_type ON dbo.tc_persona_configs_history USING btree (persona_type);
+
+
+-- dbo.tc_pipemeasurements definition
+
+-- Drop table
+
+-- DROP TABLE dbo.tc_pipemeasurements;
+
+CREATE TABLE dbo.tc_pipemeasurements (
+	assetnbr int4 NOT NULL,
+	assetabrv text NOT NULL,
+	flowdate date NOT NULL,
+	cycle_name text NOT NULL,
+	cycleseq int4 NOT NULL,
+	loc_id int4 NOT NULL,
+	loc_name text NOT NULL,
+	loc_sub_type text NOT NULL,
+	loc_qty_ind text NOT NULL,
+	location_purpose_desc text NOT NULL,
+	operational_capacity int4 NOT NULL,
+	scheduled_quantity int4 NOT NULL,
+	posting_date text NOT NULL
+);
+
+
+-- dbo.tc_recommendations definition
+
+-- Drop table
+
+-- DROP TABLE dbo.tc_recommendations;
+
+CREATE TABLE dbo.tc_recommendations (
+	id uuid NOT NULL,
+	analysis_datetime timestamp NOT NULL,
+	recommendation_type varchar(50) NOT NULL,
+	serialized_data jsonb NOT NULL,
+	created_date timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	created_by varchar(100) DEFAULT 'System'::character varying NOT NULL,
+	tenant_id uuid DEFAULT '11111111-1111-1111-1111-111111111111'::uuid NOT NULL,
+	CONSTRAINT tc_recommendations_pkey PRIMARY KEY (id)
+);
+CREATE INDEX idx_tc_recommendations_datetime ON dbo.tc_recommendations USING btree (analysis_datetime);
+CREATE UNIQUE INDEX idx_tc_recommendations_unique ON dbo.tc_recommendations USING btree (analysis_datetime, recommendation_type);
+
+
+-- dbo.tchistoricaloutages definition
+
+-- Drop table
+
+-- DROP TABLE dbo.tchistoricaloutages;
+
+CREATE TABLE dbo.tchistoricaloutages (
+	sap_floc text NULL,
+	segment_names text NULL,
+	"location" text NULL,
+	pipeline_aor_id int4 NULL,
+	object_type text NULL,
+	impact text NULL,
+	field_op_area text NULL,
+	id int8 NULL,
+	sap_company_code int4 NULL,
+	floc text NULL,
+	start_date timestamp NULL,
+	end_date timestamp NULL,
+	notification_date timestamp NULL,
+	coding_code text NULL,
+	description text NULL,
+	createdts timestamp NULL,
+	user_status text NULL,
+	notification_num int8 NULL,
+	import_time timestamp NULL,
+	longdesc text NULL,
+	flocid text NULL
+);
+CREATE INDEX idx_tchistoricaloutages_dates ON dbo.tchistoricaloutages USING btree (start_date, end_date);
+CREATE INDEX idx_tchistoricaloutages_id ON dbo.tchistoricaloutages USING btree (id);
+CREATE INDEX idx_tchistoricaloutages_pipeline ON dbo.tchistoricaloutages USING btree (pipeline_aor_id);
+CREATE INDEX idx_tchistoricaloutages_sap_floc ON dbo.tchistoricaloutages USING btree (sap_floc);
+CREATE INDEX idx_tchistoricaloutages_status ON dbo.tchistoricaloutages USING btree (user_status);
+
+
+-- dbo.uc3_historical_recommendations definition
+
+-- Drop table
+
+-- DROP TABLE dbo.uc3_historical_recommendations;
+
+CREATE TABLE dbo.uc3_historical_recommendations (
+	id uuid DEFAULT gen_random_uuid() NOT NULL,
+	analysis_date date NOT NULL,
+	asset_abbreviation varchar(10) NOT NULL,
+	recommended_option varchar(20) NOT NULL,
+	estimated_value numeric(12, 2) DEFAULT 0 NOT NULL,
+	confidence_level numeric(3, 2) DEFAULT 0 NOT NULL,
+	rationale text NULL,
+	operational_data_json jsonb NULL,
+	market_data_json jsonb NULL,
+	transport_option_json jsonb NULL,
+	pal_option_json jsonb NULL,
+	oba_option_json jsonb NULL,
+	processing_time_ms int4 NULL,
+	email_sent bool DEFAULT false NULL,
+	email_recipients text NULL,
+	error_message text NULL,
+	created_by varchar(100) DEFAULT 'SYSTEM'::character varying NOT NULL,
+	created_date timestamp DEFAULT now() NULL,
+	analysis_timestamp timestamp DEFAULT now() NOT NULL,
+	is_combination bool DEFAULT false NULL,
+	combination_details text NULL,
+	oba_customer_details text NULL,
+	CONSTRAINT uc3_historical_recommendations_date_asset_unique UNIQUE (analysis_date, asset_abbreviation),
+	CONSTRAINT uc3_historical_recommendations_pkey PRIMARY KEY (id)
+);
+CREATE INDEX idx_uc3_historical_analysis_date ON dbo.uc3_historical_recommendations USING btree (analysis_date);
+CREATE INDEX idx_uc3_historical_asset ON dbo.uc3_historical_recommendations USING btree (asset_abbreviation);
+CREATE INDEX idx_uc3_historical_email_sent ON dbo.uc3_historical_recommendations USING btree (email_sent);
+CREATE INDEX idx_uc3_historical_timestamp ON dbo.uc3_historical_recommendations USING btree (analysis_timestamp);
+
+
+-- dbo.uc3_spatial_restrictions definition
+
+-- Drop table
+
+-- DROP TABLE dbo.uc3_spatial_restrictions;
+
+CREATE TABLE dbo.uc3_spatial_restrictions (
+	id uuid DEFAULT gen_random_uuid() NOT NULL,
+	restriction_date date NOT NULL,
+	outage_location varchar(200) NOT NULL,
+	restriction_type varchar(50) NOT NULL,
+	affected_operations text NULL,
+	auto_detected bool DEFAULT true NULL,
+	expires_date timestamp NULL,
+	created_date timestamp DEFAULT CURRENT_TIMESTAMP NULL,
+	CONSTRAINT uc3_spatial_restrictions_pkey PRIMARY KEY (id)
+);
+CREATE INDEX ix_spatial_date_type ON dbo.uc3_spatial_restrictions USING btree (restriction_date, restriction_type, expires_date);
+
+
+-- dbo.uc4_scenario_analyses definition
+
+-- Drop table
+
+-- DROP TABLE dbo.uc4_scenario_analyses;
+
+CREATE TABLE dbo.uc4_scenario_analyses (
+	id uuid DEFAULT gen_random_uuid() NOT NULL,
+	analysis_date date NOT NULL,
+	pipeline_segment varchar(100) NOT NULL,
+	daily_capacity_mmcfd numeric(10, 2) NOT NULL,
+	conversion_duration_months int4 NOT NULL,
+	available_for_lt_mmcfd numeric(10, 2) NOT NULL,
+	availability_percentage numeric(5, 2) NULL,
+	capacity_rating varchar(50) NULL,
+	recommended_package_size numeric(10, 2) NULL,
+	daily_rate numeric(8, 4) NOT NULL,
+	lt_rate numeric(8, 4) NOT NULL,
+	rate_premium_percent numeric(5, 2) NOT NULL,
+	basis_differential numeric(8, 4) NULL,
+	basis_historical_average numeric(8, 4) NULL,
+	forward_curve_shape varchar(50) NULL,
+	market_timing varchar(50) NULL,
+	linepack_mmcf numeric(10, 2) NULL,
+	linepack_percentage numeric(5, 2) NULL,
+	oba_committed_mmcfd numeric(10, 2) NULL,
+	pal_reserved_mmcfd numeric(10, 2) NULL,
+	nns_rights_mmcfd numeric(10, 2) NULL,
+	total_reserved_mmcfd numeric(10, 2) NULL,
+	constraint_status varchar(50) NULL,
+	backhaul_required_mmcfd numeric(10, 2) NULL,
+	backhaul_available_mmcfd numeric(10, 2) NULL,
+	backhaul_rate numeric(8, 4) NULL,
+	backhaul_cost_k numeric(10, 2) NULL,
+	backhaul_feasibility varchar(50) NULL,
+	backhaul_strategy text NULL,
+	daily_monthly_revenue_k numeric(12, 2) NULL,
+	daily_total_revenue_k numeric(12, 2) NULL,
+	daily_npv_k numeric(12, 2) NULL,
+	lt_monthly_revenue_k numeric(12, 2) NULL,
+	lt_total_revenue_k numeric(12, 2) NULL,
+	lt_npv_before_backhaul_k numeric(12, 2) NULL,
+	lt_net_npv_k numeric(12, 2) NULL,
+	revenue_difference_k numeric(12, 2) NULL,
+	npv_difference_k numeric(12, 2) NULL,
+	percentage_difference numeric(5, 2) NULL,
+	base_case_npv_k numeric(12, 2) NULL,
+	best_case_npv_k numeric(12, 2) NULL,
+	worst_case_npv_k numeric(12, 2) NULL,
+	risk_assessment varchar(50) NULL,
+	recommendation varchar(20) NOT NULL,
+	rationale text NOT NULL,
+	confidence_level numeric(5, 2) NULL,
+	key_risks _text NULL,
+	alternative_options _text NULL,
+	next_steps _text NULL,
+	email_sent bool DEFAULT false NULL,
+	email_sent_timestamp timestamp NULL,
+	email_recipients text NULL,
+	analysis_data_json jsonb NULL,
+	processing_time_ms int4 NULL,
+	error_message text NULL,
+	created_by varchar(100) DEFAULT 'STLTConversionService'::character varying NOT NULL,
+	created_date timestamp DEFAULT now() NULL,
+	modified_by varchar(100) NULL,
+	modified_date timestamp NULL,
+	analysis_timestamp timestamp NOT NULL,
+	CONSTRAINT uc4_scenario_analyses_capacity_check CHECK (((daily_capacity_mmcfd > (0)::numeric) AND (available_for_lt_mmcfd >= (0)::numeric))),
+	CONSTRAINT uc4_scenario_analyses_date_segment_unique UNIQUE (analysis_date, pipeline_segment),
+	CONSTRAINT uc4_scenario_analyses_duration_check CHECK (((conversion_duration_months >= 1) AND (conversion_duration_months <= 24))),
+	CONSTRAINT uc4_scenario_analyses_pkey PRIMARY KEY (id),
+	CONSTRAINT uc4_scenario_analyses_rates_check CHECK (((daily_rate > (0)::numeric) AND (lt_rate > (0)::numeric))),
+	CONSTRAINT uc4_scenario_analyses_recommendation_check CHECK (((recommendation)::text = ANY ((ARRAY['PROCEED'::character varying, 'DO_NOT_PROCEED'::character varying, 'MODIFY'::character varying])::text[])))
+);
+CREATE INDEX idx_uc4_scenario_analysis_date ON dbo.uc4_scenario_analyses USING btree (analysis_date);
+CREATE INDEX idx_uc4_scenario_pipeline_segment ON dbo.uc4_scenario_analyses USING btree (pipeline_segment);
+CREATE INDEX idx_uc4_scenario_recommendation ON dbo.uc4_scenario_analyses USING btree (recommendation);
+CREATE INDEX idx_uc4_scenario_segment_date ON dbo.uc4_scenario_analyses USING btree (pipeline_segment, analysis_date DESC);
+CREATE INDEX idx_uc4_scenario_timestamp ON dbo.uc4_scenario_analyses USING btree (analysis_timestamp);
+
+
+-- dbo.tc_persona_memories definition
+
+-- Drop table
+
+-- DROP TABLE dbo.tc_persona_memories;
+
+CREATE TABLE dbo.tc_persona_memories (
+	id uuid DEFAULT gen_random_uuid() NOT NULL,
+	persona_config_id uuid NOT NULL,
+	persona_type int4 NOT NULL,
+	memory_date timestamp NOT NULL,
+	"content" text NOT NULL,
+	summary varchar(500) NOT NULL,
+	embedding _float8 NOT NULL,
+	"type" int4 NOT NULL,
+	importance float4 DEFAULT 0.5 NOT NULL,
+	capacity_decision_id uuid NULL,
+	metadata jsonb NULL,
+	is_active bool DEFAULT true NOT NULL,
+	is_deleted bool DEFAULT false NOT NULL,
+	created_date timestamp DEFAULT now() NOT NULL,
+	modified_date timestamp DEFAULT now() NOT NULL,
+	created_by varchar(256) NULL,
+	modified_by varchar(256) NULL,
+	tenant_id uuid NULL,
+	row_version bytea NULL,
+	CONSTRAINT tc_persona_memories_pkey PRIMARY KEY (id),
+	CONSTRAINT fk_tc_persona_memories_capacity_decision FOREIGN KEY (capacity_decision_id) REFERENCES dbo.tc_capacity_decisions(id) ON DELETE SET NULL,
+	CONSTRAINT fk_tc_persona_memories_persona_config FOREIGN KEY (persona_config_id) REFERENCES dbo.tc_persona_configs(id) ON DELETE CASCADE
+);
+CREATE INDEX idx_tc_persona_memories_is_deleted ON dbo.tc_persona_memories USING btree (is_deleted);
+CREATE INDEX idx_tc_persona_memories_memory_date ON dbo.tc_persona_memories USING btree (memory_date);
+CREATE INDEX idx_tc_persona_memories_persona_type ON dbo.tc_persona_memories USING btree (persona_type);
+CREATE INDEX idx_tc_persona_memories_type ON dbo.tc_persona_memories USING btree (type);
+
+
+-- dbo.uc4_bid_week_scenarios source
+
+CREATE OR REPLACE VIEW dbo.uc4_bid_week_scenarios
+AS SELECT date_trunc('month'::text, analysis_date::timestamp with time zone) AS bid_month,
+    pipeline_segment,
+    analysis_date,
+    EXTRACT(day FROM analysis_date) AS analysis_day,
+    daily_capacity_mmcfd,
+    available_for_lt_mmcfd,
+    conversion_duration_months,
+    rate_premium_percent,
+    npv_difference_k,
+    recommendation,
+        CASE
+            WHEN EXTRACT(day FROM analysis_date) >= 16::numeric AND EXTRACT(day FROM analysis_date) <= 22::numeric THEN 'BID_WEEK'::text
+            WHEN EXTRACT(day FROM analysis_date) < 16::numeric THEN 'PRE_BID'::text
+            ELSE 'POST_BID'::text
+        END AS bid_week_phase,
+    email_sent,
+    analysis_timestamp
+   FROM dbo.uc4_scenario_analyses
+  WHERE analysis_date >= (CURRENT_DATE - '1 year'::interval)
+  ORDER BY analysis_date DESC, pipeline_segment;
+
+
+-- dbo.uc4_monthly_summary source
+
+CREATE OR REPLACE VIEW dbo.uc4_monthly_summary
+AS SELECT date_trunc('month'::text, analysis_date::timestamp with time zone) AS analysis_month,
+    pipeline_segment,
+    count(*) AS total_analyses,
+    count(
+        CASE
+            WHEN recommendation::text = 'PROCEED'::text THEN 1
+            ELSE NULL::integer
+        END) AS proceed_count,
+    count(
+        CASE
+            WHEN recommendation::text = 'DO_NOT_PROCEED'::text THEN 1
+            ELSE NULL::integer
+        END) AS do_not_proceed_count,
+    count(
+        CASE
+            WHEN recommendation::text = 'MODIFY'::text THEN 1
+            ELSE NULL::integer
+        END) AS modify_count,
+    round(avg(
+        CASE
+            WHEN npv_difference_k > 0::numeric THEN npv_difference_k
+            ELSE 0::numeric
+        END), 2) AS avg_positive_npv_k
+   FROM dbo.uc4_scenario_analyses
+  WHERE analysis_date >= (CURRENT_DATE - '2 years'::interval)
+  GROUP BY (date_trunc('month'::text, analysis_date::timestamp with time zone)), pipeline_segment
+  ORDER BY (date_trunc('month'::text, analysis_date::timestamp with time zone)) DESC, pipeline_segment;
+
+
+-- dbo.vw_compressorplanwithdatetime source
+
+CREATE OR REPLACE VIEW dbo.vw_compressorplanwithdatetime
+AS SELECT "timestamp"::date AS date,
+    EXTRACT(hour FROM "timestamp")::integer AS military_hour,
+    ap_compressor,
+    atmospherictemperature,
+    dischargepressure,
+    dischargetemperature,
+    suctionpressure,
+    suctiontemperature,
+    totalfuel,
+    totalhorsepower,
+    id
+   FROM dbo.tc_compressorplan;
+
+
+-- dbo.vw_dailymeterreadingswithdatetime source
+
+CREATE OR REPLACE VIEW dbo.vw_dailymeterreadingswithdatetime
+AS SELECT ((d."timestamp"::date + '1 day'::interval) AT TIME ZONE 'UTC'::text) AS date,
+    EXTRACT(hour FROM d."timestamp")::integer AS military_hour,
+    d."timestamp",
+    d.ap_meter,
+    d.btu,
+    d.flow_rate_mmcfd,
+    d.pressure,
+    d.id,
+    d.current_daytotal_mmcf,
+    d.minop,
+    ml.location
+   FROM dbo.tc_dailymeterreadings d
+     LEFT JOIN dbo.tc_meterlocations ml ON d.ap_meter = ml.ap_meter;
+
+
+-- dbo.vw_dynamicunitstatusbytime source
+
+CREATE OR REPLACE VIEW dbo.vw_dynamicunitstatusbytime
+AS WITH latest_data AS (
+         SELECT tc_compressordata.ap_compressor,
+            tc_compressordata."timestamp",
+            tc_compressordata.bhp,
+            tc_compressordata.enginestatus,
+            row_number() OVER (PARTITION BY tc_compressordata.ap_compressor, (date_trunc('hour'::text, tc_compressordata."timestamp")) ORDER BY tc_compressordata."timestamp" DESC) AS rn
+           FROM dbo.tc_compressordata
+        ), transformed AS (
+         SELECT latest_data."timestamp",
+            latest_data.bhp,
+            latest_data.enginestatus,
+            lower(regexp_replace(latest_data.ap_compressor::text, 'Unit0*'::text, 'unit'::text)) AS unit_name
+           FROM latest_data
+          WHERE latest_data.rn = 1
+        )
+ SELECT date_trunc('day'::text, "timestamp") AS date,
+    EXTRACT(hour FROM "timestamp")::integer AS military_hour,
+    jsonb_object_agg(unit_name || '_bhp'::text, bhp) AS bhp_by_unit,
+    jsonb_object_agg(unit_name || '_status'::text, enginestatus) AS status_by_unit
+   FROM transformed
+  GROUP BY (date_trunc('day'::text, "timestamp")), (EXTRACT(hour FROM "timestamp")::integer);
+
+
+-- dbo.vw_pivotedmeasurements source
+
+CREATE OR REPLACE VIEW dbo.vw_pivotedmeasurements
+AS SELECT flowdate,
+    max(
+        CASE
+            WHEN cycleseq = 1 THEN operational_capacity
+            ELSE NULL::integer
+        END) AS timely_operational_capacity,
+    max(
+        CASE
+            WHEN cycleseq = 1 THEN scheduled_quantity
+            ELSE NULL::integer
+        END) AS timely_scheduled_capacity,
+    max(
+        CASE
+            WHEN cycleseq = 2 THEN operational_capacity
+            ELSE NULL::integer
+        END) AS evening_operational_capacity,
+    max(
+        CASE
+            WHEN cycleseq = 2 THEN scheduled_quantity
+            ELSE NULL::integer
+        END) AS evening_scheduled_capacity,
+    max(
+        CASE
+            WHEN cycleseq = 4 THEN operational_capacity
+            ELSE NULL::integer
+        END) AS intraday1_operational_capacity,
+    max(
+        CASE
+            WHEN cycleseq = 4 THEN scheduled_quantity
+            ELSE NULL::integer
+        END) AS intraday1_scheduled_capacity,
+    max(
+        CASE
+            WHEN cycleseq = 5 THEN operational_capacity
+            ELSE NULL::integer
+        END) AS intraday2_operational_capacity,
+    max(
+        CASE
+            WHEN cycleseq = 5 THEN scheduled_quantity
+            ELSE NULL::integer
+        END) AS intraday2_scheduled_capacity,
+    max(
+        CASE
+            WHEN cycleseq = 6 THEN operational_capacity
+            ELSE NULL::integer
+        END) AS intraday3_operational_capacity,
+    max(
+        CASE
+            WHEN cycleseq = 6 THEN scheduled_quantity
+            ELSE NULL::integer
+        END) AS intraday3_scheduled_capacity
+   FROM dbo.tc_pipemeasurements
+  GROUP BY flowdate;
+
+
+-- dbo.vw_unitstatusbytime source
+
+CREATE OR REPLACE VIEW dbo.vw_unitstatusbytime
+AS SELECT (("timestamp"::date + '1 day'::interval) AT TIME ZONE 'UTC'::text) AS date,
+    EXTRACT(hour FROM "timestamp")::integer AS military_hour,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Rosalia'::text AND ap_compressorunit_gtn::text = 'Unit3'::text THEN bhp
+            ELSE NULL::double precision
+        END) AS rosalia_unit3_bhp,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Rosalia'::text AND ap_compressorunit_gtn::text = 'Unit3'::text THEN enginestatus
+            ELSE NULL::character varying
+        END::text) AS rosalia_unit3_status,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Chemult'::text AND ap_compressorunit_gtn::text = 'Unit3'::text THEN bhp
+            ELSE NULL::double precision
+        END) AS chemult_unit3_bhp,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Chemult'::text AND ap_compressorunit_gtn::text = 'Unit3'::text THEN enginestatus
+            ELSE NULL::character varying
+        END::text) AS chemult_unit3_status,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Ione'::text AND ap_compressorunit_gtn::text = 'Unit2'::text THEN bhp
+            ELSE NULL::double precision
+        END) AS ione_unit2_bhp,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Ione'::text AND ap_compressorunit_gtn::text = 'Unit2'::text THEN enginestatus
+            ELSE NULL::character varying
+        END::text) AS ione_unit2_status,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Sandpoint'::text AND ap_compressorunit_gtn::text = 'Unit1'::text THEN bhp
+            ELSE NULL::double precision
+        END) AS sandpoint_unit1_bhp,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Sandpoint'::text AND ap_compressorunit_gtn::text = 'Unit1'::text THEN enginestatus
+            ELSE NULL::character varying
+        END::text) AS sandpoint_unit1_status,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Bend'::text AND ap_compressorunit_gtn::text = 'Unit1'::text THEN bhp
+            ELSE NULL::double precision
+        END) AS bend_unit1_bhp,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Bend'::text AND ap_compressorunit_gtn::text = 'Unit1'::text THEN enginestatus
+            ELSE NULL::character varying
+        END::text) AS bend_unit1_status,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Athol'::text AND ap_compressorunit_gtn::text = 'Unit3'::text THEN bhp
+            ELSE NULL::double precision
+        END) AS athol_unit3_bhp,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Athol'::text AND ap_compressorunit_gtn::text = 'Unit3'::text THEN enginestatus
+            ELSE NULL::character varying
+        END::text) AS athol_unit3_status,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Rosalia'::text AND ap_compressorunit_gtn::text = 'Unit1'::text THEN bhp
+            ELSE NULL::double precision
+        END) AS rosalia_unit1_bhp,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Rosalia'::text AND ap_compressorunit_gtn::text = 'Unit1'::text THEN enginestatus
+            ELSE NULL::character varying
+        END::text) AS rosalia_unit1_status,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Bonanza'::text AND ap_compressorunit_gtn::text = 'Unit2'::text THEN bhp
+            ELSE NULL::double precision
+        END) AS bonanza_unit2_bhp,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Bonanza'::text AND ap_compressorunit_gtn::text = 'Unit2'::text THEN enginestatus
+            ELSE NULL::character varying
+        END::text) AS bonanza_unit2_status,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Madras'::text AND ap_compressorunit_gtn::text = 'Unit2'::text THEN bhp
+            ELSE NULL::double precision
+        END) AS madras_unit2_bhp,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Madras'::text AND ap_compressorunit_gtn::text = 'Unit2'::text THEN enginestatus
+            ELSE NULL::character varying
+        END::text) AS madras_unit2_status,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Bonanza'::text AND ap_compressorunit_gtn::text = 'Unit1'::text THEN bhp
+            ELSE NULL::double precision
+        END) AS bonanza_unit1_bhp,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Bonanza'::text AND ap_compressorunit_gtn::text = 'Unit1'::text THEN enginestatus
+            ELSE NULL::character varying
+        END::text) AS bonanza_unit1_status,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Bend'::text AND ap_compressorunit_gtn::text = 'Unit2'::text THEN bhp
+            ELSE NULL::double precision
+        END) AS bend_unit2_bhp,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Bend'::text AND ap_compressorunit_gtn::text = 'Unit2'::text THEN enginestatus
+            ELSE NULL::character varying
+        END::text) AS bend_unit2_status,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Eastport'::text AND ap_compressorunit_gtn::text = 'Unit1'::text THEN bhp
+            ELSE NULL::double precision
+        END) AS eastport_unit1_bhp,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Eastport'::text AND ap_compressorunit_gtn::text = 'Unit1'::text THEN enginestatus
+            ELSE NULL::character varying
+        END::text) AS eastport_unit1_status,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Kent'::text AND ap_compressorunit_gtn::text = 'Unit3'::text THEN bhp
+            ELSE NULL::double precision
+        END) AS kent_unit3_bhp,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Kent'::text AND ap_compressorunit_gtn::text = 'Unit3'::text THEN enginestatus
+            ELSE NULL::character varying
+        END::text) AS kent_unit3_status,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Chemult'::text AND ap_compressorunit_gtn::text = 'Unit4'::text THEN bhp
+            ELSE NULL::double precision
+        END) AS chemult_unit4_bhp,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Chemult'::text AND ap_compressorunit_gtn::text = 'Unit4'::text THEN enginestatus
+            ELSE NULL::character varying
+        END::text) AS chemult_unit4_status,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Sandpoint'::text AND ap_compressorunit_gtn::text = 'Unit3'::text THEN bhp
+            ELSE NULL::double precision
+        END) AS sandpoint_unit3_bhp,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Sandpoint'::text AND ap_compressorunit_gtn::text = 'Unit3'::text THEN enginestatus
+            ELSE NULL::character varying
+        END::text) AS sandpoint_unit3_status,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Wallula'::text AND ap_compressorunit_gtn::text = 'Unit2'::text THEN bhp
+            ELSE NULL::double precision
+        END) AS wallula_unit2_bhp,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Wallula'::text AND ap_compressorunit_gtn::text = 'Unit2'::text THEN enginestatus
+            ELSE NULL::character varying
+        END::text) AS wallula_unit2_status,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Athol'::text AND ap_compressorunit_gtn::text = 'Unit4'::text THEN bhp
+            ELSE NULL::double precision
+        END) AS athol_unit4_bhp,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Athol'::text AND ap_compressorunit_gtn::text = 'Unit4'::text THEN enginestatus
+            ELSE NULL::character varying
+        END::text) AS athol_unit4_status,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Ione'::text AND ap_compressorunit_gtn::text = 'Unit1'::text THEN bhp
+            ELSE NULL::double precision
+        END) AS ione_unit1_bhp,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Ione'::text AND ap_compressorunit_gtn::text = 'Unit1'::text THEN enginestatus
+            ELSE NULL::character varying
+        END::text) AS ione_unit1_status,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Madras'::text AND ap_compressorunit_gtn::text = 'Unit1'::text THEN bhp
+            ELSE NULL::double precision
+        END) AS madras_unit1_bhp,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Madras'::text AND ap_compressorunit_gtn::text = 'Unit1'::text THEN enginestatus
+            ELSE NULL::character varying
+        END::text) AS madras_unit1_status,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Kent'::text AND ap_compressorunit_gtn::text = 'Unit1'::text THEN bhp
+            ELSE NULL::double precision
+        END) AS kent_unit1_bhp,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Kent'::text AND ap_compressorunit_gtn::text = 'Unit1'::text THEN enginestatus
+            ELSE NULL::character varying
+        END::text) AS kent_unit1_status,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Rosalia'::text AND ap_compressorunit_gtn::text = 'Unit2'::text THEN bhp
+            ELSE NULL::double precision
+        END) AS rosalia_unit2_bhp,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Rosalia'::text AND ap_compressorunit_gtn::text = 'Unit2'::text THEN enginestatus
+            ELSE NULL::character varying
+        END::text) AS rosalia_unit2_status,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Starbuck'::text AND ap_compressorunit_gtn::text = 'Unit3'::text THEN bhp
+            ELSE NULL::double precision
+        END) AS starbuck_unit3_bhp,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Starbuck'::text AND ap_compressorunit_gtn::text = 'Unit3'::text THEN enginestatus
+            ELSE NULL::character varying
+        END::text) AS starbuck_unit3_status,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Wallula'::text AND ap_compressorunit_gtn::text = 'Unit3'::text THEN bhp
+            ELSE NULL::double precision
+        END) AS wallula_unit3_bhp,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Wallula'::text AND ap_compressorunit_gtn::text = 'Unit3'::text THEN enginestatus
+            ELSE NULL::character varying
+        END::text) AS wallula_unit3_status,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Sandpoint'::text AND ap_compressorunit_gtn::text = 'Unit2'::text THEN bhp
+            ELSE NULL::double precision
+        END) AS sandpoint_unit2_bhp,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Sandpoint'::text AND ap_compressorunit_gtn::text = 'Unit2'::text THEN enginestatus
+            ELSE NULL::character varying
+        END::text) AS sandpoint_unit2_status,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Eastport'::text AND ap_compressorunit_gtn::text = 'Unit2'::text THEN bhp
+            ELSE NULL::double precision
+        END) AS eastport_unit2_bhp,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Eastport'::text AND ap_compressorunit_gtn::text = 'Unit2'::text THEN enginestatus
+            ELSE NULL::character varying
+        END::text) AS eastport_unit2_status,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Starbuck'::text AND ap_compressorunit_gtn::text = 'Unit5'::text THEN bhp
+            ELSE NULL::double precision
+        END) AS starbuck_unit5_bhp,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Starbuck'::text AND ap_compressorunit_gtn::text = 'Unit5'::text THEN enginestatus
+            ELSE NULL::character varying
+        END::text) AS starbuck_unit5_status,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Bend'::text AND ap_compressorunit_gtn::text = 'Unit3'::text THEN bhp
+            ELSE NULL::double precision
+        END) AS bend_unit3_bhp,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Bend'::text AND ap_compressorunit_gtn::text = 'Unit3'::text THEN enginestatus
+            ELSE NULL::character varying
+        END::text) AS bend_unit3_status,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Stanfield'::text AND ap_compressorunit_gtn::text = 'Unit1'::text THEN bhp
+            ELSE NULL::double precision
+        END) AS stanfield_unit1_bhp,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Stanfield'::text AND ap_compressorunit_gtn::text = 'Unit1'::text THEN enginestatus
+            ELSE NULL::character varying
+        END::text) AS stanfield_unit1_status,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Wallula'::text AND ap_compressorunit_gtn::text = 'Unit1'::text THEN bhp
+            ELSE NULL::double precision
+        END) AS wallula_unit1_bhp,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Wallula'::text AND ap_compressorunit_gtn::text = 'Unit1'::text THEN enginestatus
+            ELSE NULL::character varying
+        END::text) AS wallula_unit1_status,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Kent'::text AND ap_compressorunit_gtn::text = 'Unit4'::text THEN bhp
+            ELSE NULL::double precision
+        END) AS kent_unit4_bhp,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Kent'::text AND ap_compressorunit_gtn::text = 'Unit4'::text THEN enginestatus
+            ELSE NULL::character varying
+        END::text) AS kent_unit4_status,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Starbuck'::text AND ap_compressorunit_gtn::text = 'Unit4'::text THEN bhp
+            ELSE NULL::double precision
+        END) AS starbuck_unit4_bhp,
+    max(
+        CASE
+            WHEN ap_compressor::text = 'Starbuck'::text AND ap_compressorunit_gtn::text = 'Unit4'::text THEN enginestatus
+            ELSE NULL::character varying
+        END::text) AS starbuck_unit4_status
+   FROM dbo.tc_compressordata
+  GROUP BY ((("timestamp"::date + '1 day'::interval) AT TIME ZONE 'UTC'::text)), (EXTRACT(hour FROM "timestamp")::integer);

@@ -1,0 +1,207 @@
+@inject NavigationManager Navigation
+@implements IDisposable
+
+<nav aria-label="breadcrumb" class="breadcrumb-nav">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="/" @onclick="NavigateHome" @onclick:preventDefault>
+      <span class="breadcrumb-icon">??</span> Home
+  </a>
+      </li>
+        
+@foreach (var (segment, index) in Segments.Select((s, i) => (s, i)))
+        {
+       @if (index < Segments.Count - 1)
+      {
+       <li class="breadcrumb-item">
+       <a href="@segment.Url" @onclick="@(() => NavigateTo(segment.Url))" @onclick:preventDefault>
+   <span class="breadcrumb-icon">@segment.Icon</span> @segment.Title
+             </a>
+   </li>
+            }
+         else
+    {
+             <li class="breadcrumb-item active" aria-current="page">
+                 <span class="breadcrumb-icon">@segment.Icon</span> @segment.Title
+          </li>
+            }
+        }
+
+        @if (!string.IsNullOrEmpty(BackUrl))
+        {
+            <li class="breadcrumb-back">
+ <a href="@BackUrl" @onclick="@(() => NavigateTo(BackUrl))" @onclick:preventDefault class="btn btn-sm btn-outline-secondary">
+    ? Back
+       </a>
+     </li>
+        }
+    </ol>
+</nav>
+
+<style>
+    .breadcrumb-nav {
+        background: white;
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid #e9ecef;
+     margin-bottom: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .breadcrumb {
+     margin-bottom: 0;
+        background: transparent;
+        padding: 0;
+        display: flex;
+align-items: center;
+    }
+
+    .breadcrumb-item {
+        display: flex;
+ align-items: center;
+    }
+
+    .breadcrumb-item a {
+        color: #6c757d;
+     text-decoration: none;
+        transition: color 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+      cursor: pointer;
+    }
+
+    .breadcrumb-item a:hover {
+        color: #0056b3;
+    }
+
+ .breadcrumb-item.active {
+        color: #495057;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+  gap: 0.25rem;
+    }
+
+    .breadcrumb-icon {
+        font-size: 0.9rem;
+    }
+
+    .breadcrumb-back {
+     margin-left: auto;
+    }
+
+    @@media (max-width: 768px) {
+        .breadcrumb {
+            flex-wrap: wrap;
+   }
+        
+   .breadcrumb-back {
+     margin-left: 0;
+      margin-top: 0.5rem;
+    flex-basis: 100%;
+        }
+    }
+</style>
+
+@code {
+    [Parameter] public string? CurrentPage { get; set; }
+    [Parameter] public string? BackUrl { get; set; }
+
+    private List<BreadcrumbSegment> Segments { get; set; } = new();
+
+    protected override void OnInitialized()
+    {
+        BuildBreadcrumbs();
+      Navigation.LocationChanged += OnLocationChanged;
+    }
+
+    private void OnLocationChanged(object? sender, LocationChangedEventArgs e)
+    {
+        BuildBreadcrumbs();
+ StateHasChanged();
+    }
+
+    private void BuildBreadcrumbs()
+    {
+        Segments.Clear();
+
+        var uri = new Uri(Navigation.Uri);
+        var path = uri.LocalPath.Trim('/');
+
+        if (string.IsNullOrEmpty(path))
+        {
+            return; // Home page, no breadcrumbs needed
+    }
+
+ var parts = path.Split('/', StringSplitOptions.RemoveEmptyEntries);
+        var currentPath = "";
+
+     foreach (var part in parts)
+        {
+            currentPath += "/" + part;
+       var segment = GetSegmentInfo(part, currentPath);
+            Segments.Add(segment);
+        }
+    }
+
+    private BreadcrumbSegment GetSegmentInfo(string segment, string url)
+ {
+        // Map route segments to friendly names and icons
+  return segment.ToLower() switch
+        {
+            "offline-editor" => new("Schema Editor", "??", url),
+   "data-editor" => new("Data Editor", "??", url),
+   "sql-query" => new("SQL Query", "??", url),
+    "live-data" => new("Live Data", "??", url),
+   "external-explorer" => new("External DB", "??", url),
+            "migration-manager" => new("Migration", "??", url),
+     "startup" => new("Startup Wizard", "??", url),
+       "ddl-cleaner" => new("DDL Cleaner", "??", url),
+ "csv-validator" => new("CSV Validator", "?", url),
+            "workspace-manager" => new("Workspace", "??", url),
+     "tools" => new("Tools", "??", url),
+         "swagger" => new("API Docs", "??", url),
+     "documentation" => new("Documentation", "??", url),
+    "about" => new("About", "??", url),
+            "table" => new("Table", "??", url),
+    "tables" => new("All Tables", "??", url),
+       _ => new(StringHelper.ToTitleCase(segment), "??", url)
+        };
+    }
+
+    private void NavigateHome()
+ {
+        Navigation.NavigateTo("/");
+    }
+
+    private void NavigateTo(string url)
+    {
+ Navigation.NavigateTo(url);
+    }
+
+    public void Dispose()
+    {
+        Navigation.LocationChanged -= OnLocationChanged;
+    }
+
+    private record BreadcrumbSegment(string Title, string Icon, string Url);
+
+    public static class StringHelper
+    {
+        public static string ToTitleCase(string str)
+        {
+            if (string.IsNullOrEmpty(str)) return str;
+
+      var words = str.Split(new[] { '-', '_', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+    for (int i = 0; i < words.Length; i++)
+   {
+     if (words[i].Length > 0)
+       {
+        words[i] = char.ToUpper(words[i][0]) + 
+           (words[i].Length > 1 ? words[i].Substring(1).ToLower() : "");
+    }
+       }
+  return string.Join(" ", words);
+   }
+    }
+}

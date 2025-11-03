@@ -1,0 +1,321 @@
+@page "/ddl-merger"
+@inject IJSRuntime JSRuntime
+@inject IDdlMergerService MergerService
+
+<PageTitle>DDL Merger - Blazor DataDev</PageTitle>
+
+<Breadcrumb CurrentPage="DDL Merger" BackUrl="/" />
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="page-header">
+       <h1>?? DDL Merger</h1>
+    <p class="lead">Combine DDL files from multiple databases into one unified schema</p>
+  </div>
+ </div>
+    </div>
+
+    <div class="row">
+     <div class="col-lg-8">
+  <div class="card shadow-sm mb-4">
+    <div class="card-header bg-primary text-white">
+   <h5 class="mb-0">?? Upload DDL Files</h5>
+   </div>
+         <div class="card-body">
+       <p class="text-muted">
+   <strong>Workflow:</strong> Fetch DDLs from 3 external DBs + Plato ? Combine ? Save to Loadables/
+    </p>
+
+            <InputFile OnChange="HandleFileUpload" multiple class="form-control mb-3" accept=".sql" />
+
+          @if (uploadedFiles.Any())
+    {
+      <div class="alert alert-info">
+     <strong>Uploaded Files (@uploadedFiles.Count):</strong>
+        <ul class="mb-0 mt-2">
+          @foreach (var file in uploadedFiles)
+        {
+    <li>
+  @file.Name (@file.Size bytes)
+      <button class="btn btn-sm btn-outline-danger ms-2" @onclick="() => RemoveFile(file)">
+     Remove
+       </button>
+        </li>
+        }
+       </ul>
+    </div>
+        }
+
+      <div class="mb-3">
+     <label class="form-label">Output Filename</label>
+    <InputText @bind-Value="outputFileName" class="form-control" placeholder="combined_schema.sql" />
+    </div>
+
+     <div class="form-check mb-3">
+    <InputCheckbox @bind-Value="removeDuplicates" class="form-check-input" id="removeDuplicates" />
+  <label class="form-check-label" for="removeDuplicates">
+ Remove duplicate table definitions (keep first occurrence)
+  </label>
+        </div>
+
+            <div class="form-check mb-3">
+       <InputCheckbox @bind-Value="addComments" class="form-check-input" id="addComments" />
+ <label class="form-check-label" for="addComments">
+Add source comments (which DDL each table came from)
+        </label>
+        </div>
+
+   <div class="d-flex gap-2">
+<button class="btn btn-success" @onclick="MergeFiles" disabled="@(!uploadedFiles.Any() || isMerging)">
+  @if (isMerging)
+   {
+   <span class="spinner-border spinner-border-sm me-2"></span>
+    }
+    <span>Merge DDL Files</span>
+      </button>
+
+ <button class="btn btn-outline-secondary" @onclick="ClearAll">
+     Clear All
+       </button>
+     </div>
+
+         @if (!string.IsNullOrEmpty(statusMessage))
+    {
+<div class="alert alert-@statusClass mt-3 mb-0">
+      @statusMessage
+       </div>
+     }
+          </div>
+     </div>
+
+    @if (mergedDdl != null)
+{
+     <div class="card shadow-sm">
+        <div class="card-header bg-success text-white d-flex justify-content-between">
+      <h6 class="mb-0">?? Merged DDL Preview</h6>
+            <div>
+       <button class="btn btn-sm btn-light" @onclick="CopyToClipboard">
+      Copy
+    </button>
+ <button class="btn btn-sm btn-light" @onclick="DownloadDdl">
+    Download
+ </button>
+      <button class="btn btn-sm btn-light" @onclick="SaveToLoadables">
+Save to Loadables/
+     </button>
+   </div>
+   </div>
+   <div class="card-body p-0">
+  <pre style="max-height: 500px; overflow-y: auto; margin: 0; padding: 1rem; background: #f8f9fa;">@mergedDdl</pre>
+      </div>
+        </div>
+       }
+  </div>
+
+        <div class="col-lg-4">
+   <div class="card shadow-sm mb-3">
+    <div class="card-header bg-info text-white">
+     <h6 class="mb-0">?? Usage Guide</h6>
+ </div>
+  <div class="card-body">
+ <h6>Your Workflow:</h6>
+<ol class="small">
+       <li><strong>Fetch schemas</strong> from:
+     <ul>
+   <li>External DB 1 (AWS)</li>
+  <li>External DB 2 (AWS)</li>
+   <li>External DB 3 (AWS)</li>
+ <li>Internal Plato DB</li>
+        </ul>
+ </li>
+       <li><strong>Upload</strong> all 4 DDL files here</li>
+     <li><strong>Merge</strong> into single DDL</li>
+    <li><strong>Save</strong> to Loadables/</li>
+     <li><strong>Load</strong> via Startup Wizard</li>
+  <li><strong>Test</strong> your app locally</li>
+     </ol>
+  </div>
+    </div>
+
+     <div class="card shadow-sm mb-3">
+    <div class="card-header bg-warning text-dark">
+ <h6 class="mb-0">?? Duplicate Handling</h6>
+   </div>
+   <div class="card-body">
+    <p class="small mb-2"><strong>If same table appears in multiple files:</strong></p>
+    <ul class="small mb-0">
+     <li>? <strong>Keep first occurrence</strong> (your preference)</li>
+       <li>Source comment shows which DB it came from</li>
+<li>Duplicate tables are logged in output</li>
+ </ul>
+ </div>
+    </div>
+
+     <div class="card shadow-sm">
+   <div class="card-header bg-secondary text-white">
+            <h6 class="mb-0">?? Statistics</h6>
+        </div>
+  <div class="card-body">
+    @if (stats != null)
+       {
+      <ul class="small mb-0">
+         <li><strong>Files processed:</strong> @stats.FilesProcessed</li>
+      <li><strong>Tables found:</strong> @stats.TablesFound</li>
+       <li><strong>Duplicates removed:</strong> @stats.DuplicatesRemoved</li>
+        <li><strong>Output size:</strong> @stats.OutputSize bytes</li>
+      </ul>
+     }
+     else
+        {
+    <p class="small text-muted mb-0">No merge performed yet</p>
+      }
+   </div>
+     </div>
+ </div>
+    </div>
+</div>
+
+@code {
+    private List<UploadedFile> uploadedFiles = new();
+    private string outputFileName = "combined_schema.sql";
+    private bool removeDuplicates = true;
+  private bool addComments = true;
+    private bool isMerging = false;
+ private string statusMessage = "";
+    private string statusClass = "info";
+    private string? mergedDdl;
+    private MergeStatistics? stats;
+
+    private async Task HandleFileUpload(InputFileChangeEventArgs e)
+    {
+    foreach (var file in e.GetMultipleFiles(10))
+   {
+     try
+            {
+      using var stream = file.OpenReadStream(maxAllowedSize: 10 * 1024 * 1024); // 10MB
+      using var reader = new StreamReader(stream);
+    var content = await reader.ReadToEndAsync();
+
+          uploadedFiles.Add(new UploadedFile
+                {
+     Name = file.Name,
+Content = content,
+    Size = file.Size
+      });
+  }
+    catch (Exception ex)
+     {
+      statusMessage = $"? Error uploading {file.Name}: {ex.Message}";
+     statusClass = "danger";
+          }
+   }
+  
+        if (uploadedFiles.Any())
+        {
+            statusMessage = $"? {uploadedFiles.Count} file(s) uploaded successfully";
+    statusClass = "success";
+    }
+    }
+
+    private void RemoveFile(UploadedFile file)
+    {
+        uploadedFiles.Remove(file);
+    }
+
+    private async Task MergeFiles()
+ {
+        isMerging = true;
+statusMessage = "";
+        mergedDdl = null;
+        stats = null;
+
+        try
+   {
+      var result = await MergerService.MergeAsync(new MergeRequest
+        {
+   Files = uploadedFiles.Select(f => new DdlFile 
+  { 
+  FileName = f.Name, 
+Content = f.Content 
+ }).ToList(),
+       RemoveDuplicates = removeDuplicates,
+        AddSourceComments = addComments
+            });
+
+ if (result.Success)
+       {
+     mergedDdl = result.MergedContent;
+        stats = result.Statistics;
+ statusMessage = $"? Successfully merged {uploadedFiles.Count} DDL files";
+    statusClass = "success";
+    }
+    else
+ {
+     statusMessage = $"? Merge failed: {result.Error}";
+    statusClass = "danger";
+  }
+}
+  catch (Exception ex)
+ {
+            statusMessage = $"? Error: {ex.Message}";
+       statusClass = "danger";
+        }
+  finally
+        {
+isMerging = false;
+        }
+ }
+
+    private async Task CopyToClipboard()
+    {
+  if (mergedDdl != null)
+   {
+       await JSRuntime.InvokeVoidAsync("navigator.clipboard.writeText", mergedDdl);
+      statusMessage = "? Copied to clipboard";
+       statusClass = "info";
+        }
+    }
+
+    private async Task DownloadDdl()
+    {
+        if (mergedDdl != null)
+        {
+            await JSRuntime.InvokeVoidAsync("downloadFile", outputFileName, mergedDdl);
+        }
+    }
+
+    private async Task SaveToLoadables()
+    {
+        if (mergedDdl != null)
+ {
+  var result = await MergerService.SaveToLoadablesAsync(outputFileName, mergedDdl);
+            
+  if (result.Success)
+        {
+    statusMessage = $"? Saved to {result.FilePath}";
+     statusClass = "success";
+            }
+            else
+       {
+    statusMessage = $"? Save failed: {result.Error}";
+   statusClass = "danger";
+      }
+        }
+  }
+
+    private void ClearAll()
+    {
+     uploadedFiles.Clear();
+        mergedDdl = null;
+        stats = null;
+   statusMessage = "";
+  }
+
+    private class UploadedFile
+    {
+ public string Name { get; set; } = "";
+        public string Content { get; set; } = "";
+ public long Size { get; set; }
+    }
+}

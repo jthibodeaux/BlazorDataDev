@@ -1,0 +1,15 @@
+"pipeline","dist","floworder","stationnumber","stationname","notes","maop","minop","rated_hp","meterid","milepost","booster"
+GTN,NORT,3.00,CS03,Eastport,,911,500,50500,24001,2.50,false
+GTN,NORT,4.00,CS04,Sandpoint,,911,500,48600,24002,46.70,false
+GTN,NORT,5.00,CS05,Athol,,911,500,59000,24003,87.60,false
+GTN,NORT,6.00,CS06,Rosalia,,911,500,48300,24004,143.50,false
+GTN,NORT,7.00,CS07,Starbuck,,911,500,87700,24005,212.60,false
+GTN,SOUT,8.00,CS08,Wallula,,911,500,51600,24006,255.60,false
+GTN,SOUT,8.50,STAN,Stanfield Booster,"Booster station for stanfield, not on mainline",,,1600,24009,277.99,true
+GTN,SOUT,9.00,CS09,Ione,,911,500,28200,24007,319.98,false
+GTN,SOUT,10.00,CS10,Kent,,911,500,57600,24008,368.23,false
+GTN,SOUT,11.00,CS11,Madras,,911,500,29100,24010,425.10,false
+GTN,SOUT,12.00,CS12,Bend,,911,500,53000,24011,472.80,false
+GTN,TUBA,13.00,CS13,Chemult,,911,500,28600,24012,529.50,false
+GTN,TUBA,14.00,CS14,Bonanza,,911,500,33600,24013,529.91,false
+GTN,SOUT,8.60,CS08,COYOTE SPRINGS BOOSTER,"Booster station for coyote springs, not on mainline",,,1600,24014,294.00,true

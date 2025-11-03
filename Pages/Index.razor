@@ -1,0 +1,154 @@
+@page "/"
+
+<PageTitle>Blazor DataDev - Local Database Testing Platform</PageTitle>
+
+<link href="/css/custom.css" rel="stylesheet" />
+
+<!-- Hero Section -->
+<div class="hero-section fade-in-up">
+    <img src="/images/logo.svg" alt="Blazor DataDev Logo" style="width: 120px; height: 120px; margin-bottom: 1.5rem; filter: drop-shadow(0 10px 30px rgba(0,0,0,0.3));" />
+<h1>Blazor DataDev</h1>
+    <p>Fetch from <strong>3 External DBs + Plato</strong>, merge schemas, test locally, generate migration scripts</p>
+</div>
+
+<!-- Primary Workflow Section -->
+<div class="workflow-section fade-in-up-delay-1">
+    <h2 class="text-center mb-4">🎯 Your Development Workflow</h2>
+ 
+    <div class="workflow-step">
+        <div class="workflow-number">1</div>
+      <div class="workflow-content">
+       <h4>Fetch DDLs from Multiple Databases</h4>
+        <p>Extract schemas from <strong>3 external AWS databases</strong> + <strong>1 internal Plato database</strong>. Export DDL + sample data.</p>
+   <a href="/external-explorer" class="btn btn-outline-primary btn-sm">External DB Explorer →</a>
+        </div>
+  </div>
+    
+  <div class="workflow-step">
+ <div class="workflow-number">2</div>
+     <div class="workflow-content">
+            <h4>Merge DDLs into One File</h4>
+          <p>Combine all 4 DDL files into a single unified schema. Handles duplicates (keeps first occurrence) and adds source comments.</p>
+      <a href="/ddl-merger" class="btn btn-outline-primary btn-sm">DDL Merger →</a>
+     </div>
+    </div>
+    
+    <div class="workflow-step">
+        <div class="workflow-number">3</div>
+    <div class="workflow-content">
+            <h4>Load Locally & Add Test Data</h4>
+   <p>Load merged DDL via Startup Wizard. Import CSV files or add rows manually. Everything runs in-memory.</p>
+       <a href="/startup" class="btn btn-outline-primary btn-sm">Startup Wizard →</a>
+   </div>
+    </div>
+    
+    <div class="workflow-step">
+        <div class="workflow-number">4</div>
+   <div class="workflow-content">
+  <h4>Test Your Application Locally</h4>
+            <p>Point your app to <code>http://localhost:5000/api/</code>. Test code changes + Plato table changes without touching production.</p>
+  <a href="/swagger" class="btn btn-outline-success btn-sm" target="_blank">View API Docs →</a>
+        </div>
+    </div>
+
+    <div class="workflow-step">
+  <div class="workflow-number">5</div>
+        <div class="workflow-content">
+    <h4>Generate Migration Scripts for Plato</h4>
+            <p>Made changes to Plato tables? Generate SQL migration scripts to apply changes to real Plato database safely.</p>
+   <a href="/migration-manager" class="btn btn-outline-warning btn-sm">Migration Manager →</a>
+        </div>
+    </div>
+</div>
+
+<!-- Feature Cards -->
+<div class="row g-4 mb-5 fade-in-up-delay-2">
+  <div class="col-md-6 col-lg-3">
+<div class="feature-card">
+            <span class="feature-icon">🌐</span>
+            <h3>External DB</h3>
+            <p>Connect to AWS + Plato. Export schemas and sample data with bulk operations.</p>
+     <a href="/external-explorer" class="btn btn-gradient-primary">Connect</a>
+        </div>
+    </div>
+    
+    <div class="col-md-6 col-lg-3">
+   <div class="feature-card">
+        <span class="feature-icon">🔗</span>
+            <h3>DDL Merger</h3>
+            <p>Combine multiple DDL files into one unified schema. Handles duplicates intelligently.</p>
+ <a href="/ddl-merger" class="btn btn-gradient-primary">Merge DDLs</a>
+        </div>
+    </div>
+    
+    <div class="col-md-6 col-lg-3">
+      <div class="feature-card">
+  <span class="feature-icon">✏️</span>
+     <h3>Data Editor</h3>
+     <p>Add, edit, delete rows. Import CSV files. Changes sync to API instantly.</p>
+<a href="/data-editor" class="btn btn-gradient-primary">Edit Data</a>
+        </div>
+    </div>
+    
+    <div class="col-md-6 col-lg-3">
+    <div class="feature-card">
+ <span class="feature-icon">🔍</span>
+  <h3>SQL Query</h3>
+ <p>Execute SQL queries. Test JOINs, filters, aggregations. Export results to CSV.</p>
+       <a href="/sql-query" class="btn btn-gradient-primary">Run Queries</a>
+        </div>
+    </div>
+</div>
+
+<!-- Why No Dev Servers Section -->
+<div class="card mb-5 shadow-lg-custom rounded-custom fade-in-up-delay-3">
+    <div class="card-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+        <h4 class="mb-0">🎯 Why This Platform Exists</h4>
+    </div>
+    <div class="card-body">
+<div class="alert alert-warning">
+   <strong>⚠️ We Have NO Dev Servers</strong><br/>
+ All development and testing must be done locally before deploying to production.
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+      <h6>✅ What You CAN Do:</h6>
+                <ul class="small">
+          <li>Test application code changes locally</li>
+               <li>Test Plato table schema changes locally</li>
+          <li>Generate migration scripts for Plato</li>
+       <li>Combine schemas from multiple databases</li>
+         <li>Create realistic test data sets</li>
+         <li>Validate changes before production</li>
+     </ul>
+ </div>
+    <div class="col-md-6">
+           <h6>⛔ What You CANNOT Do:</h6>
+        <ul class="small">
+          <li>Modify external AWS databases</li>
+<li>Change production Plato without migration scripts</li>
+            <li>Test against live production data</li>
+          <li>Deploy directly to production</li>
+       </ul>
+        </div>
+        </div>
+
+        <div class="alert alert-success mt-3 mb-0">
+            <strong>✓ The Solution:</strong> This platform gives you a safe local environment to test everything before deploying to production.
+        </div>
+  </div>
+</div>
+
+<!-- Quick Start CTA -->
+<div class="text-center mt-5 mb-5 fade-in-up-delay-3">
+  <h3 class="mb-3">Ready to Start?</h3>
+    <p class="text-muted mb-4">Fetch schemas, merge, test locally, deploy with confidence</p>
+  <a href="/external-explorer" class="btn btn-gradient-primary btn-lg me-3">1. Fetch Schemas</a>
+    <a href="/ddl-merger" class="btn btn-gradient-info btn-lg me-3">2. Merge DDLs</a>
+    <a href="/startup" class="btn btn-gradient-success btn-lg">3. Load & Test</a>
+</div>
+
+@code {
+
+}

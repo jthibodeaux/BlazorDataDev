@@ -1,0 +1,424 @@
+@page "/external-explorer"
+@inject IExternalDbExplorerService ExplorerService
+@inject IJSRuntime JSRuntime
+
+<PageTitle>DB Schema Explorer</PageTitle>
+
+<Breadcrumb CurrentPage="DB Schema Explorer" BackUrl="/" />
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+   <div class="page-header">
+         <h1>DB Schema Explorer</h1>
+         <p class="lead">Connect to external databases, explore schemas, and export to local format</p>
+</div>
+        </div>
+    </div>
+
+    <!-- Connection Configuration -->
+    <div class="row mb-4">
+     <div class="col-lg-8">
+   <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+           <h5 class="mb-0">DB Connection</h5>
+             </div>
+         <div class="card-body">
+ <EditForm Model="@connectionConfig" OnValidSubmit="@ConnectToDatabase">
+       <DataAnnotationsValidator />
+             
+     <div class="row">
+       <div class="col-md-6 mb-3">
+       <label class="form-label">Connection Type</label>
+  <InputSelect @bind-Value="connectionConfig.ConnectionType" class="form-select">
+    <option value="PostgreSQL">PostgreSQL</option>
+        <option value="Redshift">AWS Redshift</option>
+   <option value="SqlServer">SQL Server</option>
+  <option value="MySQL">MySQL</option>
+           </InputSelect>
+  </div>
+
+    <div class="col-md-6 mb-3">
+    <label class="form-label">Host/Server</label>
+   <InputText @bind-Value="connectionConfig.Host" class="form-control" placeholder="localhost or cluster.region.redshift.amazonaws.com" />
+       </div>
+   </div>
+
+     <div class="row">
+     <div class="col-md-3 mb-3">
+        <label class="form-label">Port</label>
+      <InputNumber @bind-Value="connectionConfig.Port" class="form-control" placeholder="5432" />
+   </div>
+
+  <div class="col-md-4 mb-3">
+  <label class="form-label">Database</label>
+          <InputText @bind-Value="connectionConfig.Database" class="form-control" placeholder="mydb" />
+        </div>
+
+  <div class="col-md-3 mb-3">
+   <label class="form-label">Username</label>
+      <InputText @bind-Value="connectionConfig.Username" class="form-control" placeholder="user" />
+</div>
+
+   <div class="col-md-2 mb-3">
+         <label class="form-label">Password</label>
+  <InputText type="password" @bind-Value="connectionConfig.Password" class="form-control" />
+         </div>
+  </div>
+
+            <div class="row">
+    <div class="col-12 mb-3">
+               <div class="form-check">
+  <InputCheckbox @bind-Value="connectionConfig.UseSsl" class="form-check-input" id="useSsl" />
+    <label class="form-check-label" for="useSsl">
+Use SSL Connection
+   </label>
+  </div>
+         </div>
+   </div>
+
+   <div class="d-flex gap-2">
+  <button type="submit" class="btn btn-primary" disabled="@isConnecting">
+      @if (isConnecting)
+    {
+   <span class="spinner-border spinner-border-sm me-2"></span>
+       }
+    <span>Connect</span>
+         </button>
+
+   <button type="button" class="btn btn-outline-secondary" @onclick="TestConnection" disabled="@isConnecting">
+      Test Connection
+        </button>
+
+        <button type="button" class="btn btn-outline-info" @onclick="LoadSavedConnection">
+     Load Saved
+           </button>
+  </div>
+
+      @if (!string.IsNullOrEmpty(statusMessage))
+     {
+       <div class="alert alert-@statusClass mt-3 mb-0">
+     @statusMessage
+      </div>
+        }
+      </EditForm>
+   </div>
+            </div>
+  </div>
+
+  <div class="col-lg-4">
+<div class="card shadow-sm">
+ <div class="card-header bg-info text-white">
+               <h6 class="mb-0">?? Quick Tips</h6>
+         </div>
+     <div class="card-body">
+           <ul class="small mb-0">
+    <li>Redshift uses port <code>5439</code> by default</li>
+      <li>PostgreSQL uses port <code>5432</code></li>
+   <li>Enable SSL for AWS connections</li>
+         <li>Connections are saved to <code>external-db-config.json</code></li>
+      <li>Schema & data exports to <code>Loadables/external/</code></li>
+  </ul>
+     </div>
+    </div>
+ </div>
+    </div>
+
+ <!-- Schema Browser -->
+    @if (isConnected)
+    {
+  <div class="row">
+   <div class="col-lg-3">
+   <div class="card shadow-sm">
+        <div class="card-header bg-success text-white">
+         <h6 class="mb-0">?? Schemas (@schemas.Count)</h6>
+       </div>
+  <div class="card-body p-0">
+  <div class="list-group list-group-flush">
+         @foreach (var schema in schemas)
+           {
+     <button class="list-group-item list-group-item-action @(selectedSchema == schema ? "active" : "")"
+       @onclick="() => LoadTables(schema)">
+    @schema
+            @if (selectedSchema == schema && loadingTables)
+    {
+   <span class="spinner-border spinner-border-sm float-end"></span>
+   }
+     </button>
+ }
+  </div>
+    </div>
+  </div>
+  </div>
+
+      <div class="col-lg-9">
+         @if (!string.IsNullOrEmpty(selectedSchema))
+         {
+        <div class="card shadow-sm">
+      <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+           <h6 class="mb-0">?? Tables in @selectedSchema (@tables.Count)</h6>
+    <div class="btn-group btn-group-sm">
+ <button class="btn btn-light btn-sm" @onclick="SelectAllTables">
+   Select All
+          </button>
+      <button class="btn btn-light btn-sm" @onclick="DeselectAllTables">
+    Deselect All
+         </button>
+ <button class="btn btn-success btn-sm" @onclick="ExportSelectedTables" disabled="@(!selectedTables.Any() || isExporting)">
+         @if (isExporting)
+  {
+     <span class="spinner-border spinner-border-sm me-1"></span>
+           }
+      Export (@selectedTables.Count)
+      </button>
+         </div>
+          </div>
+      <div class="card-body p-0">
+                 <div class="table-responsive" style="max-height: 600px; overflow-y: auto;">
+   <table class="table table-hover mb-0">
+    <thead class="sticky-top bg-light">
+        <tr>
+   <th width="50"><input type="checkbox" @onchange="ToggleAllTables" /></th>
+            <th>Table Name</th>
+        <th>Columns</th>
+          <th>Est. Rows</th>
+    <th>Actions</th>
+         </tr>
+              </thead>
+        <tbody>
+      @foreach (var table in tables)
+   {
+           <tr>
+  <td>
+     <input type="checkbox" 
+    checked="@selectedTables.Contains(table.Name)"
+     @onchange="() => ToggleTable(table.Name)" />
+      </td>
+       <td>
+   <strong>@table.Name</strong>
+   </td>
+         <td>
+    <span class="badge bg-secondary">@table.ColumnCount cols</span>
+         </td>
+       <td>
+   @if (table.EstimatedRowCount.HasValue)
+     {
+    <span class="text-muted">~@table.EstimatedRowCount.Value rows</span>
+            }
+   </td>
+          <td>
+      <div class="btn-group btn-group-sm">
+        <button class="btn btn-outline-primary" @onclick="() => PreviewTable(table.Name)">
+     Preview
+           </button>
+        <button class="btn btn-outline-success" @onclick="() => ExportTable(table.Name)">
+                 Export
+</button>
+    </div>
+    </td>
+       </tr>
+        }
+   </tbody>
+    </table>
+          </div>
+      </div>
+ </div>
+}
+    </div>
+            </div>
+    }
+
+    <!-- Export Configuration -->
+    @if (isExporting)
+    {
+    <div class="row mt-4">
+      <div class="col-12">
+                <div class="card shadow-sm border-success">
+         <div class="card-header bg-success text-white">
+   <h6 class="mb-0">?? Export Progress</h6>
+      </div>
+      <div class="card-body">
+      <div class="progress mb-3" style="height: 25px;">
+          <div class="progress-bar progress-bar-striped progress-bar-animated" 
+       role="progressbar" 
+        style="width: @exportProgress%">
+  @exportProgress% Complete
+                 </div>
+          </div>
+  
+                <div class="export-log" style="max-height: 200px; overflow-y: auto; background: #f8f9fa; padding: 1rem; border-radius: 0.5rem; font-family: monospace; font-size: 0.85rem;">
+     @foreach (var log in exportLogs)
+      {
+     <div>@log</div>
+  }
+        </div>
+          </div>
+        </div>
+         </div>
+    </div>
+    }
+</div>
+
+@code {
+ private ExternalDbConfig connectionConfig = new();
+    private bool isConnecting = false;
+    private bool isConnected = false;
+    private bool loadingTables = false;
+private bool isExporting = false;
+  private string statusMessage = "";
+    private string statusClass = "info";
+
+    private List<string> schemas = new();
+    private string selectedSchema = "";
+    private List<TableInfo> tables = new();
+    private HashSet<string> selectedTables = new();
+
+    private int exportProgress = 0;
+    private List<string> exportLogs = new();
+
+    private async Task ConnectToDatabase()
+    {
+        isConnecting = true;
+        statusMessage = "Connecting to database...";
+    statusClass = "info";
+
+        try
+        {
+            var result = await ExplorerService.ConnectAsync(connectionConfig);
+            
+ if (result.Success)
+            {
+    isConnected = true;
+     schemas = result.Schemas ?? new();
+    statusMessage = $"? Connected successfully! Found {schemas.Count} schemas.";
+  statusClass = "success";
+            }
+            else
+          {
+        statusMessage = $"? Connection failed: {result.Error}";
+           statusClass = "danger";
+            }
+     }
+        catch (Exception ex)
+    {
+  statusMessage = $"? Error: {ex.Message}";
+  statusClass = "danger";
+        }
+        finally
+        {
+  isConnecting = false;
+      }
+    }
+
+    private async Task TestConnection()
+    {
+  isConnecting = true;
+        statusMessage = "Testing connection...";
+        statusClass = "info";
+
+        try
+        {
+    var result = await ExplorerService.TestConnectionAsync(connectionConfig);
+      statusMessage = result.Success ? "? Connection successful!" : $"? Connection failed: {result.Error}";
+  statusClass = result.Success ? "success" : "danger";
+        }
+        catch (Exception ex)
+      {
+            statusMessage = $"? Error: {ex.Message}";
+   statusClass = "danger";
+        }
+        finally
+        {
+            isConnecting = false;
+  }
+    }
+
+    private async Task LoadTables(string schema)
+    {
+        selectedSchema = schema;
+        loadingTables = true;
+        tables.Clear();
+
+        try
+        {
+ tables = await ExplorerService.GetTablesAsync(schema);
+   }
+        finally
+        {
+   loadingTables = false;
+        }
+    }
+
+    private void ToggleTable(string tableName)
+    {
+        if (selectedTables.Contains(tableName))
+            selectedTables.Remove(tableName);
+        else
+         selectedTables.Add(tableName);
+    }
+
+    private void SelectAllTables()
+    {
+selectedTables = tables.Select(t => t.Name).ToHashSet();
+    }
+
+    private void DeselectAllTables()
+    {
+        selectedTables.Clear();
+    }
+
+    private void ToggleAllTables(ChangeEventArgs e)
+    {
+        if ((bool)e.Value!)
+       SelectAllTables();
+        else
+          DeselectAllTables();
+    }
+
+    private async Task ExportSelectedTables()
+    {
+        if (!selectedTables.Any()) return;
+
+        isExporting = true;
+        exportProgress = 0;
+  exportLogs.Clear();
+
+   try
+        {
+      int completed = 0;
+foreach (var tableName in selectedTables)
+      {
+            exportLogs.Add($"Exporting {selectedSchema}.{tableName}...");
+    await ExportTable(tableName);
+    
+    completed++;
+        exportProgress = (int)((completed / (double)selectedTables.Count) * 100);
+      StateHasChanged();
+            }
+
+     exportLogs.Add($"? Export complete! {completed} tables exported.");
+      exportLogs.Add($"Files saved to: Loadables/external/{connectionConfig.Database}/");
+        }
+        finally
+        {
+            isExporting = false;
+        }
+  }
+
+    private async Task ExportTable(string tableName)
+    {
+     await ExplorerService.ExportTableAsync(selectedSchema, tableName);
+  }
+
+    private async Task PreviewTable(string tableName)
+ {
+   // TODO: Implement preview modal
+    }
+
+    private async Task LoadSavedConnection()
+    {
+        connectionConfig = await ExplorerService.LoadSavedConnectionAsync();
+        statusMessage = "? Loaded saved connection";
+        statusClass = "success";
+    }
+}

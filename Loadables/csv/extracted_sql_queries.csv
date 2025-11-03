@@ -1,0 +1,2319 @@
+"id","parameters","updated_by","updated_at","log_description","sql_text","dbname"
+"0099fe4b-8288-4f00-b137-51fb2408f047","[""@EndDate"",""@StartDate""]",john@shoreless.ai,2025-08-22 16:39:04.152,TCPipelineDataService.cs:1887 | TCPipelineDataService.cs:1897,"
+                            SELECT 
+                                SUM(CAST(COALESCE(scheduled_quantity, '0') AS numeric)) / 
+                                NULLIF(SUM(CAST(COALESCE(operational_available_capacity, '0') AS numeric)), 0) as avg_utilization
+                            FROM ce.navigates_operational_available_capacity
+                            WHERE assetabrv = 'NBPL'
+                              AND flowdate BETWEEN @StartDate::date AND @EndDate::date
+                              AND cycle_name = 'TIMELY'
+                              AND CAST(COALESCE(operational_available_capacity, '0') AS numeric) > 0",TCExternalConnection
+"020bbfcb-9864-4ddd-af2a-db744862f8a5","[""@date""]",john@shoreless.ai,2025-08-22 16:39:03.708,PalRecommendationService.cs:3014 | PalRecommendationService.cs:3025,"
+                                            SELECT sum(linepack_mmcf) as total_linepack, pi_timestamp,
+                                                   ABS(EXTRACT(hour FROM pi_timestamp) - 9) as hour_diff
+                                            FROM ap.linepack_by_segment
+                                            WHERE pipeline_aor_id = '3'
+                                            AND pi_timestamp::date = @date
+                                            AND EXTRACT(minute FROM pi_timestamp) = 0
+                                            GROUP BY pi_timestamp
+                                            ORDER BY hour_diff, pi_timestamp DESC
+                                            LIMIT 1",TCExternalConnection
+"020e91a6-8d88-4103-bdbb-4b815fb9bf63","[""@date""]",john@shoreless.ai,2025-08-22 16:39:04.142,TCPipelineDataService.cs:897 | TCPipelineDataService.cs:903,"
+                            SELECT SUM(daily_imb_dth) as daily_oba_dth
+                            FROM ap.contract_entity_daily_imbalance
+                            WHERE pipeline_aor_id = 3
+                            AND gas_day = @date",TCExternalConnection
+"02760294-009b-4db1-8de1-f1721e10213a","[""@cutoffDate""]",john@shoreless.ai,2025-08-22 16:39:03.511,OutageDetectionService.cs:171 | OutageDetectionService.cs:177,"
+                                    UPDATE dbo.uc3_spatial_restrictions 
+                                    SET expires_date = GETUTCDATE()
+                                    WHERE restriction_date < @cutoffDate
+                                        AND (expires_date IS NULL OR expires_date > GETUTCDATE())",DefaultConnection
+"02bbd345-1277-4a86-a825-8d84f8f62280","[""@date""]",john@shoreless.ai,2025-08-22 16:39:04.023,TCCapacityDecisionService.cs:1221 | TCCapacityDecisionService.cs:1234,"
+                        SELECT 
+                            outage_cycle,
+                            maintenance_type,
+                            planned_start_date,
+                            planned_end_date
+                        FROM ap.sap_outages
+                        WHERE @date::date BETWEEN start_date::date AND end_date::date
+                        AND pipeline_aor_id = '3'
+                        AND outage_cycle IS NOT NULL
+                        ORDER BY start_date DESC
+                        LIMIT 1",TCExternalConnection
+"055019ba-8a2f-4fae-8b73-d62e9ccb0e41","[""@currentDate"",""@duns""]",john@shoreless.ai,2025-08-22 16:39:03.703,PalRecommendationService.cs:2816 | PalRecommendationService.cs:2842,"
+                            SELECT tariff
+                            FROM external_ebb.tariffs
+                            WHERE duns = @duns
+                                AND tarifftype = 'Commodity'
+                                AND tariffdetail = 'Maximum Commodity'
+                                AND subratedesc = 'Long Term Base rate'
+                                AND ratesched = 'T-1'
+                                AND firminterruptible = 'Firm'
+                                AND recloc = 'Ventura'
+                                AND delloc = 'North Hayden'
+                                AND effectivedate <= @currentDate
+                                AND import_time = (
+                                    SELECT MAX(import_time)
+                                    FROM external_ebb.tariffs
+                                    WHERE duns = @duns
+                                        AND tarifftype = 'Commodity'
+                                        AND tariffdetail = 'Maximum Commodity'
+                                        AND subratedesc = 'Long Term Base rate'
+                                        AND ratesched = 'T-1'
+                                        AND firminterruptible = 'Firm'
+                                        AND recloc = 'Ventura'
+                                        AND delloc = 'North Hayden'
+                                        AND effectivedate <= @currentDate
+                                )",RedshiftConnection
+"0feecbbe-fce9-4b34-9745-af7da1fece9b","[""@endDate"",""@startDate""]",john@shoreless.ai,2025-08-22 16:39:04.154,TCPipelineDataService.cs:2010 | TCPipelineDataService.cs:2020,"
+                            SELECT 
+                                AVG(CAST(COALESCE(scheduled_quantity, '0') AS numeric) / 
+                                    NULLIF(CAST(COALESCE(operational_available_capacity, '1') AS numeric), 0)) as avg_utilization,
+                                AVG(CAST(COALESCE(scheduled_quantity, '0') AS numeric)) as avg_scheduled
+                            FROM ce.navigates_operational_available_capacity
+                            WHERE assetabrv = 'NBPL'
+                              AND cycle_name = 'TIMELY'
+                              AND flowdate BETWEEN @startDate::date AND @endDate::date",TCExternalConnection
+"10378d10-2eb4-4408-9a0c-2dee8fd8baa5",[],john@shoreless.ai,2025-08-22 16:39:04.140,TCPipelineDataService.cs:359 | TCPipelineDataService.cs:366,"
+                                    SELECT linepack_netpack_high_threshold_mmcf, linepack_netpack_low_threshold_mmcf
+                                    FROM ui.linepack_netpack_thresholds
+                                    WHERE pipeline_aor_id = 3
+                                    ORDER BY pipeline_update_ts DESC
+                                    LIMIT 1",TCExternalConnection
+"1135798b-01a9-49d6-b759-98679bd0869c","[""@analysisDate""]",john@shoreless.ai,2025-08-22 16:39:03.693,PalRecommendationService.cs:772 | PalRecommendationService.cs:788,"
+                            SELECT 
+                                id, analysis_date, analysis_timestamp, asset_abbreviation, asset_number,
+                                maximum_cap_percentage, max_daily_unpark_mdth, max_daily_payback_mdth,
+                                temperature_f, weather_conditions, heating_degree_days,
+                                total_profit_opportunities, total_potential_profit,
+                                best_opportunity_1_json, best_opportunity_2_json, best_opportunity_3_json,
+                                recommended_park_volumes_json, recommended_loan_volumes_json,
+                                profit_opportunities_json, volume_recommendations_json, dashboard_data_json,
+                                processing_time_ms, email_sent, email_recipients, error_message,
+                                created_date, created_by, modified_date, modified_by, is_active, is_deleted
+                            FROM dbo.historicalpalrecommendations
+                            WHERE analysis_date = @analysisDate
+                              AND is_active = true 
+                              AND is_deleted = false",DefaultConnection
+"148ee51e-12ec-4238-8260-6cc7103bdbe1","[""@current_date""]",john@shoreless.ai,2025-08-22 16:39:03.974,STLTConversionService.cs:715 | STLTConversionService.cs:748,"
+                            -- UC4 #5 Long-term transport rate
+                            SELECT 
+                                import_time,
+                                effectivedate,
+                                expirydate,
+                                units,
+                                delloc,
+                                recloc,
+                                duns,
+                                tariff,
+                                tariffdesc,
+                                subratedesc,
+                                firminterruptible,
+                                ratesched,
+                                tarifftype,
+                                tariffdetail,
+                                statusdesc
+                            FROM external_ebb.tariffs
+                            WHERE import_time = (
+                                SELECT MAX(import_time)
+                                FROM external_ebb.tariffs
+                                WHERE duns = '021632583'
+                                  AND recloc = 'Port of Morgan'
+                                  AND delloc = 'Ventura'
+                                  AND firminterruptible = 'Firm'
+                                  AND tariffdetail = 'Maximum Daily Reservation'
+                                  AND ratesched = 'T-1B'
+                                  AND tarifftype = 'Reservation'
+                                  AND subratedesc LIKE 'Long-Term%'
+                                  AND effectivedate <= @current_date
+                            )",RedshiftConnection
+"14d9432d-2b26-4fcb-93e3-f1a63153c937","[""@date""]",john@shoreless.ai,2025-08-22 16:39:04.151,TCPipelineDataService.cs:1698 | TCPipelineDataService.cs:1709,"
+                            SELECT SUM(lmf.flow_rate_mmcfd) as total_flow
+                            FROM pi.meter_flow lmf
+                            INNER JOIN general.meter m 
+                                ON lmf.pipeline_aor_id = m.pipeline_aor_id
+                                AND lmf.ap_meter = m.meter_id
+                            WHERE m.pipeline_aor_id = 3
+                              AND DATE(lmf.timestamp) = @date
+                              AND EXTRACT(hour FROM lmf.timestamp)::integer = 12
+                              AND EXTRACT(minute FROM lmf.timestamp)::integer = 0",TCExternalConnection
+"17dab20d-4800-45fd-a106-44b3296b848d",[],john@shoreless.ai,2025-08-22 16:39:03.977,STLTConversionService.cs:1407 | STLTConversionService.cs:1434,"
+                            SELECT 
+                                TRIM(value1) as raw_value,
+                                effbegindt,
+                                effenddt
+                            FROM navigates.navigates_contract_prices 
+                            WHERE effbegindt <= @date 
+                            AND (effenddt IS NULL OR effenddt >= @date)
+                            AND value1 IS NOT NULL
+                            AND TRIM(value1) != ''
+                            AND TRIM(value1) != 'N'
+                            AND TRIM(value1) != 'I'
+                            AND TRIM(value1) != 'NULL'
+                            AND TRIM(value1) != 'NA'
+                            AND TRIM(value1) != 'N/A'
+                            AND TRIM(value1) != '#N/A'
+                            AND TRIM(value1) != 'NONE'
+                            AND TRIM(value1) != 'NIL'
+                            AND TRIM(value1) != 'TBD'
+                            AND TRIM(value1) != 'PENDING'
+                            AND TRIM(value1) != 'INACTIVE'
+                            AND LENGTH(TRIM(value1)) > 0
+                            AND TRIM(value1) ~ '^[0-9]+\.?[0-9]*$'
+                            ORDER BY effbegindt DESC, 
+                                     CASE WHEN effenddt IS NULL THEN 1 ELSE 0 END DESC
+                            LIMIT 10",RedshiftConnection
+"19076fc3-19c8-4bbd-9a90-a3bbab7c423c","[""@analysisDateTime"",""@createdBy"",""@recommendationType"",""@serializedData""]",john@shoreless.ai,2025-08-22 16:39:04.164,TCRecommendationCacheService.cs:493 | TCRecommendationCacheService.cs:501,"
+                                            UPDATE dbo.tc_recommendations
+                                            SET serialized_data = @serializedData::jsonb,
+                                                created_date = CURRENT_TIMESTAMP,
+                                                created_by = @createdBy
+                                            WHERE analysis_datetime = @analysisDateTime
+                                            AND recommendation_type = @recommendationType",DefaultConnection
+"1a6e7f27-9139-43ee-8598-b83e065d4b37",[],john@shoreless.ai,2025-08-22 16:39:03.453,JsonPipelineConfigurationService.cs:365 | JsonPipelineConfigurationService.cs:376,"
+                            INSERT INTO dbo.pipeline_configurations (
+                                id, configuration_json, is_active, is_deleted, change_reason, 
+                                version_number, config_hash, created_date, modified_date, 
+                                created_by, modified_by
+                            ) VALUES (
+                                @id, @configurationJson, @isActive, @isDeleted, @changeReason,
+                                @versionNumber, @configHash, @createdDate, @modifiedDate,
+                                @createdBy, @modifiedBy
+                            )",DefaultConnection
+"1c5dd70c-956d-4b4a-bc6e-1c4ab6c27120","[""@date""]",john@shoreless.ai,2025-08-22 16:39:04.143,TCPipelineDataService.cs:1054 | TCPipelineDataService.cs:1062,"
+                                SELECT impact
+                                FROM dbo.tchistoricaloutages
+                                WHERE @date::date BETWEEN start_date::date AND end_date::date
+                                AND pipeline_aor_id = '3'
+                                ORDER BY start_date DESC
+                                LIMIT 1",DefaultConnection
+"1cf93f41-9983-4ef3-9022-0a343acec020","[""@date""]",john@shoreless.ai,2025-08-22 16:39:03.695,PalRecommendationService.cs:1456 | PalRecommendationService.cs:1490,"
+                            WITH commodity_tariff AS (
+                                SELECT CAST(tariff AS NUMERIC(38,12)) AS usage 
+                                FROM external_ebb.tariffs
+                                WHERE duns = '021632583'
+                                    AND tarifftype = 'Commodity'
+                                    AND tariffdetail = 'Maximum Commodity'
+                                    AND subratedesc = 'Long Term Base rate'
+                                    AND ratesched = 'T-1'
+                                    AND firminterruptible = 'Firm'
+                                    AND recloc = 'Ventura'
+                                    AND delloc = 'North Hayden'
+                                    AND effectivedate <= @date
+                                ORDER BY effectivedate DESC, import_time DESC
+                                LIMIT 1
+                            ),
+                            fuel_tariff AS (
+                                SELECT CAST(tariff AS NUMERIC(38,12)) AS fuel_rate
+                                FROM external_ebb.tariffs
+                                WHERE duns = '021632583'
+                                    AND recloc = 'Ventura'
+                                    AND delloc = 'North Hayden'
+                                    AND units = '%'
+                                    AND ratesched = 'Fuel'
+                                    AND effectivedate <= @date
+                                ORDER BY effectivedate DESC, import_time DESC
+                                LIMIT 1
+                            )
+                            SELECT 
+                                COALESCE(c.usage, 0.15) as commodity_rate,
+                                COALESCE(f.fuel_rate, 2.0) as fuel_rate
+                            FROM commodity_tariff c
+                            CROSS JOIN fuel_tariff f",RedshiftConnection
+"1d3e3a23-3cf5-401e-b411-879a6bdd4712","[""@date""]",john@shoreless.ai,2025-08-22 16:39:04.141,TCPipelineDataService.cs:498 | TCPipelineDataService.cs:509,"
+                            SELECT 
+                                CAST(COALESCE(operational_available_capacity, '0') AS integer) as timely_operational_capacity,
+                                CAST(COALESCE(scheduled_quantity, '0') AS integer) as timely_scheduled_capacity
+                            FROM ce.navigates_operational_available_capacity
+                            WHERE assetabrv = 'NBPL'
+                              AND flowdate = @date
+                              AND cycle_name = 'TIMELY'
+                            ORDER BY import_time DESC
+                            LIMIT 1",TCExternalConnection
+"1d7ad0b2-4ccb-46da-8e47-ac3253c9173a","[""@date""]",john@shoreless.ai,2025-08-22 16:39:04.148,TCPipelineDataService.cs:1447 | TCPipelineDataService.cs:1453,"
+                                SELECT DISTINCT field_op_area, field_op_area as object_type
+                                FROM ap.sap_outages
+                                WHERE @date::date BETWEEN start_date::date AND end_date::date
+                                AND pipeline_aor_id = '3'",TCExternalConnection
+"1d991cd1-c936-4383-bfd4-a9db87e87645","[""@date""]",john@shoreless.ai,2025-08-22 16:39:04.022,TCCapacityDecisionService.cs:1033 | TCCapacityDecisionService.cs:1042,"
+                        SELECT CAST(COALESCE(operational_available_capacity, '0') AS integer) as current_capacity
+                        FROM ce.navigates_operational_available_capacity
+                        WHERE assetabrv = 'NBPL'
+                          AND flowdate = @date
+                          AND cycle_name = 'TIMELY'
+                        ORDER BY import_time DESC
+                        LIMIT 1",TCExternalConnection
+"1ee95982-6400-45e2-aca3-4db47c09a864",[],john@shoreless.ai,2025-08-22 16:39:03.447,JsonPipelineConfigurationService.cs:292 | JsonPipelineConfigurationService.cs:300,"
+                                    SELECT id, version_number, change_reason, created_by, modified_by, 
+                                           created_date, modified_date, config_hash
+                                    FROM dbo.pipeline_configurations 
+                                    WHERE is_active = true AND is_deleted = false
+                                    ORDER BY version_number DESC, created_date DESC
+                                    LIMIT 1",DefaultConnection
+"2236ce07-bcea-4e31-ac70-ebd0e9486356","[""@date""]",john@shoreless.ai,2025-08-22 16:39:03.696,PalRecommendationService.cs:1540 | PalRecommendationService.cs:1574,"
+                            WITH commodity_tariff AS (
+                                SELECT CAST(tariff AS NUMERIC(38,12)) AS usage 
+                                FROM external_ebb.tariffs
+                                WHERE duns = '021632583'
+                                    AND tarifftype = 'Commodity'
+                                    AND tariffdetail = 'Maximum Commodity'
+                                    AND subratedesc = 'Long Term Base rate'
+                                    AND ratesched = 'T-1'
+                                    AND firminterruptible = 'Firm'
+                                    AND recloc = 'Ventura'
+                                    AND delloc = 'Will County'
+                                    AND effectivedate <= @date
+                                ORDER BY effectivedate DESC, import_time DESC
+                                LIMIT 1
+                            ),
+                            fuel_tariff AS (
+                                SELECT CAST(tariff AS NUMERIC(38,12)) AS fuel_rate
+                                FROM external_ebb.tariffs
+                                WHERE duns = '021632583'
+                                    AND recloc = 'Ventura'
+                                    AND delloc = 'Will County'
+                                    AND units = '%'
+                                    AND ratesched = 'Fuel'
+                                    AND effectivedate <= @date
+                                ORDER BY effectivedate DESC, import_time DESC
+                                LIMIT 1
+                            )
+                            SELECT 
+                                COALESCE(c.usage, 0.15) as commodity_rate,
+                                COALESCE(f.fuel_rate, 2.0) as fuel_rate
+                            FROM commodity_tariff c
+                            CROSS JOIN fuel_tariff f",RedshiftConnection
+"22fa4591-1841-499d-9bee-bb364ad4264e",[],john@shoreless.ai,2025-08-22 16:39:03.635,PalLocationService.cs:424 | PalLocationService.cs:508,"
+                            SELECT 
+                                trx_id,
+                                rateschedulecd,
+                                effbegindt,
+                                effenddt,
+                                max_daily_park,
+                                min_daily_park,
+                                max_total_park,
+                                min_total_park,
+                                counter_party,
+                                contract_start,
+                                contract_end,
+                                asset_abbrev,
+                                contract_id,
+                                duns
+                            FROM (
+                                SELECT 
+                                    xaction.contracttransactionid AS trx_id,
+                                    xaction.rateschedulecd,
+                                    xaction.effbegindt,
+                                    xaction.effenddt,
+                                    maxdailypk.value1 AS max_daily_park,
+                                    mindailypk.value1 AS min_daily_park,
+                                    maxtotalpk.value1 AS max_total_park,
+                                    mintotalpk.value1 AS min_total_park,
+                                    contractbase.baname AS counter_party,
+                                    contractbase.primarytermbegindt AS contract_start,
+                                    contractbase.primarytermenddt AS contract_end,
+                                    contractbase.assetabbr AS asset_abbrev,
+                                    contractbase.contractid AS contract_id,
+                                    contractbase.baduns AS duns,
+                                    ROW_NUMBER() OVER (
+                                        PARTITION BY contractbase.contractid, contractbase.baname, contractbase.assetabbr
+                                        ORDER BY xaction.effbegindt DESC
+                                    ) as rn
+                                FROM navigates.navigates_contract_transaction xaction
+                                LEFT JOIN navigates.navigates_inputs_flat inputs
+                                    ON inputs.agreementid = xaction.contractid
+                                    AND inputs.value1 = xaction.contracttransactionid
+                                    AND inputs.assetnbr = xaction.assetnbr
+                                    AND inputs.paramid = 41
+                                LEFT JOIN navigates.navigates_inputs_flat maxdailypk
+                                    ON maxdailypk.agreementinputid = inputs.agreementinputid
+                                    AND maxdailypk.paramid = 6109
+                                    AND maxdailypk.agreementid = xaction.contractid
+                                    AND maxdailypk.assetnbr = xaction.assetnbr
+                                LEFT JOIN navigates.navigates_inputs_flat mindailypk
+                                    ON mindailypk.agreementinputid = inputs.agreementinputid
+                                    AND mindailypk.paramid = 6111
+                                    AND mindailypk.agreementid = xaction.contractid
+                                    AND mindailypk.assetnbr = xaction.assetnbr
+                                LEFT JOIN navigates.navigates_inputs_flat maxtotalpk
+                                    ON maxtotalpk.agreementinputid = inputs.agreementinputid
+                                    AND maxtotalpk.paramid = 6108
+                                LEFT JOIN navigates.navigates_inputs_flat mintotalpk
+                                    ON mintotalpk.agreementinputid = inputs.agreementinputid
+                                    AND mintotalpk.paramid = 6110
+                                INNER JOIN navigates.navigates_contract_base contractbase
+                                    ON contractbase.assetnbr = xaction.assetnbr
+                                    AND contractbase.contractid = xaction.contractid
+                                    AND (
+                                        CAST(xaction.effbegindt as VARCHAR)
+                                        BETWEEN CAST(contractbase.baeffbegindt as VARCHAR)
+                                        AND CAST(contractbase.baeffenddt as VARCHAR)
+                                    )
+                                    AND (
+                                        CAST(xaction.effenddt as VARCHAR)
+                                        BETWEEN CAST(contractbase.baeffbegindt as VARCHAR)
+                                        AND CAST(contractbase.baeffenddt as VARCHAR)
+                                    )
+                                WHERE xaction.rateschedulecd = 'PAL'
+                                    AND xaction.maxrateind = 'N'
+                                    AND xaction.statuscd = 'O'
+                                    AND xaction.assetnbr IN (51, 14, 3037, 3029, 44)
+                                    AND contractbase.assetabbr = 'NBPL'
+                                    AND xaction.effbegindt <= @date
+                                    AND xaction.effenddt >= @date
+                                    AND COALESCE(maxdailypk.value1, '0') != '0'
+                            ) ranked
+                            WHERE rn = 1
+                            ORDER BY counter_party, asset_abbrev
+                            LIMIT 20",RedshiftConnection
+"233fac28-e06f-44bf-8f6f-cc99a5d4d64b",[],john@shoreless.ai,2025-08-22 16:39:03.454,JsonPipelineConfigurationService.cs:668 | JsonPipelineConfigurationService.cs:672,"
+                                    SELECT COALESCE(MAX(version_number), 0) + 1 as next_version
+                                    FROM dbo.pipeline_configurations",DefaultConnection
+"25a7bffa-dcca-436a-8477-a782354fb212","[""@current_date""]",john@shoreless.ai,2025-08-22 16:39:03.977,STLTConversionService.cs:1266 | STLTConversionService.cs:1334,"
+                            -- UC4 #10 Backhaul tariff (reservation rate)
+                            -- Note: specific locations as string, update as needed or parameterize
+                            SELECT import_time,
+                                    effectivedate,
+                                    expirydate,
+                                    units,
+                                    delloc,
+                                    recloc,
+                                    duns,
+                                    tariff,
+                                    tariffdesc,
+                                    subratedesc,
+                                    firminterruptible,
+                                    ratesched,
+                                    tarifftype,
+                                    tariffdetail,
+                                    statusdesc
+                                FROM external_ebb.tariffs
+                                WHERE import_time = (
+                                    SELECT MAX(import_time)
+                                    FROM external_ebb.tariffs
+                                    WHERE duns = '021632583'
+                                      AND recloc = 'Port of Morgan'
+                                      AND delloc = 'Ventura'
+                                      AND firminterruptible = 'Firm'
+                                      AND tariffdetail = 'Maximum Daily Reservation'
+                                      AND ratesched = 'T-1B'
+                                      AND tarifftype = 'Reservation'
+                                      AND subratedesc LIKE '%Seasonal%'
+                                      AND effectivedate <= @current_date
+                                )
+                                AND duns = '021632583'
+                                AND recloc = 'Port of Morgan'
+                                AND delloc = 'Ventura'
+                                AND firminterruptible = 'Firm'
+                                AND tariffdetail = 'Maximum Daily Reservation'
+                                AND ratesched = 'T-1B'
+                                AND tarifftype = 'Reservation'
+                                AND subratedesc LIKE '%Seasonal%'
+                                AND effectivedate <= @current_date
+                                AND effectivedate = (
+                                    SELECT MAX(effectivedate)
+                                    FROM external_ebb.tariffs
+                                    WHERE duns = '021632583'
+                                      AND recloc = 'Port of Morgan'
+                                      AND delloc = 'Ventura'
+                                      AND firminterruptible = 'Firm'
+                                      AND tariffdetail = 'Maximum Daily Reservation'
+                                      AND ratesched = 'T-1B'
+                                      AND tarifftype = 'Reservation'
+                                      AND subratedesc LIKE '%Seasonal%'
+                                      AND effectivedate <= @current_date
+                                      AND import_time = (
+                                        SELECT MAX(import_time)
+                                        FROM external_ebb.tariffs
+                                        WHERE duns = '021632583'
+                                          AND recloc = 'Port of Morgan'
+                                          AND delloc = 'Ventura'
+                                          AND firminterruptible = 'Firm'
+                                          AND tariffdetail = 'Maximum Daily Reservation'
+                                          AND ratesched = 'T-1B'
+                                          AND tarifftype = 'Reservation'
+                                          AND subratedesc LIKE '%Seasonal%'
+                                          AND effectivedate <= @current_date
+                                      )
+                                );",RedshiftConnection
+"27a2ed11-2db3-4fad-b310-8106e8646280","[""@affectedOperations"",""@expiresDate"",""@outageLocation"",""@restrictionDate"",""@restrictionType""]",john@shoreless.ai,2025-08-22 16:39:03.511,OutageDetectionService.cs:130 | OutageDetectionService.cs:136,"
+                                    INSERT INTO dbo.uc3_spatial_restrictions 
+                                        (restriction_date, outage_location, restriction_type, affected_operations, auto_detected, expires_date)
+                                    VALUES 
+                                        (@restrictionDate, @outageLocation, @restrictionType, @affectedOperations, 1, @expiresDate)",DefaultConnection
+"334ee629-987a-4af6-bc3a-41e90217a9a8","[""@date""]",john@shoreless.ai,2025-08-22 16:39:04.144,TCPipelineDataService.cs:1154 | TCPipelineDataService.cs:1162,"
+                                SELECT impact
+                                FROM ap.sap_outages
+                                WHERE @date::date BETWEEN start_date::date AND end_date::date
+                                AND pipeline_aor_id = '3'
+                                ORDER BY start_date DESC
+                                LIMIT 1",TCExternalConnection
+"26711ca5-116b-4b34-aa9f-5dad17efc20b","[""@date""]",anthony_myhre@tcenergy.com,2025-08-25 17:38:15.877,TCPipelineDataService.cs:1005 | TCPipelineDataService.cs:1011,"
+                            SELECT COUNT(*) as outage_count
+                            FROM dbo.tchistoricaloutages
+                            WHERE @date::date BETWEEN start_date::date AND end_date::date
+                            AND impact > 0",DefaultConnection
+"2d688427-71c2-4988-9c49-27c06251159b",[],john@shoreless.ai,2025-08-22 16:39:03.694,PalRecommendationService.cs:830 | PalRecommendationService.cs:844,"
+                            SELECT 
+                                id, analysis_date, analysis_timestamp, asset_abbreviation, asset_number,
+                                maximum_cap_percentage, max_daily_unpark_mdth, max_daily_payback_mdth,
+                                temperature_f, weather_conditions, heating_degree_days,
+                                total_profit_opportunities, total_potential_profit,
+                                best_opportunity_1_json, best_opportunity_2_json, best_opportunity_3_json,
+                                recommended_park_volumes_json, recommended_loan_volumes_json,
+                                profit_opportunities_json, volume_recommendations_json, dashboard_data_json,
+                                processing_time_ms, email_sent, email_recipients, error_message,
+                                created_date, created_by, modified_date, modified_by, is_active, is_deleted
+                            FROM dbo.historicalpalrecommendations
+                            WHERE is_active = true AND is_deleted = false",DefaultConnection
+"2de880f0-8511-4f83-9a6e-42336f344379",[],john@shoreless.ai,2025-08-22 16:39:03.564,PalCapOBAService.cs:324 | PalCapOBAService.cs:471,"
+                            WITH
+                            Commodity_raw AS (
+                              SELECT *
+                              FROM external_ebb.tariffs
+                              WHERE duns = '021632583'
+                                AND tarifftype = 'Commodity'
+                                AND tariffdetail = 'Maximum Commodity'
+                                AND subratedesc = 'Long Term Base rate'
+                                AND ratesched = 'T-1'
+                                AND firminterruptible = 'Firm'
+                                AND recloc = 'Ventura'
+                                AND delloc = 'Will County'
+                                AND effectivedate <= :current_date
+                              ORDER BY effectivedate DESC, import_time DESC
+                              LIMIT 1
+                            ),
+                            commodity_tariff AS (
+                              SELECT CAST(tariff AS NUMERIC(38,12)) AS usage FROM Commodity_raw
+                            ),
+                            Fuel_raw AS (
+                              SELECT *
+                              FROM external_ebb.tariffs
+                              WHERE duns = '021632583'
+                                AND recloc = 'Ventura'
+                                AND delloc = 'Will County'
+                                AND units = '%'
+                                AND ratesched = 'Fuel'
+                                AND effectivedate <= :current_date
+                              ORDER BY effectivedate DESC, import_time DESC
+                              LIMIT 1
+                            ),
+                            fuel_tariff_raw AS (
+                              SELECT CAST(tariff AS NUMERIC(38,12)) AS fuel_raw FROM Fuel_raw
+                            ),
+                            latest_settle_rec AS (
+                              SELECT MAX(settlement_date) AS dt
+                              FROM marketprices.settlements
+                              WHERE location_code = 'NNG-Ventura'
+                                AND settlement_date <= :current_date
+                            ),
+                            latest_settle_del AS (
+                              SELECT MAX(settlement_date) AS dt
+                              FROM marketprices.settlements
+                              WHERE location_code = 'Chicago'
+                                AND settlement_date <= :current_date
+                            ),
+                            latest_assess_rec AS (
+                              SELECT MAX(assess_date) AS dt
+                              FROM marketprices.platts_forward_curves
+                              WHERE short_symbol = 'NNVM'
+                                AND assess_date <= :current_date
+                            ),
+                            latest_assess_del AS (
+                              SELECT MAX(assess_date) AS dt
+                              FROM marketprices.platts_forward_curves
+                              WHERE short_symbol = 'NCGM'
+                                AND assess_date <= :current_date
+                            ),
+                            balmo_rec AS (
+                                select
+                                date_trunc('month', :current_date)::date AS flow_month,
+                                'Balmo'::varchar(10) AS price_type,
+                                value::numeric(38,12) AS price
+                              FROM marketprices.platts_forward_curves
+                              WHERE short_symbol = 'NNVM'
+                                  and contract_label = 'Balmo'
+                                  and bate = 'u'
+                                AND assess_date = (SELECT dt FROM latest_assess_rec)
+                            ),
+                            balmo_del AS (
+                                select
+                                  date_trunc('month', :current_date)::date AS flow_month,
+                                'Balmo'::varchar(10) AS price_type,
+                                value::numeric(38,12) AS price
+                              FROM marketprices.platts_forward_curves
+                              WHERE short_symbol = 'NCGM'
+                                  and contract_label = 'Balmo'
+                                  and bate = 'u'
+                                AND assess_date = (SELECT dt FROM latest_assess_del)
+                            ),
+                            fwd_rec AS (
+                              SELECT
+                                 TO_DATE(
+                                    LPAD((ASCII(SUBSTRING(symbol, 5, 1)) - ASCII('A') + 1)::TEXT, 2, '0') 
+                                    || '-01-20' || SUBSTRING(symbol, 6, 2), 
+                                    'MM-DD-YYYY'
+                                ) AS flow_month,
+                                'FWD'::varchar(10) AS price_type,
+                                value::numeric(38,12) AS price
+                              FROM marketprices.platts_forward_curves
+                              WHERE short_symbol = 'NNVM'
+                                  and symbol NOT LIKE '%00'
+                                  and bate = 'u'
+                                AND assess_date = (SELECT dt FROM latest_assess_rec)
+                            ),
+                            fwd_del AS (
+                              SELECT
+                                 TO_DATE(
+                                    LPAD((ASCII(SUBSTRING(symbol, 5, 1)) - ASCII('A') + 1)::TEXT, 2, '0') 
+                                    || '-01-20' || SUBSTRING(symbol, 6, 2), 
+                                    'MM-DD-YYYY'
+                                ) AS flow_month,
+                                'FWD'::varchar(10) AS price_type,
+                                value::numeric(38,12) AS price
+                              FROM marketprices.platts_forward_curves
+                              WHERE short_symbol = 'NCGM'
+                                  and symbol NOT LIKE '%00'
+                                  and bate = 'u'
+                                AND assess_date = (SELECT dt FROM latest_assess_del)
+                            ),
+                            prices AS (
+                              SELECT * FROM (
+                                SELECT flow_month, price_type, price AS PS FROM balmo_rec
+                                UNION ALL
+                                SELECT flow_month, price_type, price AS PS FROM fwd_rec
+                              ) s
+                              JOIN (
+                                SELECT flow_month, price_type, price AS PD FROM balmo_del
+                                UNION ALL
+                                SELECT flow_month, price_type, price AS PD FROM fwd_del
+                              ) d
+                              USING (flow_month, price_type)
+                            ),
+                            scalars AS (
+                              SELECT
+                                (SELECT usage FROM commodity_tariff) AS usage,
+                                (SELECT fuel_raw FROM fuel_tariff_raw) AS fuel_raw
+                            )
+                            SELECT
+                              p.flow_month,
+                              p.price_type,
+                              s.fuel_raw,
+                              s.usage,
+                              p.PD as chicago_price,
+                              p.PS as ventura_price,
+                              p.PS / NULLIF(1 - (CASE WHEN s.fuel_raw > 1 THEN s.fuel_raw/100.0 ELSE s.fuel_raw END), 0) AS gas_cost,
+                              p.PS / NULLIF(1 - (CASE WHEN s.fuel_raw > 1 THEN s.fuel_raw/100.0 ELSE s.fuel_raw END), 0)
+                                + s.usage AS delivered_cost,
+                              p.PD - (
+                                p.PS / NULLIF(1 - (CASE WHEN s.fuel_raw > 1 THEN s.fuel_raw/100.0 ELSE s.fuel_raw END), 0)
+                                + s.usage
+                              ) AS spread
+                            FROM prices p
+                            CROSS JOIN scalars s
+                            ORDER BY p.flow_month, p.price_type",RedshiftConnection
+"2e3463ab-5ddd-488f-abf6-95331dcbc6a3","[""@date"",""@pointCode""]",john@shoreless.ai,2025-08-22 16:39:03.638,PalLocationService.cs:1326 | PalLocationService.cs:1337,"
+                                    SELECT TOP 1 
+                                        value1,
+                                        value2,
+                                        paramname
+                                    FROM navigates.navigates_contract_prices 
+                                    WHERE (fromloccode = @pointCode OR toloccode = @pointCode)
+                                        AND effbegindt <= @date 
+                                        AND (effenddt IS NULL OR effenddt >= @date)
+                                    ORDER BY effbegindt DESC",RedshiftConnection
+"2edea7da-c4f5-4ee8-b994-49260f0c1e5b","[""@analysisTimestamp"",""@assetAbbreviation"",""@assetNumber"",""@bestOpportunity1Json"",""@bestOpportunity2Json"",""@bestOpportunity3Json"",""@dashboardDataJson"",""@emailRecipients"",""@emailSent"",""@errorMessage"",""@heatingDegreeDays"",""@id"",""@maxDailyPaybackMDth"",""@maxDailyUnparkMDth"",""@maximumCapPercentage"",""@modifiedBy"",""@modifiedDate"",""@processingTimeMs"",""@profitOpportunitiesJson"",""@recommendedLoanVolumesJson"",""@recommendedParkVolumesJson"",""@temperatureF"",""@totalPotentialProfit"",""@totalProfitOpportunities"",""@volumeRecommendationsJson"",""@weatherConditions""]",john@shoreless.ai,2025-08-22 16:39:03.693,PalRecommendationService.cs:643 | PalRecommendationService.cs:672,"
+                    UPDATE dbo.historicalpalrecommendations SET
+                        analysis_timestamp = @analysisTimestamp,
+                        asset_abbreviation = @assetAbbreviation,
+                        asset_number = @assetNumber,
+                        maximum_cap_percentage = @maximumCapPercentage,
+                        max_daily_unpark_mdth = @maxDailyUnparkMDth,
+                        max_daily_payback_mdth = @maxDailyPaybackMDth,
+                        temperature_f = @temperatureF,
+                        weather_conditions = @weatherConditions,
+                        heating_degree_days = @heatingDegreeDays,
+                        total_profit_opportunities = @totalProfitOpportunities,
+                        total_potential_profit = @totalPotentialProfit,
+                        best_opportunity_1_json = @bestOpportunity1Json::jsonb,
+                        best_opportunity_2_json = @bestOpportunity2Json::jsonb,
+                        best_opportunity_3_json = @bestOpportunity3Json::jsonb,
+                        recommended_park_volumes_json = @recommendedParkVolumesJson::jsonb,
+                        recommended_loan_volumes_json = @recommendedLoanVolumesJson::jsonb,
+                        profit_opportunities_json = @profitOpportunitiesJson::jsonb,
+                        volume_recommendations_json = @volumeRecommendationsJson::jsonb,
+                        dashboard_data_json = @dashboardDataJson::jsonb,
+                        processing_time_ms = @processingTimeMs,
+                        email_sent = @emailSent,
+                        email_recipients = @emailRecipients,
+                        error_message = @errorMessage,
+                        modified_date = @modifiedDate,
+                        modified_by = @modifiedBy
+                    WHERE id = @id",DefaultConnection
+"2f7e7799-5d6a-4598-92df-c5d4261c7932","[""@date""]",john@shoreless.ai,2025-08-22 16:39:03.976,STLTConversionService.cs:1155 | STLTConversionService.cs:1165,"
+                                    SELECT
+                                        CAST(COALESCE(operational_available_capacity, '0') AS integer) as operational_capacity_mmcfd
+                                    FROM ce.navigates_operational_available_capacity
+                                    WHERE assetabrv = 'NBPL'
+                                    AND flowdate = @date
+                                    AND cycle_name = 'TIMELY'
+                                    ORDER BY import_time DESC
+                                    LIMIT 1",TCExternalConnection
+"310f4bd5-76ba-4121-81ed-80c69a6bd343",[],john@shoreless.ai,2025-08-22 16:39:03.635,PalLocationService.cs:646 | PalLocationService.cs:735,"
+                            SELECT 
+                                trx_id,
+                                rateschedulecd,
+                                effbegindt,
+                                effenddt,
+                                min_total_loan,
+                                max_total_loan,
+                                max_daily_unpark,
+                                min_daily_unpark,
+                                max_total_park,
+                                counter_party,
+                                contract_start,
+                                contract_end,
+                                asset_abbrev,
+                                contract_id,
+                                duns
+                            FROM (
+                                SELECT 
+                                    xaction.contracttransactionid AS trx_id,
+                                    xaction.rateschedulecd,
+                                    xaction.effbegindt,
+                                    xaction.effenddt,
+                                    mintotalln.value1 AS min_total_loan,
+                                    maxtotalln.value1 AS max_total_loan,
+                                    maxdailyunpk.value1 AS max_daily_unpark,
+                                    mindailyunpk.value1 AS min_daily_unpark,
+                                    maxtotalpk.value1 AS max_total_park,
+                                    contractbase.baname AS counter_party,
+                                    contractbase.primarytermbegindt AS contract_start,
+                                    contractbase.primarytermenddt AS contract_end,
+                                    contractbase.assetabbr AS asset_abbrev,
+                                    contractbase.contractid AS contract_id,
+                                    contractbase.baduns AS duns,
+                                    ROW_NUMBER() OVER (
+                                        PARTITION BY contractbase.contractid, contractbase.baname, contractbase.assetabbr
+                                        ORDER BY xaction.effbegindt DESC
+                                    ) as rn
+                                FROM navigates.navigates_contract_transaction xaction
+                                LEFT JOIN navigates.navigates_inputs_flat inputs
+                                    ON inputs.agreementid = xaction.contractid
+                                    AND inputs.value1 = xaction.contracttransactionid
+                                    AND inputs.assetnbr = xaction.assetnbr
+                                    AND inputs.paramid = 41
+                                LEFT JOIN navigates.navigates_inputs_flat mintotalln
+                                    ON mintotalln.agreementinputid = inputs.agreementinputid
+                                    AND mintotalln.paramid = 7404
+                                LEFT JOIN navigates.navigates_inputs_flat maxtotalln
+                                    ON maxtotalln.agreementinputid = inputs.agreementinputid
+                                    AND maxtotalln.paramid = 6109
+                                LEFT JOIN navigates.navigates_inputs_flat maxdailyunpk
+                                    ON maxdailyunpk.agreementinputid = inputs.agreementinputid
+                                    AND maxdailyunpk.paramid = 6110
+                                    AND maxdailyunpk.agreementid = xaction.contractid
+                                    AND maxdailyunpk.assetnbr = xaction.assetnbr
+                                LEFT JOIN navigates.navigates_inputs_flat mindailyunpk
+                                    ON mindailyunpk.agreementinputid = inputs.agreementinputid
+                                    AND mindailyunpk.paramid = 6112
+                                    AND mindailyunpk.agreementid = xaction.contractid
+                                    AND mindailyunpk.assetnbr = xaction.assetnbr
+                                LEFT JOIN navigates.navigates_inputs_flat maxtotalpk
+                                    ON maxtotalpk.agreementinputid = inputs.agreementinputid
+                                    AND maxtotalpk.paramid = 6108
+                                INNER JOIN navigates.navigates_contract_base contractbase
+                                    ON contractbase.assetnbr = xaction.assetnbr
+                                    AND contractbase.contractid = xaction.contractid
+                                    AND (
+                                        CAST(xaction.effbegindt as VARCHAR)
+                                        BETWEEN CAST(contractbase.baeffbegindt as VARCHAR)
+                                        AND CAST(contractbase.baeffenddt as VARCHAR)
+                                    )
+                                    AND (
+                                        CAST(xaction.effenddt as VARCHAR)
+                                        BETWEEN CAST(contractbase.baeffbegindt as VARCHAR)
+                                        AND CAST(contractbase.baeffenddt as VARCHAR)
+                                    )
+                                WHERE xaction.rateschedulecd = 'PAL'
+                                    AND xaction.maxrateind = 'N'
+                                    AND xaction.statuscd = 'O'
+                                    AND xaction.assetnbr IN (51, 14, 3037, 3029, 44)
+                                    AND contractbase.assetabbr = 'NBPL'
+                                    AND xaction.effbegindt <= @date
+                                    AND xaction.effenddt >= @date
+                                    AND (COALESCE(maxtotalln.value1, '0') != '0' OR COALESCE(maxdailyunpk.value1, '0') != '0')
+                            ) ranked
+                            WHERE rn = 1
+                            ORDER BY counter_party, asset_abbrev
+                            LIMIT 20",RedshiftConnection
+"355a9a2c-8373-474a-b077-9afcdc23f02f","[""@date""]",john@shoreless.ai,2025-08-22 16:39:04.154,TCPipelineDataService.cs:2122 | TCPipelineDataService.cs:2138,"
+                            SELECT 
+                                cp.timestamp::date as Date, 
+                                EXTRACT(HOUR FROM cp.timestamp) as military_hour, 
+                                cp.ap_compressor, 
+                                cp.totalhorsepower, 
+                                cp.totalfuel,
+                                mr.flow_rate_mmcfd
+                            FROM dbo.tc_compressorplan cp
+                            JOIN dbo.tc_dailymeterreadings mr ON 
+                                cp.timestamp::date = mr.timestamp::date AND 
+                                EXTRACT(HOUR FROM cp.timestamp) = EXTRACT(HOUR FROM mr.timestamp)
+                            WHERE cp.timestamp::date = @date
+                            AND cp.totalhorsepower IS NOT NULL
+                            AND mr.flow_rate_mmcfd IS NOT NULL",DefaultConnection
+"38f0bee9-789c-4037-9aa5-a16ed6ba4f4a","[""@endDate"",""@startDate""]",john@shoreless.ai,2025-08-22 16:39:03.976,STLTConversionService.cs:998 | STLTConversionService.cs:1015,"
+                            SELECT 
+                                TRIM(value1) as raw_basis_value,
+                                effbegindt
+                            FROM navigates.navigates_contract_prices 
+                            WHERE effbegindt >= @startDate
+                            AND effbegindt <= @endDate
+                            AND paramname ILIKE '%basis%'
+                            AND TRIM(value1) IS NOT NULL
+                            AND TRIM(value1) != ''
+                            AND TRIM(value1) != 'N'
+                            AND TRIM(value1) != 'I'
+                            AND TRIM(value1) != 'NULL'
+                            AND TRIM(value1) != 'NA'
+                            AND TRIM(value1) ~ '^-?[0-9]+\.?[0-9]*$'
+                            ORDER BY effbegindt DESC",RedshiftConnection
+"3b2409bc-f4ec-47c1-b284-b24c25c175a4",[],john@shoreless.ai,2025-08-22 16:39:03.564,PalCapOBAService.cs:118 | PalCapOBAService.cs:265,"
+                            WITH
+                            Commodity_raw AS (
+                              SELECT *
+                              FROM external_ebb.tariffs
+                              WHERE duns = '021632583'
+                                AND tarifftype = 'Commodity'
+                                AND tariffdetail = 'Maximum Commodity'
+                                AND subratedesc = 'Long Term Base rate'
+                                AND ratesched = 'T-1'
+                                AND firminterruptible = 'Firm'
+                                AND recloc = 'Ventura'
+                                AND delloc = 'North Hayden'
+                                AND effectivedate <= :current_date
+                              ORDER BY effectivedate DESC, import_time DESC
+                              LIMIT 1
+                            ),
+                            commodity_tariff AS (
+                              SELECT CAST(tariff AS NUMERIC(38,12)) AS usage FROM Commodity_raw
+                            ),
+                            Fuel_raw AS (
+                              SELECT *
+                              FROM external_ebb.tariffs
+                              WHERE duns = '021632583'
+                                AND recloc = 'Ventura'
+                                AND delloc = 'North Hayden'
+                                AND units = '%'
+                                AND ratesched = 'Fuel'
+                                AND effectivedate <= :current_date
+                              ORDER BY effectivedate DESC, import_time DESC
+                              LIMIT 1
+                            ),
+                            fuel_tariff_raw AS (
+                              SELECT CAST(tariff AS NUMERIC(38,12)) AS fuel_raw FROM Fuel_raw
+                            ),
+                            latest_settle_rec AS (
+                              SELECT MAX(settlement_date) AS dt
+                              FROM marketprices.settlements
+                              WHERE location_code = 'NNG-Ventura'
+                                AND settlement_date <= :current_date
+                            ),
+                            latest_settle_del AS (
+                              SELECT MAX(settlement_date) AS dt
+                              FROM marketprices.settlements
+                              WHERE location_code = 'Chicago'
+                                AND settlement_date <= :current_date
+                            ),
+                            latest_assess_rec AS (
+                              SELECT MAX(assess_date) AS dt
+                              FROM marketprices.platts_forward_curves
+                              WHERE short_symbol = 'NNVM'
+                                AND assess_date <= :current_date
+                            ),
+                            latest_assess_del AS (
+                              SELECT MAX(assess_date) AS dt
+                              FROM marketprices.platts_forward_curves
+                              WHERE short_symbol = 'NCGM'
+                                AND assess_date <= :current_date
+                            ),
+                            balmo_rec AS (
+                                select
+                                date_trunc('month', :current_date)::date AS flow_month,
+                                'Balmo'::varchar(10) AS price_type,
+                                value::numeric(38,12) AS price
+                              FROM marketprices.platts_forward_curves
+                              WHERE short_symbol = 'NNVM'
+                                  and contract_label = 'Balmo'
+                                  and bate = 'u'
+                                AND assess_date = (SELECT dt FROM latest_assess_rec)
+                            ),
+                            balmo_del AS (
+                                select
+                                  date_trunc('month', :current_date)::date AS flow_month,
+                                'Balmo'::varchar(10) AS price_type,
+                                value::numeric(38,12) AS price
+                              FROM marketprices.platts_forward_curves
+                              WHERE short_symbol = 'NCGM'
+                                  and contract_label = 'Balmo'
+                                  and bate = 'u'
+                                AND assess_date = (SELECT dt FROM latest_assess_del)
+                            ),
+                            fwd_rec AS (
+                              SELECT
+                                 TO_DATE(
+                                    LPAD((ASCII(SUBSTRING(symbol, 5, 1)) - ASCII('A') + 1)::TEXT, 2, '0') 
+                                    || '-01-20' || SUBSTRING(symbol, 6, 2), 
+                                    'MM-DD-YYYY'
+                                ) AS flow_month,
+                                'FWD'::varchar(10) AS price_type,
+                                value::numeric(38,12) AS price
+                              FROM marketprices.platts_forward_curves
+                              WHERE short_symbol = 'NNVM'
+                                  and symbol NOT LIKE '%00'
+                                  and bate = 'u'
+                                AND assess_date = (SELECT dt FROM latest_assess_rec)
+                            ),
+                            fwd_del AS (
+                              SELECT
+                                 TO_DATE(
+                                    LPAD((ASCII(SUBSTRING(symbol, 5, 1)) - ASCII('A') + 1)::TEXT, 2, '0') 
+                                    || '-01-20' || SUBSTRING(symbol, 6, 2), 
+                                    'MM-DD-YYYY'
+                                ) AS flow_month,
+                                'FWD'::varchar(10) AS price_type,
+                                value::numeric(38,12) AS price
+                              FROM marketprices.platts_forward_curves
+                              WHERE short_symbol = 'NCGM'
+                                  and symbol NOT LIKE '%00'
+                                  and bate = 'u'
+                                AND assess_date = (SELECT dt FROM latest_assess_del)
+                            ),
+                            prices AS (
+                              SELECT * FROM (
+                                SELECT flow_month, price_type, price AS PS FROM balmo_rec
+                                UNION ALL
+                                SELECT flow_month, price_type, price AS PS FROM fwd_rec
+                              ) s
+                              JOIN (
+                                SELECT flow_month, price_type, price AS PD FROM balmo_del
+                                UNION ALL
+                                SELECT flow_month, price_type, price AS PD FROM fwd_del
+                              ) d
+                              USING (flow_month, price_type)
+                            ),
+                            scalars AS (
+                              SELECT
+                                (SELECT usage FROM commodity_tariff) AS usage,
+                                (SELECT fuel_raw FROM fuel_tariff_raw) AS fuel_raw
+                            )
+                            SELECT
+                              p.flow_month,
+                              p.price_type,
+                              s.fuel_raw,
+                              s.usage,
+                              p.PD as chicago_price,
+                              p.PS as ventura_price,
+                              p.PS / NULLIF(1 - (CASE WHEN s.fuel_raw > 1 THEN s.fuel_raw/100.0 ELSE s.fuel_raw END), 0) AS gas_cost,
+                              p.PS / NULLIF(1 - (CASE WHEN s.fuel_raw > 1 THEN s.fuel_raw/100.0 ELSE s.fuel_raw END), 0)
+                                + s.usage AS delivered_cost,
+                              p.PD - (
+                                p.PS / NULLIF(1 - (CASE WHEN s.fuel_raw > 1 THEN s.fuel_raw/100.0 ELSE s.fuel_raw END), 0)
+                                + s.usage
+                              ) AS spread
+                            FROM prices p
+                            CROSS JOIN scalars s
+                            ORDER BY p.flow_month, p.price_type",RedshiftConnection
+"40d27726-8640-44e4-8f15-629256986a88","[""@pointCode""]",john@shoreless.ai,2025-08-22 16:39:03.641,PalLocationService.cs:1559 | PalLocationService.cs:1564,"
+                                    SELECT np.marketarea, np.segment, np.fercnode
+                                    FROM navigates.navigates_points np
+                                    WHERE np.pointcd = @pointCode",RedshiftConnection
+"41df8598-c146-434e-b797-c0b4b91177d1","[""@date""]",john@shoreless.ai,2025-08-22 16:39:03.568,PalCapOBAService.cs:925 | PalCapOBAService.cs:944,"
+                            SELECT 
+                                entity_name,
+                                daily_imb_dth,
+                                eod_accum_imb_dth,
+                                CASE 
+                                    WHEN daily_imb_dth > 10000 THEN 'HIGH_EXCESS_TODAY'
+                                    WHEN daily_imb_dth > 5000 THEN 'MODERATE_EXCESS_TODAY'
+                                    WHEN daily_imb_dth < -10000 THEN 'HIGH_DEFICIT_TODAY'
+                                    WHEN daily_imb_dth < -5000 THEN 'MODERATE_DEFICIT_TODAY'
+                                    ELSE 'BALANCED_TODAY'
+                                END as daily_category
+                            FROM ap.contract_entity_daily_imbalance
+                            WHERE pipeline_aor_id = 3
+                                AND gas_day = @date
+                                AND ABS(daily_imb_dth) > 1000
+                            ORDER BY ABS(daily_imb_dth) DESC
+                            LIMIT 10",TCExternalConnection
+"44e52b55-1df8-473d-8536-62d6d18e2f7d","[""@endDate"",""@startDate""]",john@shoreless.ai,2025-08-22 16:39:04.022,TCCapacityDecisionService.cs:1003 | TCCapacityDecisionService.cs:1011,"
+                        SELECT AVG(CAST(COALESCE(operational_available_capacity, '0') AS integer)) as avg_normal_capacity
+                        FROM ce.navigates_operational_available_capacity
+                        WHERE assetabrv = 'NBPL'
+                          AND flowdate BETWEEN @startDate AND @endDate
+                          AND cycle_name = 'TIMELY'
+                          AND CAST(COALESCE(operational_available_capacity, '0') AS integer) > 0",TCExternalConnection
+"4709a227-9642-499b-996d-872226baa7df",[],john@shoreless.ai,2025-08-22 16:39:03.444,JsonPipelineConfigurationService.cs:246 | JsonPipelineConfigurationService.cs:252,"
+                                    SELECT configuration_json, version_number, id FROM dbo.pipeline_configurations  
+                                    WHERE is_active = true AND is_deleted = false
+                                    ORDER BY version_number DESC, created_date DESC
+                                    LIMIT 1",DefaultConnection
+"4a8d88fa-6e70-4feb-a7bf-d7de1547207a","[""@segment"",""@start_date""]",john@shoreless.ai,2025-08-22 16:39:03.980,STLTConversionService.cs:2327 | STLTConversionService.cs:2337,"
+                                    SELECT id, analysis_date, pipeline_segment, daily_capacity_mmcfd, conversion_duration_months,
+                                           available_for_lt_mmcfd, daily_rate, lt_rate, rate_premium_percent, backhaul_required_mmcfd,
+                                           backhaul_cost_k, npv_difference_k, recommendation, rationale, processing_time_ms,
+                                           email_sent, created_by, analysis_timestamp
+                                    FROM uc4_scenario_analyses
+                                    WHERE pipeline_segment = @segment
+                                    AND analysis_date >= @start_date
+                                    ORDER BY analysis_date DESC, analysis_timestamp DESC",DefaultConnection
+"4db89dd7-cacf-40a2-98af-ea9712fe09b3","[""@olderThan""]",john@shoreless.ai,2025-08-22 16:39:04.165,TCRecommendationCacheService.cs:636 | TCRecommendationCacheService.cs:642,"
+                        DELETE FROM dbo.tc_recommendations
+                        WHERE created_date < @olderThan",DefaultConnection
+"4dc3454c-e15c-47d0-8036-d409cb735476","[""@date""]",john@shoreless.ai,2025-08-22 16:39:04.023,TCCapacityDecisionService.cs:1306 | TCCapacityDecisionService.cs:1314,"
+                        SELECT 
+                            SUM(COALESCE(contract_daily_right, 0)) as total_contract_demand_dth
+                        FROM ap.contract
+                        WHERE pipeline_aor_id = 3
+                          AND effective_end_date::date >= @date::date
+                          AND effective_start_date::date <= @date::date",TCExternalConnection
+"4deb736c-5da2-4bea-af75-4a0cdb6ac115","[""@date""]",john@shoreless.ai,2025-08-22 16:39:03.590,PalCapOBAService.cs:1488 | PalCapOBAService.cs:1495,"
+                                    SELECT SUM(end_accum_balance) as accum_pal_dth
+                                    FROM ap.contract_cumulative_imbalance
+                                    WHERE pipeline_id = '3'
+                                    AND rate_schedule = 'PAL'
+                                    AND gas_day = @date",DefaultConnection
+"4e3c290c-c7c0-400d-9279-86cf2bd37718","[""@date""]",john@shoreless.ai,2025-08-22 16:39:03.597,PalCapOBAService.cs:2367 | PalCapOBAService.cs:2376,"
+                            select strip, settlement_date, settlement_price, import_time, contract, location_code, contract_type, product 
+                            from marketprices.settlements
+                            where location_code = 'NNG-Ventura'
+                            and contract_type = 'D'
+                            and product = 'NG Swing GDD Futures'
+                            and settlement_date = @date
+                            and strip = settlement_date;",RedshiftConnection
+"50b46544-23d6-450a-a89b-4f0018bc9a1a","[""@date""]",john@shoreless.ai,2025-08-22 16:39:03.592,PalCapOBAService.cs:1573 | PalCapOBAService.cs:1579,"
+                                    SELECT COUNT(*) as outage_count
+                                    FROM dbo.tchistoricaloutages
+                                    WHERE @date::date BETWEEN start_date::date AND end_date::date
+                                    AND impact > 0",DefaultConnection
+"53126549-4336-4241-98dd-e18bd50a051d","[""@analysisDate""]",john@shoreless.ai,2025-08-22 16:39:03.699,PalRecommendationService.cs:1950 | PalRecommendationService.cs:1963,"
+                            SELECT 
+                                capacity_amount,
+                                final_score,
+                                risk_level,
+                                is_safety_override,
+                                decision_date,
+                                created_date
+                            FROM dbo.tc_capacity_decisions 
+                            WHERE decision_date::date = @analysisDate::date
+                            ORDER BY created_date DESC
+                            LIMIT 1",DefaultConnection
+"53128448-f4f3-4f4b-9b05-6152b97e6fcc","[""@date""]",john@shoreless.ai,2025-08-22 16:39:04.142,TCPipelineDataService.cs:716 | TCPipelineDataService.cs:733,"
+                            SELECT 
+                                COUNT(*) as total_readings,
+                                COUNT(CASE 
+                                    WHEN lmf.pressure < (m.min_op * 0.9) OR 
+                                         lmf.pressure > (COALESCE(m.max_op, m.min_op * 1.5) * 1.1) 
+                                    THEN 1 
+                                END) as anomalous_readings
+                            FROM pi.meter_flow lmf
+                            INNER JOIN general.meter m 
+                                ON lmf.pipeline_aor_id = m.pipeline_aor_id
+                                AND lmf.ap_meter = m.meter_id
+                            WHERE m.pipeline_aor_id = 3
+                              AND DATE(lmf.timestamp) = @date
+                              AND lmf.pressure IS NOT NULL
+                              AND EXTRACT(minute FROM lmf.timestamp)::integer = 0",TCExternalConnection
+"5313ad1f-b992-47c4-8691-6e0e94b06455","[""@date""]",john@shoreless.ai,2025-08-22 16:39:03.593,PalCapOBAService.cs:1724 | PalCapOBAService.cs:1791,"
+                            -- UC3 #5 (NOTE: New param added for current date - please validate if this is OK.)
+                            -- Balmo - Only for current month
+                            WITH daily_settlement AS (
+                              SELECT
+                                *,
+                                DATE_TRUNC('month', strip) AS active_month_dt
+                              FROM marketprices.settlements
+                              WHERE
+                                location_code = 'NNG-Ventura'
+                                AND contract_type = 'D'
+                                AND contract = 'NNS'
+                                AND settlement_date = (
+                                  SELECT MAX(settlement_date)
+                                  FROM marketprices.settlements
+                                  WHERE location_code = 'NNG-Ventura'
+                                    AND contract_type = 'D'
+                                    AND contract = 'NNS'
+                                )
+                            ),
+                            futures_settlement AS (
+                              SELECT
+                                *,
+                                DATE_TRUNC('month', strip) AS active_month_dt
+                              FROM marketprices.settlements
+                              WHERE
+                                location_code = 'NNG-Ventura'
+                                AND contract_type = 'D'
+                                AND strip > DATE_TRUNC('month', @date)
+                                AND settlement_date = (
+                                  SELECT MAX(settlement_date)
+                                  FROM marketprices.settlements
+                                  WHERE location_code = 'NNG-Ventura'
+                                    AND contract_type = 'D'
+                                )
+                            )
+                            SELECT
+                              strip,
+                              settlement_date,
+                              settlement_price,
+                              import_time,
+                              contract,
+                              location_code,
+                              contract_type,
+                              product,
+                              active_month_dt,
+                              CASE
+                                WHEN active_month_dt = DATE_TRUNC('month', @date) THEN 'Balmo'
+                                ELSE 'Future'
+                              END AS price_type
+                            FROM daily_settlement
+                            WHERE active_month_dt = DATE_TRUNC('month', @date)
+                            UNION ALL
+                            SELECT
+                              strip,
+                              settlement_date,
+                              settlement_price,
+                              import_time,
+                              contract,
+                              location_code,
+                              contract_type,
+                              product,
+                              active_month_dt,
+                              'Future' AS price_type
+                            FROM futures_settlement
+                            ORDER BY strip, price_type;",RedshiftConnection
+"5ad1b01e-0215-4acf-a587-0d73fb0cdfcd","[""@pointCode""]",john@shoreless.ai,2025-08-22 16:39:03.640,PalLocationService.cs:1480 | PalLocationService.cs:1485,"
+                                    SELECT marketarea, segment, pointname
+                                    FROM navigates.navigates_points 
+                                    WHERE pointcd = @pointCode",RedshiftConnection
+"5b8d4ab5-04f4-4f66-a734-b85ef289c10d","[""@date""]",john@shoreless.ai,2025-08-22 16:39:03.697,PalRecommendationService.cs:1624 | PalRecommendationService.cs:1658,"
+                            WITH commodity_tariff AS (
+                                SELECT CAST(tariff AS NUMERIC(38,12)) AS usage 
+                                FROM external_ebb.tariffs
+                                WHERE duns = '021632583'
+                                    AND tarifftype = 'Commodity'
+                                    AND tariffdetail = 'Maximum Commodity'
+                                    AND subratedesc = 'Long Term Base rate'
+                                    AND ratesched = 'T-1'
+                                    AND firminterruptible = 'Firm'
+                                    AND recloc = 'Ventura'
+                                    AND delloc = 'North Hayden'
+                                    AND effectivedate <= @date
+                                ORDER BY effectivedate DESC, import_time DESC
+                                LIMIT 1
+                            ),
+                            fuel_tariff AS (
+                                SELECT CAST(tariff AS NUMERIC(38,12)) AS fuel_rate
+                                FROM external_ebb.tariffs
+                                WHERE duns = '021632583'
+                                    AND recloc = 'Ventura'
+                                    AND delloc = 'North Hayden'
+                                    AND units = '%'
+                                    AND ratesched = 'Fuel'
+                                    AND effectivedate <= @date
+                                ORDER BY effectivedate DESC, import_time DESC
+                                LIMIT 1
+                            )
+                            SELECT 
+                                COALESCE(c.usage, 0.15) as commodity_rate,
+                                COALESCE(f.fuel_rate, 2.0) as fuel_rate
+                            FROM commodity_tariff c
+                            CROSS JOIN fuel_tariff f",RedshiftConnection
+"5be0d5cf-6ead-4743-a45c-62a443ce7ccd","[""@date""]",john@shoreless.ai,2025-08-22 16:39:03.568,PalCapOBAService.cs:877 | PalCapOBAService.cs:883,"
+                            SELECT SUM(daily_imb_dth) as daily_oba_dth
+                            FROM ap.contract_entity_daily_imbalance
+                            WHERE pipeline_aor_id = 3
+                            AND gas_day = @date",TCExternalConnection
+"5c86bbb4-6548-4139-8667-41999f5beb35","[""@forecastDate""]",john@shoreless.ai,2025-08-22 16:39:04.059,TCConstraintScoringService.cs:97 | TCConstraintScoringService.cs:110,"
+                    SELECT 
+                        station_name, 
+                        suction_pressure_recco, 
+                        discharge_pressure_recco,
+                        expected_timestamp,
+                        suction_pressure_actual,
+                        discharge_pressure_actual
+                    FROM ui.ml_station_pressure_reccos 
+                    WHERE pipeline_aor_id = 3
+                    AND expected_timestamp::date >= @forecastDate::date
+                    ORDER BY expected_timestamp",TCExternalConnection
+"5c977572-7b35-4572-81f3-24340eca835c","[""@currentDate"",""@duns""]",john@shoreless.ai,2025-08-22 16:39:03.705,PalRecommendationService.cs:2870 | PalRecommendationService.cs:2897,"
+                            SELECT tariff
+                            FROM external_ebb.tariffs
+                            WHERE duns = @duns
+                                AND tarifftype = 'Reservation'
+                                AND tariffdetail = 'Maximum Daily Reservation'
+                                AND ratesched = 'T-1'
+                                AND firminterruptible = 'Firm'
+                                AND recloc = 'Ventura'
+                                AND delloc = 'North Hayden'
+                                AND effectivedate <= @currentDate
+                                AND tariff > 0.01  -- Only get meaningful reservation rates, not zeros
+                                AND import_time = (
+                                    SELECT MAX(import_time)
+                                    FROM external_ebb.tariffs
+                                    WHERE duns = @duns
+                                        AND tarifftype = 'Reservation'
+                                        AND tariffdetail = 'Maximum Daily Reservation'
+                                        AND ratesched = 'T-1'
+                                        AND firminterruptible = 'Firm'
+                                        AND recloc = 'Ventura'
+                                        AND delloc = 'North Hayden'
+                                        AND effectivedate <= @currentDate
+                                        AND tariff > 0.01
+                                )
+                            LIMIT 1",RedshiftConnection
+"5cb087a5-b273-4937-b412-4b8d003c54e6","[""@date""]",john@shoreless.ai,2025-08-22 16:39:04.140,TCPipelineDataService.cs:422 | TCPipelineDataService.cs:432,"
+                            SELECT pipeline_aor_id, gas_day, pi_timestamp, sum(linepack_mmcf) as total_linepack
+                            FROM ap.linepack_by_segment
+                            WHERE pipeline_aor_id = '3'
+                            AND pi_timestamp::date = @date
+                            AND EXTRACT(minute FROM pi_timestamp) = 0
+                            GROUP BY pipeline_aor_id, gas_day, pi_timestamp
+                            ORDER BY pi_timestamp DESC
+                            LIMIT 1",TCExternalConnection
+"5f427cde-38a2-481f-989a-1e3947b08579","[""@date""]",john@shoreless.ai,2025-08-22 16:39:03.638,PalLocationService.cs:1215 | PalLocationService.cs:1224,"
+                                    SELECT 
+                                        SUM(COALESCE(msq, 0)) as total_storage_capacity,
+                                        SUM(COALESCE(mdwq, 0)) as total_withdrawal_capacity,
+                                        COUNT(*) as facility_count
+                                    FROM gas_storage.storage_capacity 
+                                    WHERE effbegindate <= @date 
+                                        AND (effenddate IS NULL OR effenddate >= @date)",RedshiftConnection
+"60d706c9-0355-4732-b48c-0df0d85902dd",[],john@shoreless.ai,2025-08-22 16:39:03.641,PalLocationService.cs:1607 | PalLocationService.cs:1612,"
+                                    SELECT np.marketarea, np.segment, np.fercnode
+                                    FROM navigates.navigates_points np
+                                    WHERE np.pointcd = @pointCode",RedshiftConnection
+"614073a9-7fc8-4d74-b69d-9d3e7ad5542b",[],john@shoreless.ai,2025-08-22 16:39:03.711,PalRecommendationService.cs:3225 | PalRecommendationService.cs:3249,"
+                            SELECT 
+                                operational_plan_id,
+                                pipeline_aor_id,
+                                -- Fuel calculation: Fuel Input - LAUF Input
+                                (fuel_dth / 1000.0 + lauf_dth / 1000.0) as fuel_lauf_net_mdth,
+                                -- PAL calculation: Park + Loan Payback - Loan - Park Withdraw  
+                                (pal_park_total_dth / 1000.0 + pal_loan_payback_dth / 1000.0 + 
+                                 pal_loan_total_dth / 1000.0 + pal_park_withdraw_dth / 1000.0) as pal_net_mdth,
+                                -- OBA calculation: Due Others - Due Pipeline
+                                (oba_total_positive_dth / 1000.0 + oba_total_negative_dth / 1000.0) as oba_net_mdth,
+                                -- Storage calculation
+                                (storage_total_positive_inj_dth / 1000.0 + storage_total_negative_wd_dth / 1000.0) as storage_net_mdth,
+                                -- Total Daily Line Pack Change
+                                ((fuel_dth / 1000.0 + lauf_dth / 1000.0) +
+                                 (pal_park_total_dth / 1000.0 + pal_loan_payback_dth / 1000.0 + 
+                                  pal_loan_total_dth / 1000.0 + pal_park_withdraw_dth / 1000.0) +
+                                 (oba_total_positive_dth / 1000.0 + oba_total_negative_dth / 1000.0) +
+                                 (storage_total_positive_inj_dth / 1000.0 + storage_total_negative_wd_dth / 1000.0)) 
+                                 as net_daily_linepack_change_mdth
+                            FROM ui.operational_plan
+                            WHERE pipeline_aor_id = '3'
+                            LIMIT 1",TCExternalConnection
+"63445a1f-0774-42e6-9fb1-826f22aec526","[""@date""]",john@shoreless.ai,2025-08-22 16:39:04.152,TCPipelineDataService.cs:1830 | TCPipelineDataService.cs:1838,"
+                            SELECT 
+                                SUM(contract_daily_right) as total_contract_demand
+                            FROM ap.contract
+                            WHERE pipeline_aor_id = 3
+                              AND effective_end_date::date >= @date::date
+                              AND effective_start_date::date <= @date::date",TCExternalConnection
+"7ccbc7cf-2790-4024-aaea-1f7dcb5f5a97","[""@analysisDateTime"",""@createdBy"",""@id"",""@recommendationType"",""@serializedData"",""@tenantId""]",john@shoreless.ai,2025-08-22 16:39:04.165,TCRecommendationCacheService.cs:527 | TCRecommendationCacheService.cs:533,"
+                                            INSERT INTO dbo.tc_recommendations
+                                            (id, analysis_datetime, recommendation_type, serialized_data, created_date, created_by, tenant_id)
+                                            VALUES
+                                            (@id, @analysisDateTime, @recommendationType, @serializedData::jsonb, CURRENT_TIMESTAMP, @createdBy, @tenantId)",DefaultConnection
+"659e9dde-05ca-4aeb-a66c-fc24e91def0f","[""@date""]",john@shoreless.ai,2025-08-22 16:39:04.141,TCPipelineDataService.cs:595 | TCPipelineDataService.cs:615,"
+                            SELECT 
+                                COUNT(*) as total_meters,
+                                COUNT(CASE WHEN lmf.pressure < m.min_op THEN 1 END) as meters_below_min_op
+                            FROM pi.meter_flow lmf
+                            INNER JOIN general.meter m 
+                                ON lmf.pipeline_aor_id = m.pipeline_aor_id
+                                AND lmf.ap_meter = m.meter_id
+                            WHERE m.pipeline_aor_id = 3
+                              AND DATE(lmf.timestamp) = @date
+                              AND lmf.pressure IS NOT NULL
+                              AND m.min_op IS NOT NULL
+                              AND EXTRACT(minute FROM lmf.timestamp)::integer = 0
+                              AND lmf.timestamp = (
+                                  SELECT MAX(timestamp) 
+                                  FROM pi.meter_flow 
+                                  WHERE DATE(timestamp) = @date
+                                  AND EXTRACT(minute FROM timestamp)::integer = 0
+                              )",TCExternalConnection
+"69eb08d9-2393-4aa7-a014-b786fe83259d","[""@date""]",john@shoreless.ai,2025-08-22 16:39:04.141,TCPipelineDataService.cs:655 | TCPipelineDataService.cs:662,"
+                                    SELECT pressure, minop
+                                    FROM ap.meter_readings
+                                    WHERE Date = @date
+                                    AND pressure IS NOT NULL
+                                    AND minop IS NOT NULL",TCExternalConnection
+"6b41defd-a67e-47f2-8f77-4d651bba4ed6",[],john@shoreless.ai,2025-08-22 16:39:04.163,TCRecommendationCacheService.cs:51 | TCRecommendationCacheService.cs:61,"
+                            SELECT 
+                                COUNT(*) as total_entries,
+                                MIN(created_date) as oldest_entry_date,
+                                MAX(created_date) as newest_entry_date,
+                                SUM(pg_column_size(serialized_data)) as total_size_bytes,
+                                COUNT(CASE WHEN created_date >= NOW() - INTERVAL '24 hours' THEN 1 END) as entries_last_24h,
+                                COUNT(CASE WHEN created_date >= NOW() - INTERVAL '7 days' THEN 1 END) as entries_last_7d
+                            FROM dbo.tc_recommendations",DefaultConnection
+"6cf751a4-34ef-4b9e-9140-c39024d0264a","[""@analysisDate"",""@analysisTimestamp"",""@assetAbbreviation"",""@assetNumber"",""@bestOpportunity1Json"",""@bestOpportunity2Json"",""@bestOpportunity3Json"",""@createdBy"",""@createdDate"",""@dashboardDataJson"",""@emailRecipients"",""@emailSent"",""@errorMessage"",""@heatingDegreeDays"",""@id"",""@isActive"",""@isDeleted"",""@maxDailyPaybackMDth"",""@maxDailyUnparkMDth"",""@maximumCapPercentage"",""@modifiedBy"",""@modifiedDate"",""@processingTimeMs"",""@profitOpportunitiesJson"",""@recommendedLoanVolumesJson"",""@recommendedParkVolumesJson"",""@temperatureF"",""@totalPotentialProfit"",""@totalProfitOpportunities"",""@volumeRecommendationsJson"",""@weatherConditions""]",john@shoreless.ai,2025-08-22 16:39:03.692,PalRecommendationService.cs:599 | PalRecommendationService.cs:622,"
+                    INSERT INTO dbo.historicalpalrecommendations (
+                        id, analysis_date, analysis_timestamp, asset_abbreviation, asset_number,
+                        maximum_cap_percentage, max_daily_unpark_mdth, max_daily_payback_mdth,
+                        temperature_f, weather_conditions, heating_degree_days,
+                        total_profit_opportunities, total_potential_profit,
+                        best_opportunity_1_json, best_opportunity_2_json, best_opportunity_3_json,
+                        recommended_park_volumes_json, recommended_loan_volumes_json,
+                        profit_opportunities_json, volume_recommendations_json, dashboard_data_json,
+                        processing_time_ms, email_sent, email_recipients, error_message,
+                        created_date, created_by, modified_date, modified_by, is_active, is_deleted
+                    ) VALUES (
+                        @id, @analysisDate, @analysisTimestamp, @assetAbbreviation, @assetNumber,
+                        @maximumCapPercentage, @maxDailyUnparkMDth, @maxDailyPaybackMDth,
+                        @temperatureF, @weatherConditions, @heatingDegreeDays,
+                        @totalProfitOpportunities, @totalPotentialProfit,
+                        @bestOpportunity1Json::jsonb, @bestOpportunity2Json::jsonb, @bestOpportunity3Json::jsonb,
+                        @recommendedParkVolumesJson::jsonb, @recommendedLoanVolumesJson::jsonb,
+                        @profitOpportunitiesJson::jsonb, @volumeRecommendationsJson::jsonb, @dashboardDataJson::jsonb,
+                        @processingTimeMs, @emailSent, @emailRecipients, @errorMessage,
+                        @createdDate, @createdBy, @modifiedDate, @modifiedBy, @isActive, @isDeleted
+                    )",DefaultConnection
+"703101b8-c048-4800-94dd-edfdc4b9edea",[],john@shoreless.ai,2025-08-22 16:39:04.145,TCPipelineDataService.cs:1199 | TCPipelineDataService.cs:1207,"
+                                SELECT o.description, o.coding_code, o.long_desc, o.location as segment_name
+                                FROM ap.sap_outages o
+                                WHERE @date::date BETWEEN o.start_date::date AND o.end_date::date
+                                AND o.pipeline_aor_id = '3'
+                                ORDER BY o.start_date DESC
+                                ",TCExternalConnection
+"70e849cb-5c59-4c30-a579-a15ab11a5cff",[],john@shoreless.ai,2025-08-22 16:39:04.163,TCRecommendationCacheService.cs:274 | TCRecommendationCacheService.cs:282,"
+    SELECT serialized_data::text
+    FROM dbo.tc_recommendations
+    WHERE analysis_datetime = '{analysisDateTime:yyyy-MM-dd HH:mm:ss}'
+    AND recommendation_type = 'FullAnalysis'",DefaultConnection
+"73fe8e54-8f01-425e-aaea-9f72360c661d","[""@analysisDateTime"",""@recommendationType""]",john@shoreless.ai,2025-08-22 16:39:04.165,TCRecommendationCacheService.cs:583 | TCRecommendationCacheService.cs:589,"
+                            SELECT COUNT(1) as count
+                            FROM dbo.tc_recommendations
+                            WHERE analysis_datetime = @analysisDateTime
+                            AND recommendation_type = @recommendationType",DefaultConnection
+"78f26fe7-6032-44b9-98df-3ca50eb31814","[""@alternative_options"",""@analysis_data_json"",""@analysis_date"",""@analysis_timestamp"",""@availability_percentage"",""@available_for_lt_mmcfd"",""@backhaul_available_mmcfd"",""@backhaul_cost_k"",""@backhaul_feasibility"",""@backhaul_rate"",""@backhaul_required_mmcfd"",""@backhaul_strategy"",""@base_case_npv_k"",""@basis_differential"",""@basis_historical_average"",""@best_case_npv_k"",""@capacity_rating"",""@confidence_level"",""@constraint_status"",""@conversion_duration_months"",""@created_by"",""@daily_capacity_mmcfd"",""@daily_monthly_revenue_k"",""@daily_npv_k"",""@daily_rate"",""@daily_total_revenue_k"",""@email_recipients"",""@email_sent"",""@error_message"",""@forward_curve_shape"",""@id"",""@key_risks"",""@linepack_mmcf"",""@linepack_percentage"",""@lt_monthly_revenue_k"",""@lt_net_npv_k"",""@lt_npv_before_backhaul_k"",""@lt_rate"",""@lt_total_revenue_k"",""@market_timing"",""@next_steps"",""@nns_rights_mmcfd"",""@npv_difference_k"",""@oba_committed_mmcfd"",""@pal_reserved_mmcfd"",""@percentage_difference"",""@pipeline_segment"",""@processing_time_ms"",""@rate_premium_percent"",""@rationale"",""@recommendation"",""@recommended_package_size"",""@revenue_difference_k"",""@risk_assessment"",""@total_reserved_mmcfd"",""@worst_case_npv_k""]",john@shoreless.ai,2025-08-22 16:39:03.979,STLTConversionService.cs:1778 | STLTConversionService.cs:1822,"
+                            INSERT INTO dbo.uc4_scenario_analyses (
+                                id, analysis_date, pipeline_segment, daily_capacity_mmcfd, conversion_duration_months,
+                                available_for_lt_mmcfd, availability_percentage, capacity_rating, recommended_package_size,
+                                daily_rate, lt_rate, rate_premium_percent, basis_differential, basis_historical_average,
+                                forward_curve_shape, market_timing, linepack_mmcf, linepack_percentage,
+                                oba_committed_mmcfd, pal_reserved_mmcfd, nns_rights_mmcfd, total_reserved_mmcfd,
+                                constraint_status, backhaul_required_mmcfd, backhaul_available_mmcfd, backhaul_rate,
+                                backhaul_cost_k, backhaul_feasibility, backhaul_strategy, daily_monthly_revenue_k,
+                                daily_total_revenue_k, daily_npv_k, lt_monthly_revenue_k, lt_total_revenue_k,
+                                lt_npv_before_backhaul_k, lt_net_npv_k, revenue_difference_k, npv_difference_k,
+                                percentage_difference, base_case_npv_k, best_case_npv_k, worst_case_npv_k,
+                                risk_assessment, recommendation, rationale, confidence_level, key_risks,
+                                alternative_options, next_steps, analysis_data_json, processing_time_ms,
+                                email_sent, email_recipients, error_message, created_by, analysis_timestamp
+                            ) VALUES (
+                                @id, @analysis_date, @pipeline_segment, @daily_capacity_mmcfd, @conversion_duration_months,
+                                @available_for_lt_mmcfd, @availability_percentage, @capacity_rating, @recommended_package_size,
+                                @daily_rate, @lt_rate, @rate_premium_percent, @basis_differential, @basis_historical_average,
+                                @forward_curve_shape, @market_timing, @linepack_mmcf, @linepack_percentage,
+                                @oba_committed_mmcfd, @pal_reserved_mmcfd, @nns_rights_mmcfd, @total_reserved_mmcfd,
+                                @constraint_status, @backhaul_required_mmcfd, @backhaul_available_mmcfd, @backhaul_rate,
+                                @backhaul_cost_k, @backhaul_feasibility, @backhaul_strategy, @daily_monthly_revenue_k,
+                                @daily_total_revenue_k, @daily_npv_k, @lt_monthly_revenue_k, @lt_total_revenue_k,
+                                @lt_npv_before_backhaul_k, @lt_net_npv_k, @revenue_difference_k, @npv_difference_k,
+                                @percentage_difference, @base_case_npv_k, @best_case_npv_k, @worst_case_npv_k,
+                                @risk_assessment, @recommendation, @rationale, @confidence_level, @key_risks::text[],
+                                @alternative_options::text[], @next_steps::text[], @analysis_data_json::jsonb, @processing_time_ms,
+                                @email_sent, @email_recipients, @error_message, @created_by, @analysis_timestamp
+                            )
+                            ON CONFLICT (analysis_date, pipeline_segment)
+                            DO UPDATE SET
+                                daily_capacity_mmcfd = @daily_capacity_mmcfd,
+                                available_for_lt_mmcfd = @available_for_lt_mmcfd,
+                                daily_rate = @daily_rate,
+                                lt_rate = @lt_rate,
+                                rate_premium_percent = @rate_premium_percent,
+                                npv_difference_k = @npv_difference_k,
+                                recommendation = @recommendation,
+                                rationale = @rationale,
+                                confidence_level = @confidence_level,
+                                analysis_data_json = @analysis_data_json::jsonb,
+                                processing_time_ms = @processing_time_ms",DefaultConnection
+"7b1bd945-4c6b-4eca-8fcb-3fadb7190eb0","[""@AssetAbbreviation"",""@AssetNumber"",""@MaxRateIndicator"",""@PreviousYear"",""@RateScheduleCode"",""@StatusCode"",""@Year"",""@YearEnd"",""@YearStart""]",john@shoreless.ai,2025-08-22 16:39:03.719,PalVolumeService.cs:39 | PalVolumeService.cs:269,"
+            WITH transaction_data AS (
+                SELECT 
+                    EXTRACT(MONTH FROM accountingprd) AS month,
+                    SUM(CASE 
+                        WHEN (COALESCE(actualrecqty, 0) - COALESCE(actualdelqty, 0)) > 0 
+                        THEN (COALESCE(actualrecqty, 0) - COALESCE(actualdelqty, 0)) 
+                        ELSE 0 
+                    END) AS park_total,
+                    SUM(CASE 
+                        WHEN (COALESCE(actualrecqty, 0) - COALESCE(actualdelqty, 0)) < 0 
+                        THEN ABS(COALESCE(actualrecqty, 0) - COALESCE(actualdelqty, 0)) 
+                        ELSE 0 
+                    END) AS unpark_total,
+                    SUM(CASE 
+                        WHEN COALESCE(actualdelqty, 0) > COALESCE(actualrecqty, 0) 
+                            AND COALESCE(carryoverimbalqty, 0) >= 0
+                        THEN (COALESCE(actualdelqty, 0) - COALESCE(actualrecqty, 0)) 
+                        ELSE 0 
+                    END) AS loan_total,
+                    SUM(CASE 
+                        WHEN COALESCE(actualrecqty, 0) > COALESCE(actualdelqty, 0) 
+                            AND COALESCE(carryoverimbalqty, 0) < 0
+                        THEN (COALESCE(actualrecqty, 0) - COALESCE(actualdelqty, 0)) 
+                        ELSE 0 
+                    END) AS payback_total,
+                    SUM(COALESCE(actualrecqty, 0) - COALESCE(actualdelqty, 0)) AS net_activity,
+                    COUNT(*) AS transaction_count,
+                    MAX(COALESCE(imbalanceqty, 0)) AS closing_balance
+                FROM navigates.navigates_transaction_balance_state
+                WHERE assetnbr = @AssetNumber
+                  AND EXTRACT(YEAR FROM accountingprd) = @Year
+                GROUP BY EXTRACT(MONTH FROM accountingprd)
+            ),
+            projected_volumes AS (
+                SELECT 
+                    EXTRACT(MONTH FROM ct.effenddt) AS month,
+                    SUM(CASE 
+                        WHEN COALESCE(CAST(NULLIF(maxdailypk.value1, '') AS DECIMAL), 0) > 0 
+                             AND COALESCE(CAST(NULLIF(maxdailyunpk.value1, '') AS DECIMAL), 0) = 0
+                             AND ct.effenddt > CURRENT_DATE
+                        THEN COALESCE(CAST(NULLIF(maxtotalpk.value1, '') AS DECIMAL), 0)
+                        ELSE 0
+                    END) AS proj_park_total,
+                    SUM(CASE 
+                        WHEN COALESCE(CAST(NULLIF(maxdailyunpk.value1, '') AS DECIMAL), 0) > 0 
+                             AND COALESCE(CAST(NULLIF(maxdailypk.value1, '') AS DECIMAL), 0) = 0
+                             AND ct.effenddt > CURRENT_DATE
+                        THEN COALESCE(CAST(NULLIF(maxtotalpk.value1, '') AS DECIMAL), 0)
+                        ELSE 0
+                    END) AS proj_unpark_total,
+                    SUM(CASE 
+                        WHEN COALESCE(CAST(NULLIF(maxtotalln.value1, '') AS DECIMAL), 0) > 0
+                             AND ct.effenddt > CURRENT_DATE
+                        THEN COALESCE(CAST(NULLIF(maxtotalln.value1, '') AS DECIMAL), 0)
+                        ELSE 0
+                    END) AS proj_loan_total,
+                    SUM(CASE 
+                        WHEN COALESCE(CAST(NULLIF(maxtotalln.value1, '') AS DECIMAL), 0) > 0
+                             AND ct.effenddt > CURRENT_DATE
+                        THEN COALESCE(CAST(NULLIF(maxtotalln.value1, '') AS DECIMAL), 0)
+                        ELSE 0
+                    END) AS proj_payback_total
+                FROM navigates.navigates_contract_transaction ct
+                LEFT JOIN navigates.navigates_inputs_flat inputs
+                    ON inputs.agreementid = ct.contractid
+                    AND inputs.value1 = ct.contracttransactionid
+                    AND inputs.assetnbr = ct.assetnbr
+                    AND inputs.paramid = 41
+                LEFT JOIN navigates.navigates_inputs_flat maxdailypk
+                    ON maxdailypk.agreementinputid = inputs.agreementinputid AND maxdailypk.paramid = 6107
+                LEFT JOIN navigates.navigates_inputs_flat maxdailyunpk
+                    ON maxdailyunpk.agreementinputid = inputs.agreementinputid AND maxdailyunpk.paramid = 6110
+                LEFT JOIN navigates.navigates_inputs_flat maxtotalpk
+                    ON maxtotalpk.agreementinputid = inputs.agreementinputid AND maxtotalpk.paramid = 6108
+                LEFT JOIN navigates.navigates_inputs_flat maxtotalln
+                    ON maxtotalln.agreementinputid = inputs.agreementinputid AND maxtotalln.paramid = 6109
+                INNER JOIN navigates.navigates_contract_base contractbase
+                    ON contractbase.assetnbr = ct.assetnbr
+                    AND contractbase.contractid = ct.contractid
+                WHERE ct.rateschedulecd = @RateScheduleCode
+                  AND ct.maxrateind = @MaxRateIndicator
+                  AND ct.statuscd = @StatusCode
+                  AND ct.assetnbr = @AssetNumber
+                  AND contractbase.assetabbr = @AssetAbbreviation
+                  AND ct.effenddt >= @YearStart
+                  AND ct.effenddt <= @YearEnd
+                GROUP BY EXTRACT(MONTH FROM ct.effenddt)
+            ),
+            contract_capacities AS (
+                SELECT 
+                    SUM(CAST(NULLIF(maxtotalpk.value1, '') AS DECIMAL)) AS total_park_capacity,
+                    SUM(CAST(NULLIF(maxtotalln.value1, '') AS DECIMAL)) AS total_loan_capacity,
+                    AVG(CAST(NULLIF(maxdailypk.value1, '') AS DECIMAL)) AS avg_daily_park,
+                    AVG(CAST(NULLIF(maxdailyunpk.value1, '') AS DECIMAL)) AS avg_daily_unpark,
+                    COUNT(DISTINCT xaction.contractid) AS active_contracts
+                FROM navigates.navigates_contract_transaction xaction
+                LEFT JOIN navigates.navigates_inputs_flat inputs
+                    ON inputs.agreementid = xaction.contractid
+                    AND inputs.value1 = xaction.contracttransactionid
+                    AND inputs.assetnbr = xaction.assetnbr
+                    AND inputs.paramid = 41
+                LEFT JOIN navigates.navigates_inputs_flat maxtotalpk
+                    ON maxtotalpk.agreementinputid = inputs.agreementinputid AND maxtotalpk.paramid = 6108
+                LEFT JOIN navigates.navigates_inputs_flat maxtotalln
+                    ON maxtotalln.agreementinputid = inputs.agreementinputid AND maxtotalln.paramid = 6109
+                LEFT JOIN navigates.navigates_inputs_flat maxdailypk
+                    ON maxdailypk.agreementinputid = inputs.agreementinputid AND maxdailypk.paramid = 6107
+                LEFT JOIN navigates.navigates_inputs_flat maxdailyunpk
+                    ON maxdailyunpk.agreementinputid = inputs.agreementinputid AND maxdailyunpk.paramid = 6110
+                INNER JOIN navigates.navigates_contract_base contractbase
+                    ON contractbase.assetnbr = xaction.assetnbr
+                    AND contractbase.contractid = xaction.contractid
+                WHERE xaction.rateschedulecd = @RateScheduleCode
+                  AND xaction.maxrateind = @MaxRateIndicator
+                  AND xaction.statuscd = @StatusCode
+                  AND xaction.assetnbr = @AssetNumber
+                  AND contractbase.assetabbr = @AssetAbbreviation
+                  AND xaction.effbegindt <= @YearEnd
+                  AND xaction.effenddt >= @YearStart
+            ),
+            opening_balance AS (
+                SELECT 
+                    CASE
+                        WHEN @Year = 2025 THEN 65517
+                        ELSE COALESCE((
+                                SELECT MAX(COALESCE(imbalanceqty, 0))
+                                FROM navigates.navigates_transaction_balance_state
+                                WHERE assetnbr = @AssetNumber
+                                  AND EXTRACT(YEAR FROM accountingprd) = @PreviousYear
+                                  AND EXTRACT(MONTH FROM accountingprd) = 12
+                            ), 0)
+                    END AS opening
+            ),
+            months AS (
+                SELECT 1 AS month, 'Jan' AS month_name UNION ALL
+                SELECT 2, 'Feb' UNION ALL
+                SELECT 3, 'Mar' UNION ALL
+                SELECT 4, 'Apr' UNION ALL
+                SELECT 5, 'May' UNION ALL
+                SELECT 6, 'Jun' UNION ALL
+                SELECT 7, 'Jul' UNION ALL
+                SELECT 8, 'Aug' UNION ALL
+                SELECT 9, 'Sep' UNION ALL
+                SELECT 10, 'Oct' UNION ALL
+                SELECT 11, 'Nov' UNION ALL
+                SELECT 12, 'Dec'
+            ),
+            base_data AS (
+                SELECT 
+                    m.month,
+                    m.month_name,
+                    @AssetAbbreviation AS asset_abbrev,
+                    COALESCE(td.park_total, 0) + COALESCE(pv.proj_park_total, 0) AS park_total,
+                    COALESCE(td.unpark_total, 0) + COALESCE(pv.proj_unpark_total, 0) AS unpark_total,
+                    COALESCE(td.loan_total, 0) + COALESCE(pv.proj_loan_total, 0) AS loan_total,
+                    COALESCE(td.payback_total, 0) + COALESCE(pv.proj_payback_total, 0) AS payback_total,
+                    COALESCE(td.net_activity, 0)
+                      + COALESCE(pv.proj_park_total, 0)
+                      - COALESCE(pv.proj_unpark_total, 0)
+                      + COALESCE(pv.proj_payback_total, 0)
+                      - COALESCE(pv.proj_loan_total, 0) AS net_activity,
+                    COALESCE(td.closing_balance, NULL) AS actual_closing_balance,
+                    COALESCE(td.transaction_count, 0) AS transaction_count,
+                    CASE WHEN td.month IS NULL THEN 'PROJECTED' ELSE 'ACTUAL' END AS data_type
+                FROM months m
+                LEFT JOIN transaction_data td ON td.month = m.month
+                LEFT JOIN projected_volumes pv ON pv.month = m.month
+            ),
+            cumulative_data AS (
+                SELECT 
+                    b.*,
+                    SUM(b.net_activity) OVER (ORDER BY b.month ROWS UNBOUNDED PRECEDING) AS cumulative_net_activity
+                FROM base_data b
+            ),
+            rolling_balances AS (
+                SELECT 
+                    cd.*,
+                    ob.opening AS year_opening_balance,
+                    CASE
+                        WHEN cd.month = 1 THEN ob.opening
+                        ELSE ob.opening + cd.cumulative_net_activity - cd.net_activity
+                    END AS opening_balance,
+                    CASE
+                        WHEN cd.data_type = 'ACTUAL' AND cd.actual_closing_balance IS NOT NULL
+                        THEN cd.actual_closing_balance
+                        ELSE ob.opening + cd.cumulative_net_activity
+                    END AS closing_balance
+                FROM cumulative_data cd
+                CROSS JOIN opening_balance ob
+            ),
+            final_output AS (
+                SELECT 
+                    rb.*,
+                    cc.total_park_capacity,
+                    cc.total_loan_capacity,
+                    cc.avg_daily_park,
+                    cc.avg_daily_unpark,
+                    cc.active_contracts
+                FROM rolling_balances rb
+                CROSS JOIN contract_capacities cc
+            )
+            SELECT 
+                asset_abbrev,
+                month_name,
+                @Year AS year,
+                ROUND(opening_balance) AS opening_balance,
+                ROUND(park_total) AS park_total,
+                ROUND(unpark_total) AS unpark_total,
+                ROUND(park_total - unpark_total) AS net_park,
+                ROUND(loan_total) AS loan_total,
+                ROUND(payback_total) AS payback_total,
+                ROUND(payback_total - loan_total) AS net_loan,
+                ROUND(net_activity) AS net_activity,
+                ROUND(
+                  COALESCE(
+                    LEAD(opening_balance) OVER (ORDER BY month),
+                    closing_balance
+                  )
+                ) AS closing_balance,
+                ROUND(total_park_capacity) AS contracted_park_capacity,
+                ROUND(total_loan_capacity) AS contracted_loan_capacity,
+                ROUND(avg_daily_park) AS contracted_daily_park,
+                ROUND(avg_daily_unpark) AS contracted_daily_unpark,
+                active_contracts,
+                transaction_count,
+                data_type
+            FROM final_output
+            ORDER BY month;",RedshiftConnection
+"7ca3f3ee-de17-479b-ba61-361dad84096c","[""@date""]",john@shoreless.ai,2025-08-22 16:39:03.974,STLTConversionService.cs:682 | STLTConversionService.cs:692,"
+                            -- UC4 #4 Daily Transport Rates
+                            select strip, settlement_date, settlement_price, import_time, contract, location_code, contract_type, product 
+                            from marketprices.settlements
+                            where location_code = 'NNG-Ventura'
+                            and contract_type = 'D'
+                            and product = 'NG Swing GDD Futures'
+                            and settlement_date = @date
+                            and strip = settlement_date",RedshiftConnection
+"7d25653a-c62c-44b1-825b-c6c893959b36","[""@analysisDateTime"",""@createdBy"",""@recommendationType"",""@serializedData""]",john@shoreless.ai,2025-08-22 16:39:04.164,TCRecommendationCacheService.cs:402 | TCRecommendationCacheService.cs:410,"
+                                    UPDATE dbo.tc_recommendations
+                                    SET serialized_data = @serializedData::jsonb,
+                                        created_date = CURRENT_TIMESTAMP,
+                                        created_by = @createdBy
+                                    WHERE analysis_datetime = @analysisDateTime
+                                    AND recommendation_type = @recommendationType",DefaultConnection
+"7eec57d8-4a74-4f5e-814e-9a0bf0b65dd7","[""@contractId"",""@endDate"",""@startDate""]",john@shoreless.ai,2025-08-22 16:39:03.635,PalLocationService.cs:315 | PalLocationService.cs:324,"
+                                    SELECT 
+                                        COUNT(*) as upcoming_obligations,
+                                        SUM(COALESCE(deliveryfinalscheduledqty, 0)) as total_scheduled_volume
+                                    FROM navigates.navigates_noms_by_day
+                                    WHERE contractid = @contractId
+                                        AND flowdate BETWEEN @startDate AND @endDate
+                                        AND COALESCE(deliveryfinalscheduledqty, 0) > 0",RedshiftConnection
+"8a3f6ce3-0420-4dc2-a7be-6b0a68a77cf4",[],john@shoreless.ai,2025-08-22 16:39:04.163,TCRecommendationCacheService.cs:94 | TCRecommendationCacheService.cs:105,"
+                            SELECT 
+                                id, 
+                                analysis_datetime, 
+                                recommendation_type, 
+                                created_date,
+                                pg_column_size(serialized_data) as entry_size_bytes
+                            FROM dbo.tc_recommendations
+                            ORDER BY created_date DESC
+                            LIMIT 10",DefaultConnection
+"8a8e099a-375f-41ef-9d0e-b8441019290d","[""@AssetAbbreviation"",""@date""]",john@shoreless.ai,2025-08-22 16:39:03.567,PalCapOBAService.cs:815 | PalCapOBAService.cs:826,"
+                                    SELECT 
+                                        CAST(COALESCE(operational_available_capacity, '0') AS integer) as timely_operational_capacity,
+                                        CAST(COALESCE(scheduled_quantity, '0') AS integer) as timely_scheduled_capacity
+                                    FROM ce.navigates_operational_available_capacity
+                                    WHERE assetabrv = @AssetAbbreviation
+                                      AND flowdate = @date
+                                      AND cycle_name = 'TIMELY'
+                                    ORDER BY import_time DESC
+                                    LIMIT 1",TCExternalConnection
+"8d241489-52a2-494c-9edc-73e224c7450d","[""@AnalysisDate"",""@AnalysisTimestamp"",""@AssetAbbreviation"",""@CombinationDetails"",""@ConfidenceLevel"",""@CreatedBy"",""@CreatedDate"",""@EmailRecipients"",""@EmailSent"",""@ErrorMessage"",""@EstimatedValue"",""@Id"",""@IsCombination"",""@MarketDataJson"",""@OBACustomerDetails"",""@OBAOptionJson"",""@OperationalDataJson"",""@PALOptionJson"",""@ProcessingTimeMs"",""@Rationale"",""@RecommendedOption"",""@TransportOptionJson""]",john@shoreless.ai,2025-08-22 16:39:03.600,PalCapOBAService.cs:3088 | PalCapOBAService.cs:3119,"
+                            INSERT INTO dbo.uc3_historical_recommendations 
+                            (id, analysis_date, asset_abbreviation, recommended_option, estimated_value, confidence_level, 
+                             rationale, operational_data_json, market_data_json, transport_option_json, pal_option_json, 
+                             oba_option_json, processing_time_ms, email_sent, email_recipients, error_message, 
+                             created_by, created_date, analysis_timestamp, is_combination, combination_details, oba_customer_details)
+                            VALUES 
+                            (@Id, @AnalysisDate, @AssetAbbreviation, @RecommendedOption, @EstimatedValue, @ConfidenceLevel,
+                             @Rationale, @OperationalDataJson::jsonb, @MarketDataJson::jsonb, @TransportOptionJson::jsonb, @PALOptionJson::jsonb,
+                             @OBAOptionJson::jsonb, @ProcessingTimeMs, @EmailSent, @EmailRecipients, @ErrorMessage,
+                             @CreatedBy, @CreatedDate, @AnalysisTimestamp, @IsCombination, @CombinationDetails::jsonb, @OBACustomerDetails::jsonb)
+                            ON CONFLICT (analysis_date, asset_abbreviation) 
+                            DO UPDATE SET 
+                                recommended_option = @RecommendedOption,
+                                estimated_value = @EstimatedValue,
+                                confidence_level = @ConfidenceLevel,
+                                rationale = @Rationale,
+                                operational_data_json = @OperationalDataJson::jsonb,
+                                market_data_json = @MarketDataJson::jsonb,
+                                transport_option_json = @TransportOptionJson::jsonb,
+                                pal_option_json = @PALOptionJson::jsonb,
+                                oba_option_json = @OBAOptionJson::jsonb,
+                                processing_time_ms = @ProcessingTimeMs,
+                                email_sent = @EmailSent,
+                                email_recipients = @EmailRecipients,
+                                error_message = @ErrorMessage,
+                                analysis_timestamp = @AnalysisTimestamp,
+                                is_combination = @IsCombination,
+                                combination_details = @CombinationDetails::jsonb,
+                                oba_customer_details = @OBACustomerDetails::jsonb",DefaultConnection
+"8ea19246-d6e1-4b8e-97f6-13382c6f0dcb",[],john@shoreless.ai,2025-08-22 16:39:04.163,TCRecommendationCacheService.cs:192 | TCRecommendationCacheService.cs:199,"
+    SELECT serialized_data::text
+    FROM dbo.tc_recommendations
+    WHERE analysis_datetime = '{analysisDateTime:yyyy-MM-dd HH:mm:ss}'
+    AND recommendation_type = 'FullAnalysis'",DefaultConnection
+"91bab586-e1ba-4f13-9b34-255effa745bd","[""@current_date"",""@currentMonth"",""@currentYear"",""@futureYear""]",john@shoreless.ai,2025-08-22 16:39:03.695,PalRecommendationService.cs:1161 | PalRecommendationService.cs:1230,"
+    -- UC3 Query 5 - Market Prices at Ventura
+    WITH daily_settlement AS (
+        SELECT
+            *,
+            DATE_TRUNC('month', strip) AS active_month_dt
+        FROM marketprices.settlements
+        WHERE
+            location_code = 'NNG-Ventura'
+            AND contract_type = 'D'
+            AND contract = 'NNS'
+            AND settlement_date = (
+                SELECT MAX(settlement_date)
+                FROM marketprices.settlements
+                WHERE location_code = 'NNG-Ventura'
+                    AND contract_type = 'D'  
+                    AND contract = 'NNS'
+            )
+            AND strip > @current_date
+        ORDER BY strip
+    ),
+    futures_settlements AS (
+        SELECT
+            *,
+            strip AS active_month_dt,
+            ROW_NUMBER() OVER (
+                PARTITION BY strip
+                ORDER BY settlement_date DESC
+            ) AS rn
+        FROM marketprices.settlements
+        WHERE
+            location_code = 'NNG-Ventura'
+            AND contract_type = 'F'
+            AND product = 'NG IF Futures'
+            AND (
+                (EXTRACT(YEAR FROM strip) = @currentYear AND EXTRACT(MONTH FROM strip) >= @currentMonth)
+                OR
+                (EXTRACT(YEAR FROM strip) = @futureYear AND EXTRACT(MONTH FROM strip) < @currentMonth)
+            )
+    )
+    SELECT
+        settlement_price,
+        active_month_dt,
+        contract,
+        location_code,
+        contract_type,
+        import_time,
+        CASE
+            WHEN active_month_dt = DATE_TRUNC('month', @current_date) THEN 'Balmo'
+            ELSE 'Future'
+        END AS price_type
+    FROM daily_settlement
+    WHERE active_month_dt = DATE_TRUNC('month', @current_date)
+    
+    UNION ALL
+    
+    SELECT
+        settlement_price,
+        active_month_dt,
+        contract,
+        location_code,
+        contract_type,
+        import_time,
+        'Future' AS price_type
+    FROM futures_settlements
+    WHERE rn = 1
+    
+    ORDER BY active_month_dt",RedshiftConnection
+"91ea0700-55e7-4430-bcaa-75b1958f2b57",[],john@shoreless.ai,2025-08-22 16:39:04.021,TCCapacityDecisionService.cs:241 | TCCapacityDecisionService.cs:246,"
+                        SELECT TOP 1 * FROM dbo.tc_capacity_decisions
+                        WHERE decision_date IS NOT NULL
+                        ORDER BY decision_date DESC, created_date DESC",DefaultConnection
+"9376b988-d6d5-477e-bb1e-49172123b49c","[""@modifiedBy"",""@modifiedDate""]",john@shoreless.ai,2025-08-22 16:39:03.455,JsonPipelineConfigurationService.cs:705 | JsonPipelineConfigurationService.cs:710,"
+                                    UPDATE dbo.pipeline_configurations 
+                                    SET is_active = false, modified_date = @modifiedDate, modified_by = @modifiedBy
+                                    WHERE is_active = true AND is_deleted = false",DefaultConnection
+d366d4ca-4e93-4330-9130-ce1efe073e87,"[""@date""]",john@shoreless.ai,2025-08-22 16:39:04.143,TCPipelineDataService.cs:970 | TCPipelineDataService.cs:976,"
+                                SELECT COUNT(distinct(notification_num)) as outage_count
+                                FROM ap.sap_outages
+                                WHERE @date::date BETWEEN start_date::date AND end_date::date
+                                AND pipeline_aor_id = '3'",TCExternalConnection
+"947914b8-2605-40e7-ad4e-ac4e7821ff97","[""@date""]",john@shoreless.ai,2025-08-22 16:39:04.146,TCPipelineDataService.cs:1326 | TCPipelineDataService.cs:1346,"
+                            WITH latest_timestamp AS (
+                                SELECT MAX(timestamp) as max_time
+                                FROM ap.cs_units 
+                                WHERE DATE(timestamp) = @date
+                                AND EXTRACT(minute FROM timestamp)::integer = 0
+                            )
+                            SELECT 
+                                unit_name, 
+                                unit_status, 
+                                timestamp, 
+                                pipeline_aor_id
+                            FROM ap.cs_units
+                            WHERE pipeline_aor_id = 3
+                              AND DATE(timestamp) = @date
+                              AND EXTRACT(minute FROM timestamp)::integer = 0
+                              AND unit_status = 'U'
+                              AND timestamp = (SELECT max_time FROM latest_timestamp)
+                            ORDER BY unit_name",TCExternalConnection
+"9539f487-9902-4c3c-aa7f-bed0c04502ba","[""@date""]",john@shoreless.ai,2025-08-22 16:39:04.142,TCPipelineDataService.cs:773 | TCPipelineDataService.cs:797,"
+                            SELECT 
+                                COUNT(*) as total_stations,
+                                COUNT(CASE 
+                                    WHEN sp.discharge_pressure < cs.min_op OR
+                                         sp.discharge_pressure > cs.max_op
+                                    THEN 1 
+                                END) as anomalous_stations
+                            FROM general.compressor_station cs
+                            INNER JOIN ap.station_pressure sp ON 
+                                cs.pipeline_aor_id = sp.pipeline_aor_id AND
+                                cs.compressor_station_id = sp.compressor_station_id
+                            WHERE cs.pipeline_aor_id = 3
+                              AND DATE(sp.timestamp) = @date
+                              AND sp.discharge_pressure IS NOT NULL
+                              AND sp.suction_pressure IS NOT NULL
+                              AND EXTRACT(minute FROM sp.timestamp)::integer = 0
+                              AND sp.timestamp = (
+                                  SELECT MAX(timestamp) 
+                                  FROM ap.station_pressure 
+                                  WHERE DATE(timestamp) = @date
+                                  AND EXTRACT(minute FROM timestamp)::integer = 0
+                              )",TCExternalConnection
+"9ea24575-365c-4a15-92ac-a2a5f6fadf37","[""@date""]",john@shoreless.ai,2025-08-22 16:39:03.698,PalRecommendationService.cs:1698 | PalRecommendationService.cs:1732,"
+                            WITH commodity_tariff AS (
+                                SELECT CAST(tariff AS NUMERIC(38,12)) AS usage 
+                                FROM external_ebb.tariffs
+                                WHERE duns = '021632583'
+                                    AND tarifftype = 'Commodity'
+                                    AND tariffdetail = 'Maximum Commodity'
+                                    AND subratedesc = 'Long Term Base rate'
+                                    AND ratesched = 'T-1'
+                                    AND firminterruptible = 'Firm'
+                                    AND recloc = 'Ventura'
+                                    AND delloc = 'Will County'
+                                    AND effectivedate <= @date
+                                ORDER BY effectivedate DESC, import_time DESC
+                                LIMIT 1
+                            ),
+                            fuel_tariff AS (
+                                SELECT CAST(tariff AS NUMERIC(38,12)) AS fuel_rate
+                                FROM external_ebb.tariffs
+                                WHERE duns = '021632583'
+                                    AND recloc = 'Ventura'
+                                    AND delloc = 'Will County'
+                                    AND units = '%'
+                                    AND ratesched = 'Fuel'
+                                    AND effectivedate <= @date
+                                ORDER BY effectivedate DESC, import_time DESC
+                                LIMIT 1
+                            )
+                            SELECT 
+                                COALESCE(c.usage, 0.15) as commodity_rate,
+                                COALESCE(f.fuel_rate, 2.0) as fuel_rate
+                            FROM commodity_tariff c
+                            CROSS JOIN fuel_tariff f",RedshiftConnection
+"9f09c1cc-1ce7-41f5-8889-401da2c641ab","[""@id""]",john@shoreless.ai,2025-08-22 16:39:04.163,TCRecommendationCacheService.cs:146 | TCRecommendationCacheService.cs:148,DELETE FROM dbo.tc_recommendations WHERE id = @id,DefaultConnection
+a132ea86-7375-406e-9dd4-cc5dd96184db,[],john@shoreless.ai,2025-08-22 16:39:03.973,STLTConversionService.cs:590 | STLTConversionService.cs:597,"
+                            SELECT SUM(ABS(end_accum_balance)) as accum_pal_dth
+                            FROM ap.contract_cumulative_imbalance
+                            WHERE pipeline_id = '3'
+                            AND rate_schedule = 'PAL'
+                            AND gas_day = @date",TCExternalConnection
+a1b4d423-4fc3-44c9-b540-2941ebb37f42,"[""@date""]",john@shoreless.ai,2025-08-22 16:39:04.150,TCPipelineDataService.cs:1583 | TCPipelineDataService.cs:1589,"
+                            SELECT SUM(eod_accum_imb_dth) as accum_oba_dth
+                            FROM ap.contract_entity_daily_imbalance
+                            WHERE pipeline_aor_id = 3
+                            AND gas_day = @date",TCExternalConnection
+a4c3baf3-e639-4da1-9338-a463a8234111,"[""@date"",""@segment""]",john@shoreless.ai,2025-08-22 16:39:03.979,STLTConversionService.cs:2235 | STLTConversionService.cs:2246,"
+                                    SELECT id, analysis_date, pipeline_segment, daily_capacity_mmcfd, conversion_duration_months,
+                                           available_for_lt_mmcfd, daily_rate, lt_rate, rate_premium_percent, backhaul_required_mmcfd,
+                                           backhaul_cost_k, npv_difference_k, recommendation, rationale, analysis_data_json,
+                                           processing_time_ms, email_sent, email_recipients, error_message, created_by,
+                                           created_date, analysis_timestamp
+                                    FROM uc4_scenario_analyses
+                                    WHERE analysis_date = @date AND pipeline_segment = @segment
+                                    ORDER BY analysis_timestamp DESC
+                                    LIMIT 1",DefaultConnection
+a7e1a534-fc3e-48d5-ad30-9cac31870a29,"[""@date""]",john@shoreless.ai,2025-08-22 16:39:04.146,TCPipelineDataService.cs:1277 | TCPipelineDataService.cs:1287,"
+                            SELECT 
+                                CAST(scheduled_quantity AS integer) as timely_scheduled_capacity, 
+                                CAST(operational_available_capacity AS integer) as timely_operational_capacity
+                            FROM ce.navigates_operational_available_capacity
+                            WHERE assetabrv = 'NBPL'
+                            AND flowdate = @date
+                            ORDER BY import_time DESC
+                            LIMIT 1",TCExternalConnection
+a877d4d7-7811-4296-960d-528e5a5badfd,"[""@analysisDate""]",john@shoreless.ai,2025-08-22 16:39:03.565,PalCapOBAService.cs:629 | PalCapOBAService.cs:642,"
+                            SELECT 
+                                capacity_amount,
+                                final_score,
+                                risk_level,
+                                is_safety_override,
+                                decision_date,
+                                created_date
+                            FROM dbo.tc_capacity_decisions 
+                            WHERE decision_date::date = @analysisDate::date
+                            ORDER BY created_date DESC
+                            LIMIT 1",DefaultConnection
+aaba7870-4e0a-40a5-ba05-c7b0f29b427a,"[""@date""]",john@shoreless.ai,2025-08-22 16:39:04.153,TCPipelineDataService.cs:1956 | TCPipelineDataService.cs:1961,"
+                            SELECT COUNT(*) as outage_count
+                            FROM ap.sap_outages
+                            WHERE @date BETWEEN start_date AND end_date",TCExternalConnection
+acf8f3c5-c75d-4871-8916-908bed9c6354,"[""@AnalysisDate"",""@AssetAbbreviation""]",john@shoreless.ai,2025-08-22 16:39:03.602,PalCapOBAService.cs:3173 | PalCapOBAService.cs:3183,"
+                                    SELECT 
+                                        id, analysis_date, asset_abbreviation, recommended_option, estimated_value, confidence_level,
+                                        rationale, operational_data_json, market_data_json, transport_option_json, pal_option_json,
+                                        oba_option_json, processing_time_ms, email_sent, email_recipients, error_message,
+                                        created_by, created_date, analysis_timestamp
+                                    FROM dbo.uc3_historical_recommendations 
+                                    WHERE analysis_date = @AnalysisDate 
+                                        AND asset_abbreviation = @AssetAbbreviation",DefaultConnection
+add7fca1-ba2c-4deb-8443-42f5d53ba193,"[""@endDate"",""@startDate""]",john@shoreless.ai,2025-08-22 16:39:04.140,TCPipelineDataService.cs:267 | TCPipelineDataService.cs:283,"
+                            SELECT 
+                                CASE 
+                                    WHEN AVG(CAST(COALESCE(scheduled_quantity, '0') AS numeric) / 
+                                        NULLIF(CAST(COALESCE(operational_available_capacity, '1') AS numeric), 0)) > 0.9 THEN 'Peak'
+                                    WHEN AVG(CAST(COALESCE(scheduled_quantity, '0') AS numeric) / 
+                                        NULLIF(CAST(COALESCE(operational_available_capacity, '1') AS numeric), 0)) > 0.7 THEN 'High'
+                                    WHEN AVG(CAST(COALESCE(scheduled_quantity, '0') AS numeric) / 
+                                        NULLIF(CAST(COALESCE(operational_available_capacity, '1') AS numeric), 0)) > 0.5 THEN 'Average'
+                                    ELSE 'Low'
+                                END as day_type
+                            FROM ce.navigates_operational_available_capacity
+                            WHERE assetabrv = 'NBPL'
+                              AND flowdate BETWEEN @startDate AND @endDate
+                              AND cycle_name = 'Timely'",TCExternalConnection
+ae9db849-51fe-433b-84c9-f02b980e7f25,[],john@shoreless.ai,2025-08-22 16:39:04.140,TCPipelineDataService.cs:455 | TCPipelineDataService.cs:462,"
+                                    SELECT linepack_netpack_high_threshold_mmcf, linepack_netpack_low_threshold_mmcf
+                                    FROM ui.linepack_netpack_thresholds
+                                    WHERE pipeline_aor_id = 3
+                                    ORDER BY pipeline_update_ts DESC
+                                    LIMIT 1",TCExternalConnection
+aef53b6d-2ff4-4716-a8ef-6b533e863733,"[""@contractId"",""@date""]",john@shoreless.ai,2025-08-22 16:39:03.637,PalLocationService.cs:1111 | PalLocationService.cs:1124,"
+                                    SELECT 
+                                        imbalanceqty as current_qty,
+                                        actualrecqty as received_qty,
+                                        actualdelqty as delivered_qty,
+                                        carryoverimbalqty as previous_qty
+                                    FROM navigates.navigates_transaction_balance_state
+                                    WHERE contractid = @contractId
+                                        AND assetnbr IN (51, 14, 3029, 44)
+                                        AND accountingprd <= @date
+                                    ORDER BY accountingprd DESC
+                                    LIMIT 1",RedshiftConnection
+b1c7225a-0f29-40ca-844f-5e7206db477e,[],john@shoreless.ai,2025-08-22 16:39:04.165,TCRecommendationCacheService.cs:662 | TCRecommendationCacheService.cs:665,DELETE FROM dbo.tc_recommendations,DefaultConnection
+b26ebee8-504e-4e3c-b3e4-9ac499db33fa,"[""@date""]",john@shoreless.ai,2025-08-22 16:39:04.021,TCCapacityDecisionService.cs:946 | TCCapacityDecisionService.cs:957,"
+                        SELECT 
+                            COALESCE(impact_mdth, 0) as impact_mdth,
+                            COALESCE(affected_capacity_mmcfd, 0) as affected_capacity_mmcfd
+                        FROM ap.sap_outages
+                        WHERE @date::date BETWEEN start_date::date AND end_date::date
+                        AND pipeline_aor_id = '3'
+                        AND (impact_mdth > 0 OR affected_capacity_mmcfd > 0)
+                        ORDER BY COALESCE(impact_mdth, affected_capacity_mmcfd * 24 / 1000.0) DESC
+                        LIMIT 1",TCExternalConnection
+b2a08a45-a358-4775-8779-6b108b298d47,"[""@date""]",john@shoreless.ai,2025-08-22 16:39:03.636,PalLocationService.cs:967 | PalLocationService.cs:981,"
+                            SELECT TOP 1 
+                                recpointcd,
+                                deliverypointcd,
+                                reclocationname,
+                                deliverylocationname,
+                                receiptmarketarea,
+                                deliverymarketarea
+                            FROM navigates.navigates_unsubscribedcapacity
+                            WHERE capacity > 0
+                                AND effbegindt <= @date
+                                AND effenddt >= @date
+                            ORDER BY effbegindt DESC",RedshiftConnection
+b5bc1b5c-b642-400f-9e89-1e73713abc63,"[""@date""]",john@shoreless.ai,2025-08-22 16:39:04.140,TCPipelineDataService.cs:326 | TCPipelineDataService.cs:336,"
+                            SELECT pipeline_aor_id, gas_day, pi_timestamp, sum(linepack_mmcf) as total_linepack
+                            FROM ap.linepack_by_segment
+                            WHERE pipeline_aor_id = '3'
+                            AND pi_timestamp::date = @date
+                            AND EXTRACT(minute FROM pi_timestamp) = 0
+                            GROUP BY pipeline_aor_id, gas_day, pi_timestamp
+                            ORDER BY pi_timestamp DESC
+                            LIMIT 1",TCExternalConnection
+fed404d4-2c25-44ec-9316-00c83ce98dc2,"[""@date""]",john@shoreless.ai,2025-08-22 16:39:03.706,PalRecommendationService.cs:2976 | PalRecommendationService.cs:2987,"
+                                    SELECT sum(linepack_mmcf) as total_linepack, pi_timestamp
+                                    FROM ap.linepack_by_segment
+                                    WHERE pipeline_aor_id = '3'
+                                    AND pi_timestamp::date = @date
+                                    AND EXTRACT(hour FROM pi_timestamp) = 9
+                                    AND EXTRACT(minute FROM pi_timestamp) = 0
+                                    GROUP BY pi_timestamp
+                                    ORDER BY pi_timestamp DESC
+                                    LIMIT 1",TCExternalConnection
+b6c8a1d7-33e7-45a9-a549-ec44e15eff1e,"[""@end_date"",""@start_date""]",john@shoreless.ai,2025-08-22 16:39:03.975,STLTConversionService.cs:775 | STLTConversionService.cs:792,"
+                            -- UC4 #7 Basis Analysis
+                            SELECT 
+                              loc.location_code,
+                              AVG(loc.settlement_price - nymex.settlement_price) AS avg_basis_price
+                            FROM marketprices.settlements loc
+                            INNER JOIN marketprices.settlements nymex
+                              ON loc.settlement_date = nymex.settlement_date
+                              AND loc.strip = nymex.strip
+                            WHERE 
+                              loc.strip = loc.settlement_date
+                              AND loc.location_code = 'NNG-Ventura'
+                              AND nymex.location_code = 'Henry'
+                              AND loc.settlement_date >= @start_date
+                              AND loc.settlement_date <= @end_date
+                            GROUP BY loc.location_code",RedshiftConnection
+bac25f23-b9d1-4d33-b70f-6ea4fb725bcb,"[""@date""]",john@shoreless.ai,2025-08-22 16:39:04.142,TCPipelineDataService.cs:836 | TCPipelineDataService.cs:851,"
+                            SELECT 
+                                COUNT(*) as total_units,
+                                COUNT(CASE WHEN unit_status IN ('DOWN', 'OUTAGE', 'OFFLINE', 'UNAVAILABLE') THEN 1 END) as units_in_outage
+                            FROM ap.cs_units
+                            WHERE pipeline_aor_id = 3
+                              AND DATE(timestamp) = @date
+                              AND EXTRACT(minute FROM timestamp)::integer = 0
+                              AND timestamp = (
+                                  SELECT MAX(timestamp) 
+                                  FROM ap.cs_units 
+                                  WHERE DATE(timestamp) = @date
+                                  AND EXTRACT(minute FROM timestamp)::integer = 0
+                              )",TCExternalConnection
+bcb47867-9744-448d-89d4-4d1f38694d78,[],john@shoreless.ai,2025-08-22 16:39:03.594,PalCapOBAService.cs:1838 | PalCapOBAService.cs:1850,"
+                                    SELECT TOP 1 
+                                        value1,
+                                        value2,
+                                        paramname
+                                    FROM navigates.navigates_contract_prices 
+                                    WHERE (fromloccode = 'AECO' OR toloccode = 'DAWN')
+                                        AND effbegindt <= @date 
+                                        AND (effenddt IS NULL OR effenddt >= @date)
+                                    ORDER BY effbegindt DESC",RedshiftConnection
+c0391a31-7c2f-4e23-a0a5-ad5f4a465f41,"[""@analysisDate""]",john@shoreless.ai,2025-08-22 16:39:03.975,STLTConversionService.cs:904 | STLTConversionService.cs:921,"
+                            SELECT 
+                                TRIM(value1) as raw_basis_value
+                            FROM navigates.navigates_contract_prices 
+                            WHERE effbegindt <= @analysisDate
+                            AND (effenddt IS NULL OR effenddt >= @analysisDate)
+                            AND paramname ILIKE '%basis%'
+                            AND TRIM(value1) IS NOT NULL
+                            AND TRIM(value1) != ''
+                            AND TRIM(value1) != 'N'
+                            AND TRIM(value1) != 'I'
+                            AND TRIM(value1) != 'NULL'
+                            AND TRIM(value1) != 'NA'
+                            AND TRIM(value1) ~ '^-?[0-9]+\.?[0-9]*$'
+                            ORDER BY effbegindt DESC
+                            LIMIT 5",RedshiftConnection
+c0927bff-ca83-47e1-9b9a-ec59247819dc,"[""@date""]",john@shoreless.ai,2025-08-22 16:39:04.151,TCPipelineDataService.cs:1751 | TCPipelineDataService.cs:1761,"
+                            SELECT 
+                                CAST(COALESCE(operational_available_capacity, '0') AS integer) as operational_capacity
+                            FROM ce.navigates_operational_available_capacity
+                            WHERE assetabrv = 'NBPL'
+                              AND flowdate = @date
+                              AND cycle_name = 'TIMELY'
+                            ORDER BY import_time DESC
+                            LIMIT 1",TCExternalConnection
+c17ed69e-e046-4009-9160-d5973320f6c4,"[""@date""]",john@shoreless.ai,2025-08-22 16:39:03.973,STLTConversionService.cs:524 | STLTConversionService.cs:537,"
+                            SELECT 
+                                sum(linepack_mmcf) as total_linepack,
+                                pipeline_aor_id,
+                                pi_timestamp::date as gas_date
+                            FROM ap.linepack_by_segment
+                            WHERE pipeline_aor_id = '3'
+                            AND pi_timestamp::date = @date
+                            AND EXTRACT(minute FROM pi_timestamp) = 0
+                            GROUP BY pipeline_aor_id, pi_timestamp::date, pi_timestamp
+                            ORDER BY pi_timestamp DESC
+                            LIMIT 1",TCExternalConnection
+c3d3c55e-963d-4b8a-8637-efed9edd73f0,"[""@date"",""@pointCode""]",john@shoreless.ai,2025-08-22 16:39:03.639,PalLocationService.cs:1403 | PalLocationService.cs:1414,"
+                                    SELECT TOP 1 
+                                        value1,
+                                        value2,
+                                        paramname
+                                    FROM navigates.navigates_contract_prices 
+                                    WHERE (fromloccode = @pointCode OR toloccode = @pointCode)
+                                        AND effbegindt <= @date 
+                                        AND (effenddt IS NULL OR effenddt >= @date)
+                                    ORDER BY effbegindt DESC",RedshiftConnection
+c40da94c-f077-4852-ba48-6e452e4848be,[],john@shoreless.ai,2025-08-22 16:39:04.139,TCPipelineDataService.cs:162 | TCPipelineDataService.cs:169,"
+                                SELECT coding_code, description, segment_names
+                                FROM dbo.tchistoricaloutages
+                                WHERE @date BETWEEN start_date AND end_date
+                                AND pipeline_aor_id = '3'
+                                LIMIT 1",DefaultConnection
+cfe24f01-2ac1-481d-8caa-af61a4ffd9c3,"[""@date""]",john@shoreless.ai,2025-08-22 16:39:04.150,TCPipelineDataService.cs:1628 | TCPipelineDataService.cs:1635,"
+                            SELECT SUM(end_accum_balance) as accum_pal_dth
+                            FROM ap.contract_cumulative_imbalance
+                            WHERE pipeline_id = '3'
+                            AND rate_schedule = 'PAL'
+                            AND gas_day = @date",TCExternalConnection
+d2ba8280-112d-42a7-a44d-3344229f5d06,[],john@shoreless.ai,2025-08-22 16:39:03.455,JsonPipelineConfigurationService.cs:742 | JsonPipelineConfigurationService.cs:747,"
+                                    SELECT COUNT(*) as config_count
+                                    FROM dbo.pipeline_configurations 
+                                    WHERE is_active = true AND is_deleted = false",DefaultConnection
+d607d961-fc23-4091-96f3-06e8519bcd81,"[""@AssetAbbreviation"",""@AssetNumber"",""@MaxRateIndicator"",""@RateScheduleCode"",""@StatusCode"",""@YearEnd"",""@YearStart""]",john@shoreless.ai,2025-08-22 16:39:03.720,PalVolumeService.cs:337 | PalVolumeService.cs:369,"
+            SELECT 
+                SUM(CAST(NULLIF(maxtotalpk.value1, '') AS DECIMAL)) AS total_park_capacity,
+                SUM(CAST(NULLIF(maxtotalln.value1, '') AS DECIMAL)) AS total_loan_capacity,
+                AVG(CAST(NULLIF(maxdailypk.value1, '') AS DECIMAL)) AS avg_daily_park,
+                AVG(CAST(NULLIF(maxdailyunpk.value1, '') AS DECIMAL)) AS avg_daily_unpark,
+                COUNT(DISTINCT xaction.contractid) AS active_contracts
+            FROM navigates.navigates_contract_transaction xaction
+            LEFT JOIN navigates.navigates_inputs_flat inputs
+                ON inputs.agreementid = xaction.contractid
+                AND inputs.value1 = xaction.contracttransactionid
+                AND inputs.assetnbr = xaction.assetnbr
+                AND inputs.paramid = 41
+            LEFT JOIN navigates.navigates_inputs_flat maxtotalpk
+                ON maxtotalpk.agreementinputid = inputs.agreementinputid AND maxtotalpk.paramid = 6108
+            LEFT JOIN navigates.navigates_inputs_flat maxtotalln
+                ON maxtotalln.agreementinputid = inputs.agreementinputid AND maxtotalln.paramid = 6109
+            LEFT JOIN navigates.navigates_inputs_flat maxdailypk
+                ON maxdailypk.agreementinputid = inputs.agreementinputid AND maxdailypk.paramid = 6107
+            LEFT JOIN navigates.navigates_inputs_flat maxdailyunpk
+                ON maxdailyunpk.agreementinputid = inputs.agreementinputid AND maxdailyunpk.paramid = 6110
+            INNER JOIN navigates.navigates_contract_base contractbase
+                ON contractbase.assetnbr = xaction.assetnbr
+                AND contractbase.contractid = xaction.contractid
+            WHERE xaction.rateschedulecd = @RateScheduleCode
+              AND xaction.maxrateind = @MaxRateIndicator
+              AND xaction.statuscd = @StatusCode
+              AND xaction.assetnbr = @AssetNumber
+              AND contractbase.assetabbr = @AssetAbbreviation
+              AND xaction.effbegindt <= @YearEnd
+              AND xaction.effenddt >= @YearStart;",RedshiftConnection
+d92de900-09ab-408f-9f84-9293a4f68430,[],john@shoreless.ai,2025-08-22 16:39:04.024,TCCapacityDecisionService.cs:1341 | TCCapacityDecisionService.cs:1351,"
+                        SELECT 
+                            CAST(COALESCE(operational_available_capacity, '0') AS integer) as operational_capacity_mmcfd
+                        FROM ce.navigates_operational_available_capacity
+                        WHERE assetabrv = 'NBPL'
+                          AND flowdate = @date
+                          AND cycle_name = 'TIMELY'
+                        ORDER BY import_time DESC
+                        LIMIT 1",TCExternalConnection
+dab7af2c-8bd3-4789-bfa7-6bcc5c2cb98f,[],john@shoreless.ai,2025-08-22 16:39:03.511,OutageDetectionService.cs:37 | OutageDetectionService.cs:59,"
+                            SELECT DISTINCT
+                                cs.station_name,
+                                AVG(sp.suction_pressure) as avg_suction_pressure,
+                                AVG(sp.discharge_pressure) as avg_discharge_pressure,
+                                MIN(sp.suction_pressure) as min_suction_pressure,
+                                MAX(sp.suction_pressure) as max_suction_pressure,
+                                COUNT(*) as reading_count
+                            FROM ap.station_pressure sp
+                            JOIN general.compressor_station cs ON sp.compressor_station_id = cs.compressor_station_id
+                            WHERE sp.pipeline_aor_id = 3
+                                AND sp.""""timestamp"""" >= @dateStart
+                                AND sp.""""timestamp"""" <= @dateEnd
+                                AND EXTRACT(minute FROM sp.""""timestamp"""") = 0
+                                AND sp.suction_pressure > 0
+                                AND sp.discharge_pressure > 0
+                            GROUP BY cs.station_name
+                            HAVING AVG(sp.discharge_pressure) < 700
+                                AND AVG(sp.suction_pressure) < AVG(sp.discharge_pressure) * 0.3
+                                AND COUNT(*) >= 6
+                            ORDER BY cs.station_name",TCExternalConnection
+dcfb747e-018c-40c4-8395-98cbf1966840,"[""@date""]",john@shoreless.ai,2025-08-22 16:39:04.022,TCCapacityDecisionService.cs:1127 | TCCapacityDecisionService.cs:1144,"
+                        SELECT 
+                            COUNT(*) as total_units,
+                            COUNT(CASE WHEN unit_status IN ('DOWN', 'OUTAGE', 'OFFLINE', 'UNAVAILABLE', 'U') THEN 1 END) as units_down,
+                            COUNT(CASE WHEN unit_status IN ('RESTRICTED', 'LIMITED') THEN 1 END) as units_restricted,
+                            string_agg(DISTINCT unit_name || ':' || unit_status, ', ') as unit_details
+                        FROM ap.cs_units
+                        WHERE pipeline_aor_id = 3
+                          AND DATE(timestamp) = @date
+                          AND EXTRACT(minute FROM timestamp)::integer = 0
+                          AND timestamp = (
+                              SELECT MAX(timestamp) 
+                              FROM ap.cs_units 
+                              WHERE DATE(timestamp) = @date
+                              AND EXTRACT(minute FROM timestamp)::integer = 0
+                          )",TCExternalConnection
+dff49d49-564d-4f00-983d-5660cf0912f4,"[""@analysisDate"",""@operationType""]",john@shoreless.ai,2025-08-22 16:39:03.599,PalCapOBAService.cs:2463 | PalCapOBAService.cs:2473,"
+                            SELECT COUNT(*) as restriction_count
+                            FROM dbo.uc3_spatial_restrictions
+                            WHERE restriction_date = @analysisDate
+                                AND (expires_date IS NULL OR expires_date > CURRENT_TIMESTAMP)
+                                AND (
+                                    (@operationType = 'PARK' AND restriction_type IN ('PARK_UPSTREAM', 'BOTH'))
+                                    OR (@operationType = 'LOAN' AND restriction_type IN ('LOAN_DOWNSTREAM', 'BOTH'))
+                                )",DefaultConnection
+e152aebb-b8c3-4425-8f0c-4b20d32d554b,"[""@date"",""@previousDate""]",john@shoreless.ai,2025-08-22 16:39:03.566,PalCapOBAService.cs:753 | PalCapOBAService.cs:772,"
+                            WITH daily_pal AS (
+                                SELECT 
+                                    gas_day,
+                                    SUM(end_accum_balance) as current_balance
+                                FROM ap.contract_cumulative_imbalance
+                                WHERE pipeline_id = '3'
+                                    AND rate_schedule = 'PAL'
+                                    AND gas_day IN (@date, @previousDate)
+                                GROUP BY gas_day
+                            )
+                            SELECT 
+                                COALESCE(today.current_balance, 0) - COALESCE(yesterday.current_balance, 0) as daily_pal_dth
+                            FROM 
+                                (SELECT current_balance FROM daily_pal WHERE gas_day = @date) today
+                            FULL OUTER JOIN
+                                (SELECT current_balance FROM daily_pal WHERE gas_day = @previousDate) yesterday
+                            ON 1=1",TCExternalConnection
+e742227f-bbcf-4f59-8d38-e1d8fd5aa5a2,"[""@date""]",john@shoreless.ai,2025-08-22 16:39:03.973,STLTConversionService.cs:560 | STLTConversionService.cs:567,"
+                            SELECT SUM(ABS(eod_accum_imb_dth)) as accum_oba_dth
+                            FROM ap.contract_entity_daily_imbalance
+                            WHERE pipeline_aor_id = 3
+                            AND gas_day = @date",TCExternalConnection
+e7d27bcf-debb-4072-92f9-a0939f416556,"[""@analysisDate""]",john@shoreless.ai,2025-08-22 16:39:03.973,STLTConversionService.cs:66 | STLTConversionService.cs:79,"
+                            SELECT 
+                                capacity_amount,
+                                final_score,
+                                risk_level,
+                                is_safety_override,
+                                decision_date,
+                                created_date
+                            FROM dbo.tc_capacity_decisions 
+                            WHERE decision_date::date = @analysisDate::date
+                            ORDER BY created_date DESC
+                            LIMIT 1",DefaultConnection
+e884a66a-fa7e-4c41-b133-0cdc6d9d00fd,"[""@AssetAbbreviation"",""@AssetNumber"",""@CurrentDate"",""@MaxRateIndicator"",""@RateScheduleCode"",""@StatusCode""]",john@shoreless.ai,2025-08-22 16:39:03.709,PalRecommendationService.cs:3072 | PalRecommendationService.cs:3089,"
+                                    SELECT 
+                                        ct.effenddt,
+                                        COUNT(*) as contract_count
+                                    FROM navigates.navigates_contract_transaction ct
+                                    INNER JOIN navigates.navigates_contract_base contractbase
+                                        ON contractbase.assetnbr = ct.assetnbr
+                                        AND contractbase.contractid = ct.contractid
+                                    WHERE ct.rateschedulecd = @RateScheduleCode
+                                        AND ct.maxrateind = @MaxRateIndicator
+                                        AND ct.statuscd = @StatusCode
+                                        AND ct.assetnbr = @AssetNumber
+                                        AND contractbase.assetabbr = @AssetAbbreviation
+                                        AND ct.effenddt > @CurrentDate
+                                    GROUP BY ct.effenddt
+                                    ORDER BY ct.effenddt ASC",RedshiftConnection
+ea44560f-3970-4394-aa39-70be2d773975,"[""@analysisDateTime"",""@recommendationType""]",john@shoreless.ai,2025-08-22 16:39:04.164,TCRecommendationCacheService.cs:326 | TCRecommendationCacheService.cs:332,"
+                                    SELECT serialized_data
+                                    FROM dbo.tc_recommendations
+                                    WHERE analysis_datetime = @analysisDateTime
+                                    AND recommendation_type = @recommendationType",DefaultConnection
+eb40ba32-725e-4a9f-a04d-70c6960705fe,"[""@appliedVetoesJson"",""@calculationMethod"",""@capacityAmount"",""@capacityAnalysisScore"",""@consultationScore"",""@createdBy"",""@createdDate"",""@dayOfWeekScore"",""@dayTypeScore"",""@decisionDate"",""@downstreamMovementScore"",""@emailSent"",""@emailSentTime"",""@equipmentScore"",""@finalScore"",""@forecastConstraintScore"",""@historyConstraintScore"",""@id"",""@imbalancesScore"",""@isActive"",""@isDeleted"",""@isSafetyOverride"",""@isValidated"",""@justificationSummary"",""@linepackScore"",""@longTermImpactScore"",""@metadata"",""@modifiedBy"",""@modifiedDate"",""@monthScore"",""@opportunityScore"",""@outageCycleScore"",""@outageDurationScore"",""@outageImpactGroupScore"",""@outageImpactScore"",""@outageScore"",""@personaInsights"",""@personaRankingsJson"",""@pipelineStateJson"",""@preVetoScore"",""@primaryFactors"",""@processingTimeMs"",""@pullCapScore"",""@riskAssessment"",""@riskLevel"",""@safetyAssessment"",""@safetyIssuesJson"",""@seasonalFactorScore"",""@systemHealthScore"",""@throughputScore"",""@timePeriodScore"",""@validationErrorsJson""]",john@shoreless.ai,2025-08-22 16:39:04.025,TCCapacityDecisionService.cs:2908 | TCCapacityDecisionService.cs:2940,"
+                        INSERT INTO dbo.tc_capacity_decisions (
+                            id, capacity_amount, decision_date, risk_level, final_score,
+                            seasonal_factor_score, system_health_score, outage_score, opportunity_score, consultation_score,
+                            justification_summary, primary_factors, persona_insights, risk_assessment, safety_assessment,
+                            is_safety_override, email_sent, email_sent_time,
+                            pipeline_state_json, persona_rankings_json,
+                            created_date, modified_date, is_active, is_deleted, created_by, modified_by,
+                            capacity_analysis_score, history_constraint_score, forecast_constraint_score,
+                            month_score, day_of_week_score, time_period_score, day_type_score,
+                            outage_duration_score, outage_impact_score, outage_cycle_score, outage_impact_group_score,
+                            linepack_score, throughput_score, imbalances_score, equipment_score,
+                            pull_cap_score, downstream_movement_score, long_term_impact_score, metadata,
+                            pre_veto_score, applied_vetoes_json, safety_issues_json, validation_errors_json,
+                            processing_time_ms, calculation_method, is_validated
+                        ) VALUES (
+                            @id, @capacityAmount, @decisionDate, @riskLevel, @finalScore,
+                            @seasonalFactorScore, @systemHealthScore, @outageScore, @opportunityScore, @consultationScore,
+                            @justificationSummary, @primaryFactors, @personaInsights, @riskAssessment, @safetyAssessment,
+                            @isSafetyOverride, @emailSent, @emailSentTime,
+                            @pipelineStateJson::jsonb, @personaRankingsJson::jsonb,
+                            @createdDate, @modifiedDate, @isActive, @isDeleted, @createdBy, @modifiedBy,
+                            @capacityAnalysisScore, @historyConstraintScore, @forecastConstraintScore,
+                            @monthScore, @dayOfWeekScore, @timePeriodScore, @dayTypeScore,
+                            @outageDurationScore, @outageImpactScore, @outageCycleScore, @outageImpactGroupScore,
+                            @linepackScore, @throughputScore, @imbalancesScore, @equipmentScore,
+                            @pullCapScore, @downstreamMovementScore, @longTermImpactScore, @metadata,
+                            @preVetoScore, @appliedVetoesJson, @safetyIssuesJson, @validationErrorsJson,
+                            @processingTimeMs, @calculationMethod, @isValidated
+                        )",DefaultConnection
+ebfca384-05b1-4981-ae83-3993fb851dbe,"[""@date""]",john@shoreless.ai,2025-08-22 16:39:03.591,PalCapOBAService.cs:1536 | PalCapOBAService.cs:1542,"
+                                    SELECT COUNT(distinct(notification_num)) as outage_count
+                                    FROM ap.sap_outages
+                                    WHERE @date::date BETWEEN start_date::date AND end_date::date
+                                    AND pipeline_aor_id = '3'",DefaultConnection
+edbd15c5-1d3b-43bf-89ec-88a2d016d1a5,"[""@endDate"",""@startDate""]",john@shoreless.ai,2025-08-22 16:39:04.026,TCCapacityDecisionService.cs:3051 | TCCapacityDecisionService.cs:3056,"
+                                SELECT * FROM dbo.tc_capacity_decisions
+                                WHERE decision_date BETWEEN @startDate AND @endDate
+                                ORDER BY decision_date DESC",DefaultConnection
+f491566a-8d1f-4119-b77d-399c38953cf4,"[""@date""]",john@shoreless.ai,2025-08-22 16:39:04.021,TCCapacityDecisionService.cs:834 | TCCapacityDecisionService.cs:845,"
+                        SELECT 
+                            CAST(COALESCE(scheduled_quantity, '0') AS integer) as timely_scheduled_capacity, 
+                            CAST(COALESCE(operational_available_capacity, '0') AS integer) as timely_operational_capacity
+                        FROM ce.navigates_operational_available_capacity
+                        WHERE assetabrv = 'NBPL'
+                          AND flowdate = @date
+                          AND cycle_name = 'TIMELY'
+                        ORDER BY import_time DESC
+                        LIMIT 1",TCExternalConnection
+f4b94f22-e354-4da5-b288-e442c7681106,"[""@date""]",john@shoreless.ai,2025-08-22 16:39:04.147,TCPipelineDataService.cs:1392 | TCPipelineDataService.cs:1397,"
+                            SELECT DISTINCT field_op_area, field_op_area as object_type
+                            FROM ap.sap_outages
+                            WHERE @date BETWEEN start_date AND end_date",TCExternalConnection
+face4340-5871-4a5a-bddf-85e48512c39a,[],john@shoreless.ai,2025-08-22 16:39:03.596,PalCapOBAService.cs:2197 | PalCapOBAService.cs:2228,"
+                            -- UC4 #6
+                            SELECT 
+                               loc.location_code,
+                               loc.contract,
+                               loc.settlement_date,
+                               loc.strip,
+                               loc.settlement_price,
+                               nymex.settlement_price AS nymex_price,
+                               loc.settlement_price - nymex.settlement_price AS basis_price
+                             FROM marketprices.settlements loc
+                             INNER JOIN marketprices.settlements nymex
+                               ON loc.settlement_date = nymex.settlement_date
+                               AND loc.strip = nymex.strip
+                             WHERE 
+                               loc.strip = loc.settlement_date
+                               AND loc.location_code <> 'Henry'
+                               AND nymex.location_code = 'Henry'
+                               AND nymex.strip = nymex.settlement_date
+                               AND nymex.contract = 'SDH'
+                               and loc.product = 'NG Swing GDD Futures'
+                               and loc.contract_type ='D'
+                               AND loc.settlement_date = (
+                                 SELECT MAX(settlement_date)
+                                 FROM marketprices.settlements
+                                 WHERE location_code <> 'Henry'
+                                   AND strip = settlement_date
+                               )
+                               and loc.location_code in ('NNG-Ventura','Chicago')
+                             ORDER BY loc.location_code, loc.contract;",RedshiftConnection
+fe5c01ef-b46c-4bfb-8a64-5c008127dce0,"[""@AnalysisDate""]",john@shoreless.ai,2025-08-22 16:39:03.702,PalRecommendationService.cs:2741 | PalRecommendationService.cs:2749,"
+                            SELECT 
+                                SUM(linepack_mmcf) as total_linepack_mmcf,
+                                MAX(pi_timestamp) as latest_timestamp
+                            FROM ap.linepack_by_segment
+                            WHERE pipeline_aor_id = '3'
+                            AND pi_timestamp::date = @AnalysisDate",TCExternalConnection
+fff7dd1d-a496-48bd-b4fa-7707bebf8ff8,"[""@analysisDateTime"",""@createdBy"",""@id"",""@recommendationType"",""@serializedData"",""@tenantId""]",john@shoreless.ai,2025-08-22 16:39:04.164,TCRecommendationCacheService.cs:436 | TCRecommendationCacheService.cs:442,"
+                                    INSERT INTO dbo.tc_recommendations
+                                    (id, analysis_datetime, recommendation_type, serialized_data, created_date, created_by, tenant_id)
+                                    VALUES
+                                    (@id, @analysisDateTime, @recommendationType, @serializedData::jsonb, CURRENT_TIMESTAMP, @createdBy, @tenantId)",DefaultConnection
+"45c2f84a-3127-4c72-9469-d9a25fe6a7ae","[""@contractId"",""@endDate"",""@startDate""]",anthony_myhre@tcenergy.com,2025-08-22 18:00:26.399,PalLocationService.cs:867,"SELECT noms.receiptpointcd, noms.deliverypointcd, rec_points.pointname AS receipt_point_name, rec_points.segment AS receipt_segment, rec_points.marketarea AS receipt_ma, del_points.pointname AS delivery_point_name, del_points.segment AS delivery_segment, del_points.marketarea AS delivery_ma FROM navigates.navigates_noms_by_cycle noms LEFT JOIN navigates.navigates_points rec_points ON rec_points.pointcd = noms.receiptpointcd LEFT JOIN navigates.navigates_points del_points ON del_points.pointcd = noms.deliverypointcd WHERE noms.contractid = @contractId AND noms.flowdate >= @startDate AND noms.flowdate <= @endDate AND noms.rateschedulecd = 'PAL' AND noms.receiptpointcd IS NOT NULL AND noms.deliverypointcd IS NOT NULL ORDER BY noms.flowdate DESC LIMIT 1",RedshiftConnection
+"1f872243-c8ba-4d73-9cb0-b2bbc27048ac","[""@assetAbbreviation"",""@date""]",anthony_myhre@tcenergy.com,2025-08-25 17:37:50.246,PalCapOBAService.cs:692 | PalCapOBAService.cs:703,"
+                                SELECT 
+                                    COALESCE(operational_available_capacity, 0) as timely_operational_capacity,
+                                    COALESCE(scheduled_quantity, 0) as timely_scheduled_capacity
+                                FROM ce.navigates_operational_available_capacity
+                                WHERE assetabrv = @assetAbbreviation
+                                AND flowdate = @date
+                                AND cycle_name = 'TIMELY'
+                                ORDER BY import_time DESC
+                                LIMIT 1",TCExternalConnection
+f62c9542-0778-41ad-b6c1-d3cc792a8632,"[""@date""]",anthony_myhre@tcenergy.com,2025-08-25 17:38:43.127,TCPipelineDataService.cs:1097 | TCPipelineDataService.cs:1109,"
+                            SELECT 
+                                unit_name, 
+                                unit_status, 
+                                timestamp 
+                            FROM ap.cs_units
+                            WHERE pipeline_aor_id = 3
+                              AND DATE(timestamp) = @date
+                              AND EXTRACT(minute FROM timestamp)::integer = 0
+                            ORDER BY timestamp DESC
+                            LIMIT 1",TCExternalConnection
+"83c04807-1223-42d8-9458-88420868852f","[""@date""]",anthony_myhre@tcenergy.com,2025-08-25 22:22:10.743,TCPipelineDataService.cs:1502 | TCPipelineDataService.cs:1509,"
+                                SELECT DISTINCT field_op_area, object_type
+                                FROM dbo.tchistoricaloutages
+                                WHERE @date BETWEEN start_date AND end_date
+                                AND pipeline_aor_id = '3'
+                                ",DefaultConnection
+b1d72f88-9b71-4b5c-b0c2-873d25cd0d8c,"[""@currentMonth"",""@targetDate""]",heather_geiger@tcenergy.com,2025-09-08 20:07:10.533,PalRecommendationService.cs:2391 | PalRecommendationService.cs:2403,"
+                                SELECT settlement_price
+                                FROM marketprices.settlements
+                                WHERE 
+                                    location_code = 'NNG-Ventura'
+                                    AND contract_type = 'F'
+                                    AND product = 'NG IF Futures'
+                                    AND settlement_date = @targetDate
+                                    AND strip = @currentMonth
+                                ORDER BY settlement_date DESC
+                                LIMIT 1",RedshiftConnection

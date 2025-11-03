@@ -1,0 +1,90 @@
+@page "/live-data-example"
+@using BlazorDbEditor.Services
+@inject ILiveDataService LiveDataService
+
+<PageTitle>Live Data Example</PageTitle>
+
+<div class="container mt-4">
+  <div class="card">
+<div class="card-header bg-primary text-white">
+  <h3>?? Live Data Loading Example</h3>
+        </div>
+   <div class="card-body">
+      <div class="mb-3">
+  <label>Connection String:</label>
+        <input type="text" class="form-control" @bind="connectionString" 
+          placeholder="Host=localhost;Port=5432;Database=postgres;Username=postgres;Password=****" />
+            </div>
+
+<button class="btn btn-primary" @onclick="LoadLiveData" disabled="@isLoading">
+  @if (isLoading) { <span class="spinner-border spinner-border-sm me-2"></span> }
+        Load Last 24 Hours
+      </button>
+
+      @if (!string.IsNullOrEmpty(message))
+   {
+      <div class="alert alert-info mt-3">@message</div>
+            }
+  </div>
+    </div>
+</div>
+
+@code {
+    private string connectionString = "";
+    private bool isLoading = false;
+    private string message = "";
+
+    private async Task LoadLiveData()
+    {
+        isLoading = true;
+        message = "Testing connection...";
+
+        try
+        {
+ // Test connection
+  var connected = await LiveDataService.TestConnectionAsync(connectionString);
+ if (!connected)
+{
+      message = "? Connection failed";
+                return;
+            }
+
+      // Get available tables
+      message = "Loading table list...";
+var tables = await LiveDataService.GetTablesAsync(connectionString, "dbo");
+          
+ // Load last 24 hours from first few tables
+    var tablesToLoad = tables.Take(3).ToList();
+            message = $"Loading data from {tablesToLoad.Count} tables...";
+
+  var options = new LoadOptions
+         {
+     DaysBack = 1,
+        MaxRows = 1000
+   };
+
+    var result = await LiveDataService.LoadMultipleTablesAsync(
+        connectionString,
+          tablesToLoad,
+      options
+ );
+
+            if (result.Success)
+      {
+   message = $"? Loaded {result.RowsLoaded:N0} rows from {tablesToLoad.Count} tables!";
+     }
+            else
+       {
+  message = $"?? Partial load: {result.ErrorMessage}";
+            }
+  }
+        catch (Exception ex)
+   {
+        message = $"? Error: {ex.Message}";
+        }
+        finally
+  {
+      isLoading = false;
+        }
+    }
+}

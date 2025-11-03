@@ -1,0 +1,48 @@
+"id","seasonal_factor_weight","system_health_weight","outage_impact_weight","market_opportunities_weight","consultation_weight","no_risk_min_score","no_risk_max_score","low_risk_min_score","low_risk_max_score","moderate_risk_min_score","moderate_risk_max_score","high_risk_min_score","high_risk_max_score","no_risk_capacity","low_risk_capacity","moderate_risk_capacity","high_risk_capacity","gas_control_weight","marketing_weight","field_operations_weight","reliability_team_weight","ghg_team_weight","reputation_team_weight","distribution_list","emergency_distribution_list","email_delivery_time","data_collection_time","fallback_rankings_json","created_date","modified_date","is_active","is_deleted","created_by","modified_by","tenant_id","row_version","scoring_lookup_tables_json","oba_long_threshold","oba_short_threshold","market_opportunity_high_demand_threshold","market_opportunity_normal_threshold","pull_cap_high_relative_threshold","pull_cap_medium_relative_threshold","pull_cap_low_relative_threshold","pull_cap_high_utilization_threshold","pull_cap_medium_utilization_threshold","pull_cap_low_utilization_threshold","downstream_very_high_threshold","downstream_high_threshold","downstream_medium_threshold","downstream_low_threshold","long_term_very_high_threshold","long_term_high_threshold","long_term_medium_threshold","long_term_low_threshold","long_term_very_low_threshold","imbalances_very_low_threshold","imbalances_low_threshold","imbalances_medium_threshold","pull_cap_weight","downstream_movement_weight","long_term_impact_weight","oba_position_weight","morning_analysis_time","afternoon_analysis_time","send_morning_emails","send_afternoon_emails","max_daily_imbalance_mdth","min_temperature_fahrenheit","max_cushion_usage_percent","max_recent_constraint_hours","enable_cold_weather_override","enable_high_imbalance_override","enable_cushion_usage_override","enable_constraint_override","enable_system_health_veto","system_health_veto_threshold","system_health_veto_max_score","enable_outage_veto","outage_veto_threshold","outage_veto_max_score","enable_capacity_analysis_veto","capacity_analysis_veto_threshold","capacity_analysis_veto_max_score","pal_recommendation_email_time","pal_recommendation_email_recipients","combination_rules_json","enable_combinations","seasonal_configuration_json","enable_seasonality","monthly_max_daily_unpark_json"
+"62e8dd94-fd44-47ce-b737-bd82f0bf58d6",30.0,30.0,20.0,10.0,10.0,0.0,2.5,2.51,5.0,5.01,7.5,7.51,10.0,0,10,25,50,40.0,15.0,15.0,15.0,10.0,5.0,"ken@shoreless.ai,kyla_mayweather@tcenergy.com,jessi_harden@tcenergy.com,michael_moses@tcenergy.com,renee_moodie@tcenergy.com",ken@shoreless.ai,06:00:00,04:00:00,"{""GHGTeam"": {""Cost"": 3, ""Revenue"": 1, ""Efficiency"": 5, ""Reputation"": 4, ""Reliability"": 2}, ""Marketing"": {""Cost"": 2, ""Revenue"": 5, ""Efficiency"": 1, ""Reputation"": 4, ""Reliability"": 3}, ""GasControl"": {""Cost"": 1, ""Revenue"": 2, ""Efficiency"": 3, ""Reputation"": 4, ""Reliability"": 5}, ""ReputationTeam"": {""Cost"": 1, ""Revenue"": 2, ""Efficiency"": 4, ""Reputation"": 5, ""Reliability"": 3}, ""FieldOperations"": {""Cost"": 5, ""Revenue"": 1, ""Efficiency"": 3, ""Reputation"": 2, ""Reliability"": 4}, ""ReliabilityTeam"": {""Cost"": 2, ""Revenue"": 1, ""Efficiency"": 3, ""Reputation"": 4, ""Reliability"": 5}}",2025-03-25 19:17:27.755,2025-05-27 14:15:53.051,false,false,System,System,"11111111-1111-1111-1111-111111111111",,"{""dow_scores"": {""Friday"": 2, ""Monday"": 3, ""Sunday"": 1, ""Tuesday"": 3, ""Saturday"": 1, ""Thursday"": 2, ""Wednesday"": 3}, ""month_scores"": {""Apr"": 4, ""Aug"": 3, ""Dec"": 1, ""Feb"": 1, ""Jan"": 1, ""Jul"": 3, ""Jun"": 5, ""Mar"": 3, ""May"": 5, ""Nov"": 2, ""Oct"": 3, ""Sep"": 4}, ""day_type_scores"": {""Summer"": 3, ""Winter"": 1, ""Average"": 5}, ""pull_cap_scores"": {""0"": 5, ""10"": 4, ""25"": 3, ""50"": 2, ""100"": 1}, ""imbalances_scores"": {""0"": 5, ""25"": 3, ""50"": 2, ""75"": 1}, ""outage_cycle_scores"": {""ID1"": 5, ""ID2"": 4, ""ID3"": 3, ""NextDay"": 2, ""NextNextDay"": 1}, ""outage_impact_scores"": {""0"": 1, ""50"": 2, ""100"": 3, ""200"": 4, ""400"": 5}, ""longterm_impact_scores"": {""0"": 5, ""5"": 4, ""10"": 3, ""15"": 2, ""20"": 1}, ""outage_duration_scores"": {""0"": 5, ""4"": 5, ""8"": 5, ""12"": 3, ""24"": 2, ""120"": 1}, ""history_constraint_scores"": {""Last1Day"": 1, ""Last3Days"": 2, ""Last5Days"": 4, ""Last7Days"": 5, ""Last6Hours"": 1, ""Last12Hours"": 2, ""Last24Hours"": 4}, ""downstream_movement_scores"": {""0"": 5, ""25"": 3, ""50"": 2, ""75"": 1}, ""forecast_constraint_scores"": {""Next3Days"": 5, ""Next6Hours"": 1, ""Next24Hours"": 3}, ""outage_impact_group_scores"": {""Primary"": 5, ""Secondary"": 3, ""Interruptible"": 1}}",100000.0,-100000.0,25.0,10.0,1.3,1.1,0.9,0.9,0.7,0.5,4000.0,3000.0,2000.0,1000.0,1.3,1.1,0.9,0.7,0.5,10.0,30.0,50.0,0.2,0.4,0.3,0.1,09:00:00,13:30:00,true,true,100.0,-5.0,90.0,3,true,true,true,true,true,3.0,3.0,true,3.0,4.0,true,2.0,2.0,06:00:00,"",,false,,false,"{
+  ""January"": 5.0,
+  ""February"": 5.0,
+  ""March"": 4.0,
+  ""April"": 3.0,
+  ""May"": 2.0,
+  ""June"": 2.0,
+  ""July"": 2.0,
+  ""August"": 2.0,
+  ""September"": 3.0,
+  ""October"": 4.0,
+  ""November"": 5.0,
+  ""December"": 5.0
+}"
+"3f3ef478-1717-4ae1-aa34-209f92ed8877",30.0,30.0,20.0,10.0,10.0,0.0,2.5,2.51,5.0,5.01,7.5,7.51,10.0,0,10,25,50,40.0,15.0,15.0,15.0,10.0,5.0,pipeline-ops@tcenergy.com,pipeline-emergency@tcenergy.com,06:00:00,04:00:00,"",2025-05-27 14:35:22.835,2025-05-27 15:07:49.052,false,false,,,,,"{""month_scores"": {""Apr"": 4, ""Aug"": 3, ""Dec"": 1, ""Feb"": 1, ""Jan"": 1, ""Jul"": 3, ""Jun"": 5, ""Mar"": 3, ""May"": 5, ""Nov"": 2, ""Oct"": 3, ""Sep"": 4}}",100000.0,-100000.0,25.0,10.0,1.3,1.1,0.9,0.9,0.7,0.5,4000.0,3000.0,2000.0,1000.0,1.3,1.1,0.9,0.7,0.5,10.0,30.0,50.0,0.2,0.4,0.3,0.1,09:00:00,14:00:00,true,true,100.0,-5.0,90.0,3,true,true,true,true,true,3.0,3.0,true,3.0,4.0,true,2.0,2.0,06:00:00,"",,false,,false,"{
+  ""January"": 5.0,
+  ""February"": 5.0,
+  ""March"": 4.0,
+  ""April"": 3.0,
+  ""May"": 2.0,
+  ""June"": 2.0,
+  ""July"": 2.0,
+  ""August"": 2.0,
+  ""September"": 3.0,
+  ""October"": 4.0,
+  ""November"": 5.0,
+  ""December"": 5.0
+}"
+"1cbd3bd4-79a1-43dc-98f8-05ac67d4db55",25.0,40.0,25.0,5.0,5.0,0.0,2.5,2.51,5.0,5.01,7.5,7.51,10.0,0,10,25,50,40.0,15.0,15.0,15.0,10.0,5.0,"michael_moses@tcenergy.com, renee_moodie@tcenergy.com, jessi_harden@tcenergy.com, kyla_mayweather@tcenergy.com, frank_hildenbrand@tcenergy.com, jay_gillespie@tcenergy.com, cheryl_dobbins@tcenergy.com, ryan_fair@tcenergy.com, daniel_junek@tcenergy.com, brandon_stewart@tcenergy.com",ken_myers@tcenergy.com,06:00:00,04:00:00,"",2025-05-27 15:14:31.802,2025-10-07 12:25:35.071,true,false,,,,,"{""dow_scores"": {""Friday"": 2, ""Monday"": 3, ""Sunday"": 1, ""Tuesday"": 3, ""Saturday"": 1, ""Thursday"": 2, ""Wednesday"": 3}, ""month_scores"": {""Apr"": 4, ""Aug"": 3, ""Dec"": 1, ""Feb"": 1, ""Jan"": 1, ""Jul"": 3, ""Jun"": 5, ""Mar"": 3, ""May"": 5, ""Nov"": 2, ""Oct"": 3, ""Sep"": 4}, ""day_type_scores"": {""Summer"": 3, ""Winter"": 1, ""Average"": 5}, ""pull_cap_scores"": {""0"": 5, ""10"": 4, ""25"": 3, ""50"": 2, ""100"": 1}, ""imbalances_scores"": {""0"": 5, ""25"": 3, ""50"": 2, ""75"": 1}, ""outage_cycle_scores"": {""ID1"": 5, ""ID2"": 4, ""ID3"": 3, ""NextDay"": 2, ""NextNextDay"": 1}, ""outage_impact_scores"": {""0"": 1, ""50"": 2, ""100"": 3, ""200"": 4, ""400"": 5}, ""longterm_impact_scores"": {""0"": 5, ""5"": 4, ""10"": 3, ""15"": 2, ""20"": 1}, ""outage_duration_scores"": {""0"": 5, ""4"": 5, ""8"": 5, ""12"": 3, ""24"": 2, ""120"": 1}, ""history_constraint_scores"": {""Last1Day"": 1, ""Last3Days"": 2, ""Last5Days"": 4, ""Last7Days"": 5, ""Last6Hours"": 1, ""Last12Hours"": 2, ""Last24Hours"": 4}, ""downstream_movement_scores"": {""0"": 5, ""25"": 3, ""50"": 2, ""75"": 1}, ""forecast_constraint_scores"": {""Next3Days"": 5, ""Next6Hours"": 1, ""Next24Hours"": 3}, ""outage_impact_group_scores"": {""Primary"": 5, ""Secondary"": 3, ""Interruptible"": 1}}",100000.0,-100000.0,25.0,10.0,1.3,1.1,0.9,0.9,0.7,0.5,4000.0,3000.0,2000.0,1000.0,1.3,1.1,0.9,0.7,0.5,10.0,30.0,50.0,0.2,0.4,0.3,0.1,09:00:00,14:00:00,true,true,500.0,-5.0,90.0,3,true,false,false,true,true,3.0,3.0,true,3.0,4.0,true,2.0,2.0,06:00:00,"michael_moses@tcenergy.com, cheryl_dobbins@tcenergy.com","{
+    ""enableCombinations"": true,
+    ""minValueGapForCombination"": 10000,
+    ""combinationRules"": [
+        {""optionA"": ""Transport"", ""optionB"": ""PAL"", ""weightA"": 0.6, ""weightB"": 0.4},
+        {""optionA"": ""Transport"", ""optionB"": ""OBA"", ""weightA"": 0.7, ""weightB"": 0.3},
+        {""optionA"": ""PAL"", ""optionB"": ""OBA"", ""weightA"": 0.5, ""weightB"": 0.5}
+    ]
+}",true,"{
+    ""operationalSeasons"": {
+        ""winter"": {""months"": [11,12,1,2], ""transportMultiplier"": 1.2, ""palMultiplier"": 1.1, ""obaMultiplier"": 1.3},
+        ""summer"": {""months"": [6,7,8], ""transportMultiplier"": 1.1, ""palMultiplier"": 1.2, ""obaMultiplier"": 1.0},
+        ""shoulder"": {""months"": [3,4,5,9,10], ""transportMultiplier"": 1.0, ""palMultiplier"": 1.0, ""obaMultiplier"": 1.0}
+    },
+    ""bidWeekTiming"": {
+        ""criticalDays"": [18,19,20,21,22],
+        ""timingMultiplier"": 1.1
+    }
+}",true,"{""January"":4,""February"":5,""March"":4,""April"":3,""May"":2,""June"":2,""July"":2,""August"":2,""September"":3,""October"":4,""November"":5,""December"":5}"

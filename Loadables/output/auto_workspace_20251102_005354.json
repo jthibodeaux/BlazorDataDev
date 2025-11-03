@@ -1,0 +1,5802 @@
+{
+  "DdlContent": "-- dbo.extracted_sql_queries definition\r\n\r\n-- Drop table\r\n\r\n-- DROP TABLE dbo.extracted_sql_queries;\r\n\r\nCREATE TABLE dbo.extracted_sql_queries (\r\n\tid text NOT NULL,\r\n\tparameters text NULL,\r\n\tupdated_by varchar(200) NOT NULL,\r\n\tupdated_at timestamp NOT NULL,\r\n\tlog_description text NOT NULL,\r\n\tsql_text text NOT NULL,\r\n\tdbname text NOT NULL,\r\n\tCONSTRAINT extracted_sql_queries_pkey PRIMARY KEY (id)\r\n);\r\n\r\n\r\n-- dbo.pipeline_configurations definition\r\n\r\n-- Drop table\r\n\r\n-- DROP TABLE dbo.pipeline_configurations;\r\n\r\nCREATE TABLE dbo.pipeline_configurations (\r\n\tid uuid DEFAULT gen_random_uuid() NOT NULL,\r\n\trow_version int8 DEFAULT 1 NULL,\r\n\tcreated_date timestamptz NULL,\r\n\tmodified_date timestamptz NULL,\r\n\tis_active bool DEFAULT true NOT NULL,\r\n\tis_deleted bool DEFAULT false NOT NULL,\r\n\tcreated_by text NULL,\r\n\tmodified_by text NULL,\r\n\ttenant_id uuid NULL,\r\n\tconfiguration_json text NOT NULL,\r\n\tchange_reason varchar(500) NULL,\r\n\tversion_number int4 DEFAULT 1 NOT NULL,\r\n\tconfig_hash varchar(64) NULL,\r\n);\r\n\r\n\r\n-- dbo.tc_capacity_configurations definition\r\n\r\n-- Drop table\r\n\r\n-- DROP TABLE dbo.tc_capacity_configurations;\r\n\r\nCREATE TABLE dbo.tc_capacity_configurations (\r\n\tid uuid NOT NULL,\r\n\tseasonal_factor_weight float8 DEFAULT 30 NOT NULL,\r\n\tsystem_health_weight float8 DEFAULT 30 NOT NULL,\r\n\toutage_impact_weight float8 DEFAULT 20 NOT NULL,\r\n\tmarket_opportunities_weight float8 DEFAULT 10 NOT NULL,\r\n\tconsultation_weight float8 DEFAULT 10 NOT NULL,\r\n\tno_risk_min_score float8 DEFAULT 0 NOT NULL,\r\n\tno_risk_max_score float8 DEFAULT 2.5 NOT NULL,\r\n\tlow_risk_min_score float8 DEFAULT 2.51 NOT NULL,\r\n\tlow_risk_max_score float8 DEFAULT 5.0 NOT NULL,\r\n\tmoderate_risk_min_score float8 DEFAULT 5.01 NOT NULL,\r\n\tmoderate_risk_max_score float8 DEFAULT 7.5 NOT NULL,\r\n\thigh_risk_min_score float8 DEFAULT 7.51 NOT NULL,\r\n\thigh_risk_max_score float8 DEFAULT 10.0 NOT NULL,\r\n\tno_risk_capacity int4 DEFAULT 0 NOT NULL,\r\n\tlow_risk_capacity int4 DEFAULT 10 NOT NULL,\r\n\tmoderate_risk_capacity int4 DEFAULT 25 NOT NULL,\r\n\thigh_risk_capacity int4 DEFAULT 50 NOT NULL,\r\n\tgas_control_weight float8 DEFAULT 40 NOT NULL,\r\n\tmarketing_weight float8 DEFAULT 15 NOT NULL,\r\n\tfield_operations_weight float8 DEFAULT 15 NOT NULL,\r\n\treliability_team_weight float8 DEFAULT 15 NOT NULL,\r\n\tghg_team_weight float8 DEFAULT 10 NOT NULL,\r\n\treputation_team_weight float8 DEFAULT 5 NOT NULL,\r\n\tdistribution_list varchar(1000) NULL,\r\n\temergency_distribution_list varchar(1000) NULL,\r\n\temail_delivery_time time DEFAULT \u002706:00:00\u0027::time without time zone NOT NULL,\r\n\tdata_collection_time time DEFAULT \u002704:00:00\u0027::time without time zone NOT NULL,\r\n\tfallback_rankings_json jsonb NULL,\r\n\tcreated_date timestamp DEFAULT now() NOT NULL,\r\n\tmodified_date timestamp DEFAULT now() NOT NULL,\r\n\tis_active bool DEFAULT true NOT NULL,\r\n\tis_deleted bool DEFAULT false NOT NULL,\r\n\tcreated_by varchar(256) NULL,\r\n\tmodified_by varchar(256) NULL,\r\n\ttenant_id uuid NULL,\r\n\trow_version bytea NULL,\r\n\tscoring_lookup_tables_json jsonb DEFAULT \u0027{}\u0027::jsonb NOT NULL,\r\n\toba_long_threshold float8 DEFAULT 100000 NOT NULL,\r\n\toba_short_threshold float8 DEFAULT \u0027-100000\u0027::integer NOT NULL,\r\n\tmarket_opportunity_high_demand_threshold float8 DEFAULT 25 NOT NULL,\r\n\tmarket_opportunity_normal_threshold float8 DEFAULT 10 NOT NULL,\r\n\tpull_cap_high_relative_threshold float8 DEFAULT 1.3 NOT NULL,\r\n\tpull_cap_medium_relative_threshold float8 DEFAULT 1.1 NOT NULL,\r\n\tpull_cap_low_relative_threshold float8 DEFAULT 0.9 NOT NULL,\r\n\tpull_cap_high_utilization_threshold float8 DEFAULT 0.9 NOT NULL,\r\n\tpull_cap_medium_utilization_threshold float8 DEFAULT 0.7 NOT NULL,\r\n\tpull_cap_low_utilization_threshold float8 DEFAULT 0.5 NOT NULL,\r\n\tdownstream_very_high_threshold float8 DEFAULT 4000 NOT NULL,\r\n\tdownstream_high_threshold float8 DEFAULT 3000 NOT NULL,\r\n\tdownstream_medium_threshold float8 DEFAULT 2000 NOT NULL,\r\n\tdownstream_low_threshold float8 DEFAULT 1000 NOT NULL,\r\n\tlong_term_very_high_threshold float8 DEFAULT 1.3 NOT NULL,\r\n\tlong_term_high_threshold float8 DEFAULT 1.1 NOT NULL,\r\n\tlong_term_medium_threshold float8 DEFAULT 0.9 NOT NULL,\r\n\tlong_term_low_threshold float8 DEFAULT 0.7 NOT NULL,\r\n\tlong_term_very_low_threshold float8 DEFAULT 0.5 NOT NULL,\r\n\timbalances_very_low_threshold float8 DEFAULT 10 NOT NULL,\r\n\timbalances_low_threshold float8 DEFAULT 30 NOT NULL,\r\n\timbalances_medium_threshold float8 DEFAULT 50 NOT NULL,\r\n\tpull_cap_weight float8 DEFAULT 0.2 NOT NULL,\r\n\tdownstream_movement_weight float8 DEFAULT 0.4 NOT NULL,\r\n\tlong_term_impact_weight float8 DEFAULT 0.3 NOT NULL,\r\n\toba_position_weight float8 DEFAULT 0.1 NOT NULL,\r\n\tmorning_analysis_time time DEFAULT \u002709:00:00\u0027::time without time zone NULL,\r\n\tafternoon_analysis_time time DEFAULT \u002714:00:00\u0027::time without time zone NULL,\r\n\tsend_morning_emails bool DEFAULT true NULL,\r\n\tsend_afternoon_emails bool DEFAULT true NULL,\r\n\tmax_daily_imbalance_mdth float8 DEFAULT 100 NULL,\r\n\tmin_temperature_fahrenheit float8 DEFAULT \u0027-5\u0027::integer NULL,\r\n\tmax_cushion_usage_percent float8 DEFAULT 90 NULL,\r\n\tmax_recent_constraint_hours int4 DEFAULT 3 NULL,\r\n\tenable_cold_weather_override bool DEFAULT true NULL,\r\n\tenable_high_imbalance_override bool DEFAULT true NULL,\r\n\tenable_cushion_usage_override bool DEFAULT true NULL,\r\n\tenable_constraint_override bool DEFAULT true NULL,\r\n\tenable_system_health_veto bool DEFAULT true NULL,\r\n\tsystem_health_veto_threshold float8 DEFAULT 3.0 NULL,\r\n\tsystem_health_veto_max_score float8 DEFAULT 3.0 NULL,\r\n\tenable_outage_veto bool DEFAULT true NULL,\r\n\toutage_veto_threshold float8 DEFAULT 3.0 NULL,\r\n\toutage_veto_max_score float8 DEFAULT 4.0 NULL,\r\n\tenable_capacity_analysis_veto bool DEFAULT true NULL,\r\n\tcapacity_analysis_veto_threshold float8 DEFAULT 2.0 NULL,\r\n\tcapacity_analysis_veto_max_score float8 DEFAULT 2.0 NULL,\r\n\tpal_recommendation_email_time time DEFAULT \u002706:00:00\u0027::time without time zone NULL,\r\n\tpal_recommendation_email_recipients varchar(2000) DEFAULT \u0027\u0027::character varying NULL,\r\n\tcombination_rules_json text NULL,\r\n\tenable_combinations bool DEFAULT false NULL,\r\n\tseasonal_configuration_json text NULL,\r\n\tenable_seasonality bool DEFAULT false NULL,\r\n\tmonthly_max_daily_unpark_json text NULL,\r\n\tpipeline_id varchar(10) NULL,\r\n\t--CONSTRAINT tc_capacity_configurations_pkey PRIMARY KEY (id)\r\n);\r\nCREATE INDEX idx_tc_capacity_configurations_is_active ON dbo.tc_capacity_configurations USING btree (is_active) WHERE (is_active = true);\r\nCREATE INDEX idx_tc_capacity_configurations_pipeline_active ON dbo.tc_capacity_configurations USING btree (pipeline_id, is_active) WHERE (is_active = true);\r\nCREATE INDEX idx_tc_capacity_configurations_pipeline_id ON dbo.tc_capacity_configurations USING btree (pipeline_id);\r\n\r\n\r\n-- dbo.tc_capacity_decisions definition\r\n\r\n-- Drop table\r\n\r\n-- DROP TABLE dbo.tc_capacity_decisions;\r\n\r\nCREATE TABLE dbo.tc_capacity_decisions (\r\n\tid uuid NOT NULL,\r\n\tcapacity_amount int4 NOT NULL,\r\n\tdecision_date date NOT NULL,\r\n\trisk_level varchar(100) NOT NULL,\r\n\tfinal_score float8 NOT NULL,\r\n\tseasonal_factor_score float8 NOT NULL,\r\n\tsystem_health_score float8 NOT NULL,\r\n\toutage_score float8 NOT NULL,\r\n\topportunity_score float8 NOT NULL,\r\n\tconsultation_score float8 NOT NULL,\r\n\tjustification_summary text NULL,\r\n\tprimary_factors text NULL,\r\n\tpersona_insights text NULL,\r\n\trisk_assessment text NULL,\r\n\tsafety_assessment text NULL,\r\n\tis_safety_override bool DEFAULT false NOT NULL,\r\n\temail_sent bool DEFAULT false NOT NULL,\r\n\temail_sent_time timestamp NULL,\r\n\tpipeline_state_json jsonb NULL,\r\n\tpersona_rankings_json jsonb NULL,\r\n\tcreated_date timestamp DEFAULT now() NOT NULL,\r\n\tmodified_date timestamp DEFAULT now() NOT NULL,\r\n\tis_active bool DEFAULT true NOT NULL,\r\n\tis_deleted bool DEFAULT false NOT NULL,\r\n\tcreated_by varchar(256) NULL,\r\n\tmodified_by varchar(256) NULL,\r\n\ttenant_id uuid NULL,\r\n\trow_version bytea NULL,\r\n\tcapacity_analysis_score float8 DEFAULT 0 NOT NULL,\r\n\thistory_constraint_score float8 DEFAULT 0 NOT NULL,\r\n\tforecast_constraint_score float8 DEFAULT 0 NOT NULL,\r\n\tmonth_score float8 DEFAULT 0 NOT NULL,\r\n\tday_of_week_score float8 DEFAULT 0 NOT NULL,\r\n\ttime_period_score float8 DEFAULT 0 NOT NULL,\r\n\tday_type_score float8 DEFAULT 0 NOT NULL,\r\n\toutage_duration_score float8 DEFAULT 0 NOT NULL,\r\n\toutage_impact_score float8 DEFAULT 0 NOT NULL,\r\n\toutage_cycle_score float8 DEFAULT 0 NOT NULL,\r\n\toutage_impact_group_score float8 DEFAULT 0 NOT NULL,\r\n\tlinepack_score float8 DEFAULT 0 NOT NULL,\r\n\tthroughput_score float8 DEFAULT 0 NOT NULL,\r\n\timbalances_score float8 DEFAULT 0 NOT NULL,\r\n\tequipment_score float8 DEFAULT 0 NOT NULL,\r\n\tpull_cap_score float8 DEFAULT 0 NOT NULL,\r\n\tdownstream_movement_score float8 DEFAULT 0 NOT NULL,\r\n\tlong_term_impact_score float8 DEFAULT 0 NOT NULL,\r\n\tmetadata text DEFAULT \u0027\u0027::text NULL,\r\n\tpre_veto_score numeric(5, 2) NULL,\r\n\tapplied_vetoes_json text NULL,\r\n\tsafety_issues_json text NULL,\r\n\tvalidation_errors_json text NULL,\r\n\tprocessing_time_ms int8 NULL,\r\n\tcalculation_method varchar(50) NULL,\r\n\tis_validated bool DEFAULT false NULL,\r\n\temail_recipients text NULL,\r\n\temail_subject varchar(200) NULL,\r\n\tsafety_override_reason text NULL,\r\n\tconfiguration_snapshot_json jsonb NULL,\r\n\textended_properties_json jsonb NULL,\r\n\tpipeline_id varchar(10) NULL,\r\n\tCONSTRAINT tc_capacity_decisions_pkey PRIMARY KEY (id)\r\n);\r\nCREATE INDEX idx_tc_capacity_decision_pipeline_date ON dbo.tc_capacity_decisions USING btree (pipeline_id, decision_date);\r\nCREATE INDEX idx_tc_capacity_decisions_decision_date ON dbo.tc_capacity_decisions USING btree (decision_date);\r\nCREATE INDEX idx_tc_capacity_decisions_email_sent ON dbo.tc_capacity_decisions USING btree (email_sent);\r\nCREATE INDEX idx_tc_capacity_decisions_is_safety_override ON dbo.tc_capacity_decisions USING btree (is_safety_override);\r\nCREATE INDEX idx_tc_capacity_decisions_not_deleted ON dbo.tc_capacity_decisions USING btree (is_deleted) WHERE (is_deleted = false);\r\nCREATE INDEX idx_tc_capacity_decisions_pipeline_id ON dbo.tc_capacity_decisions USING btree (pipeline_id);\r\n\r\n\r\n-- dbo.tc_compressordata definition\r\n\r\n-- Drop table\r\n\r\n-- DROP TABLE dbo.tc_compressordata;\r\n\r\nCREATE TABLE dbo.tc_compressordata (\r\n\tap_compressor varchar(50) NOT NULL,\r\n\t\u0022timestamp\u0022 timestamp(6) NOT NULL,\r\n\tap_compressorunit_gtn varchar(50) NOT NULL,\r\n\tbhp float8 NULL,\r\n\tenginestatus varchar(50) NULL,\r\n\tpipeline_id varchar(20) NULL,\r\n\tsuctionpressure float8 NULL,\r\n\tgasday timestamptz NULL,\r\n\tdischargepressure float8 NULL,\r\n\tsuctiontemperature float8 NULL,\r\n\tdischargetemperature float8 NULL,\r\n\tfuel_gas_flow float8 NULL,\r\n\tsource_system varchar(50) NULL,\r\n\tatmospherictemperature float8 NULL,\r\n\ttotalhorsepower float8 NULL,\r\n\ttotalfuel float8 NULL\r\n);\r\nCREATE INDEX idx_tc_compressordata_gasday ON dbo.tc_compressordata USING btree (gasday) WHERE (gasday IS NOT NULL);\r\nCREATE INDEX idx_tc_compressordata_pipeline_id ON dbo.tc_compressordata USING btree (pipeline_id);\r\nCREATE INDEX idx_tc_compressordata_source_system ON dbo.tc_compressordata USING btree (source_system) WHERE (source_system IS NOT NULL);\r\n\r\n\r\n-- dbo.tc_compressorplan definition\r\n\r\n-- Drop table\r\n\r\n-- DROP TABLE dbo.tc_compressorplan;\r\n\r\nCREATE TABLE dbo.tc_compressorplan (\r\n\t\u0022timestamp\u0022 timestamp(6) NOT NULL,\r\n\tap_compressor varchar(50) NOT NULL,\r\n\tatmospherictemperature float8 NULL,\r\n\tdischargepressure float8 NULL,\r\n\tdischargetemperature float8 NULL,\r\n\tsuctionpressure float8 NULL,\r\n\tsuctiontemperature float8 NULL,\r\n\ttotalfuel float8 NULL,\r\n\ttotalhorsepower float8 NULL,\r\n\tid serial4 NOT NULL,\r\n\tpipeline_id text DEFAULT \u0027nbpl\u0027::text NULL\r\n);\r\nCREATE INDEX idx_tc_compressorplan_pipeline_id ON dbo.tc_compressorplan USING btree (pipeline_id);\r\n\r\n\r\n-- dbo.tc_dailymeterreadings definition\r\n\r\n-- Drop table\r\n\r\n-- DROP TABLE dbo.tc_dailymeterreadings;\r\n\r\nCREATE TABLE dbo.tc_dailymeterreadings (\r\n\t\u0022timestamp\u0022 timestamp(6) NOT NULL,\r\n\tap_meter int4 NOT NULL,\r\n\tbtu float8 NULL,\r\n\tflow_rate_mmcfd float8 NULL,\r\n\tpressure float8 NULL,\r\n\tid int4 NOT NULL,\r\n\tcurrent_daytotal_mmcf float8 NULL,\r\n\tminop int4 NULL,\r\n\tpipeline_id varchar(10) NULL,\r\n\tmeter_name varchar(255) NULL,\r\n\tmaxop int4 NULL,\r\n\tlocation_name varchar(255) NULL,\r\n\tmeter_type varchar(50) NULL\r\n);\r\nCREATE INDEX idx_tc_dailymeterreadings_pipeline_id ON dbo.tc_dailymeterreadings USING btree (pipeline_id);\r\n\r\n\r\n-- dbo.tc_meterlocations definition\r\n\r\n-- Drop table\r\n\r\n-- DROP TABLE dbo.tc_meterlocations;\r\n\r\nCREATE TABLE dbo.tc_meterlocations (\r\n\tap_meter int4 NULL,\r\n\t\u0022location\u0022 text NULL,\r\n\tpipeline_id varchar(10) NULL\r\n);\r\n\r\n\r\n-- dbo.tc_persona_configs definition\r\n\r\n-- Drop table\r\n\r\n-- DROP TABLE dbo.tc_persona_configs;\r\n\r\nCREATE TABLE dbo.tc_persona_configs (\r\n\tid uuid NOT NULL,\r\n\tpersona_type int4 NOT NULL,\r\n\tdescription text NULL,\r\n\tcontext_template text NOT NULL,\r\n\tpriority_goals text NOT NULL,\r\n\tdefault_rankings text NOT NULL,\r\n\tis_active bool DEFAULT true NOT NULL,\r\n\tis_deleted bool DEFAULT false NOT NULL,\r\n\tcreated_date timestamptz NOT NULL,\r\n\tmodified_date timestamptz NOT NULL,\r\n\tcreated_by varchar(100) NOT NULL,\r\n\tmodified_by varchar(100) NOT NULL,\r\n\ttenant_id uuid NOT NULL,\r\n\tdisplay_name varchar(100) NULL,\r\n\tkpi_rules jsonb DEFAULT \u0027[]\u0027::jsonb NULL,\r\n\tpipeline_id varchar(10) NULL,\r\n\tCONSTRAINT tc_persona_configs_pkey PRIMARY KEY (id)\r\n);\r\nCREATE INDEX idx_tc_persona_configs_pipeline_id ON dbo.tc_persona_configs USING btree (pipeline_id);\r\nCREATE INDEX idx_tc_persona_configs_type ON dbo.tc_persona_configs USING btree (persona_type);\r\n-- dbo.tc_persona_configs_history definition\r\n-- Drop table\r\n-- DROP TABLE dbo.tc_persona_configs_history;\r\nCREATE TABLE dbo.tc_persona_configs_history (\r\n\tid uuid NOT NULL,\r\n\tconfigs_id uuid NOT NULL,\r\n\tpersona_type int4 NOT NULL,\r\n\tdescription text NULL,\r\n\tcontext_template text NOT NULL,\r\n\tpriority_goals text NOT NULL,\r\n\tdefault_rankings text NOT NULL,\r\n\tis_active bool DEFAULT true NOT NULL,\r\n\tis_deleted bool DEFAULT false NOT NULL,\r\n\tcreated_date timestamptz NOT NULL,\r\n\tmodified_date timestamptz NOT NULL,\r\n\tcreated_by varchar(100) NOT NULL,\r\n\tmodified_by varchar(100) NOT NULL,\r\n\ttenant_id uuid NOT NULL,\r\n\tdisplay_name varchar(100) NULL,\r\n\tkpi_rules jsonb DEFAULT \u0027[]\u0027::jsonb NULL,\r\n\tchange_type text NOT NULL,\r\n\tpipeline_id varchar(10) NULL,\r\n\tCONSTRAINT tc_persona_configs_history_pkey PRIMARY KEY (id)\r\n);\r\nCREATE INDEX idx_tc_persona_configs_history_type ON dbo.tc_persona_configs_history USING btree (persona_type);\r\n\r\n\r\n-- dbo.tc_pipeline_definitions definition\r\n\r\n-- Drop table\r\n\r\n-- DROP TABLE dbo.tc_pipeline_definitions;\r\n\r\nCREATE TABLE dbo.tc_pipeline_definitions (\r\n\tpipeline_id varchar(20) NOT NULL,\r\n\tpipeline_name varchar(200) NOT NULL,\r\n\tdescription text NULL,\r\n\tis_default bool DEFAULT false NULL,\r\n\tis_active bool DEFAULT true NULL,\r\n\tmaop float8 DEFAULT 1400.0 NULL,\r\n\tminop float8 DEFAULT 800.0 NULL,\r\n\tmaop_cushion float8 DEFAULT 50.0 NULL,\r\n\tminop_cushion float8 DEFAULT 50.0 NULL,\r\n\tminimum_constraint_hours int4 DEFAULT 5 NULL,\r\n\tpeak_period_start time DEFAULT \u002706:00:00\u0027::time without time zone NULL,\r\n\tpeak_period_end time DEFAULT \u002722:00:00\u0027::time without time zone NULL,\r\n\tconsider_only_peak_hours bool DEFAULT true NULL,\r\n\tdatabase_schema varchar(100) NULL,\r\n\tstation_table varchar(500) NULL,\r\n\tstations varchar(100) NULL,\r\n\tsegment_table varchar(100) NULL,\r\n\tmeter_table varchar(100) NULL,\r\n\tml_table varchar(100) NULL,\r\n\tpipeline_aor_id int4 NULL,\r\n\tsupports_linepack_optimization bool DEFAULT false NULL,\r\n\tsupports_storage_optimization bool DEFAULT false NULL,\r\n\tsupports_interconnection_optimization bool DEFAULT false NULL,\r\n\tsupports_cross_border_operations bool DEFAULT false NULL,\r\n\tsupports_park_operations bool DEFAULT false NULL,\r\n\tsupports_loan_operations bool DEFAULT false NULL,\r\n\tcreated_at timestamp DEFAULT CURRENT_TIMESTAMP NULL,\r\n\tupdated_at timestamp DEFAULT CURRENT_TIMESTAMP NULL,\r\n\texternal_connection_string_key varchar(100) NULL,\r\n\tCONSTRAINT tc_pipeline_definitions_pkey PRIMARY KEY (pipeline_id)\r\n);\r\nCREATE INDEX idx_pipeline_definitions_connection_key ON dbo.tc_pipeline_definitions USING btree (external_connection_string_key) WHERE (external_connection_string_key IS NOT NULL);\r\n\r\n\r\n-- dbo.tc_pipemeasurements definition\r\n\r\n-- Drop table\r\n\r\n-- DROP TABLE dbo.tc_pipemeasurements;\r\n\r\nCREATE TABLE dbo.tc_pipemeasurements (\r\n\tid serial4 NOT NULL,\r\n\tpipeline_id varchar(10) NULL,\r\n\tflowdate date NOT NULL,\r\n\toperationalcapacity int8 NULL,\r\n\ttotalscheduledquantity int8 NULL,\r\n\tcreated_date timestamp DEFAULT now() NULL,\r\n\tassetabrv varchar(50) NULL,\r\n-- dbo.tc_pipemeasurements definition\r\n-- Drop table\r\n-- DROP TABLE dbo.tc_pipemeasurements;\r\nCREATE TABLE dbo.tc_pipemeasurements (\r\n\tassetnbr int4 NOT NULL,\r\n\tassetabrv text NOT NULL,\r\n\tflowdate date NOT NULL,\r\n\tcycle_name text NOT NULL,\r\n\tcycleseq int4 NOT NULL,\r\n\tloc_id int4 NOT NULL,\r\n\tloc_name text NOT NULL,\r\n\tloc_sub_type text NOT NULL,\r\n\tloc_qty_ind text NOT NULL,\r\n\tlocation_purpose_desc text NOT NULL,\r\n\toperational_capacity int4 NOT NULL,\r\n\tscheduled_quantity int4 NOT NULL,\r\n\tposting_date text NOT NULL,\r\n\tpipeline_id varchar(10) DEFAULT \u0027nbpl\u0027::character varying NOT NULL\r\n);\r\nCREATE INDEX idx_tc_pipemeasurements_pipeline_id ON dbo.tc_pipemeasurements USING btree (pipeline_id);\r\n\r\n\r\n-- dbo.tc_recommendations definition\r\n\r\n-- Drop table\r\n\r\n-- DROP TABLE dbo.tc_recommendations;\r\n\r\nCREATE TABLE dbo.tc_recommendations (\r\n\tid uuid NOT NULL,\r\n\tanalysis_datetime timestamp NOT NULL,\r\n\trecommendation_type varchar(50) NOT NULL,\r\n\tserialized_data jsonb NOT NULL,\r\n\tcreated_date timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,\r\n\tcreated_by varchar(100) DEFAULT \u0027System\u0027::character varying NOT NULL,\r\n\ttenant_id uuid DEFAULT \u002711111111-1111-1111-1111-111111111111\u0027::uuid NOT NULL,\r\n\tpipeline_id varchar(10) NULL,\r\n\tCONSTRAINT tc_recommendations_pkey PRIMARY KEY (id)\r\n);\r\nCREATE INDEX idx_tc_recommendations_datetime ON dbo.tc_recommendations USING btree (analysis_datetime);\r\nCREATE UNIQUE INDEX idx_tc_recommendations_unique ON dbo.tc_recommendations USING btree (analysis_datetime, recommendation_type, pipeline_id);\r\n-- dbo.tchistoricaloutages definition\r\n-- Drop table\r\n-- DROP TABLE dbo.tchistoricaloutages;\r\nCREATE TABLE dbo.tchistoricaloutages (\r\n\tsap_floc text NULL,\r\n\tsegment_names text NULL,\r\n\t\u0022location\u0022 text NULL,\r\n\tpipeline_aor_id int4 NULL,\r\n\tobject_type text NULL,\r\n\timpact text NULL,\r\n\tfield_op_area text NULL,\r\n\tid int8 NULL,\r\n\tsap_company_code int4 NULL,\r\n\tfloc text NULL,\r\n\tstart_date timestamp NULL,\r\n\tend_date timestamp NULL,\r\n\tnotification_date timestamp NULL,\r\n\tcoding_code text NULL,\r\n\tdescription text NULL,\r\n\tcreatedts timestamp NULL,\r\n\tuser_status text NULL,\r\n\tnotification_num int8 NULL,\r\n\timport_time timestamp NULL,\r\n\tlongdesc text NULL,\r\n\tflocid text NULL,\r\n\tpipeline_id varchar(10) NULL\r\n);\r\nCREATE INDEX idx_tchistoricaloutages_dates ON dbo.tchistoricaloutages USING btree (start_date, end_date);\r\nCREATE INDEX idx_tchistoricaloutages_id ON dbo.tchistoricaloutages USING btree (id);\r\nCREATE INDEX idx_tchistoricaloutages_pipeline ON dbo.tchistoricaloutages USING btree (pipeline_aor_id);\r\nCREATE INDEX idx_tchistoricaloutages_sap_floc ON dbo.tchistoricaloutages USING btree (sap_floc);\r\nCREATE INDEX idx_tchistoricaloutages_status ON dbo.tchistoricaloutages USING btree (user_status);\r\n\r\n\r\n-- dbo.tc_constraint_paths definition\r\n\r\n-- Drop table\r\n\r\n-- DROP TABLE dbo.tc_constraint_paths;\r\n\r\nCREATE TABLE dbo.tc_constraint_paths (\r\n\tid serial4 NOT NULL,\r\n\tpipeline_id varchar(20) NOT NULL,\r\n\tstart_station varchar(100) NOT NULL,\r\n\tend_station varchar(100) NOT NULL,\r\n\tpriority int4 DEFAULT 1 NULL,\r\n\tfrequency_count int4 DEFAULT 0 NULL,\r\n\tlast_observed timestamp NULL,\r\n\tnotes text NULL,\r\n\tis_active bool DEFAULT true NULL,\r\n\tcreated_at timestamp DEFAULT now() NULL,\r\n\tCONSTRAINT tc_constraint_paths_pipeline_id_start_station_end_station_key UNIQUE (pipeline_id, start_station, end_station),\r\n\tCONSTRAINT tc_constraint_paths_pkey PRIMARY KEY (id),\r\n\tCONSTRAINT tc_constraint_paths_pipeline_id_fkey FOREIGN KEY (pipeline_id) REFERENCES dbo.tc_pipeline_definitions(pipeline_id)\r\n);\r\n-- dbo.tc_meters definition\r\n-- Drop table\r\n-- DROP TABLE dbo.tc_meters;\r\nCREATE TABLE dbo.tc_meters (\r\n\tid serial4 NOT NULL,\r\n\tpipeline_id varchar(20) NOT NULL,\r\n\tmeter_id int4 NOT NULL,\r\n\tmeter_name varchar(100) NOT NULL,\r\n\t\u0022location\u0022 varchar(200) NULL,\r\n\tmeter_type varchar(50) NULL,\r\n\tflow_direction varchar(20) NULL,\r\n\tis_active bool DEFAULT true NULL,\r\n\tcreated_at timestamp DEFAULT CURRENT_TIMESTAMP NULL,\r\n\tupdated_at timestamp DEFAULT CURRENT_TIMESTAMP NULL,\r\n\tstation_name varchar(100) NULL,\r\n\tis_core_meter bool DEFAULT false NULL,\r\n\tCONSTRAINT tc_meters_pkey PRIMARY KEY (id),\r\n\tCONSTRAINT tc_meters_pipeline_id_fkey FOREIGN KEY (pipeline_id) REFERENCES dbo.tc_pipeline_definitions(pipeline_id)\r\n);\r\nCREATE INDEX idx_tc_meters_is_core ON dbo.tc_meters USING btree (pipeline_id, is_core_meter) WHERE (is_core_meter = true);\r\nCREATE INDEX idx_tc_meters_pipeline_id ON dbo.tc_meters USING btree (pipeline_id);\r\nCREATE UNIQUE INDEX idx_tc_meters_unique ON dbo.tc_meters USING btree (pipeline_id, meter_id);\r\n\r\n\r\n-- dbo.tc_persona_memories definition\r\n\r\n-- Drop table\r\n\r\n-- DROP TABLE dbo.tc_persona_memories;\r\n\r\nCREATE TABLE dbo.tc_persona_memories (\r\n\tid uuid DEFAULT gen_random_uuid() NOT NULL,\r\n\tpersona_config_id uuid NOT NULL,\r\n\tpersona_type int4 NOT NULL,\r\n\tmemory_date timestamp NOT NULL,\r\n\t\u0022content\u0022 text NOT NULL,\r\n\tsummary varchar(500) NOT NULL,\r\n\tembedding _float8 NOT NULL,\r\n\t\u0022type\u0022 int4 NOT NULL,\r\n\timportance float4 DEFAULT 0.5 NOT NULL,\r\n\tcapacity_decision_id uuid NULL,\r\n\tmetadata jsonb NULL,\r\n\tis_active bool DEFAULT true NOT NULL,\r\n\tis_deleted bool DEFAULT false NOT NULL,\r\n\tcreated_date timestamp DEFAULT now() NOT NULL,\r\n\tmodified_date timestamp DEFAULT now() NOT NULL,\r\n\tcreated_by varchar(256) NULL,\r\n\tmodified_by varchar(256) NULL,\r\n\ttenant_id uuid NULL,\r\n\trow_version bytea NULL,\r\n\tpipeline_id varchar(10) NULL,\r\n\tCONSTRAINT tc_persona_memories_pkey PRIMARY KEY (id),\r\n\tCONSTRAINT fk_tc_persona_memories_capacity_decision FOREIGN KEY (capacity_decision_id) REFERENCES dbo.tc_capacity_decisions(id) ON DELETE SET NULL,\r\n\tCONSTRAINT fk_tc_persona_memories_persona_config FOREIGN KEY (persona_config_id) REFERENCES dbo.tc_persona_configs(id) ON DELETE CASCADE\r\n);\r\nCREATE INDEX idx_tc_persona_memories_is_deleted ON dbo.tc_persona_memories USING btree (is_deleted);\r\nCREATE INDEX idx_tc_persona_memories_memory_date ON dbo.tc_persona_memories USING btree (memory_date);\r\nCREATE INDEX idx_tc_persona_memories_persona_type ON dbo.tc_persona_memories USING btree (persona_type);\r\nCREATE INDEX idx_tc_persona_memories_pipeline_id ON dbo.tc_persona_memories USING btree (pipeline_id);\r\nCREATE INDEX idx_tc_persona_memories_type ON dbo.tc_persona_memories USING btree (type);\r\nCREATE INDEX idx_tc_persona_memory_pipeline_date ON dbo.tc_persona_memories USING btree (pipeline_id, memory_date);\r\n\r\n\r\n-- dbo.tc_pipeline_capacity_config definition\r\n-- Drop table\r\n-- DROP TABLE dbo.tc_pipeline_capacity_config;\r\nCREATE TABLE dbo.tc_pipeline_capacity_config (\r\n\tpipeline_id varchar(20) NOT NULL,\r\n\tmaop_cushion float4 DEFAULT 5.0 NOT NULL,\r\n\tminop_cushion float4 DEFAULT 5.0 NOT NULL,\r\n\tmaop float4 DEFAULT 911.0 NOT NULL,\r\n\tminop float4 DEFAULT 500.0 NOT NULL,\r\n\tminimum_constraint_hours int4 DEFAULT 5 NOT NULL,\r\n\tpeak_period_start time DEFAULT \u002706:00:00\u0027::time without time zone NOT NULL,\r\n\tpeak_period_end time DEFAULT \u002722:00:00\u0027::time without time zone NOT NULL,\r\n\tconsider_only_peak_hours bool DEFAULT true NOT NULL,\r\n\tskip_zero_measurements bool DEFAULT true NOT NULL,\r\n\tdownstream_only bool DEFAULT true NOT NULL,\r\n\tmax_path_distance int4 DEFAULT 3 NOT NULL,\r\n\tcapacity_utilization_threshold float4 DEFAULT 95.0 NOT NULL,\r\n\tshow_capacity_utilization bool DEFAULT true NOT NULL,\r\n\tcreated_at timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,\r\n\tupdated_at timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,\r\n\tCONSTRAINT tc_pipeline_capacity_config_pkey PRIMARY KEY (pipeline_id),\r\n\tCONSTRAINT fk_pipeline_capacity_config_pipeline FOREIGN KEY (pipeline_id) REFERENCES dbo.tc_pipeline_definitions(pipeline_id) ON DELETE CASCADE\r\n);\r\nCREATE INDEX idx_tc_pipeline_capacity_config_pipeline ON dbo.tc_pipeline_capacity_config USING btree (pipeline_id);\r\n-- Table Triggers\r\ncreate trigger trigger_update_tc_pipeline_capacity_config_updated_at before\r\nupdate\r\n    on\r\n    dbo.tc_pipeline_capacity_config for each row execute function update_updated_at_column();\r\n-- dbo.tc_pipeline_scoring_config definition\r\n\r\n-- Drop table\r\n\r\n-- DROP TABLE dbo.tc_pipeline_scoring_config;\r\n\r\nCREATE TABLE dbo.tc_pipeline_scoring_config (\r\n\tpipeline_id varchar(20) NOT NULL,\r\n\tseasonal_factor_weight int4 DEFAULT 25 NULL,\r\n\tsystem_health_weight int4 DEFAULT 20 NULL,\r\n\toutage_impact_weight int4 DEFAULT 15 NULL,\r\n\tmarket_opportunities_weight int4 DEFAULT 25 NULL,\r\n\tconsultation_weight int4 DEFAULT 15 NULL,\r\n\tno_risk_min float8 DEFAULT 0.0 NULL,\r\n\tno_risk_max float8 DEFAULT 2.5 NULL,\r\n\tno_risk_capacity float8 DEFAULT 150.0 NULL,\r\n\tlow_risk_min float8 DEFAULT 2.5 NULL,\r\n\tlow_risk_max float8 DEFAULT 5.0 NULL,\r\n\tlow_risk_capacity float8 DEFAULT 100.0 NULL,\r\n\tmoderate_risk_min float8 DEFAULT 5.0 NULL,\r\n\tmoderate_risk_max float8 DEFAULT 7.5 NULL,\r\n\tmoderate_risk_capacity float8 DEFAULT 50.0 NULL,\r\n\thigh_risk_min float8 DEFAULT 7.5 NULL,\r\n\thigh_risk_max float8 DEFAULT 10.0 NULL,\r\n\thigh_risk_capacity float8 DEFAULT 0.0 NULL,\r\n\toba_long_threshold int4 DEFAULT 50000 NULL,\r\n\toba_short_threshold int4 DEFAULT \u0027-50000\u0027::integer NULL,\r\n\tmarket_opportunity_high_demand_threshold int4 DEFAULT 75 NULL,\r\n\tmarket_opportunity_normal_threshold int4 DEFAULT 50 NULL,\r\n\tpull_cap_high_relative_threshold float8 DEFAULT 0.8 NULL,\r\n\tpull_cap_low_relative_threshold float8 DEFAULT 0.3 NULL,\r\n\tcreated_at timestamp DEFAULT CURRENT_TIMESTAMP NULL,\r\n\tupdated_at timestamp DEFAULT CURRENT_TIMESTAMP NULL,\r\n\tCONSTRAINT tc_pipeline_scoring_config_pkey PRIMARY KEY (pipeline_id),\r\n\tCONSTRAINT tc_pipeline_scoring_config_pipeline_id_fkey FOREIGN KEY (pipeline_id) REFERENCES dbo.tc_pipeline_definitions(pipeline_id)\r\n);\r\n\r\n\r\n-- dbo.tc_pipeline_scoring_lookups definition\r\n-- Drop table\r\n-- DROP TABLE dbo.tc_pipeline_scoring_lookups;\r\nCREATE TABLE dbo.tc_pipeline_scoring_lookups (\r\n\tpipeline_id varchar(20) NOT NULL,\r\n\tmonth_scores jsonb NULL,\r\n\tday_of_week_scores jsonb NULL,\r\n\tday_type_scores jsonb NULL,\r\n\thistory_constraint_scores jsonb NULL,\r\n\tforecast_constraint_scores jsonb NULL,\r\n\toutage_duration_scores jsonb NULL,\r\n\toutage_impact_scores jsonb NULL,\r\n\toutage_cycle_scores jsonb NULL,\r\n\toutage_impact_group_scores jsonb NULL,\r\n\timbalance_scores jsonb NULL,\r\n\tpull_cap_adinom_scores jsonb NULL,\r\n\tdownstream_movement_scores jsonb NULL,\r\n\tlong_term_impact_scores jsonb NULL,\r\n\tmonthly_max_daily_unpark jsonb NULL,\r\n\tcreated_at timestamp DEFAULT CURRENT_TIMESTAMP NULL,\r\n\tupdated_at timestamp DEFAULT CURRENT_TIMESTAMP NULL,\r\n\tCONSTRAINT tc_pipeline_scoring_lookups_pkey PRIMARY KEY (pipeline_id),\r\n\tCONSTRAINT tc_pipeline_scoring_lookups_pipeline_id_fkey FOREIGN KEY (pipeline_id) REFERENCES dbo.tc_pipeline_definitions(pipeline_id)\r\n);\r\n-- dbo.tc_pipeline_segments definition\r\n\r\n-- Drop table\r\n\r\n-- DROP TABLE dbo.tc_pipeline_segments;\r\n\r\nCREATE TABLE dbo.tc_pipeline_segments (\r\n\tid serial4 NOT NULL,\r\n\tpipeline_id varchar(20) NULL,\r\n\tsegment_order_name varchar(100) NOT NULL,\r\n\tsegment varchar(100) NOT NULL,\r\n\tsegment_order int4 NOT NULL,\r\n\tstart_station varchar(100) NULL,\r\n\tend_station varchar(100) NULL,\r\n\tmaop float4 NULL,\r\n\tminop float4 NULL,\r\n\tmilepost float4 NULL,\r\n\tpressure float4 NULL,\r\n\tflow_factor float4 NULL,\r\n\tvolume float4 NULL,\r\n\tnotes text NULL,\r\n\tis_active bool DEFAULT true NOT NULL,\r\n\tcreated_at timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,\r\n\tupdated_at timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,\r\n\tCONSTRAINT tc_pipeline_segments_pkey PRIMARY KEY (id),\r\n\tCONSTRAINT uq_pipeline_segments_name UNIQUE (pipeline_id, segment_order_name),\r\n\tCONSTRAINT uq_pipeline_segments_order UNIQUE (pipeline_id, segment_order),\r\n\tCONSTRAINT fk_pipeline_segments_pipeline FOREIGN KEY (pipeline_id) REFERENCES dbo.tc_pipeline_definitions(pipeline_id) ON DELETE CASCADE\r\n);\r\nCREATE INDEX idx_pipeline_segments_active ON dbo.tc_pipeline_segments USING btree (pipeline_id, is_active) WHERE (is_active = true);\r\nCREATE INDEX idx_pipeline_segments_end_station ON dbo.tc_pipeline_segments USING btree (pipeline_id, end_station);\r\nCREATE INDEX idx_pipeline_segments_pipeline_id ON dbo.tc_pipeline_segments USING btree (pipeline_id);\r\nCREATE INDEX idx_pipeline_segments_segment_order ON dbo.tc_pipeline_segments USING btree (pipeline_id, segment_order);\r\nCREATE INDEX idx_pipeline_segments_start_station ON dbo.tc_pipeline_segments USING btree (pipeline_id, start_station);\r\nCREATE INDEX idx_tc_pipeline_segments_end_station ON dbo.tc_pipeline_segments USING btree (pipeline_id, end_station);\r\nCREATE UNIQUE INDEX idx_tc_pipeline_segments_pipeline_order_name ON dbo.tc_pipeline_segments USING btree (pipeline_id, segment_order_name);\r\nCREATE INDEX idx_tc_pipeline_segments_start_station ON dbo.tc_pipeline_segments USING btree (pipeline_id, start_station);\r\n\r\n-- Table Triggers\r\n\r\ncreate trigger trigger_update_tc_pipeline_segments_updated_at before\r\nupdate\r\n    on\r\n    dbo.tc_pipeline_segments for each row execute function update_updated_at_column();\r\n\r\n\r\n-- dbo.tc_pipeline_stations definition\r\n\r\n-- Drop table\r\n\r\n-- DROP TABLE dbo.tc_pipeline_stations;\r\n\r\nCREATE TABLE dbo.tc_pipeline_stations (\r\n\tid serial4 NOT NULL,\r\n\tpipeline_id varchar(20) NOT NULL,\r\n\tstation_name varchar(100) NOT NULL,\r\n\tflow_order int4 NULL,\r\n\tstation_type varchar(20) NOT NULL,\r\n\tmaop float8 NULL,\r\n\tminop float8 NULL,\r\n\tmaop_cushion float8 NULL,\r\n\tminop_cushion float8 NULL,\r\n\tis_active bool DEFAULT true NULL,\r\n\tcreated_at timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,\r\n\tcreated_by varchar(100) DEFAULT \u0027system\u0027::character varying NULL,\r\n\tupdated_at timestamp NULL,\r\n\tupdated_by varchar(100) NULL,\r\n\tmile_post float8 NULL,\r\n\tstation_role int4 DEFAULT 0 NOT NULL,\r\n\trated_hp float8 NULL,\r\n\tis_booster bool NULL,\r\n\tmeter_id int4 NULL,\r\n\tstation_number varchar(50) NULL,\r\n\tdistribution varchar(100) NULL,\r\n\tCONSTRAINT tc_pipeline_stations_pkey PRIMARY KEY (id),\r\n\tCONSTRAINT tc_pipeline_stations_pipeline_id_fkey FOREIGN KEY (pipeline_id) REFERENCES dbo.tc_pipeline_definitions(pipeline_id)\r\n);\r\nCREATE INDEX idx_pipeline_stations_type_active ON dbo.tc_pipeline_stations USING btree (pipeline_id, station_type, is_active);\r\nCREATE INDEX idx_tc_pipeline_stations_flow_order ON dbo.tc_pipeline_stations USING btree (pipeline_id, flow_order);\r\nCREATE INDEX idx_tc_pipeline_stations_meter_id ON dbo.tc_pipeline_stations USING btree (meter_id) WHERE (meter_id IS NOT NULL);\r\nCREATE INDEX idx_tc_pipeline_stations_pipeline_id ON dbo.tc_pipeline_stations USING btree (pipeline_id);\r\nCREATE UNIQUE INDEX idx_tc_pipeline_stations_pipeline_name ON dbo.tc_pipeline_stations USING btree (pipeline_id, station_name);\r\nCREATE UNIQUE INDEX idx_tc_pipeline_stations_pipeline_order_unique ON dbo.tc_pipeline_stations USING btree (pipeline_id, flow_order) WHERE (flow_order IS NOT NULL);\r\nCREATE INDEX idx_tc_pipeline_stations_type_active ON dbo.tc_pipeline_stations USING btree (pipeline_id, station_type, is_active) WHERE (is_active = true);\r\n\r\n\r\n-- gtn section\r\n\r\nCREATE TABLE IF NOT EXISTS int_sol.apv2_operational_available_capacity\r\n(\r\n\tassetnbr INTEGER   ENCODE az64\r\n\t,assetabrv VARCHAR(50)   ENCODE lzo\r\n\t,flowdate DATE   ENCODE az64\r\n\t,cycle_name VARCHAR(25)   ENCODE lzo\r\n\t,cycleseq INTEGER   ENCODE az64\r\n\t,loc_id INTEGER   ENCODE az64\r\n\t,loc_name VARCHAR(50)   ENCODE lzo\r\n\t,loc_sub_type VARCHAR(20)   ENCODE lzo\r\n\t,loc_qty_ind VARCHAR(10)   ENCODE lzo\r\n\t,location_purpose_desc VARCHAR(50)   ENCODE lzo\r\n\t,design_capacity BIGINT   ENCODE az64\r\n\t,operational_capacity BIGINT   ENCODE az64\r\n\t,scheduled_quantity BIGINT   ENCODE az64\r\n\t,operational_available_capacity BIGINT   ENCODE az64\r\n\t,flow_ind VARCHAR(5)   ENCODE lzo\r\n\t,it_ind VARCHAR(5)   ENCODE lzo\r\n\t,posting_date TIMESTAMP WITHOUT TIME ZONE   ENCODE az64\r\n\t,import_time TIMESTAMP WITHOUT TIME ZONE   ENCODE az64\r\n)\r\n\r\nCREATE TABLE IF NOT EXISTS int_sol.apv2_gtn_unit_masterlist\r\n(\r\n\tpipeline VARCHAR(50)   ENCODE lzo\r\n\t,station VARCHAR(50)   ENCODE lzo\r\n\t,unitnumber VARCHAR(50)   ENCODE lzo\r\n\t,unitname VARCHAR(50)   ENCODE lzo\r\n\t,compressor VARCHAR(50)   ENCODE lzo\r\n\t,horsepower INTEGER   ENCODE az64\r\n\t,minflow NUMERIC(18,2)   ENCODE az64\r\n\t,maxflow NUMERIC(18,2)   ENCODE az64\r\n\t,compminspeed INTEGER   ENCODE az64\r\n\t,compmaxspeed INTEGER   ENCODE az64\r\n\t,pi_compressorunit VARCHAR(50)   ENCODE lzo\r\n)\r\n\r\n\r\n\r\nCREATE TABLE IF NOT EXISTS pi.apv2_gtn_meter\r\n(\r\n\t\u0022timestamp\u0022 TIMESTAMP WITHOUT TIME ZONE   ENCODE RAW\r\n\t,ap_meter INTEGER   ENCODE RAW\r\n\t,btu DOUBLE PRECISION   ENCODE RAW\r\n\t,flow_rate_mmcfd DOUBLE PRECISION   ENCODE RAW\r\n\t,pressure DOUBLE PRECISION   ENCODE RAW\r\n\t,id BIGINT NOT NULL DEFAULT 0 ENCODE az64\r\n\t,current_daytotal_mmcf DOUBLE PRECISION   ENCODE RAW\r\n\t,temperature DOUBLE PRECISION   ENCODE RAW\r\n\t,PRIMARY KEY (id)\r\n)\r\n\r\nCREATE TABLE IF NOT EXISTS pi.apv2_gtn_cs_unit\r\n(\r\n\tap_compressor VARCHAR(256)   ENCODE lzo\r\n\t,\u0022timestamp\u0022 TIMESTAMP WITHOUT TIME ZONE   ENCODE RAW\r\n\t,ap_compressorunit_gtn VARCHAR(256)   ENCODE lzo\r\n\t,bhp DOUBLE PRECISION   ENCODE RAW\r\n\t,enginestatus VARCHAR(256)   ENCODE lzo\r\n\t,fuelflow DOUBLE PRECISION   ENCODE RAW\r\n\t,intstatus INTEGER   ENCODE az64\r\n\t,modelbhp DOUBLE PRECISION   ENCODE RAW\r\n\t,pressuredischarge DOUBLE PRECISION   ENCODE RAW\r\n\t,pressuresuction DOUBLE PRECISION   ENCODE RAW\r\n\t,rpm DOUBLE PRECISION   ENCODE RAW\r\n\t,tempsuction DOUBLE PRECISION   ENCODE RAW\r\n\t,id BIGINT NOT NULL DEFAULT 0 ENCODE az64\r\n\t,flowrate DOUBLE PRECISION   ENCODE RAW\r\n\t,PRIMARY KEY (id)\r\n)\r\n\r\n\r\nCREATE TABLE IF NOT EXISTS int_sol.apv2_gtn_station_masterlist\r\n(\r\n\tpipeline VARCHAR(50)   ENCODE lzo\r\n\t,dist VARCHAR(50)   ENCODE lzo\r\n\t,floworder NUMERIC(18,2)   ENCODE az64\r\n\t,stationnumber VARCHAR(50)   ENCODE lzo\r\n\t,stationname VARCHAR(50)   ENCODE lzo\r\n\t,notes VARCHAR(64)   ENCODE lzo\r\n\t,maop INTEGER   ENCODE az64\r\n\t,minop INTEGER   ENCODE az64\r\n\t,rated_hp INTEGER   ENCODE az64\r\n\t,meterid INTEGER   ENCODE az64\r\n\t,milepost NUMERIC(18,2)   ENCODE az64\r\n\t,\u0022booster\u0022 BOOLEAN  DEFAULT true ENCODE RAW\r\n)\r\n\r\nCREATE TABLE IF NOT EXISTS int_sol.apv2_gtn_segment_masterlist\r\n(\r\n\tpipeline VARCHAR(50)   ENCODE lzo\r\n\t,startcs VARCHAR(50)   ENCODE lzo\r\n\t,endcs VARCHAR(50)   ENCODE lzo\r\n\t,segmentordername VARCHAR(50)   ENCODE lzo\r\n\t,segment VARCHAR(50)   ENCODE lzo\r\n\t,segmentorder INTEGER   ENCODE az64\r\n\t,notes VARCHAR(50)   ENCODE lzo\r\n\t,maop INTEGER   ENCODE az64\r\n\t,minop INTEGER   ENCODE az64\r\n\t,milepost NUMERIC(18,2)   ENCODE az64\r\n\t,pressure INTEGER   ENCODE az64\r\n\t,ffactor REAL   ENCODE RAW\r\n\t,volume INTEGER   ENCODE az64\r\n)\r\n\r\nCREATE TABLE IF NOT EXISTS int_sol.apv2_operational_available_capacity\r\n(\r\n\tassetnbr INTEGER   ENCODE az64\r\n\t,assetabrv VARCHAR(50)   ENCODE lzo\r\n\t,flowdate DATE   ENCODE az64\r\n\t,cycle_name VARCHAR(25)   ENCODE lzo\r\n\t,cycleseq INTEGER   ENCODE az64\r\n\t,loc_id INTEGER   ENCODE az64\r\n\t,loc_name VARCHAR(50)   ENCODE lzo\r\n\t,loc_sub_type VARCHAR(20)   ENCODE lzo\r\n\t,loc_qty_ind VARCHAR(10)   ENCODE lzo\r\n\t,location_purpose_desc VARCHAR(50)   ENCODE lzo\r\n\t,design_capacity BIGINT   ENCODE az64\r\n\t,operational_capacity BIGINT   ENCODE az64\r\n\t,scheduled_quantity BIGINT   ENCODE az64\r\n\t,operational_available_capacity BIGINT   ENCODE az64\r\n\t,flow_ind VARCHAR(5)   ENCODE lzo\r\n\t,it_ind VARCHAR(5)   ENCODE lzo\r\n\t,posting_date TIMESTAMP WITHOUT TIME ZONE   ENCODE az64\r\n\t,import_time TIMESTAMP WITHOUT TIME ZONE   ENCODE az64\r\n)\r\n\r\n\r\n\r\nCREATE TABLE IF NOT EXISTS int_sol.apv2_gtn_unit_masterlist\r\n(\r\n\tpipeline VARCHAR(50)   ENCODE lzo\r\n\t,station VARCHAR(50)   ENCODE lzo\r\n\t,unitnumber VARCHAR(50)   ENCODE lzo\r\n\t,unitname VARCHAR(50)   ENCODE lzo\r\n\t,compressor VARCHAR(50)   ENCODE lzo\r\n\t,horsepower INTEGER   ENCODE az64\r\n\t,minflow NUMERIC(18,2)   ENCODE az64\r\n\t,maxflow NUMERIC(18,2)   ENCODE az64\r\n\t,compminspeed INTEGER   ENCODE az64\r\n\t,compmaxspeed INTEGER   ENCODE az64\r\n\t,pi_compressorunit VARCHAR(50)   ENCODE lzo\r\n)\r\n\r\nCREATE TABLE IF NOT EXISTS pi.apv2_gtn_meter\r\n(\r\n\t\u0022timestamp\u0022 TIMESTAMP WITHOUT TIME ZONE   ENCODE RAW\r\n\t,ap_meter INTEGER   ENCODE RAW\r\n\t,btu DOUBLE PRECISION   ENCODE RAW\r\n\t,flow_rate_mmcfd DOUBLE PRECISION   ENCODE RAW\r\n\t,pressure DOUBLE PRECISION   ENCODE RAW\r\n\t,id BIGINT NOT NULL DEFAULT 0 ENCODE az64\r\n\t,current_daytotal_mmcf DOUBLE PRECISION   ENCODE RAW\r\n\t,temperature DOUBLE PRECISION   ENCODE RAW\r\n\t,PRIMARY KEY (id)\r\n)\r\n\r\nCREATE TABLE IF NOT EXISTS pi.apv2_gtn_cs_unit\r\n(\r\n\tap_compressor VARCHAR(256)   ENCODE lzo\r\n\t,\u0022timestamp\u0022 TIMESTAMP WITHOUT TIME ZONE   ENCODE RAW\r\n\t,ap_compressorunit_gtn VARCHAR(256)   ENCODE lzo\r\n\t,bhp DOUBLE PRECISION   ENCODE RAW\r\n\t,enginestatus VARCHAR(256)   ENCODE lzo\r\n\t,fuelflow DOUBLE PRECISION   ENCODE RAW\r\n\t,intstatus INTEGER   ENCODE az64\r\n\t,modelbhp DOUBLE PRECISION   ENCODE RAW\r\n\t,pressuredischarge DOUBLE PRECISION   ENCODE RAW\r\n\t,pressuresuction DOUBLE PRECISION   ENCODE RAW\r\n\t,rpm DOUBLE PRECISION   ENCODE RAW\r\n\t,tempsuction DOUBLE PRECISION   ENCODE RAW\r\n\t,id BIGINT NOT NULL DEFAULT 0 ENCODE az64\r\n\t,flowrate DOUBLE PRECISION   ENCODE RAW\r\n\t,PRIMARY KEY (id)\r\n)\r\n\r\nCREATE TABLE IF NOT EXISTS int_sol.apv2_gtn_station_masterlist\r\n(\r\n\tpipeline VARCHAR(50)   ENCODE lzo\r\n\t,dist VARCHAR(50)   ENCODE lzo\r\n\t,floworder NUMERIC(18,2)   ENCODE az64\r\n\t,stationnumber VARCHAR(50)   ENCODE lzo\r\n\t,stationname VARCHAR(50)   ENCODE lzo\r\n\t,notes VARCHAR(64)   ENCODE lzo\r\n\t,maop INTEGER   ENCODE az64\r\n\t,minop INTEGER   ENCODE az64\r\n\t,rated_hp INTEGER   ENCODE az64\r\n\t,meterid INTEGER   ENCODE az64\r\n\t,milepost NUMERIC(18,2)   ENCODE az64\r\n\t,\u0022booster\u0022 BOOLEAN  DEFAULT true ENCODE RAW\r\n)\r\n\r\nCREATE TABLE IF NOT EXISTS int_sol.apv2_gtn_segment_masterlist\r\n(\r\n\tpipeline VARCHAR(50)   ENCODE lzo\r\n\t,startcs VARCHAR(50)   ENCODE lzo\r\n\t,endcs VARCHAR(50)   ENCODE lzo\r\n\t,segmentordername VARCHAR(50)   ENCODE lzo\r\n\t,segment VARCHAR(50)   ENCODE lzo\r\n\t,segmentorder INTEGER   ENCODE az64\r\n\t,notes VARCHAR(50)   ENCODE lzo\r\n\t,maop INTEGER   ENCODE az64\r\n\t,minop INTEGER   ENCODE az64\r\n\t,milepost NUMERIC(18,2)   ENCODE az64\r\n\t,pressure INTEGER   ENCODE az64\r\n\t,ffactor REAL   ENCODE RAW\r\n\t,volume INTEGER   ENCODE az64\r\n)\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n",
+  "TableSchemas": {
+    "extracted_sql_queries": [
+      {
+        "Name": "id",
+        "Type": "text",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "parameters",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "updated_by",
+        "Type": "varchar(200)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "updated_at",
+        "Type": "timestamp",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "log_description",
+        "Type": "text",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "sql_text",
+        "Type": "text",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "dbname",
+        "Type": "text",
+        "Nullable": false,
+        "IsNew": false
+      }
+    ],
+    "pipeline_configurations": [
+      {
+        "Name": "id",
+        "Type": "uuid",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "row_version",
+        "Type": "int8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "created_date",
+        "Type": "timestamptz",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "modified_date",
+        "Type": "timestamptz",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "is_active",
+        "Type": "bool",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "is_deleted",
+        "Type": "bool",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "created_by",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "modified_by",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "tenant_id",
+        "Type": "uuid",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "configuration_json",
+        "Type": "text",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "change_reason",
+        "Type": "varchar(500)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "version_number",
+        "Type": "int4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "config_hash",
+        "Type": "varchar(64)",
+        "Nullable": true,
+        "IsNew": false
+      }
+    ],
+    "tc_capacity_configurations": [
+      {
+        "Name": "id",
+        "Type": "uuid",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "seasonal_factor_weight",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "system_health_weight",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "outage_impact_weight",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "market_opportunities_weight",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "consultation_weight",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "no_risk_min_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "no_risk_max_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "low_risk_min_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "low_risk_max_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "moderate_risk_min_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "moderate_risk_max_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "high_risk_min_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "high_risk_max_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "no_risk_capacity",
+        "Type": "int4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "low_risk_capacity",
+        "Type": "int4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "moderate_risk_capacity",
+        "Type": "int4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "high_risk_capacity",
+        "Type": "int4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "gas_control_weight",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "marketing_weight",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "field_operations_weight",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "reliability_team_weight",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "ghg_team_weight",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "reputation_team_weight",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "distribution_list",
+        "Type": "varchar(1000)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "emergency_distribution_list",
+        "Type": "varchar(1000)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "email_delivery_time",
+        "Type": "time",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "data_collection_time",
+        "Type": "time",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "fallback_rankings_json",
+        "Type": "jsonb",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "created_date",
+        "Type": "timestamp",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "modified_date",
+        "Type": "timestamp",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "is_active",
+        "Type": "bool",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "is_deleted",
+        "Type": "bool",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "created_by",
+        "Type": "varchar(256)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "modified_by",
+        "Type": "varchar(256)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "tenant_id",
+        "Type": "uuid",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "row_version",
+        "Type": "bytea",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "scoring_lookup_tables_json",
+        "Type": "jsonb",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "oba_long_threshold",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "oba_short_threshold",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "market_opportunity_high_demand_threshold",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "market_opportunity_normal_threshold",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "pull_cap_high_relative_threshold",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "pull_cap_medium_relative_threshold",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "pull_cap_low_relative_threshold",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "pull_cap_high_utilization_threshold",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "pull_cap_medium_utilization_threshold",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "pull_cap_low_utilization_threshold",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "downstream_very_high_threshold",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "downstream_high_threshold",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "downstream_medium_threshold",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "downstream_low_threshold",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "long_term_very_high_threshold",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "long_term_high_threshold",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "long_term_medium_threshold",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "long_term_low_threshold",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "long_term_very_low_threshold",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "imbalances_very_low_threshold",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "imbalances_low_threshold",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "imbalances_medium_threshold",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "pull_cap_weight",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "downstream_movement_weight",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "long_term_impact_weight",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "oba_position_weight",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "morning_analysis_time",
+        "Type": "time",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "afternoon_analysis_time",
+        "Type": "time",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "send_morning_emails",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "send_afternoon_emails",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "max_daily_imbalance_mdth",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "min_temperature_fahrenheit",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "max_cushion_usage_percent",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "max_recent_constraint_hours",
+        "Type": "int4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "enable_cold_weather_override",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "enable_high_imbalance_override",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "enable_cushion_usage_override",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "enable_constraint_override",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "enable_system_health_veto",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "system_health_veto_threshold",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "system_health_veto_max_score",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "enable_outage_veto",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "outage_veto_threshold",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "outage_veto_max_score",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "enable_capacity_analysis_veto",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "capacity_analysis_veto_threshold",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "capacity_analysis_veto_max_score",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "pal_recommendation_email_time",
+        "Type": "time",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "pal_recommendation_email_recipients",
+        "Type": "varchar(2000)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "combination_rules_json",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "enable_combinations",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "seasonal_configuration_json",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "enable_seasonality",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "monthly_max_daily_unpark_json",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "pipeline_id",
+        "Type": "varchar(10)",
+        "Nullable": true,
+        "IsNew": false
+      }
+    ],
+    "tc_capacity_decisions": [
+      {
+        "Name": "id",
+        "Type": "uuid",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "capacity_amount",
+        "Type": "int4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "decision_date",
+        "Type": "date",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "risk_level",
+        "Type": "varchar(100)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "final_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "seasonal_factor_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "system_health_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "outage_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "opportunity_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "consultation_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "justification_summary",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "primary_factors",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "persona_insights",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "risk_assessment",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "safety_assessment",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "is_safety_override",
+        "Type": "bool",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "email_sent",
+        "Type": "bool",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "email_sent_time",
+        "Type": "timestamp",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "pipeline_state_json",
+        "Type": "jsonb",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "persona_rankings_json",
+        "Type": "jsonb",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "created_date",
+        "Type": "timestamp",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "modified_date",
+        "Type": "timestamp",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "is_active",
+        "Type": "bool",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "is_deleted",
+        "Type": "bool",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "created_by",
+        "Type": "varchar(256)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "modified_by",
+        "Type": "varchar(256)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "tenant_id",
+        "Type": "uuid",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "row_version",
+        "Type": "bytea",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "capacity_analysis_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "history_constraint_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "forecast_constraint_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "month_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "day_of_week_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "time_period_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "day_type_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "outage_duration_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "outage_impact_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "outage_cycle_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "outage_impact_group_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "linepack_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "throughput_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "imbalances_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "equipment_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "pull_cap_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "downstream_movement_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "long_term_impact_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "metadata",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "pre_veto_score",
+        "Type": "numeric(5",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "applied_vetoes_json",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "safety_issues_json",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "validation_errors_json",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "processing_time_ms",
+        "Type": "int8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "calculation_method",
+        "Type": "varchar(50)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "is_validated",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "email_recipients",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "email_subject",
+        "Type": "varchar(200)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "safety_override_reason",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "configuration_snapshot_json",
+        "Type": "jsonb",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "extended_properties_json",
+        "Type": "jsonb",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "pipeline_id",
+        "Type": "varchar(10)",
+        "Nullable": true,
+        "IsNew": false
+      }
+    ],
+    "tc_compressordata": [
+      {
+        "Name": "ap_compressor",
+        "Type": "varchar(50)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "timestamp",
+        "Type": "timestamp(6)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "ap_compressorunit_gtn",
+        "Type": "varchar(50)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "bhp",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "enginestatus",
+        "Type": "varchar(50)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "pipeline_id",
+        "Type": "varchar(20)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "suctionpressure",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "gasday",
+        "Type": "timestamptz",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "dischargepressure",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "suctiontemperature",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "dischargetemperature",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "fuel_gas_flow",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "source_system",
+        "Type": "varchar(50)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "atmospherictemperature",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "totalhorsepower",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "totalfuel",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      }
+    ],
+    "tc_compressorplan": [
+      {
+        "Name": "timestamp",
+        "Type": "timestamp(6)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "ap_compressor",
+        "Type": "varchar(50)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "atmospherictemperature",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "dischargepressure",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "dischargetemperature",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "suctionpressure",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "suctiontemperature",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "totalfuel",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "totalhorsepower",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "id",
+        "Type": "serial4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "pipeline_id",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      }
+    ],
+    "tc_dailymeterreadings": [
+      {
+        "Name": "timestamp",
+        "Type": "timestamp(6)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "ap_meter",
+        "Type": "int4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "btu",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "flow_rate_mmcfd",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "pressure",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "id",
+        "Type": "int4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "current_daytotal_mmcf",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "minop",
+        "Type": "int4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "pipeline_id",
+        "Type": "varchar(10)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "meter_name",
+        "Type": "varchar(255)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "maxop",
+        "Type": "int4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "location_name",
+        "Type": "varchar(255)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "meter_type",
+        "Type": "varchar(50)",
+        "Nullable": true,
+        "IsNew": false
+      }
+    ],
+    "tc_meterlocations": [
+      {
+        "Name": "ap_meter",
+        "Type": "int4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "location",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "pipeline_id",
+        "Type": "varchar(10)",
+        "Nullable": true,
+        "IsNew": false
+      }
+    ],
+    "tc_persona_configs": [
+      {
+        "Name": "id",
+        "Type": "uuid",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "persona_type",
+        "Type": "int4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "description",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "context_template",
+        "Type": "text",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "priority_goals",
+        "Type": "text",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "default_rankings",
+        "Type": "text",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "is_active",
+        "Type": "bool",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "is_deleted",
+        "Type": "bool",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "created_date",
+        "Type": "timestamptz",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "modified_date",
+        "Type": "timestamptz",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "created_by",
+        "Type": "varchar(100)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "modified_by",
+        "Type": "varchar(100)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "tenant_id",
+        "Type": "uuid",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "display_name",
+        "Type": "varchar(100)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "kpi_rules",
+        "Type": "jsonb",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "pipeline_id",
+        "Type": "varchar(10)",
+        "Nullable": true,
+        "IsNew": false
+      }
+    ],
+    "tc_persona_configs_history": [
+      {
+        "Name": "id",
+        "Type": "uuid",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "configs_id",
+        "Type": "uuid",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "persona_type",
+        "Type": "int4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "description",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "context_template",
+        "Type": "text",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "priority_goals",
+        "Type": "text",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "default_rankings",
+        "Type": "text",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "is_active",
+        "Type": "bool",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "is_deleted",
+        "Type": "bool",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "created_date",
+        "Type": "timestamptz",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "modified_date",
+        "Type": "timestamptz",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "created_by",
+        "Type": "varchar(100)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "modified_by",
+        "Type": "varchar(100)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "tenant_id",
+        "Type": "uuid",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "display_name",
+        "Type": "varchar(100)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "kpi_rules",
+        "Type": "jsonb",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "change_type",
+        "Type": "text",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "pipeline_id",
+        "Type": "varchar(10)",
+        "Nullable": true,
+        "IsNew": false
+      }
+    ],
+    "tc_pipeline_definitions": [
+      {
+        "Name": "pipeline_id",
+        "Type": "varchar(20)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "pipeline_name",
+        "Type": "varchar(200)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "description",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "is_default",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "is_active",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "maop",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "minop",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "maop_cushion",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "minop_cushion",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "minimum_constraint_hours",
+        "Type": "int4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "peak_period_start",
+        "Type": "time",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "peak_period_end",
+        "Type": "time",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "consider_only_peak_hours",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "database_schema",
+        "Type": "varchar(100)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "station_table",
+        "Type": "varchar(500)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "stations",
+        "Type": "varchar(100)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "segment_table",
+        "Type": "varchar(100)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "meter_table",
+        "Type": "varchar(100)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "ml_table",
+        "Type": "varchar(100)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "pipeline_aor_id",
+        "Type": "int4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "supports_linepack_optimization",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "supports_storage_optimization",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "supports_interconnection_optimization",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "supports_cross_border_operations",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "supports_park_operations",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "supports_loan_operations",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "created_at",
+        "Type": "timestamp",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "updated_at",
+        "Type": "timestamp",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "external_connection_string_key",
+        "Type": "varchar(100)",
+        "Nullable": true,
+        "IsNew": false
+      }
+    ],
+    "tc_pipemeasurements": [
+      {
+        "Name": "assetnbr",
+        "Type": "int4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "assetabrv",
+        "Type": "text",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "flowdate",
+        "Type": "date",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "cycle_name",
+        "Type": "text",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "cycleseq",
+        "Type": "int4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "loc_id",
+        "Type": "int4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "loc_name",
+        "Type": "text",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "loc_sub_type",
+        "Type": "text",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "loc_qty_ind",
+        "Type": "text",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "location_purpose_desc",
+        "Type": "text",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "operational_capacity",
+        "Type": "int4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "scheduled_quantity",
+        "Type": "int4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "posting_date",
+        "Type": "text",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "pipeline_id",
+        "Type": "varchar(10)",
+        "Nullable": false,
+        "IsNew": false
+      }
+    ],
+    "tc_recommendations": [
+      {
+        "Name": "id",
+        "Type": "uuid",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "analysis_datetime",
+        "Type": "timestamp",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "recommendation_type",
+        "Type": "varchar(50)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "serialized_data",
+        "Type": "jsonb",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "created_date",
+        "Type": "timestamp",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "created_by",
+        "Type": "varchar(100)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "tenant_id",
+        "Type": "uuid",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "pipeline_id",
+        "Type": "varchar(10)",
+        "Nullable": true,
+        "IsNew": false
+      }
+    ],
+    "tchistoricaloutages": [
+      {
+        "Name": "sap_floc",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "segment_names",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "location",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "pipeline_aor_id",
+        "Type": "int4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "object_type",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "impact",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "field_op_area",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "id",
+        "Type": "int8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "sap_company_code",
+        "Type": "int4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "floc",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "start_date",
+        "Type": "timestamp",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "end_date",
+        "Type": "timestamp",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "notification_date",
+        "Type": "timestamp",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "coding_code",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "description",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "createdts",
+        "Type": "timestamp",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "user_status",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "notification_num",
+        "Type": "int8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "import_time",
+        "Type": "timestamp",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "longdesc",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "flocid",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "pipeline_id",
+        "Type": "varchar(10)",
+        "Nullable": true,
+        "IsNew": false
+      }
+    ],
+    "tc_constraint_paths": [
+      {
+        "Name": "id",
+        "Type": "serial4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "pipeline_id",
+        "Type": "varchar(20)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "start_station",
+        "Type": "varchar(100)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "end_station",
+        "Type": "varchar(100)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "priority",
+        "Type": "int4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "frequency_count",
+        "Type": "int4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "last_observed",
+        "Type": "timestamp",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "notes",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "is_active",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "created_at",
+        "Type": "timestamp",
+        "Nullable": true,
+        "IsNew": false
+      }
+    ],
+    "tc_meters": [
+      {
+        "Name": "id",
+        "Type": "serial4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "pipeline_id",
+        "Type": "varchar(20)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "meter_id",
+        "Type": "int4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "meter_name",
+        "Type": "varchar(100)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "location",
+        "Type": "varchar(200)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "meter_type",
+        "Type": "varchar(50)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "flow_direction",
+        "Type": "varchar(20)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "is_active",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "created_at",
+        "Type": "timestamp",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "updated_at",
+        "Type": "timestamp",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "station_name",
+        "Type": "varchar(100)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "is_core_meter",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      }
+    ],
+    "tc_persona_memories": [
+      {
+        "Name": "id",
+        "Type": "uuid",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "persona_config_id",
+        "Type": "uuid",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "persona_type",
+        "Type": "int4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "memory_date",
+        "Type": "timestamp",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "content",
+        "Type": "text",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "summary",
+        "Type": "varchar(500)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "embedding",
+        "Type": "_float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "type",
+        "Type": "int4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "importance",
+        "Type": "float4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "capacity_decision_id",
+        "Type": "uuid",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "metadata",
+        "Type": "jsonb",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "is_active",
+        "Type": "bool",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "is_deleted",
+        "Type": "bool",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "created_date",
+        "Type": "timestamp",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "modified_date",
+        "Type": "timestamp",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "created_by",
+        "Type": "varchar(256)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "modified_by",
+        "Type": "varchar(256)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "tenant_id",
+        "Type": "uuid",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "row_version",
+        "Type": "bytea",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "pipeline_id",
+        "Type": "varchar(10)",
+        "Nullable": true,
+        "IsNew": false
+      }
+    ],
+    "tc_pipeline_capacity_config": [
+      {
+        "Name": "pipeline_id",
+        "Type": "varchar(20)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "maop_cushion",
+        "Type": "float4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "minop_cushion",
+        "Type": "float4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "maop",
+        "Type": "float4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "minop",
+        "Type": "float4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "minimum_constraint_hours",
+        "Type": "int4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "peak_period_start",
+        "Type": "time",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "peak_period_end",
+        "Type": "time",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "consider_only_peak_hours",
+        "Type": "bool",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "skip_zero_measurements",
+        "Type": "bool",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "downstream_only",
+        "Type": "bool",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "max_path_distance",
+        "Type": "int4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "capacity_utilization_threshold",
+        "Type": "float4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "show_capacity_utilization",
+        "Type": "bool",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "created_at",
+        "Type": "timestamp",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "updated_at",
+        "Type": "timestamp",
+        "Nullable": false,
+        "IsNew": false
+      }
+    ],
+    "tc_pipeline_scoring_config": [
+      {
+        "Name": "pipeline_id",
+        "Type": "varchar(20)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "seasonal_factor_weight",
+        "Type": "int4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "system_health_weight",
+        "Type": "int4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "outage_impact_weight",
+        "Type": "int4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "market_opportunities_weight",
+        "Type": "int4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "consultation_weight",
+        "Type": "int4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "no_risk_min",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "no_risk_max",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "no_risk_capacity",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "low_risk_min",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "low_risk_max",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "low_risk_capacity",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "moderate_risk_min",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "moderate_risk_max",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "moderate_risk_capacity",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "high_risk_min",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "high_risk_max",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "high_risk_capacity",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "oba_long_threshold",
+        "Type": "int4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "oba_short_threshold",
+        "Type": "int4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "market_opportunity_high_demand_threshold",
+        "Type": "int4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "market_opportunity_normal_threshold",
+        "Type": "int4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "pull_cap_high_relative_threshold",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "pull_cap_low_relative_threshold",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "created_at",
+        "Type": "timestamp",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "updated_at",
+        "Type": "timestamp",
+        "Nullable": true,
+        "IsNew": false
+      }
+    ],
+    "tc_pipeline_scoring_lookups": [
+      {
+        "Name": "pipeline_id",
+        "Type": "varchar(20)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "month_scores",
+        "Type": "jsonb",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "day_of_week_scores",
+        "Type": "jsonb",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "day_type_scores",
+        "Type": "jsonb",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "history_constraint_scores",
+        "Type": "jsonb",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "forecast_constraint_scores",
+        "Type": "jsonb",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "outage_duration_scores",
+        "Type": "jsonb",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "outage_impact_scores",
+        "Type": "jsonb",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "outage_cycle_scores",
+        "Type": "jsonb",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "outage_impact_group_scores",
+        "Type": "jsonb",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "imbalance_scores",
+        "Type": "jsonb",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "pull_cap_adinom_scores",
+        "Type": "jsonb",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "downstream_movement_scores",
+        "Type": "jsonb",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "long_term_impact_scores",
+        "Type": "jsonb",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "monthly_max_daily_unpark",
+        "Type": "jsonb",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "created_at",
+        "Type": "timestamp",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "updated_at",
+        "Type": "timestamp",
+        "Nullable": true,
+        "IsNew": false
+      }
+    ],
+    "tc_pipeline_segments": [
+      {
+        "Name": "id",
+        "Type": "serial4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "pipeline_id",
+        "Type": "varchar(20)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "segment_order_name",
+        "Type": "varchar(100)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "segment",
+        "Type": "varchar(100)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "segment_order",
+        "Type": "int4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "start_station",
+        "Type": "varchar(100)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "end_station",
+        "Type": "varchar(100)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "maop",
+        "Type": "float4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "minop",
+        "Type": "float4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "milepost",
+        "Type": "float4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "pressure",
+        "Type": "float4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "flow_factor",
+        "Type": "float4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "volume",
+        "Type": "float4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "notes",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "is_active",
+        "Type": "bool",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "created_at",
+        "Type": "timestamp",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "updated_at",
+        "Type": "timestamp",
+        "Nullable": false,
+        "IsNew": false
+      }
+    ],
+    "tc_pipeline_stations": [
+      {
+        "Name": "id",
+        "Type": "serial4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "pipeline_id",
+        "Type": "varchar(20)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "station_name",
+        "Type": "varchar(100)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "flow_order",
+        "Type": "int4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "station_type",
+        "Type": "varchar(20)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "maop",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "minop",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "maop_cushion",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "minop_cushion",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "is_active",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "created_at",
+        "Type": "timestamp",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "created_by",
+        "Type": "varchar(100)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "updated_at",
+        "Type": "timestamp",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "updated_by",
+        "Type": "varchar(100)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "mile_post",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "station_role",
+        "Type": "int4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "rated_hp",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "is_booster",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "meter_id",
+        "Type": "int4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "station_number",
+        "Type": "varchar(50)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "distribution",
+        "Type": "varchar(100)",
+        "Nullable": true,
+        "IsNew": false
+      }
+    ],
+    "IF": [
+      {
+        "Name": "pipeline",
+        "Type": "VARCHAR(50)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "startcs",
+        "Type": "VARCHAR(50)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "endcs",
+        "Type": "VARCHAR(50)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "segmentordername",
+        "Type": "VARCHAR(50)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "segment",
+        "Type": "VARCHAR(50)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "segmentorder",
+        "Type": "INTEGER",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "notes",
+        "Type": "VARCHAR(50)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "maop",
+        "Type": "INTEGER",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "minop",
+        "Type": "INTEGER",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "milepost",
+        "Type": "NUMERIC(18,2)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "pressure",
+        "Type": "INTEGER",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "ffactor",
+        "Type": "REAL",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "volume",
+        "Type": "INTEGER",
+        "Nullable": true,
+        "IsNew": false
+      }
+    ]
+  },
+  "OriginalSchemas": {
+    "extracted_sql_queries": [
+      {
+        "Name": "id",
+        "Type": "text",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "parameters",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "updated_by",
+        "Type": "varchar(200)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "updated_at",
+        "Type": "timestamp",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "log_description",
+        "Type": "text",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "sql_text",
+        "Type": "text",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "dbname",
+        "Type": "text",
+        "Nullable": false,
+        "IsNew": false
+      }
+    ],
+    "pipeline_configurations": [
+      {
+        "Name": "id",
+        "Type": "uuid",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "row_version",
+        "Type": "int8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "created_date",
+        "Type": "timestamptz",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "modified_date",
+        "Type": "timestamptz",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "is_active",
+        "Type": "bool",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "is_deleted",
+        "Type": "bool",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "created_by",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "modified_by",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "tenant_id",
+        "Type": "uuid",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "configuration_json",
+        "Type": "text",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "change_reason",
+        "Type": "varchar(500)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "version_number",
+        "Type": "int4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "config_hash",
+        "Type": "varchar(64)",
+        "Nullable": true,
+        "IsNew": false
+      }
+    ],
+    "tc_capacity_configurations": [
+      {
+        "Name": "id",
+        "Type": "uuid",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "seasonal_factor_weight",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "system_health_weight",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "outage_impact_weight",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "market_opportunities_weight",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "consultation_weight",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "no_risk_min_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "no_risk_max_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "low_risk_min_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "low_risk_max_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "moderate_risk_min_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "moderate_risk_max_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "high_risk_min_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "high_risk_max_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "no_risk_capacity",
+        "Type": "int4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "low_risk_capacity",
+        "Type": "int4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "moderate_risk_capacity",
+        "Type": "int4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "high_risk_capacity",
+        "Type": "int4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "gas_control_weight",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "marketing_weight",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "field_operations_weight",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "reliability_team_weight",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "ghg_team_weight",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "reputation_team_weight",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "distribution_list",
+        "Type": "varchar(1000)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "emergency_distribution_list",
+        "Type": "varchar(1000)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "email_delivery_time",
+        "Type": "time",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "data_collection_time",
+        "Type": "time",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "fallback_rankings_json",
+        "Type": "jsonb",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "created_date",
+        "Type": "timestamp",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "modified_date",
+        "Type": "timestamp",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "is_active",
+        "Type": "bool",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "is_deleted",
+        "Type": "bool",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "created_by",
+        "Type": "varchar(256)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "modified_by",
+        "Type": "varchar(256)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "tenant_id",
+        "Type": "uuid",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "row_version",
+        "Type": "bytea",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "scoring_lookup_tables_json",
+        "Type": "jsonb",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "oba_long_threshold",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "oba_short_threshold",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "market_opportunity_high_demand_threshold",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "market_opportunity_normal_threshold",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "pull_cap_high_relative_threshold",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "pull_cap_medium_relative_threshold",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "pull_cap_low_relative_threshold",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "pull_cap_high_utilization_threshold",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "pull_cap_medium_utilization_threshold",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "pull_cap_low_utilization_threshold",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "downstream_very_high_threshold",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "downstream_high_threshold",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "downstream_medium_threshold",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "downstream_low_threshold",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "long_term_very_high_threshold",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "long_term_high_threshold",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "long_term_medium_threshold",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "long_term_low_threshold",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "long_term_very_low_threshold",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "imbalances_very_low_threshold",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "imbalances_low_threshold",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "imbalances_medium_threshold",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "pull_cap_weight",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "downstream_movement_weight",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "long_term_impact_weight",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "oba_position_weight",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "morning_analysis_time",
+        "Type": "time",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "afternoon_analysis_time",
+        "Type": "time",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "send_morning_emails",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "send_afternoon_emails",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "max_daily_imbalance_mdth",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "min_temperature_fahrenheit",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "max_cushion_usage_percent",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "max_recent_constraint_hours",
+        "Type": "int4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "enable_cold_weather_override",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "enable_high_imbalance_override",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "enable_cushion_usage_override",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "enable_constraint_override",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "enable_system_health_veto",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "system_health_veto_threshold",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "system_health_veto_max_score",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "enable_outage_veto",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "outage_veto_threshold",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "outage_veto_max_score",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "enable_capacity_analysis_veto",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "capacity_analysis_veto_threshold",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "capacity_analysis_veto_max_score",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "pal_recommendation_email_time",
+        "Type": "time",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "pal_recommendation_email_recipients",
+        "Type": "varchar(2000)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "combination_rules_json",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "enable_combinations",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "seasonal_configuration_json",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "enable_seasonality",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "monthly_max_daily_unpark_json",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "pipeline_id",
+        "Type": "varchar(10)",
+        "Nullable": true,
+        "IsNew": false
+      }
+    ],
+    "tc_capacity_decisions": [
+      {
+        "Name": "id",
+        "Type": "uuid",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "capacity_amount",
+        "Type": "int4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "decision_date",
+        "Type": "date",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "risk_level",
+        "Type": "varchar(100)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "final_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "seasonal_factor_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "system_health_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "outage_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "opportunity_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "consultation_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "justification_summary",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "primary_factors",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "persona_insights",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "risk_assessment",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "safety_assessment",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "is_safety_override",
+        "Type": "bool",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "email_sent",
+        "Type": "bool",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "email_sent_time",
+        "Type": "timestamp",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "pipeline_state_json",
+        "Type": "jsonb",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "persona_rankings_json",
+        "Type": "jsonb",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "created_date",
+        "Type": "timestamp",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "modified_date",
+        "Type": "timestamp",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "is_active",
+        "Type": "bool",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "is_deleted",
+        "Type": "bool",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "created_by",
+        "Type": "varchar(256)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "modified_by",
+        "Type": "varchar(256)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "tenant_id",
+        "Type": "uuid",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "row_version",
+        "Type": "bytea",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "capacity_analysis_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "history_constraint_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "forecast_constraint_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "month_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "day_of_week_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "time_period_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "day_type_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "outage_duration_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "outage_impact_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "outage_cycle_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "outage_impact_group_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "linepack_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "throughput_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "imbalances_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "equipment_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "pull_cap_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "downstream_movement_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "long_term_impact_score",
+        "Type": "float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "metadata",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "pre_veto_score",
+        "Type": "numeric(5",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "applied_vetoes_json",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "safety_issues_json",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "validation_errors_json",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "processing_time_ms",
+        "Type": "int8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "calculation_method",
+        "Type": "varchar(50)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "is_validated",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "email_recipients",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "email_subject",
+        "Type": "varchar(200)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "safety_override_reason",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "configuration_snapshot_json",
+        "Type": "jsonb",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "extended_properties_json",
+        "Type": "jsonb",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "pipeline_id",
+        "Type": "varchar(10)",
+        "Nullable": true,
+        "IsNew": false
+      }
+    ],
+    "tc_compressordata": [
+      {
+        "Name": "ap_compressor",
+        "Type": "varchar(50)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "timestamp",
+        "Type": "timestamp(6)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "ap_compressorunit_gtn",
+        "Type": "varchar(50)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "bhp",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "enginestatus",
+        "Type": "varchar(50)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "pipeline_id",
+        "Type": "varchar(20)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "suctionpressure",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "gasday",
+        "Type": "timestamptz",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "dischargepressure",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "suctiontemperature",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "dischargetemperature",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "fuel_gas_flow",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "source_system",
+        "Type": "varchar(50)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "atmospherictemperature",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "totalhorsepower",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "totalfuel",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      }
+    ],
+    "tc_compressorplan": [
+      {
+        "Name": "timestamp",
+        "Type": "timestamp(6)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "ap_compressor",
+        "Type": "varchar(50)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "atmospherictemperature",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "dischargepressure",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "dischargetemperature",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "suctionpressure",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "suctiontemperature",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "totalfuel",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "totalhorsepower",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "id",
+        "Type": "serial4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "pipeline_id",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      }
+    ],
+    "tc_dailymeterreadings": [
+      {
+        "Name": "timestamp",
+        "Type": "timestamp(6)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "ap_meter",
+        "Type": "int4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "btu",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "flow_rate_mmcfd",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "pressure",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "id",
+        "Type": "int4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "current_daytotal_mmcf",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "minop",
+        "Type": "int4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "pipeline_id",
+        "Type": "varchar(10)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "meter_name",
+        "Type": "varchar(255)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "maxop",
+        "Type": "int4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "location_name",
+        "Type": "varchar(255)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "meter_type",
+        "Type": "varchar(50)",
+        "Nullable": true,
+        "IsNew": false
+      }
+    ],
+    "tc_meterlocations": [
+      {
+        "Name": "ap_meter",
+        "Type": "int4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "location",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "pipeline_id",
+        "Type": "varchar(10)",
+        "Nullable": true,
+        "IsNew": false
+      }
+    ],
+    "tc_persona_configs": [
+      {
+        "Name": "id",
+        "Type": "uuid",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "persona_type",
+        "Type": "int4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "description",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "context_template",
+        "Type": "text",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "priority_goals",
+        "Type": "text",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "default_rankings",
+        "Type": "text",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "is_active",
+        "Type": "bool",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "is_deleted",
+        "Type": "bool",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "created_date",
+        "Type": "timestamptz",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "modified_date",
+        "Type": "timestamptz",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "created_by",
+        "Type": "varchar(100)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "modified_by",
+        "Type": "varchar(100)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "tenant_id",
+        "Type": "uuid",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "display_name",
+        "Type": "varchar(100)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "kpi_rules",
+        "Type": "jsonb",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "pipeline_id",
+        "Type": "varchar(10)",
+        "Nullable": true,
+        "IsNew": false
+      }
+    ],
+    "tc_persona_configs_history": [
+      {
+        "Name": "id",
+        "Type": "uuid",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "configs_id",
+        "Type": "uuid",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "persona_type",
+        "Type": "int4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "description",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "context_template",
+        "Type": "text",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "priority_goals",
+        "Type": "text",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "default_rankings",
+        "Type": "text",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "is_active",
+        "Type": "bool",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "is_deleted",
+        "Type": "bool",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "created_date",
+        "Type": "timestamptz",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "modified_date",
+        "Type": "timestamptz",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "created_by",
+        "Type": "varchar(100)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "modified_by",
+        "Type": "varchar(100)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "tenant_id",
+        "Type": "uuid",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "display_name",
+        "Type": "varchar(100)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "kpi_rules",
+        "Type": "jsonb",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "change_type",
+        "Type": "text",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "pipeline_id",
+        "Type": "varchar(10)",
+        "Nullable": true,
+        "IsNew": false
+      }
+    ],
+    "tc_pipeline_definitions": [
+      {
+        "Name": "pipeline_id",
+        "Type": "varchar(20)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "pipeline_name",
+        "Type": "varchar(200)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "description",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "is_default",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "is_active",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "maop",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "minop",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "maop_cushion",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "minop_cushion",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "minimum_constraint_hours",
+        "Type": "int4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "peak_period_start",
+        "Type": "time",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "peak_period_end",
+        "Type": "time",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "consider_only_peak_hours",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "database_schema",
+        "Type": "varchar(100)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "station_table",
+        "Type": "varchar(500)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "stations",
+        "Type": "varchar(100)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "segment_table",
+        "Type": "varchar(100)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "meter_table",
+        "Type": "varchar(100)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "ml_table",
+        "Type": "varchar(100)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "pipeline_aor_id",
+        "Type": "int4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "supports_linepack_optimization",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "supports_storage_optimization",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "supports_interconnection_optimization",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "supports_cross_border_operations",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "supports_park_operations",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "supports_loan_operations",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "created_at",
+        "Type": "timestamp",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "updated_at",
+        "Type": "timestamp",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "external_connection_string_key",
+        "Type": "varchar(100)",
+        "Nullable": true,
+        "IsNew": false
+      }
+    ],
+    "tc_pipemeasurements": [
+      {
+        "Name": "assetnbr",
+        "Type": "int4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "assetabrv",
+        "Type": "text",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "flowdate",
+        "Type": "date",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "cycle_name",
+        "Type": "text",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "cycleseq",
+        "Type": "int4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "loc_id",
+        "Type": "int4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "loc_name",
+        "Type": "text",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "loc_sub_type",
+        "Type": "text",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "loc_qty_ind",
+        "Type": "text",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "location_purpose_desc",
+        "Type": "text",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "operational_capacity",
+        "Type": "int4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "scheduled_quantity",
+        "Type": "int4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "posting_date",
+        "Type": "text",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "pipeline_id",
+        "Type": "varchar(10)",
+        "Nullable": false,
+        "IsNew": false
+      }
+    ],
+    "tc_recommendations": [
+      {
+        "Name": "id",
+        "Type": "uuid",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "analysis_datetime",
+        "Type": "timestamp",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "recommendation_type",
+        "Type": "varchar(50)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "serialized_data",
+        "Type": "jsonb",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "created_date",
+        "Type": "timestamp",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "created_by",
+        "Type": "varchar(100)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "tenant_id",
+        "Type": "uuid",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "pipeline_id",
+        "Type": "varchar(10)",
+        "Nullable": true,
+        "IsNew": false
+      }
+    ],
+    "tchistoricaloutages": [
+      {
+        "Name": "sap_floc",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "segment_names",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "location",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "pipeline_aor_id",
+        "Type": "int4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "object_type",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "impact",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "field_op_area",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "id",
+        "Type": "int8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "sap_company_code",
+        "Type": "int4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "floc",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "start_date",
+        "Type": "timestamp",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "end_date",
+        "Type": "timestamp",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "notification_date",
+        "Type": "timestamp",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "coding_code",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "description",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "createdts",
+        "Type": "timestamp",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "user_status",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "notification_num",
+        "Type": "int8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "import_time",
+        "Type": "timestamp",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "longdesc",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "flocid",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "pipeline_id",
+        "Type": "varchar(10)",
+        "Nullable": true,
+        "IsNew": false
+      }
+    ],
+    "tc_constraint_paths": [
+      {
+        "Name": "id",
+        "Type": "serial4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "pipeline_id",
+        "Type": "varchar(20)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "start_station",
+        "Type": "varchar(100)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "end_station",
+        "Type": "varchar(100)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "priority",
+        "Type": "int4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "frequency_count",
+        "Type": "int4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "last_observed",
+        "Type": "timestamp",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "notes",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "is_active",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "created_at",
+        "Type": "timestamp",
+        "Nullable": true,
+        "IsNew": false
+      }
+    ],
+    "tc_meters": [
+      {
+        "Name": "id",
+        "Type": "serial4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "pipeline_id",
+        "Type": "varchar(20)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "meter_id",
+        "Type": "int4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "meter_name",
+        "Type": "varchar(100)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "location",
+        "Type": "varchar(200)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "meter_type",
+        "Type": "varchar(50)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "flow_direction",
+        "Type": "varchar(20)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "is_active",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "created_at",
+        "Type": "timestamp",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "updated_at",
+        "Type": "timestamp",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "station_name",
+        "Type": "varchar(100)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "is_core_meter",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      }
+    ],
+    "tc_persona_memories": [
+      {
+        "Name": "id",
+        "Type": "uuid",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "persona_config_id",
+        "Type": "uuid",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "persona_type",
+        "Type": "int4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "memory_date",
+        "Type": "timestamp",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "content",
+        "Type": "text",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "summary",
+        "Type": "varchar(500)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "embedding",
+        "Type": "_float8",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "type",
+        "Type": "int4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "importance",
+        "Type": "float4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "capacity_decision_id",
+        "Type": "uuid",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "metadata",
+        "Type": "jsonb",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "is_active",
+        "Type": "bool",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "is_deleted",
+        "Type": "bool",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "created_date",
+        "Type": "timestamp",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "modified_date",
+        "Type": "timestamp",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "created_by",
+        "Type": "varchar(256)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "modified_by",
+        "Type": "varchar(256)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "tenant_id",
+        "Type": "uuid",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "row_version",
+        "Type": "bytea",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "pipeline_id",
+        "Type": "varchar(10)",
+        "Nullable": true,
+        "IsNew": false
+      }
+    ],
+    "tc_pipeline_capacity_config": [
+      {
+        "Name": "pipeline_id",
+        "Type": "varchar(20)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "maop_cushion",
+        "Type": "float4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "minop_cushion",
+        "Type": "float4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "maop",
+        "Type": "float4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "minop",
+        "Type": "float4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "minimum_constraint_hours",
+        "Type": "int4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "peak_period_start",
+        "Type": "time",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "peak_period_end",
+        "Type": "time",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "consider_only_peak_hours",
+        "Type": "bool",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "skip_zero_measurements",
+        "Type": "bool",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "downstream_only",
+        "Type": "bool",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "max_path_distance",
+        "Type": "int4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "capacity_utilization_threshold",
+        "Type": "float4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "show_capacity_utilization",
+        "Type": "bool",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "created_at",
+        "Type": "timestamp",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "updated_at",
+        "Type": "timestamp",
+        "Nullable": false,
+        "IsNew": false
+      }
+    ],
+    "tc_pipeline_scoring_config": [
+      {
+        "Name": "pipeline_id",
+        "Type": "varchar(20)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "seasonal_factor_weight",
+        "Type": "int4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "system_health_weight",
+        "Type": "int4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "outage_impact_weight",
+        "Type": "int4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "market_opportunities_weight",
+        "Type": "int4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "consultation_weight",
+        "Type": "int4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "no_risk_min",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "no_risk_max",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "no_risk_capacity",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "low_risk_min",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "low_risk_max",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "low_risk_capacity",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "moderate_risk_min",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "moderate_risk_max",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "moderate_risk_capacity",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "high_risk_min",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "high_risk_max",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "high_risk_capacity",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "oba_long_threshold",
+        "Type": "int4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "oba_short_threshold",
+        "Type": "int4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "market_opportunity_high_demand_threshold",
+        "Type": "int4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "market_opportunity_normal_threshold",
+        "Type": "int4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "pull_cap_high_relative_threshold",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "pull_cap_low_relative_threshold",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "created_at",
+        "Type": "timestamp",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "updated_at",
+        "Type": "timestamp",
+        "Nullable": true,
+        "IsNew": false
+      }
+    ],
+    "tc_pipeline_scoring_lookups": [
+      {
+        "Name": "pipeline_id",
+        "Type": "varchar(20)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "month_scores",
+        "Type": "jsonb",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "day_of_week_scores",
+        "Type": "jsonb",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "day_type_scores",
+        "Type": "jsonb",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "history_constraint_scores",
+        "Type": "jsonb",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "forecast_constraint_scores",
+        "Type": "jsonb",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "outage_duration_scores",
+        "Type": "jsonb",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "outage_impact_scores",
+        "Type": "jsonb",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "outage_cycle_scores",
+        "Type": "jsonb",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "outage_impact_group_scores",
+        "Type": "jsonb",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "imbalance_scores",
+        "Type": "jsonb",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "pull_cap_adinom_scores",
+        "Type": "jsonb",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "downstream_movement_scores",
+        "Type": "jsonb",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "long_term_impact_scores",
+        "Type": "jsonb",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "monthly_max_daily_unpark",
+        "Type": "jsonb",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "created_at",
+        "Type": "timestamp",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "updated_at",
+        "Type": "timestamp",
+        "Nullable": true,
+        "IsNew": false
+      }
+    ],
+    "tc_pipeline_segments": [
+      {
+        "Name": "id",
+        "Type": "serial4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "pipeline_id",
+        "Type": "varchar(20)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "segment_order_name",
+        "Type": "varchar(100)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "segment",
+        "Type": "varchar(100)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "segment_order",
+        "Type": "int4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "start_station",
+        "Type": "varchar(100)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "end_station",
+        "Type": "varchar(100)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "maop",
+        "Type": "float4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "minop",
+        "Type": "float4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "milepost",
+        "Type": "float4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "pressure",
+        "Type": "float4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "flow_factor",
+        "Type": "float4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "volume",
+        "Type": "float4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "notes",
+        "Type": "text",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "is_active",
+        "Type": "bool",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "created_at",
+        "Type": "timestamp",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "updated_at",
+        "Type": "timestamp",
+        "Nullable": false,
+        "IsNew": false
+      }
+    ],
+    "tc_pipeline_stations": [
+      {
+        "Name": "id",
+        "Type": "serial4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "pipeline_id",
+        "Type": "varchar(20)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "station_name",
+        "Type": "varchar(100)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "flow_order",
+        "Type": "int4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "station_type",
+        "Type": "varchar(20)",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "maop",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "minop",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "maop_cushion",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "minop_cushion",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "is_active",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "created_at",
+        "Type": "timestamp",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "created_by",
+        "Type": "varchar(100)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "updated_at",
+        "Type": "timestamp",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "updated_by",
+        "Type": "varchar(100)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "mile_post",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "station_role",
+        "Type": "int4",
+        "Nullable": false,
+        "IsNew": false
+      },
+      {
+        "Name": "rated_hp",
+        "Type": "float8",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "is_booster",
+        "Type": "bool",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "meter_id",
+        "Type": "int4",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "station_number",
+        "Type": "varchar(50)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "distribution",
+        "Type": "varchar(100)",
+        "Nullable": true,
+        "IsNew": false
+      }
+    ],
+    "IF": [
+      {
+        "Name": "pipeline",
+        "Type": "VARCHAR(50)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "startcs",
+        "Type": "VARCHAR(50)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "endcs",
+        "Type": "VARCHAR(50)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "segmentordername",
+        "Type": "VARCHAR(50)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "segment",
+        "Type": "VARCHAR(50)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "segmentorder",
+        "Type": "INTEGER",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "notes",
+        "Type": "VARCHAR(50)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "maop",
+        "Type": "INTEGER",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "minop",
+        "Type": "INTEGER",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "milepost",
+        "Type": "NUMERIC(18,2)",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "pressure",
+        "Type": "INTEGER",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "ffactor",
+        "Type": "REAL",
+        "Nullable": true,
+        "IsNew": false
+      },
+      {
+        "Name": "volume",
+        "Type": "INTEGER",
+        "Nullable": true,
+        "IsNew": false
+      }
+    ]
+  },
+  "SelectedTable": "",
+  "SavedAt": "2025-11-02T00:53:54.719517-05:00",
+  "TableCount": 23
+}

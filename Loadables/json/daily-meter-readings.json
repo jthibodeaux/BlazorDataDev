@@ -1,0 +1,5223 @@
+{
+"tc_dailymeterreadings": [
+	{
+		"timestamp" : "2025-10-18T18:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1058.8881835938,
+		"flow_rate_mmcfd" : 690.4739379883,
+		"pressure" : 1304.5245361328,
+		"id" : 2777324,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-18T18:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1081.6481933594,
+		"flow_rate_mmcfd" : 746.418762207,
+		"pressure" : 983.2166137695,
+		"id" : 2777200,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-18T18:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1033.7432861328,
+		"flow_rate_mmcfd" : 449.112701416,
+		"pressure" : 1349.8868408203,
+		"id" : 2777262,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-18T18:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1087.1678466797,
+		"flow_rate_mmcfd" : 204.4613800049,
+		"pressure" : 880.4671630859,
+		"id" : 2777138,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-18T18:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1081.6481933594,
+		"flow_rate_mmcfd" : 170.9390563965,
+		"pressure" : 845.4240722656,
+		"id" : 2777076,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-18T17:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1081.8088378906,
+		"flow_rate_mmcfd" : 170.0605926514,
+		"pressure" : 844.7532348633,
+		"id" : 2777077,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-18T17:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1088.3837890625,
+		"flow_rate_mmcfd" : 203.4991455078,
+		"pressure" : 891.6013183594,
+		"id" : 2777139,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-18T17:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1081.8088378906,
+		"flow_rate_mmcfd" : 763.5661010742,
+		"pressure" : 980.9937133789,
+		"id" : 2777201,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-18T17:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1059.3217773438,
+		"flow_rate_mmcfd" : 680.6372070313,
+		"pressure" : 1301.0961914063,
+		"id" : 2777325,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-18T17:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1033.5831298828,
+		"flow_rate_mmcfd" : 432.3041381836,
+		"pressure" : 1346.4978027344,
+		"id" : 2777263,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-18T16:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1090.4945068359,
+		"flow_rate_mmcfd" : 204.1917114258,
+		"pressure" : 904.1752929688,
+		"id" : 2777140,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-18T16:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1081.8937988281,
+		"flow_rate_mmcfd" : 169.5819244385,
+		"pressure" : 844.6573486328,
+		"id" : 2777078,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-18T16:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1034.8518066406,
+		"flow_rate_mmcfd" : 450.9143371582,
+		"pressure" : 1345.1796875,
+		"id" : 2777264,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-18T16:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1060.7440185547,
+		"flow_rate_mmcfd" : 684.5830688477,
+		"pressure" : 1299.0948486328,
+		"id" : 2777326,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-18T16:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1081.8937988281,
+		"flow_rate_mmcfd" : 764.8426513672,
+		"pressure" : 977.997253418,
+		"id" : 2777202,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-18T15:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1060.0826416016,
+		"flow_rate_mmcfd" : 688.6419677734,
+		"pressure" : 1299.3990478516,
+		"id" : 2777327,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-18T15:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1090.4190673828,
+		"flow_rate_mmcfd" : 204.3475646973,
+		"pressure" : 921.7405395508,
+		"id" : 2777141,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-18T15:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1082.9484863281,
+		"flow_rate_mmcfd" : 875.6292724609,
+		"pressure" : 969.5035400391,
+		"id" : 2777203,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-18T15:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1082.9484863281,
+		"flow_rate_mmcfd" : 170.258026123,
+		"pressure" : 845.1365966797,
+		"id" : 2777079,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-18T15:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1034.8372802734,
+		"flow_rate_mmcfd" : 404.9902954102,
+		"pressure" : 1340.599609375,
+		"id" : 2777265,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-18T14:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1082.7517089844,
+		"flow_rate_mmcfd" : 234.0383453369,
+		"pressure" : 935.9462280273,
+		"id" : 2777142,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-18T14:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1081.4881591797,
+		"flow_rate_mmcfd" : 886.7757568359,
+		"pressure" : 970.7952270508,
+		"id" : 2777204,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-18T14:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1081.4881591797,
+		"flow_rate_mmcfd" : 175.4993133545,
+		"pressure" : 845.8073730469,
+		"id" : 2777080,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-18T14:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1059.6766357422,
+		"flow_rate_mmcfd" : 679.0615844727,
+		"pressure" : 1297.7392578125,
+		"id" : 2777328,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-18T14:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1036.1051025391,
+		"flow_rate_mmcfd" : 399.7600708008,
+		"pressure" : 1340.6296386719,
+		"id" : 2777266,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-18T13:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1081.3913574219,
+		"flow_rate_mmcfd" : 235.7929992676,
+		"pressure" : 930.8590698242,
+		"id" : 2777143,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-18T13:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1081.6596679688,
+		"flow_rate_mmcfd" : 888.7756958008,
+		"pressure" : 973.2359619141,
+		"id" : 2777205,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-18T13:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1035.7425537109,
+		"flow_rate_mmcfd" : 403.4093017578,
+		"pressure" : 1341.1809082031,
+		"id" : 2777267,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-18T13:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1056.8660888672,
+		"flow_rate_mmcfd" : 682.5272216797,
+		"pressure" : 1300.6568603516,
+		"id" : 2777329,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-18T13:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1080.7735595703,
+		"flow_rate_mmcfd" : 174.46534729,
+		"pressure" : 846.9573364258,
+		"id" : 2777081,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-18T12:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1083.3035888672,
+		"flow_rate_mmcfd" : 174.6402587891,
+		"pressure" : 848.3947753906,
+		"id" : 2777082,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-18T12:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1081.2221679688,
+		"flow_rate_mmcfd" : 235.6098480225,
+		"pressure" : 924.3321533203,
+		"id" : 2777144,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-18T12:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1081.3978271484,
+		"flow_rate_mmcfd" : 881.657409668,
+		"pressure" : 977.0209350586,
+		"id" : 2777206,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-18T12:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1057.3273925781,
+		"flow_rate_mmcfd" : 700.289855957,
+		"pressure" : 1301.8435058594,
+		"id" : 2777330,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-18T12:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1035.1932373047,
+		"flow_rate_mmcfd" : 404.6108398438,
+		"pressure" : 1340.7586669922,
+		"id" : 2777268,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-18T11:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1080.7346191406,
+		"flow_rate_mmcfd" : 235.5326690674,
+		"pressure" : 916.0774536133,
+		"id" : 2777145,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-18T11:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1084.6363525391,
+		"flow_rate_mmcfd" : 175.9264678955,
+		"pressure" : 848.2031860352,
+		"id" : 2777083,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-18T11:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1084.3314208984,
+		"flow_rate_mmcfd" : 824.9839477539,
+		"pressure" : 983.5357666016,
+		"id" : 2777207,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-18T11:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1035.0119628906,
+		"flow_rate_mmcfd" : 380.2956237793,
+		"pressure" : 1339.4010009766,
+		"id" : 2777269,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-18T11:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1057.41015625,
+		"flow_rate_mmcfd" : 692.5274658203,
+		"pressure" : 1301.1525878906,
+		"id" : 2777331,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-18T10:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1033.6062011719,
+		"flow_rate_mmcfd" : 385.9438476563,
+		"pressure" : 1339.5632324219,
+		"id" : 2777270,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-18T10:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1080.6936035156,
+		"flow_rate_mmcfd" : 235.5753631592,
+		"pressure" : 910.0303955078,
+		"id" : 2777146,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-18T10:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1057.1793212891,
+		"flow_rate_mmcfd" : 685.8537597656,
+		"pressure" : 1299.8383789063,
+		"id" : 2777332,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-18T10:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1088.6448974609,
+		"flow_rate_mmcfd" : 175.2868499756,
+		"pressure" : 848.0114746094,
+		"id" : 2777084,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-18T10:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1087.5499267578,
+		"flow_rate_mmcfd" : 799.8167724609,
+		"pressure" : 984.0277099609,
+		"id" : 2777208,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-18T09:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1088.9056396484,
+		"flow_rate_mmcfd" : 800.9557495117,
+		"pressure" : 983.378112793,
+		"id" : 2777209,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-18T09:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1088.6822509766,
+		"flow_rate_mmcfd" : 175.6467590332,
+		"pressure" : 847.1490478516,
+		"id" : 2777085,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-18T09:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1031.9635009766,
+		"flow_rate_mmcfd" : 426.2910461426,
+		"pressure" : 1341.2075195313,
+		"id" : 2777271,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-18T09:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1080.7943115234,
+		"flow_rate_mmcfd" : 234.1137237549,
+		"pressure" : 908.3986816406,
+		"id" : 2777147,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-18T09:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1057.8000488281,
+		"flow_rate_mmcfd" : 689.1401977539,
+		"pressure" : 1299.5529785156,
+		"id" : 2777333,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-18T08:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1081.5013427734,
+		"flow_rate_mmcfd" : 239.078338623,
+		"pressure" : 906.3829956055,
+		"id" : 2777148,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-18T08:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1032.5952148438,
+		"flow_rate_mmcfd" : 400.8565368652,
+		"pressure" : 1339.6342773438,
+		"id" : 2777272,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-18T08:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1085.2741699219,
+		"flow_rate_mmcfd" : 175.41015625,
+		"pressure" : 847.340637207,
+		"id" : 2777086,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-18T08:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1085.6063232422,
+		"flow_rate_mmcfd" : 810.5438842773,
+		"pressure" : 983.1752929688,
+		"id" : 2777210,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-18T08:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1057.8815917969,
+		"flow_rate_mmcfd" : 686.9782104492,
+		"pressure" : 1299.6430664063,
+		"id" : 2777334,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-18T07:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1084.5330810547,
+		"flow_rate_mmcfd" : 176.7752838135,
+		"pressure" : 848.1073608398,
+		"id" : 2777087,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-18T07:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1057.8394775391,
+		"flow_rate_mmcfd" : 690.3576049805,
+		"pressure" : 1299.3126220703,
+		"id" : 2777335,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-18T07:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1032.6710205078,
+		"flow_rate_mmcfd" : 414.0107116699,
+		"pressure" : 1337.6414794922,
+		"id" : 2777273,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-18T07:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1081.2839355469,
+		"flow_rate_mmcfd" : 235.4410552979,
+		"pressure" : 903.2155151367,
+		"id" : 2777149,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-18T07:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1084.9844970703,
+		"flow_rate_mmcfd" : 814.8452758789,
+		"pressure" : 983.1752929688,
+		"id" : 2777211,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-18T06:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1032.8526611328,
+		"flow_rate_mmcfd" : 406.535736084,
+		"pressure" : 1334.9448242188,
+		"id" : 2777274,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-18T06:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1083.4169921875,
+		"flow_rate_mmcfd" : 173.4065856934,
+		"pressure" : 849.4489135742,
+		"id" : 2777088,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-18T06:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1083.8560791016,
+		"flow_rate_mmcfd" : 853.8207397461,
+		"pressure" : 981.5006103516,
+		"id" : 2777212,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-18T06:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1079.4205322266,
+		"flow_rate_mmcfd" : 235.1628417969,
+		"pressure" : 899.8560180664,
+		"id" : 2777150,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-18T06:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1057.2443847656,
+		"flow_rate_mmcfd" : 694.9337158203,
+		"pressure" : 1297.7692871094,
+		"id" : 2777336,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-18T05:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1080.1358642578,
+		"flow_rate_mmcfd" : 235.2257385254,
+		"pressure" : 896.4965209961,
+		"id" : 2777151,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-18T05:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1058.7344970703,
+		"flow_rate_mmcfd" : 703.6135864258,
+		"pressure" : 1296.4738769531,
+		"id" : 2777337,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-18T05:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1085.3979492188,
+		"flow_rate_mmcfd" : 861.127746582,
+		"pressure" : 983.8925170898,
+		"id" : 2777213,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-18T05:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1086.1457519531,
+		"flow_rate_mmcfd" : 174.1106567383,
+		"pressure" : 851.5572509766,
+		"id" : 2777089,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-18T05:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1032.7333984375,
+		"flow_rate_mmcfd" : 403.825012207,
+		"pressure" : 1332.2813720703,
+		"id" : 2777275,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-18T04:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1057.8859863281,
+		"flow_rate_mmcfd" : 699.7879638672,
+		"pressure" : 1295.5051269531,
+		"id" : 2777338,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-18T04:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1087.0421142578,
+		"flow_rate_mmcfd" : 234.773223877,
+		"pressure" : 895.8247070313,
+		"id" : 2777152,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-18T04:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1084.6223144531,
+		"flow_rate_mmcfd" : 173.96144104,
+		"pressure" : 854.5280761719,
+		"id" : 2777090,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-18T04:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1085.3540039063,
+		"flow_rate_mmcfd" : 864.7771606445,
+		"pressure" : 986.4346313477,
+		"id" : 2777214,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-18T04:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1032.1740722656,
+		"flow_rate_mmcfd" : 390.8711242676,
+		"pressure" : 1327.9099121094,
+		"id" : 2777276,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-18T03:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1058.9608154297,
+		"flow_rate_mmcfd" : 705.3193969727,
+		"pressure" : 1292.8765869141,
+		"id" : 2777339,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-18T03:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1085.1912841797,
+		"flow_rate_mmcfd" : 173.4111938477,
+		"pressure" : 858.8404541016,
+		"id" : 2777091,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-18T03:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1084.6556396484,
+		"flow_rate_mmcfd" : 868.2189941406,
+		"pressure" : 989.9079589844,
+		"id" : 2777215,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-18T03:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1031.8598632813,
+		"flow_rate_mmcfd" : 393.7319335938,
+		"pressure" : 1325.3747558594,
+		"id" : 2777277,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-18T03:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1084.7060546875,
+		"flow_rate_mmcfd" : 234.9990539551,
+		"pressure" : 894.4808959961,
+		"id" : 2777153,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-18T02:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1084.7321777344,
+		"flow_rate_mmcfd" : 872.1459350586,
+		"pressure" : 994.4627075195,
+		"id" : 2777216,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-18T02:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1031.3327636719,
+		"flow_rate_mmcfd" : 388.0028076172,
+		"pressure" : 1323.0103759766,
+		"id" : 2777278,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-18T02:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1087.6813964844,
+		"flow_rate_mmcfd" : 235.6663665771,
+		"pressure" : 894.5768432617,
+		"id" : 2777154,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-18T02:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1058.9505615234,
+		"flow_rate_mmcfd" : 703.4000854492,
+		"pressure" : 1290.9052734375,
+		"id" : 2777340,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-18T02:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1085.9318847656,
+		"flow_rate_mmcfd" : 175.0534057617,
+		"pressure" : 862.8653564453,
+		"id" : 2777092,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-18T01:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1085.7829589844,
+		"flow_rate_mmcfd" : 175.2316741943,
+		"pressure" : 866.7944946289,
+		"id" : 2777093,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-18T01:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1086.1154785156,
+		"flow_rate_mmcfd" : 234.4297180176,
+		"pressure" : 894.3848876953,
+		"id" : 2777155,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-18T01:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1031.6701660156,
+		"flow_rate_mmcfd" : 400.2157897949,
+		"pressure" : 1320.0834960938,
+		"id" : 2777279,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-18T01:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1058.7823486328,
+		"flow_rate_mmcfd" : 702.1450805664,
+		"pressure" : 1289.8614501953,
+		"id" : 2777341,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-18T01:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1085.7430419922,
+		"flow_rate_mmcfd" : 869.5507202148,
+		"pressure" : 999.5093994141,
+		"id" : 2777217,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-18T00:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1085.4536132813,
+		"flow_rate_mmcfd" : 174.187713623,
+		"pressure" : 871.0110473633,
+		"id" : 2777094,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-18T00:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1086.1635742188,
+		"flow_rate_mmcfd" : 236.7529144287,
+		"pressure" : 893.9049682617,
+		"id" : 2777156,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-18T00:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1084.3693847656,
+		"flow_rate_mmcfd" : 870.3084716797,
+		"pressure" : 1004.5710449219,
+		"id" : 2777218,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-18T00:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1031.6419677734,
+		"flow_rate_mmcfd" : 340.8304748535,
+		"pressure" : 1314.4786376953,
+		"id" : 2777280,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-18T00:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1058.544921875,
+		"flow_rate_mmcfd" : 689.0111083984,
+		"pressure" : 1288.1829833984,
+		"id" : 2777342,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-17T23:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1059.6571044922,
+		"flow_rate_mmcfd" : 692.0169067383,
+		"pressure" : 1287.0677490234,
+		"id" : 2777343,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-17T23:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1085.6979980469,
+		"flow_rate_mmcfd" : 149.8625335693,
+		"pressure" : 876.1859130859,
+		"id" : 2777095,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-17T23:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1086.3337402344,
+		"flow_rate_mmcfd" : 870.3573608398,
+		"pressure" : 1009.4600219727,
+		"id" : 2777219,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T23:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1088.9399414063,
+		"flow_rate_mmcfd" : 236.3486785889,
+		"pressure" : 892.8491821289,
+		"id" : 2777157,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T23:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1030.4219970703,
+		"flow_rate_mmcfd" : 342.0668334961,
+		"pressure" : 1313.4951171875,
+		"id" : 2777281,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-17T22:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1086.3558349609,
+		"flow_rate_mmcfd" : 868.2607421875,
+		"pressure" : 1013.4552612305,
+		"id" : 2777220,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T22:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1085.5882568359,
+		"flow_rate_mmcfd" : 151.0968170166,
+		"pressure" : 878.6774902344,
+		"id" : 2777096,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-17T22:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1030.2092285156,
+		"flow_rate_mmcfd" : 341.7864685059,
+		"pressure" : 1312.7752685547,
+		"id" : 2777282,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-17T22:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1059.8784179688,
+		"flow_rate_mmcfd" : 691.2378540039,
+		"pressure" : 1285.7947998047,
+		"id" : 2777344,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-17T22:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1083.4525146484,
+		"flow_rate_mmcfd" : 256.609954834,
+		"pressure" : 887.666015625,
+		"id" : 2777158,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T21:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1030.2863769531,
+		"flow_rate_mmcfd" : 344.6727600098,
+		"pressure" : 1312.9157714844,
+		"id" : 2777283,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-17T21:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1084.9661865234,
+		"flow_rate_mmcfd" : 150.1605682373,
+		"pressure" : 880.7858276367,
+		"id" : 2777097,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-17T21:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1084.2822265625,
+		"flow_rate_mmcfd" : 258.089050293,
+		"pressure" : 885.3623657227,
+		"id" : 2777159,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T21:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1085.8912353516,
+		"flow_rate_mmcfd" : 868.2620849609,
+		"pressure" : 1016.9473876953,
+		"id" : 2777221,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T21:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1060.0233154297,
+		"flow_rate_mmcfd" : 692.7033081055,
+		"pressure" : 1283.1062011719,
+		"id" : 2777345,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-17T20:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1030.6103515625,
+		"flow_rate_mmcfd" : 349.5126037598,
+		"pressure" : 1313.7794189453,
+		"id" : 2777284,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-17T20:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1085.1990966797,
+		"flow_rate_mmcfd" : 257.6051025391,
+		"pressure" : 882.6748046875,
+		"id" : 2777160,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T20:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1061.6124267578,
+		"flow_rate_mmcfd" : 690.3582763672,
+		"pressure" : 1282.7194824219,
+		"id" : 2777346,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-17T20:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1085.0992431641,
+		"flow_rate_mmcfd" : 149.6660461426,
+		"pressure" : 882.7024536133,
+		"id" : 2777098,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-17T20:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1084.9212646484,
+		"flow_rate_mmcfd" : 876.1642456055,
+		"pressure" : 1020.1015625,
+		"id" : 2777222,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T19:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1085.1337890625,
+		"flow_rate_mmcfd" : 875.4290771484,
+		"pressure" : 1022.1141967773,
+		"id" : 2777223,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T19:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1085.205078125,
+		"flow_rate_mmcfd" : 150.9842529297,
+		"pressure" : 884.8107299805,
+		"id" : 2777099,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-17T19:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1083.1948242188,
+		"flow_rate_mmcfd" : 256.9006958008,
+		"pressure" : 880.1791992188,
+		"id" : 2777161,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T19:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1061.8541259766,
+		"flow_rate_mmcfd" : 685.8540649414,
+		"pressure" : 1280.654296875,
+		"id" : 2777347,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-17T19:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1030.7272949219,
+		"flow_rate_mmcfd" : 373.664855957,
+		"pressure" : 1314.5445556641,
+		"id" : 2777285,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-17T18:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1085.0460205078,
+		"flow_rate_mmcfd" : 149.4069519043,
+		"pressure" : 887.9732055664,
+		"id" : 2777100,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-17T18:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1030.4864501953,
+		"flow_rate_mmcfd" : 372.7370300293,
+		"pressure" : 1312.1815185547,
+		"id" : 2777286,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-17T18:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1084.4774169922,
+		"flow_rate_mmcfd" : 948.9060058594,
+		"pressure" : 1016.0086669922,
+		"id" : 2777224,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T18:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1081.4871826172,
+		"flow_rate_mmcfd" : 234.9910736084,
+		"pressure" : 877.68359375,
+		"id" : 2777162,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T18:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1061.7211914063,
+		"flow_rate_mmcfd" : 673.5618896484,
+		"pressure" : 1278.4914550781,
+		"id" : 2777348,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-17T17:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1061.1822509766,
+		"flow_rate_mmcfd" : 671.0905761719,
+		"pressure" : 1277.1846923828,
+		"id" : 2777349,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-17T17:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1077.6813964844,
+		"flow_rate_mmcfd" : 234.8332977295,
+		"pressure" : 870.772644043,
+		"id" : 2777163,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T17:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1086.2873535156,
+		"flow_rate_mmcfd" : 924.8218383789,
+		"pressure" : 1020.1541137695,
+		"id" : 2777225,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T17:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1031.1076660156,
+		"flow_rate_mmcfd" : 375.9280090332,
+		"pressure" : 1309.7189941406,
+		"id" : 2777287,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-17T17:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1085.470703125,
+		"flow_rate_mmcfd" : 149.9027862549,
+		"pressure" : 889.9856567383,
+		"id" : 2777101,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-17T16:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1078.1956787109,
+		"flow_rate_mmcfd" : 234.0600280762,
+		"pressure" : 863.2858276367,
+		"id" : 2777164,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T16:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1087.9036865234,
+		"flow_rate_mmcfd" : 150.103515625,
+		"pressure" : 891.9022216797,
+		"id" : 2777102,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-17T16:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1062.2747802734,
+		"flow_rate_mmcfd" : 661.8958129883,
+		"pressure" : 1276.8280029297,
+		"id" : 2777350,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-17T16:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1029.7351074219,
+		"flow_rate_mmcfd" : 334.0270080566,
+		"pressure" : 1303.3302001953,
+		"id" : 2777288,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-17T16:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1088.2670898438,
+		"flow_rate_mmcfd" : 968.5895385742,
+		"pressure" : 1027.1608886719,
+		"id" : 2777226,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T15:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1028.4841308594,
+		"flow_rate_mmcfd" : 300.6197509766,
+		"pressure" : 1300.5355224609,
+		"id" : 2777289,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-17T15:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1062.8267822266,
+		"flow_rate_mmcfd" : 672.1189575195,
+		"pressure" : 1276.2384033203,
+		"id" : 2777351,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-17T15:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1090.5340576172,
+		"flow_rate_mmcfd" : 793.315246582,
+		"pressure" : 1082.6628417969,
+		"id" : 2777227,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T15:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1090.5340576172,
+		"flow_rate_mmcfd" : 151.0864715576,
+		"pressure" : 894.6813354492,
+		"id" : 2777103,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-17T15:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1076.2268066406,
+		"flow_rate_mmcfd" : 237.6792449951,
+		"pressure" : 854.1673583984,
+		"id" : 2777165,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T14:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1027.9534912109,
+		"flow_rate_mmcfd" : 298.8637390137,
+		"pressure" : 1300.2917480469,
+		"id" : 2777290,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-17T14:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1078.5367431641,
+		"flow_rate_mmcfd" : 322.4813232422,
+		"pressure" : 827.2916259766,
+		"id" : 2777166,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T14:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1060.5949707031,
+		"flow_rate_mmcfd" : 675.6096191406,
+		"pressure" : 1277.744140625,
+		"id" : 2777352,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-17T14:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1089.5759277344,
+		"flow_rate_mmcfd" : 149.4515380859,
+		"pressure" : 896.8854980469,
+		"id" : 2777104,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-17T14:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1089.5759277344,
+		"flow_rate_mmcfd" : 763.3673706055,
+		"pressure" : 1085.0135498047,
+		"id" : 2777228,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T13:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1090.1705322266,
+		"flow_rate_mmcfd" : 148.977645874,
+		"pressure" : 898.2271118164,
+		"id" : 2777105,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-17T13:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1030.2674560547,
+		"flow_rate_mmcfd" : 297.5616760254,
+		"pressure" : 1299.4654541016,
+		"id" : 2777291,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-17T13:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1062.6566162109,
+		"flow_rate_mmcfd" : 676.5184936523,
+		"pressure" : 1277.2109375,
+		"id" : 2777353,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-17T13:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1074.3331298828,
+		"flow_rate_mmcfd" : 328.2423706055,
+		"pressure" : 830.2671508789,
+		"id" : 2777167,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T13:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1090.1705322266,
+		"flow_rate_mmcfd" : 751.6443481445,
+		"pressure" : 1064.8269042969,
+		"id" : 2777229,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T12:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1031.1511230469,
+		"flow_rate_mmcfd" : 298.7160644531,
+		"pressure" : 1299.4516601563,
+		"id" : 2777292,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-17T12:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1061.5158691406,
+		"flow_rate_mmcfd" : 679.2524414063,
+		"pressure" : 1274.6275634766,
+		"id" : 2777354,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-17T12:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1087.5726318359,
+		"flow_rate_mmcfd" : 780.4418945313,
+		"pressure" : 1070.8985595703,
+		"id" : 2777230,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T12:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1087.5726318359,
+		"flow_rate_mmcfd" : 149.9479675293,
+		"pressure" : 899.7603759766,
+		"id" : 2777106,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-17T12:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1073.0638427734,
+		"flow_rate_mmcfd" : 330.1909484863,
+		"pressure" : 832.9547119141,
+		"id" : 2777168,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T11:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1075.5118408203,
+		"flow_rate_mmcfd" : 330.3298339844,
+		"pressure" : 835.0663452148,
+		"id" : 2777169,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T11:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1031.3323974609,
+		"flow_rate_mmcfd" : 299.7048034668,
+		"pressure" : 1299.8618164063,
+		"id" : 2777293,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-17T11:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1087.7253417969,
+		"flow_rate_mmcfd" : 150.1538238525,
+		"pressure" : 901.293762207,
+		"id" : 2777107,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-17T11:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1061.0089111328,
+		"flow_rate_mmcfd" : 667.4158325195,
+		"pressure" : 1275.0556640625,
+		"id" : 2777355,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-17T11:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1087.7253417969,
+		"flow_rate_mmcfd" : 754.1714477539,
+		"pressure" : 1073.0013427734,
+		"id" : 2777231,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T10:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1031.2923583984,
+		"flow_rate_mmcfd" : 296.623260498,
+		"pressure" : 1299.9163818359,
+		"id" : 2777294,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-17T10:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1073.3820800781,
+		"flow_rate_mmcfd" : 327.0842590332,
+		"pressure" : 838.3298339844,
+		"id" : 2777170,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T10:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1086.3052978516,
+		"flow_rate_mmcfd" : 149.0723114014,
+		"pressure" : 902.6353759766,
+		"id" : 2777108,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-17T10:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1086.3052978516,
+		"flow_rate_mmcfd" : 760.6442871094,
+		"pressure" : 1073.9814453125,
+		"id" : 2777232,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T10:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1061.0296630859,
+		"flow_rate_mmcfd" : 684.7414550781,
+		"pressure" : 1276.9068603516,
+		"id" : 2777356,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-17T09:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1076.1473388672,
+		"flow_rate_mmcfd" : 330.8128662109,
+		"pressure" : 840.9214477539,
+		"id" : 2777171,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T09:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1087.84375,
+		"flow_rate_mmcfd" : 150.1531524658,
+		"pressure" : 903.3062133789,
+		"id" : 2777109,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-17T09:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1087.84375,
+		"flow_rate_mmcfd" : 765.6689453125,
+		"pressure" : 1067.2563476563,
+		"id" : 2777233,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T09:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1031.1541748047,
+		"flow_rate_mmcfd" : 293.6835632324,
+		"pressure" : 1299.4708251953,
+		"id" : 2777295,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-17T09:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1059.8266601563,
+		"flow_rate_mmcfd" : 699.3787231445,
+		"pressure" : 1278.1872558594,
+		"id" : 2777357,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-17T08:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1032.1014404297,
+		"flow_rate_mmcfd" : 292.0866394043,
+		"pressure" : 1298.2274169922,
+		"id" : 2777296,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-17T08:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1088.5120849609,
+		"flow_rate_mmcfd" : 756.3994750977,
+		"pressure" : 1058.3946533203,
+		"id" : 2777234,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T08:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1075.0998535156,
+		"flow_rate_mmcfd" : 328.997833252,
+		"pressure" : 843.3210449219,
+		"id" : 2777172,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T08:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1086.5122070313,
+		"flow_rate_mmcfd" : 150.2078704834,
+		"pressure" : 904.2645263672,
+		"id" : 2777110,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-17T08:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1060.771484375,
+		"flow_rate_mmcfd" : 692.2434692383,
+		"pressure" : 1278.7655029297,
+		"id" : 2777358,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-17T07:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1032.2208251953,
+		"flow_rate_mmcfd" : 293.1806640625,
+		"pressure" : 1296.8656005859,
+		"id" : 2777297,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-17T07:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1087.6691894531,
+		"flow_rate_mmcfd" : 151.0236053467,
+		"pressure" : 904.0728149414,
+		"id" : 2777111,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-17T07:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1087.6691894531,
+		"flow_rate_mmcfd" : 776.1666870117,
+		"pressure" : 1046.4312744141,
+		"id" : 2777235,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T07:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1072.4320068359,
+		"flow_rate_mmcfd" : 327.8268737793,
+		"pressure" : 851.0958251953,
+		"id" : 2777173,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T07:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1060.1420898438,
+		"flow_rate_mmcfd" : 696.8726806641,
+		"pressure" : 1278.3411865234,
+		"id" : 2777359,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-17T06:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1032.5467529297,
+		"flow_rate_mmcfd" : 307.798828125,
+		"pressure" : 1296.0130615234,
+		"id" : 2777298,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-17T06:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1090.4125976563,
+		"flow_rate_mmcfd" : 149.6999969482,
+		"pressure" : 904.1686401367,
+		"id" : 2777112,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-17T06:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1060.7376708984,
+		"flow_rate_mmcfd" : 697.2998046875,
+		"pressure" : 1276.0244140625,
+		"id" : 2777360,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-17T06:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1091.8543701172,
+		"flow_rate_mmcfd" : 802.6377563477,
+		"pressure" : 1034.3629150391,
+		"id" : 2777236,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T06:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1070.7219238281,
+		"flow_rate_mmcfd" : 328.839630127,
+		"pressure" : 855.2231445313,
+		"id" : 2777174,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T05:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1093.5216064453,
+		"flow_rate_mmcfd" : 815.602722168,
+		"pressure" : 1032.3201904297,
+		"id" : 2777237,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T05:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1093.5216064453,
+		"flow_rate_mmcfd" : 150.8711547852,
+		"pressure" : 904.6478271484,
+		"id" : 2777113,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-17T05:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1062.7855224609,
+		"flow_rate_mmcfd" : 706.198425293,
+		"pressure" : 1273.4222412109,
+		"id" : 2777361,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-17T05:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1068.9705810547,
+		"flow_rate_mmcfd" : 330.8008728027,
+		"pressure" : 850.9038696289,
+		"id" : 2777175,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T05:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1032.6337890625,
+		"flow_rate_mmcfd" : 308.1206054688,
+		"pressure" : 1293.6195068359,
+		"id" : 2777299,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-17T04:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1061.2093505859,
+		"flow_rate_mmcfd" : 701.4137573242,
+		"pressure" : 1269.5395507813,
+		"id" : 2777362,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-17T04:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1032.1806640625,
+		"flow_rate_mmcfd" : 348.4623413086,
+		"pressure" : 1292.6772460938,
+		"id" : 2777300,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-17T04:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1093.2288818359,
+		"flow_rate_mmcfd" : 826.5121459961,
+		"pressure" : 1031.2125244141,
+		"id" : 2777238,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T04:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1069.0887451172,
+		"flow_rate_mmcfd" : 328.5254516602,
+		"pressure" : 844.8568725586,
+		"id" : 2777176,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T04:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1093.2288818359,
+		"flow_rate_mmcfd" : 148.9405517578,
+		"pressure" : 905.9895019531,
+		"id" : 2777114,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-17T03:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1060.8552246094,
+		"flow_rate_mmcfd" : 690.3661499023,
+		"pressure" : 1265.6794433594,
+		"id" : 2777363,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-17T03:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1031.7463378906,
+		"flow_rate_mmcfd" : 379.9838256836,
+		"pressure" : 1286.6861572266,
+		"id" : 2777301,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-17T03:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1090.0814208984,
+		"flow_rate_mmcfd" : 149.8790130615,
+		"pressure" : 907.9060668945,
+		"id" : 2777115,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-17T03:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1067.4462890625,
+		"flow_rate_mmcfd" : 328.0796813965,
+		"pressure" : 836.4102172852,
+		"id" : 2777177,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T03:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1090.0814208984,
+		"flow_rate_mmcfd" : 824.815246582,
+		"pressure" : 1032.8571777344,
+		"id" : 2777239,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T02:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1031.5406494141,
+		"flow_rate_mmcfd" : 303.8011169434,
+		"pressure" : 1278.8151855469,
+		"id" : 2777302,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-17T02:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1088.6618652344,
+		"flow_rate_mmcfd" : 148.4587860107,
+		"pressure" : 910.0143432617,
+		"id" : 2777116,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-17T02:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1062.4371337891,
+		"flow_rate_mmcfd" : 691.6100463867,
+		"pressure" : 1262.0484619141,
+		"id" : 2777364,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-17T02:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1088.6618652344,
+		"flow_rate_mmcfd" : 819.7509155273,
+		"pressure" : 1040.7163085938,
+		"id" : 2777240,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T02:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1072.6021728516,
+		"flow_rate_mmcfd" : 328.006652832,
+		"pressure" : 832.4747924805,
+		"id" : 2777178,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T01:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1062.0065917969,
+		"flow_rate_mmcfd" : 699.5127563477,
+		"pressure" : 1258.8004150391,
+		"id" : 2777365,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-17T01:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1087.6060791016,
+		"flow_rate_mmcfd" : 828.5374755859,
+		"pressure" : 1051.3765869141,
+		"id" : 2777241,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T01:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1032.7481689453,
+		"flow_rate_mmcfd" : 298.9539794922,
+		"pressure" : 1275.6223144531,
+		"id" : 2777303,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-17T01:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1087.6060791016,
+		"flow_rate_mmcfd" : 150.5691986084,
+		"pressure" : 912.2185058594,
+		"id" : 2777117,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-17T01:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1071.3857421875,
+		"flow_rate_mmcfd" : 328.9947509766,
+		"pressure" : 832.2827758789,
+		"id" : 2777179,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T00:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1088.7043457031,
+		"flow_rate_mmcfd" : 149.064956665,
+		"pressure" : 917.7766723633,
+		"id" : 2777118,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-17T00:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1033.5559082031,
+		"flow_rate_mmcfd" : 301.5293579102,
+		"pressure" : 1273.2578125,
+		"id" : 2777304,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-17T00:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1088.7043457031,
+		"flow_rate_mmcfd" : 833.1661376953,
+		"pressure" : 1067.5341796875,
+		"id" : 2777242,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-17T00:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1061.9652099609,
+		"flow_rate_mmcfd" : 700.2614135742,
+		"pressure" : 1256.1531982422,
+		"id" : 2777366,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-17T00:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1070.0895996094,
+		"flow_rate_mmcfd" : 329.6026916504,
+		"pressure" : 827.6755371094,
+		"id" : 2777180,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T23:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1034.2757568359,
+		"flow_rate_mmcfd" : 295.4354248047,
+		"pressure" : 1271.5235595703,
+		"id" : 2777305,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-16T23:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1063.6331787109,
+		"flow_rate_mmcfd" : 705.0034790039,
+		"pressure" : 1254.3282470703,
+		"id" : 2777367,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-16T23:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1087.837890625,
+		"flow_rate_mmcfd" : 825.3020019531,
+		"pressure" : 1078.8028564453,
+		"id" : 2777243,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T23:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1068.7578125,
+		"flow_rate_mmcfd" : 313.586151123,
+		"pressure" : 822.5883789063,
+		"id" : 2777181,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T23:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1087.837890625,
+		"flow_rate_mmcfd" : 149.7484741211,
+		"pressure" : 921.993347168,
+		"id" : 2777119,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-16T22:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1089.4908447266,
+		"flow_rate_mmcfd" : 875.2028808594,
+		"pressure" : 1095.7639160156,
+		"id" : 2777244,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T22:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1034.1994628906,
+		"flow_rate_mmcfd" : 298.5582275391,
+		"pressure" : 1269.6182861328,
+		"id" : 2777306,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-16T22:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1063.4838867188,
+		"flow_rate_mmcfd" : 706.8698730469,
+		"pressure" : 1252.6685791016,
+		"id" : 2777368,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-16T22:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1089.4908447266,
+		"flow_rate_mmcfd" : 148.8778381348,
+		"pressure" : 926.4973754883,
+		"id" : 2777120,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-16T22:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1070.6184082031,
+		"flow_rate_mmcfd" : 316.3450012207,
+		"pressure" : 862.3260498047,
+		"id" : 2777182,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T21:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1034.1174316406,
+		"flow_rate_mmcfd" : 309.0647583008,
+		"pressure" : 1267.9201660156,
+		"id" : 2777307,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-16T21:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1087.5855712891,
+		"flow_rate_mmcfd" : 859.462890625,
+		"pressure" : 1100.908203125,
+		"id" : 2777245,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T21:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1087.5855712891,
+		"flow_rate_mmcfd" : 148.7874755859,
+		"pressure" : 936.1763305664,
+		"id" : 2777121,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-16T21:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1071.3197021484,
+		"flow_rate_mmcfd" : 314.6040039063,
+		"pressure" : 866.0693969727,
+		"id" : 2777183,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T21:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1065.2729492188,
+		"flow_rate_mmcfd" : 702.1591186523,
+		"pressure" : 1249.2966308594,
+		"id" : 2777369,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-16T20:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1072.1928710938,
+		"flow_rate_mmcfd" : 315.2128601074,
+		"pressure" : 860.2144165039,
+		"id" : 2777184,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T20:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1033.7232666016,
+		"flow_rate_mmcfd" : 330.4967346191,
+		"pressure" : 1265.3308105469,
+		"id" : 2777308,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-16T20:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1065.3443603516,
+		"flow_rate_mmcfd" : 706.8998413086,
+		"pressure" : 1247.400390625,
+		"id" : 2777370,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-16T20:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1086.3587646484,
+		"flow_rate_mmcfd" : 867.4779663086,
+		"pressure" : 1115.4061279297,
+		"id" : 2777246,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T20:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1086.3587646484,
+		"flow_rate_mmcfd" : 146.9710083008,
+		"pressure" : 949.3052368164,
+		"id" : 2777122,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-16T19:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1066.8322753906,
+		"flow_rate_mmcfd" : 705.4908447266,
+		"pressure" : 1244.2274169922,
+		"id" : 2777371,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-16T19:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1033.5627441406,
+		"flow_rate_mmcfd" : 310.2474975586,
+		"pressure" : 1262.5181884766,
+		"id" : 2777309,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-16T19:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1073.3009033203,
+		"flow_rate_mmcfd" : 314.6428833008,
+		"pressure" : 853.3994140625,
+		"id" : 2777185,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T19:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1087.4739990234,
+		"flow_rate_mmcfd" : 882.2452392578,
+		"pressure" : 1125.2816162109,
+		"id" : 2777247,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T19:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1087.4739990234,
+		"flow_rate_mmcfd" : 152.1422119141,
+		"pressure" : 963.3923950195,
+		"id" : 2777123,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-16T18:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1067.1630859375,
+		"flow_rate_mmcfd" : 698.6331176758,
+		"pressure" : 1239.1207275391,
+		"id" : 2777372,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-16T18:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1033.7391357422,
+		"flow_rate_mmcfd" : 326.2937927246,
+		"pressure" : 1259.1673583984,
+		"id" : 2777310,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-16T18:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1088.7380371094,
+		"flow_rate_mmcfd" : 872.2747802734,
+		"pressure" : 1120.7907714844,
+		"id" : 2777248,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T18:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1088.7380371094,
+		"flow_rate_mmcfd" : 0.0,
+		"pressure" : 978.725402832,
+		"id" : 2777124,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-16T18:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1073.7886962891,
+		"flow_rate_mmcfd" : 316.9895019531,
+		"pressure" : 852.3436279297,
+		"id" : 2777186,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T17:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1073.1810302734,
+		"flow_rate_mmcfd" : 317.5155334473,
+		"pressure" : 855.7990722656,
+		"id" : 2777187,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T17:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1086.7045898438,
+		"flow_rate_mmcfd" : 0.0,
+		"pressure" : 977.6712646484,
+		"id" : 2777125,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-16T17:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1068.9674072266,
+		"flow_rate_mmcfd" : 696.1379394531,
+		"pressure" : 1233.0939941406,
+		"id" : 2777373,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-16T17:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1033.8233642578,
+		"flow_rate_mmcfd" : 360.2692871094,
+		"pressure" : 1255.2359619141,
+		"id" : 2777311,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-16T17:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1086.7045898438,
+		"flow_rate_mmcfd" : 872.8748779297,
+		"pressure" : 1118.2336425781,
+		"id" : 2777249,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T16:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1075.5303955078,
+		"flow_rate_mmcfd" : 275.2315063477,
+		"pressure" : 872.6923828125,
+		"id" : 2777188,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T16:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1087.9487304688,
+		"flow_rate_mmcfd" : 878.1942749023,
+		"pressure" : 1126.5095214844,
+		"id" : 2777250,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T16:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1032.3511962891,
+		"flow_rate_mmcfd" : 365.6131286621,
+		"pressure" : 1247.2672119141,
+		"id" : 2777312,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-16T16:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1068.0148925781,
+		"flow_rate_mmcfd" : 705.8671264648,
+		"pressure" : 1226.7894287109,
+		"id" : 2777374,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-16T16:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1087.9487304688,
+		"flow_rate_mmcfd" : 0.0,
+		"pressure" : 971.1547851563,
+		"id" : 2777126,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-16T15:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1089.2156982422,
+		"flow_rate_mmcfd" : 888.3471069336,
+		"pressure" : 1126.9112548828,
+		"id" : 2777251,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T15:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1069.5396728516,
+		"flow_rate_mmcfd" : 677.0903930664,
+		"pressure" : 1221.6000976563,
+		"id" : 2777375,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-16T15:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1032.7156982422,
+		"flow_rate_mmcfd" : 168.4874267578,
+		"pressure" : 1229.1517333984,
+		"id" : 2777313,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-16T15:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1089.2156982422,
+		"flow_rate_mmcfd" : 121.3647003174,
+		"pressure" : 964.0632324219,
+		"id" : 2777127,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-16T15:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1074.4906005859,
+		"flow_rate_mmcfd" : 275.0078430176,
+		"pressure" : 887.4739990234,
+		"id" : 2777189,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T14:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1033.4396972656,
+		"flow_rate_mmcfd" : 171.3572998047,
+		"pressure" : 1231.54296875,
+		"id" : 2777314,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-16T14:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1088.5144042969,
+		"flow_rate_mmcfd" : 903.0130615234,
+		"pressure" : 1121.6206054688,
+		"id" : 2777252,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T14:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1088.5144042969,
+		"flow_rate_mmcfd" : 135.9311218262,
+		"pressure" : 964.6382446289,
+		"id" : 2777128,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-16T14:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1067.1411132813,
+		"flow_rate_mmcfd" : 670.8081665039,
+		"pressure" : 1223.4925537109,
+		"id" : 2777376,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-16T14:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1071.5037841797,
+		"flow_rate_mmcfd" : 184.804473877,
+		"pressure" : 903.6954345703,
+		"id" : 2777190,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T13:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1086.3487548828,
+		"flow_rate_mmcfd" : 889.140625,
+		"pressure" : 1108.6396484375,
+		"id" : 2777253,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T13:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1086.3487548828,
+		"flow_rate_mmcfd" : 136.6977539063,
+		"pressure" : 964.8298950195,
+		"id" : 2777129,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-16T13:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1071.1135253906,
+		"flow_rate_mmcfd" : 185.1708831787,
+		"pressure" : 903.8873291016,
+		"id" : 2777191,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T13:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1033.5793457031,
+		"flow_rate_mmcfd" : 167.1750640869,
+		"pressure" : 1233.1259765625,
+		"id" : 2777315,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-16T13:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1066.6112060547,
+		"flow_rate_mmcfd" : 705.9655761719,
+		"pressure" : 1227.3526611328,
+		"id" : 2777377,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-16T12:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1090.0615234375,
+		"flow_rate_mmcfd" : 27.232049942,
+		"pressure" : 967.5131835938,
+		"id" : 2777130,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-16T12:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1090.0615234375,
+		"flow_rate_mmcfd" : 900.9087524414,
+		"pressure" : 1127.9401855469,
+		"id" : 2777254,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T12:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1066.4415283203,
+		"flow_rate_mmcfd" : 721.6451416016,
+		"pressure" : 1229.7821044922,
+		"id" : 2777378,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-16T12:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1032.5101318359,
+		"flow_rate_mmcfd" : 170.9856719971,
+		"pressure" : 1234.4293212891,
+		"id" : 2777316,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-16T12:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1072.9638671875,
+		"flow_rate_mmcfd" : 186.3339538574,
+		"pressure" : 904.1752929688,
+		"id" : 2777192,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T11:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1071.4765625,
+		"flow_rate_mmcfd" : 185.5764770508,
+		"pressure" : 903.8873291016,
+		"id" : 2777193,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T11:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1091.0349121094,
+		"flow_rate_mmcfd" : 133.8636474609,
+		"pressure" : 965.4049072266,
+		"id" : 2777131,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-16T11:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1091.0349121094,
+		"flow_rate_mmcfd" : 851.306640625,
+		"pressure" : 1123.5318603516,
+		"id" : 2777255,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T11:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1068.9350585938,
+		"flow_rate_mmcfd" : 733.1799316406,
+		"pressure" : 1232.3992919922,
+		"id" : 2777379,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-16T11:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1030.240234375,
+		"flow_rate_mmcfd" : 167.8069000244,
+		"pressure" : 1234.4398193359,
+		"id" : 2777317,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-16T10:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1029.0495605469,
+		"flow_rate_mmcfd" : 180.4946594238,
+		"pressure" : 1233.4731445313,
+		"id" : 2777318,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-16T10:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1084.8381347656,
+		"flow_rate_mmcfd" : 820.7954711914,
+		"pressure" : 1111.2268066406,
+		"id" : 2777256,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T10:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1072.0278320313,
+		"flow_rate_mmcfd" : 185.9403381348,
+		"pressure" : 904.2713012695,
+		"id" : 2777194,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T10:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1084.8381347656,
+		"flow_rate_mmcfd" : 136.6837463379,
+		"pressure" : 964.7340698242,
+		"id" : 2777132,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-16T10:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1065.7718505859,
+		"flow_rate_mmcfd" : 740.9412231445,
+		"pressure" : 1232.1102294922,
+		"id" : 2777380,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-16T09:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1071.78515625,
+		"flow_rate_mmcfd" : 743.3312988281,
+		"pressure" : 1228.2012939453,
+		"id" : 2777381,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-16T09:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1030.4111328125,
+		"flow_rate_mmcfd" : 179.5840759277,
+		"pressure" : 1232.2193603516,
+		"id" : 2777319,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-16T09:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1087.2222900391,
+		"flow_rate_mmcfd" : 136.2824401855,
+		"pressure" : 963.8715209961,
+		"id" : 2777133,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-16T09:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1072.1265869141,
+		"flow_rate_mmcfd" : 186.0266723633,
+		"pressure" : 905.1351928711,
+		"id" : 2777195,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T09:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1087.2222900391,
+		"flow_rate_mmcfd" : 799.7736206055,
+		"pressure" : 1107.3892822266,
+		"id" : 2777257,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T08:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1090.4085693359,
+		"flow_rate_mmcfd" : 805.0981445313,
+		"pressure" : 1087.6907958984,
+		"id" : 2777258,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T08:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1090.4085693359,
+		"flow_rate_mmcfd" : 135.9337158203,
+		"pressure" : 963.0090942383,
+		"id" : 2777134,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-16T08:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1029.4748535156,
+		"flow_rate_mmcfd" : 182.6058807373,
+		"pressure" : 1231.7102050781,
+		"id" : 2777320,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-16T08:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1074.2219238281,
+		"flow_rate_mmcfd" : 185.1731872559,
+		"pressure" : 905.3271484375,
+		"id" : 2777196,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T08:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1075.1015625,
+		"flow_rate_mmcfd" : 724.549987793,
+		"pressure" : 1225.9896240234,
+		"id" : 2777382,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-16T07:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1029.6334228516,
+		"flow_rate_mmcfd" : 183.7271728516,
+		"pressure" : 1231.2387695313,
+		"id" : 2777321,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-16T07:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1088.5471191406,
+		"flow_rate_mmcfd" : 823.3852539063,
+		"pressure" : 1074.6461181641,
+		"id" : 2777259,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T07:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1088.5471191406,
+		"flow_rate_mmcfd" : 68.7559814453,
+		"pressure" : 963.5841064453,
+		"id" : 2777135,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-16T07:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1074.9943847656,
+		"flow_rate_mmcfd" : 183.9570770264,
+		"pressure" : 904.7512207031,
+		"id" : 2777197,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T07:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1072.5534667969,
+		"flow_rate_mmcfd" : 709.4284057617,
+		"pressure" : 1223.8454589844,
+		"id" : 2777383,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-16T06:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1065.7884521484,
+		"flow_rate_mmcfd" : 699.0178833008,
+		"pressure" : 1223.4925537109,
+		"id" : 2777384,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-16T06:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1083.2153320313,
+		"flow_rate_mmcfd" : 815.8337402344,
+		"pressure" : 1065.5515136719,
+		"id" : 2777260,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T06:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1084.1990966797,
+		"flow_rate_mmcfd" : 131.7891235352,
+		"pressure" : 959.2716674805,
+		"id" : 2777136,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-16T06:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1072.0213623047,
+		"flow_rate_mmcfd" : 183.828338623,
+		"pressure" : 904.0793457031,
+		"id" : 2777198,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T06:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1030.6866455078,
+		"flow_rate_mmcfd" : 184.0997009277,
+		"pressure" : 1231.3994140625,
+		"id" : 2777322,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-16T05:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1082.0374755859,
+		"flow_rate_mmcfd" : 783.1614379883,
+		"pressure" : 1059.3258056641,
+		"id" : 2777261,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T05:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1082.0374755859,
+		"flow_rate_mmcfd" : 131.131072998,
+		"pressure" : 956.8759155273,
+		"id" : 2777137,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-16T05:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1072.4753417969,
+		"flow_rate_mmcfd" : 184.0118408203,
+		"pressure" : 903.5994262695,
+		"id" : 2777199,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T05:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1065.1182861328,
+		"flow_rate_mmcfd" : 695.2411499023,
+		"pressure" : 1223.3874511719,
+		"id" : 2777385,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-16T05:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1032.2215576172,
+		"flow_rate_mmcfd" : 182.9996490479,
+		"pressure" : 1231.7745361328,
+		"id" : 2777323,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-16T04:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1072.4256591797,
+		"flow_rate_mmcfd" : 184.8300933838,
+		"pressure" : 901.0078735352,
+		"id" : 2767091,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T04:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1066.4923095703,
+		"flow_rate_mmcfd" : 681.5588378906,
+		"pressure" : 1224.9945068359,
+		"id" : 2767292,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-16T04:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1078.9737548828,
+		"flow_rate_mmcfd" : 130.424331665,
+		"pressure" : 956.9717407227,
+		"id" : 2767024,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-16T04:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1078.0057373047,
+		"flow_rate_mmcfd" : 786.1734008789,
+		"pressure" : 1055.8675537109,
+		"id" : 2767158,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T04:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1032.0264892578,
+		"flow_rate_mmcfd" : 188.0160522461,
+		"pressure" : 1233.2611083984,
+		"id" : 2767225,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-16T03:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1080.22265625,
+		"flow_rate_mmcfd" : 127.3380126953,
+		"pressure" : 956.6842041016,
+		"id" : 2767025,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-16T03:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1066.8387451172,
+		"flow_rate_mmcfd" : 675.21484375,
+		"pressure" : 1226.2036132813,
+		"id" : 2767293,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-16T03:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1031.1655273438,
+		"flow_rate_mmcfd" : 185.233291626,
+		"pressure" : 1234.6539306641,
+		"id" : 2767226,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-16T03:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1080.4362792969,
+		"flow_rate_mmcfd" : 689.8997802734,
+		"pressure" : 1052.8522949219,
+		"id" : 2767159,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T03:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1072.0764160156,
+		"flow_rate_mmcfd" : 184.7399597168,
+		"pressure" : 901.3917236328,
+		"id" : 2767092,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T02:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1028.4760742188,
+		"flow_rate_mmcfd" : 182.4560089111,
+		"pressure" : 1235.5952148438,
+		"id" : 2767227,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-16T02:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1080.4952392578,
+		"flow_rate_mmcfd" : 125.6318664551,
+		"pressure" : 954.4801025391,
+		"id" : 2767026,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-16T02:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1072.4332275391,
+		"flow_rate_mmcfd" : 174.6192321777,
+		"pressure" : 901.2957763672,
+		"id" : 2767093,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T02:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1079.3233642578,
+		"flow_rate_mmcfd" : 720.4513549805,
+		"pressure" : 1038.3731689453,
+		"id" : 2767160,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T02:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1068.9299316406,
+		"flow_rate_mmcfd" : 680.9645385742,
+		"pressure" : 1228.54296875,
+		"id" : 2767294,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-16T01:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1083.5891113281,
+		"flow_rate_mmcfd" : 86.0380783081,
+		"pressure" : 956.0133666992,
+		"id" : 2767027,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-16T01:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1066.7593994141,
+		"flow_rate_mmcfd" : 668.3707885742,
+		"pressure" : 1228.1148681641,
+		"id" : 2767295,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-16T01:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1072.1058349609,
+		"flow_rate_mmcfd" : 175.4819946289,
+		"pressure" : 900.5279541016,
+		"id" : 2767094,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T01:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1026.3754882813,
+		"flow_rate_mmcfd" : 188.7185211182,
+		"pressure" : 1236.4465332031,
+		"id" : 2767228,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-16T01:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1082.1610107422,
+		"flow_rate_mmcfd" : 722.2990112305,
+		"pressure" : 1033.3227539063,
+		"id" : 2767161,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T00:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1030.3605957031,
+		"flow_rate_mmcfd" : 183.4861755371,
+		"pressure" : 1237.4910888672,
+		"id" : 2767229,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-16T00:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1070.5941162109,
+		"flow_rate_mmcfd" : 694.9129638672,
+		"pressure" : 1228.4302978516,
+		"id" : 2767296,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-16T00:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1083.5891113281,
+		"flow_rate_mmcfd" : 123.0879364014,
+		"pressure" : 953.8092651367,
+		"id" : 2767028,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-16T00:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1082.0922851563,
+		"flow_rate_mmcfd" : 770.9775390625,
+		"pressure" : 1031.4827880859,
+		"id" : 2767162,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-16T00:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1072.2879638672,
+		"flow_rate_mmcfd" : 174.8925323486,
+		"pressure" : 901.6796875,
+		"id" : 2767095,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T23:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1072.2352294922,
+		"flow_rate_mmcfd" : 174.4645843506,
+		"pressure" : 903.1195068359,
+		"id" : 2767096,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T23:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1077.4204101563,
+		"flow_rate_mmcfd" : 762.008972168,
+		"pressure" : 1031.4002685547,
+		"id" : 2767163,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T23:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1085.0445556641,
+		"flow_rate_mmcfd" : 715.8380737305,
+		"pressure" : 1230.3715820313,
+		"id" : 2767297,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-15T23:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1083.5891113281,
+		"flow_rate_mmcfd" : 122.186050415,
+		"pressure" : 954.0009765625,
+		"id" : 2767029,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-15T23:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1030.9044189453,
+		"flow_rate_mmcfd" : 184.5225982666,
+		"pressure" : 1239.7998046875,
+		"id" : 2767230,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-15T22:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1073.2193603516,
+		"flow_rate_mmcfd" : 736.8530883789,
+		"pressure" : 1033.3039550781,
+		"id" : 2767164,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T22:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1072.5544433594,
+		"flow_rate_mmcfd" : 175.6013336182,
+		"pressure" : 904.9431762695,
+		"id" : 2767097,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T22:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1031.0451660156,
+		"flow_rate_mmcfd" : 173.717300415,
+		"pressure" : 1242.6511230469,
+		"id" : 2767231,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-15T22:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1083.5891113281,
+		"flow_rate_mmcfd" : 122.0411529541,
+		"pressure" : 952.9467773438,
+		"id" : 2767030,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-15T22:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1093.5500488281,
+		"flow_rate_mmcfd" : 720.1405029297,
+		"pressure" : 1233.8411865234,
+		"id" : 2767298,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-15T21:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1031.1527099609,
+		"flow_rate_mmcfd" : 185.9179840088,
+		"pressure" : 1245.4996337891,
+		"id" : 2767232,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-15T21:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1072.0635986328,
+		"flow_rate_mmcfd" : 175.9589996338,
+		"pressure" : 907.6307983398,
+		"id" : 2767098,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T21:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1094.5690917969,
+		"flow_rate_mmcfd" : 724.0311279297,
+		"pressure" : 1237.2769775391,
+		"id" : 2767299,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-15T21:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1076.1842041016,
+		"flow_rate_mmcfd" : 815.2828979492,
+		"pressure" : 1019.0651855469,
+		"id" : 2767165,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T21:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1083.5891113281,
+		"flow_rate_mmcfd" : 124.8963775635,
+		"pressure" : 951.0302124023,
+		"id" : 2767031,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-15T20:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1073.0135498047,
+		"flow_rate_mmcfd" : 175.6111755371,
+		"pressure" : 909.7424316406,
+		"id" : 2767099,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T20:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1030.5540771484,
+		"flow_rate_mmcfd" : 167.6712493896,
+		"pressure" : 1246.9138183594,
+		"id" : 2767233,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-15T20:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1087.2453613281,
+		"flow_rate_mmcfd" : 718.2333984375,
+		"pressure" : 1238.7376708984,
+		"id" : 2767300,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-15T20:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1083.5891113281,
+		"flow_rate_mmcfd" : 119.9786911011,
+		"pressure" : 947.6760864258,
+		"id" : 2767032,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-15T20:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1079.2626953125,
+		"flow_rate_mmcfd" : 728.7576293945,
+		"pressure" : 1019.6922607422,
+		"id" : 2767166,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T19:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1030.0080566406,
+		"flow_rate_mmcfd" : 158.9942779541,
+		"pressure" : 1250.3468017578,
+		"id" : 2767234,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-15T19:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1083.5891113281,
+		"flow_rate_mmcfd" : 122.1739196777,
+		"pressure" : 947.9636230469,
+		"id" : 2767033,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-15T19:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1072.0057373047,
+		"flow_rate_mmcfd" : 168.4952545166,
+		"pressure" : 913.1019287109,
+		"id" : 2767100,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T19:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1074.4284667969,
+		"flow_rate_mmcfd" : 708.772644043,
+		"pressure" : 1025.7001953125,
+		"id" : 2767167,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T19:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1086.2484130859,
+		"flow_rate_mmcfd" : 719.3414916992,
+		"pressure" : 1241.1182861328,
+		"id" : 2767301,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-15T18:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1073.16015625,
+		"flow_rate_mmcfd" : 164.1369934082,
+		"pressure" : 915.6934814453,
+		"id" : 2767101,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T18:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1085.5006103516,
+		"flow_rate_mmcfd" : 719.8552246094,
+		"pressure" : 1243.0483398438,
+		"id" : 2767302,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-15T18:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1083.5891113281,
+		"flow_rate_mmcfd" : 120.86693573,
+		"pressure" : 945.3760986328,
+		"id" : 2767034,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-15T18:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1077.1677246094,
+		"flow_rate_mmcfd" : 731.9844360352,
+		"pressure" : 1021.5922851563,
+		"id" : 2767168,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T18:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1031.2620849609,
+		"flow_rate_mmcfd" : 173.5473480225,
+		"pressure" : 1254.9080810547,
+		"id" : 2767235,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-15T17:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1077.7545166016,
+		"flow_rate_mmcfd" : 739.7677001953,
+		"pressure" : 1021.0440673828,
+		"id" : 2767169,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T17:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1083.5891113281,
+		"flow_rate_mmcfd" : 120.9537353516,
+		"pressure" : 942.213684082,
+		"id" : 2767035,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-15T17:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1031.7479248047,
+		"flow_rate_mmcfd" : 165.6616668701,
+		"pressure" : 1260.7559814453,
+		"id" : 2767236,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-15T17:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1085.0808105469,
+		"flow_rate_mmcfd" : 719.7640991211,
+		"pressure" : 1247.5767822266,
+		"id" : 2767303,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-15T17:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1072.0882568359,
+		"flow_rate_mmcfd" : 164.7900085449,
+		"pressure" : 918.6690063477,
+		"id" : 2767102,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T16:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1070.4019775391,
+		"flow_rate_mmcfd" : 164.0978546143,
+		"pressure" : 921.1646118164,
+		"id" : 2767103,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T16:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1083.5891113281,
+		"flow_rate_mmcfd" : 120.4060134888,
+		"pressure" : 945.0886230469,
+		"id" : 2767036,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-15T16:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1076.4156494141,
+		"flow_rate_mmcfd" : 763.4526367188,
+		"pressure" : 1001.8599853516,
+		"id" : 2767170,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T16:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1085.4660644531,
+		"flow_rate_mmcfd" : 728.8993530273,
+		"pressure" : 1254.6925048828,
+		"id" : 2767304,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-15T16:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1032.3594970703,
+		"flow_rate_mmcfd" : 168.8603820801,
+		"pressure" : 1267.0446777344,
+		"id" : 2767237,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-15T15:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1032.8940429688,
+		"flow_rate_mmcfd" : 194.1328125,
+		"pressure" : 1273.1837158203,
+		"id" : 2767238,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-15T15:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1050.0303955078,
+		"flow_rate_mmcfd" : 122.0637817383,
+		"pressure" : 929.3233642578,
+		"id" : 2767104,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T15:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1085.2033691406,
+		"flow_rate_mmcfd" : 734.8912963867,
+		"pressure" : 1260.73046875,
+		"id" : 2767305,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-15T15:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1083.5891113281,
+		"flow_rate_mmcfd" : 119.927734375,
+		"pressure" : 950.6468505859,
+		"id" : 2767037,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-15T15:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1076.6948242188,
+		"flow_rate_mmcfd" : 723.237121582,
+		"pressure" : 977.4865722656,
+		"id" : 2767171,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T14:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1085.0382080078,
+		"flow_rate_mmcfd" : 721.3303833008,
+		"pressure" : 1264.2037353516,
+		"id" : 2767306,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-15T14:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1033.2321777344,
+		"flow_rate_mmcfd" : 190.6395568848,
+		"pressure" : 1277.0103759766,
+		"id" : 2767239,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-15T14:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1076.4887695313,
+		"flow_rate_mmcfd" : 749.3073120117,
+		"pressure" : 1014.7582397461,
+		"id" : 2767172,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T14:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1049.5460205078,
+		"flow_rate_mmcfd" : 0.0,
+		"pressure" : 934.1225585938,
+		"id" : 2767105,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T14:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1083.5891113281,
+		"flow_rate_mmcfd" : 150.086227417,
+		"pressure" : 950.6468505859,
+		"id" : 2767038,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-15T13:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1075.6375732422,
+		"flow_rate_mmcfd" : 742.0435791016,
+		"pressure" : 1020.8450317383,
+		"id" : 2767173,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T13:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1052.3031005859,
+		"flow_rate_mmcfd" : 0.0,
+		"pressure" : 925.9638671875,
+		"id" : 2767106,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T13:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1083.5891113281,
+		"flow_rate_mmcfd" : 153.6162261963,
+		"pressure" : 948.9219360352,
+		"id" : 2767039,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-15T13:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1085.6295166016,
+		"flow_rate_mmcfd" : 715.6270751953,
+		"pressure" : 1265.1275634766,
+		"id" : 2767307,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-15T13:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1033.8129882813,
+		"flow_rate_mmcfd" : 186.0666503906,
+		"pressure" : 1280.4067382813,
+		"id" : 2767240,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-15T12:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1086.2447509766,
+		"flow_rate_mmcfd" : 722.9603881836,
+		"pressure" : 1269.0139160156,
+		"id" : 2767308,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-15T12:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1083.5891113281,
+		"flow_rate_mmcfd" : 154.0157318115,
+		"pressure" : 947.3886108398,
+		"id" : 2767040,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-15T12:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1033.7938232422,
+		"flow_rate_mmcfd" : 176.7990264893,
+		"pressure" : 1285.0404052734,
+		"id" : 2767241,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-15T12:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1072.8377685547,
+		"flow_rate_mmcfd" : 734.2448730469,
+		"pressure" : 1022.0766601563,
+		"id" : 2767174,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T12:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1061.8388671875,
+		"flow_rate_mmcfd" : 0.0,
+		"pressure" : 914.1577148438,
+		"id" : 2767107,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T11:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1083.5891113281,
+		"flow_rate_mmcfd" : 153.2146148682,
+		"pressure" : 945.3760986328,
+		"id" : 2767041,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-15T11:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1060.4553222656,
+		"flow_rate_mmcfd" : 0.0,
+		"pressure" : 911.1822509766,
+		"id" : 2767108,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T11:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1072.3833007813,
+		"flow_rate_mmcfd" : 712.5736083984,
+		"pressure" : 1030.5628662109,
+		"id" : 2767175,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T11:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1034.1229248047,
+		"flow_rate_mmcfd" : 206.454574585,
+		"pressure" : 1292.0307617188,
+		"id" : 2767242,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-15T11:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1086.046875,
+		"flow_rate_mmcfd" : 716.7183227539,
+		"pressure" : 1273.7263183594,
+		"id" : 2767309,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-15T10:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1085.1304931641,
+		"flow_rate_mmcfd" : 721.926940918,
+		"pressure" : 1279.5314941406,
+		"id" : 2767310,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-15T10:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1033.9456787109,
+		"flow_rate_mmcfd" : 200.5437469482,
+		"pressure" : 1295.5596923828,
+		"id" : 2767243,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-15T10:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1063.1959228516,
+		"flow_rate_mmcfd" : 0.0,
+		"pressure" : 907.918762207,
+		"id" : 2767109,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T10:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1074.5305175781,
+		"flow_rate_mmcfd" : 725.5178833008,
+		"pressure" : 1037.5057373047,
+		"id" : 2767176,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T10:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1083.5891113281,
+		"flow_rate_mmcfd" : 154.1253051758,
+		"pressure" : 943.4595336914,
+		"id" : 2767042,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-15T09:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1033.1293945313,
+		"flow_rate_mmcfd" : 195.6721343994,
+		"pressure" : 1299.2529296875,
+		"id" : 2767244,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-15T09:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1083.5891113281,
+		"flow_rate_mmcfd" : 151.7307739258,
+		"pressure" : 940.6803588867,
+		"id" : 2767043,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-15T09:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1068.7336425781,
+		"flow_rate_mmcfd" : 729.2698364258,
+		"pressure" : 1033.2438964844,
+		"id" : 2767177,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T09:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1086.5335693359,
+		"flow_rate_mmcfd" : 727.3590698242,
+		"pressure" : 1283.7220458984,
+		"id" : 2767311,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-15T09:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1062.5378417969,
+		"flow_rate_mmcfd" : 0.0,
+		"pressure" : 905.0391845703,
+		"id" : 2767110,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T08:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1074.1920166016,
+		"flow_rate_mmcfd" : 746.4904785156,
+		"pressure" : 1031.1336669922,
+		"id" : 2767178,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T08:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1065.9576416016,
+		"flow_rate_mmcfd" : 0.0,
+		"pressure" : 903.1195068359,
+		"id" : 2767111,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T08:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1033.1407470703,
+		"flow_rate_mmcfd" : 185.0672607422,
+		"pressure" : 1303.5823974609,
+		"id" : 2767245,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-15T08:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1083.5891113281,
+		"flow_rate_mmcfd" : 151.4412841797,
+		"pressure" : 938.1887817383,
+		"id" : 2767044,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-15T08:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1086.1252441406,
+		"flow_rate_mmcfd" : 734.9010620117,
+		"pressure" : 1288.4382324219,
+		"id" : 2767312,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-15T07:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1061.1877441406,
+		"flow_rate_mmcfd" : 0.0,
+		"pressure" : 903.5034790039,
+		"id" : 2767112,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T07:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1085.1147460938,
+		"flow_rate_mmcfd" : 725.4780273438,
+		"pressure" : 1294.3673095703,
+		"id" : 2767313,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-15T07:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1033.4136962891,
+		"flow_rate_mmcfd" : 174.0572509766,
+		"pressure" : 1308.3781738281,
+		"id" : 2767246,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-15T07:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1075.8441162109,
+		"flow_rate_mmcfd" : 728.0410766602,
+		"pressure" : 1030.1009521484,
+		"id" : 2767179,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T07:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1083.5891113281,
+		"flow_rate_mmcfd" : 150.1150512695,
+		"pressure" : 935.8887939453,
+		"id" : 2767045,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-15T06:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1033.2374267578,
+		"flow_rate_mmcfd" : 174.9000854492,
+		"pressure" : 1313.4064941406,
+		"id" : 2767247,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-15T06:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1083.5891113281,
+		"flow_rate_mmcfd" : 148.9555206299,
+		"pressure" : 934.4513549805,
+		"id" : 2767046,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-15T06:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1083.2625732422,
+		"flow_rate_mmcfd" : 721.3480224609,
+		"pressure" : 1300.5443115234,
+		"id" : 2767314,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-15T06:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1074.9078369141,
+		"flow_rate_mmcfd" : 730.9810791016,
+		"pressure" : 1027.9344482422,
+		"id" : 2767180,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T06:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1061.1877441406,
+		"flow_rate_mmcfd" : 0.0,
+		"pressure" : 901.8717041016,
+		"id" : 2767113,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T05:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1083.5891113281,
+		"flow_rate_mmcfd" : 149.5420837402,
+		"pressure" : 932.5347900391,
+		"id" : 2767047,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-15T05:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1072.0950927734,
+		"flow_rate_mmcfd" : 722.2858886719,
+		"pressure" : 1027.3712158203,
+		"id" : 2767181,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T05:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1079.1440429688,
+		"flow_rate_mmcfd" : 722.4055175781,
+		"pressure" : 1303.9537353516,
+		"id" : 2767315,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-15T05:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1033.1383056641,
+		"flow_rate_mmcfd" : 176.9637908936,
+		"pressure" : 1319.1539306641,
+		"id" : 2767248,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-15T05:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1061.4642333984,
+		"flow_rate_mmcfd" : 0.0,
+		"pressure" : 898.7042236328,
+		"id" : 2767114,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T04:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1067.0467529297,
+		"flow_rate_mmcfd" : 716.549621582,
+		"pressure" : 1310.1043701172,
+		"id" : 2754282,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-15T04:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1083.5891113281,
+		"flow_rate_mmcfd" : 149.7510375977,
+		"pressure" : 931.1931152344,
+		"id" : 2754014,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-15T04:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1032.9431152344,
+		"flow_rate_mmcfd" : 171.7782897949,
+		"pressure" : 1325.2767333984,
+		"id" : 2754215,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-15T04:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1072.7352294922,
+		"flow_rate_mmcfd" : 726.0171508789,
+		"pressure" : 1027.0069580078,
+		"id" : 2754148,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T04:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1063.0653076172,
+		"flow_rate_mmcfd" : 9.7740812302,
+		"pressure" : 894.0009155273,
+		"id" : 2754081,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T03:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1071.6590576172,
+		"flow_rate_mmcfd" : 728.4130249023,
+		"pressure" : 1025.7602539063,
+		"id" : 2754149,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T03:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1083.5891113281,
+		"flow_rate_mmcfd" : 151.3684997559,
+		"pressure" : 930.4264526367,
+		"id" : 2754015,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-15T03:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1031.9943847656,
+		"flow_rate_mmcfd" : 177.26953125,
+		"pressure" : 1331.8193359375,
+		"id" : 2754216,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-15T03:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1061.9407958984,
+		"flow_rate_mmcfd" : 9.4181966782,
+		"pressure" : 889.3936767578,
+		"id" : 2754082,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T03:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1064.9468994141,
+		"flow_rate_mmcfd" : 725.5094604492,
+		"pressure" : 1313.5852050781,
+		"id" : 2754283,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-15T02:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1064.3729248047,
+		"flow_rate_mmcfd" : 691.8168334961,
+		"pressure" : 1319.142578125,
+		"id" : 2754284,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-15T02:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1073.2685546875,
+		"flow_rate_mmcfd" : 778.335144043,
+		"pressure" : 1024.8140869141,
+		"id" : 2754150,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T02:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1031.8553466797,
+		"flow_rate_mmcfd" : 175.9544525146,
+		"pressure" : 1339.4104003906,
+		"id" : 2754217,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-15T02:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1083.5891113281,
+		"flow_rate_mmcfd" : 122.1237869263,
+		"pressure" : 932.247253418,
+		"id" : 2754016,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-15T02:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1062.6540527344,
+		"flow_rate_mmcfd" : 9.3635883331,
+		"pressure" : 885.3623657227,
+		"id" : 2754083,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T01:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1083.5891113281,
+		"flow_rate_mmcfd" : 151.0435943604,
+		"pressure" : 931.1931152344,
+		"id" : 2754017,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-15T01:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1065.8521728516,
+		"flow_rate_mmcfd" : 700.2144775391,
+		"pressure" : 1326.2919921875,
+		"id" : 2754285,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-15T01:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1065.4361572266,
+		"flow_rate_mmcfd" : 9.302523613,
+		"pressure" : 879.2192993164,
+		"id" : 2754084,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T01:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1031.8721923828,
+		"flow_rate_mmcfd" : 174.0900878906,
+		"pressure" : 1348.0902099609,
+		"id" : 2754218,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-15T01:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1072.10546875,
+		"flow_rate_mmcfd" : 779.7279052734,
+		"pressure" : 1028.0808105469,
+		"id" : 2754151,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T00:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1073.2177734375,
+		"flow_rate_mmcfd" : 771.0478515625,
+		"pressure" : 1030.4615478516,
+		"id" : 2754152,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T00:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1083.5891113281,
+		"flow_rate_mmcfd" : 151.6748962402,
+		"pressure" : 933.2055053711,
+		"id" : 2754018,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-15T00:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1067.2141113281,
+		"flow_rate_mmcfd" : 9.2003536224,
+		"pressure" : 869.428894043,
+		"id" : 2754085,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-15T00:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1065.7901611328,
+		"flow_rate_mmcfd" : 698.0899047852,
+		"pressure" : 1332.4464111328,
+		"id" : 2754286,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-15T00:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1031.8132324219,
+		"flow_rate_mmcfd" : 176.3567504883,
+		"pressure" : 1355.8232421875,
+		"id" : 2754219,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-14T23:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1063.8901367188,
+		"flow_rate_mmcfd" : 697.8406982422,
+		"pressure" : 1343.5686035156,
+		"id" : 2754287,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-14T23:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1031.9831542969,
+		"flow_rate_mmcfd" : 177.3166809082,
+		"pressure" : 1365.4389648438,
+		"id" : 2754220,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-14T23:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1075.5991210938,
+		"flow_rate_mmcfd" : 770.1872558594,
+		"pressure" : 1028.4938964844,
+		"id" : 2754153,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-14T23:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1065.6595458984,
+		"flow_rate_mmcfd" : 52.1847572327,
+		"pressure" : 859.9264526367,
+		"id" : 2754086,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-14T23:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1081.7014160156,
+		"flow_rate_mmcfd" : 150.3402862549,
+		"pressure" : 933.5889282227,
+		"id" : 2754019,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-14T22:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1078.0754394531,
+		"flow_rate_mmcfd" : 780.877746582,
+		"pressure" : 1021.382019043,
+		"id" : 2754154,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-14T22:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1065.6595458984,
+		"flow_rate_mmcfd" : 51.8035354614,
+		"pressure" : 854.2633056641,
+		"id" : 2754087,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-14T22:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1031.7945556641,
+		"flow_rate_mmcfd" : 170.3939361572,
+		"pressure" : 1368.4779052734,
+		"id" : 2754221,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-14T22:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1081.7014160156,
+		"flow_rate_mmcfd" : 126.7411880493,
+		"pressure" : 933.2055053711,
+		"id" : 2754020,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-14T22:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1063.6534423828,
+		"flow_rate_mmcfd" : 672.6373901367,
+		"pressure" : 1368.6065673828,
+		"id" : 2754288,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-14T21:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1063.7938232422,
+		"flow_rate_mmcfd" : 667.0383911133,
+		"pressure" : 1366.0944824219,
+		"id" : 2754289,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-14T21:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1081.7014160156,
+		"flow_rate_mmcfd" : 128.5877227783,
+		"pressure" : 934.8346557617,
+		"id" : 2754021,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-14T21:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1065.6595458984,
+		"flow_rate_mmcfd" : 52.4083976746,
+		"pressure" : 845.6246948242,
+		"id" : 2754088,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-14T21:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1031.7938232422,
+		"flow_rate_mmcfd" : 170.3526763916,
+		"pressure" : 1367.3581542969,
+		"id" : 2754222,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-14T21:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1077.423828125,
+		"flow_rate_mmcfd" : 785.3946533203,
+		"pressure" : 1032.6018066406,
+		"id" : 2754155,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-14T20:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1078.0106201172,
+		"flow_rate_mmcfd" : 757.9845581055,
+		"pressure" : 1024.3897705078,
+		"id" : 2754156,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-14T20:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1031.4399414063,
+		"flow_rate_mmcfd" : 169.5093078613,
+		"pressure" : 1366.3713378906,
+		"id" : 2754223,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-14T20:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1077.8065185547,
+		"flow_rate_mmcfd" : 51.371421814,
+		"pressure" : 832.5707397461,
+		"id" : 2754089,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-14T20:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1081.7014160156,
+		"flow_rate_mmcfd" : 92.8578109741,
+		"pressure" : 937.4221191406,
+		"id" : 2754022,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-14T20:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1064.5280761719,
+		"flow_rate_mmcfd" : 668.0474853516,
+		"pressure" : 1365.5500488281,
+		"id" : 2754290,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-14T19:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1031.5667724609,
+		"flow_rate_mmcfd" : 173.0841064453,
+		"pressure" : 1366.2095947266,
+		"id" : 2754224,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-14T19:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1063.0510253906,
+		"flow_rate_mmcfd" : 680.2931518555,
+		"pressure" : 1364.6489257813,
+		"id" : 2754291,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-14T19:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1078.294921875,
+		"flow_rate_mmcfd" : 51.8779296875,
+		"pressure" : 822.4923706055,
+		"id" : 2754090,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-14T19:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1081.7014160156,
+		"flow_rate_mmcfd" : 122.7308731079,
+		"pressure" : 935.6972045898,
+		"id" : 2754023,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-14T19:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1077.7889404297,
+		"flow_rate_mmcfd" : 813.5008544922,
+		"pressure" : 1012.9896850586,
+		"id" : 2754157,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-14T18:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1081.7014160156,
+		"flow_rate_mmcfd" : 149.1692352295,
+		"pressure" : 936.5596313477,
+		"id" : 2754024,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-14T18:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1032.9729003906,
+		"flow_rate_mmcfd" : 170.5029296875,
+		"pressure" : 1367.6800537109,
+		"id" : 2754225,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-14T18:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1081.1086425781,
+		"flow_rate_mmcfd" : 845.2547607422,
+		"pressure" : 1014.837097168,
+		"id" : 2754158,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-14T18:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1077.8177490234,
+		"flow_rate_mmcfd" : 39.9450798035,
+		"pressure" : 826.7157592773,
+		"id" : 2754091,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-14T18:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1060.0819091797,
+		"flow_rate_mmcfd" : 680.358215332,
+		"pressure" : 1366.1396484375,
+		"id" : 2754292,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-14T17:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1077.8177490234,
+		"flow_rate_mmcfd" : 39.8834342957,
+		"pressure" : 830.4591064453,
+		"id" : 2754092,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-14T17:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1081.7014160156,
+		"flow_rate_mmcfd" : 147.3871612549,
+		"pressure" : 936.1763305664,
+		"id" : 2754025,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-14T17:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1080.2019042969,
+		"flow_rate_mmcfd" : 817.9155273438,
+		"pressure" : 1029.9207763672,
+		"id" : 2754159,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-14T17:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1032.6431884766,
+		"flow_rate_mmcfd" : 177.9294891357,
+		"pressure" : 1370.0124511719,
+		"id" : 2754226,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-14T17:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1061.6397705078,
+		"flow_rate_mmcfd" : 685.6432495117,
+		"pressure" : 1366.0457763672,
+		"id" : 2754293,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-14T16:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1032.8609619141,
+		"flow_rate_mmcfd" : 174.8434448242,
+		"pressure" : 1371.9438476563,
+		"id" : 2754227,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-14T16:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1079.8728027344,
+		"flow_rate_mmcfd" : 40.214969635,
+		"pressure" : 835.9302368164,
+		"id" : 2754093,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-14T16:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1080.6873779297,
+		"flow_rate_mmcfd" : 816.2473754883,
+		"pressure" : 1030.4239501953,
+		"id" : 2754160,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-14T16:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1087.9005126953,
+		"flow_rate_mmcfd" : 57.0297889709,
+		"pressure" : 936.9429321289,
+		"id" : 2754026,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-14T16:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1061.2631835938,
+		"flow_rate_mmcfd" : 687.4612426758,
+		"pressure" : 1368.5089111328,
+		"id" : 2754294,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-14T15:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1079.8728027344,
+		"flow_rate_mmcfd" : 0.0,
+		"pressure" : 718.924987793,
+		"id" : 2754094,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-14T15:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1061.8084716797,
+		"flow_rate_mmcfd" : 683.439453125,
+		"pressure" : 1369.21484375,
+		"id" : 2754295,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-14T15:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1080.1607666016,
+		"flow_rate_mmcfd" : 831.1427001953,
+		"pressure" : 1021.6823730469,
+		"id" : 2754161,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-14T15:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1034.5930175781,
+		"flow_rate_mmcfd" : 174.6291503906,
+		"pressure" : 1375.220703125,
+		"id" : 2754228,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-14T15:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1087.9005126953,
+		"flow_rate_mmcfd" : 130.6996154785,
+		"pressure" : 937.0388183594,
+		"id" : 2754027,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-14T14:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1063.3240966797,
+		"flow_rate_mmcfd" : 670.2432861328,
+		"pressure" : 1375.9625244141,
+		"id" : 2754296,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-14T14:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1087.9005126953,
+		"flow_rate_mmcfd" : 147.4826812744,
+		"pressure" : 936.5596313477,
+		"id" : 2754028,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-14T14:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1035.3326416016,
+		"flow_rate_mmcfd" : 171.7021484375,
+		"pressure" : 1376.9964599609,
+		"id" : 2754229,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-14T14:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1079.1654052734,
+		"flow_rate_mmcfd" : 0.0,
+		"pressure" : 717.0052490234,
+		"id" : 2754095,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-14T14:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1081.3778076172,
+		"flow_rate_mmcfd" : 857.0704956055,
+		"pressure" : 1023.6837768555,
+		"id" : 2754162,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-14T13:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1087.9005126953,
+		"flow_rate_mmcfd" : 148.4745635986,
+		"pressure" : 936.8471069336,
+		"id" : 2754029,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-14T13:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1081.4720458984,
+		"flow_rate_mmcfd" : 896.0560302734,
+		"pressure" : 1017.270324707,
+		"id" : 2754163,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-14T13:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1034.8422851563,
+		"flow_rate_mmcfd" : 176.6678161621,
+		"pressure" : 1377.9373779297,
+		"id" : 2754230,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-14T13:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1079.0974121094,
+		"flow_rate_mmcfd" : 0.0,
+		"pressure" : 717.7731323242,
+		"id" : 2754096,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-14T13:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1064.2357177734,
+		"flow_rate_mmcfd" : 668.8109741211,
+		"pressure" : 1377.3068847656,
+		"id" : 2754297,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-14T12:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1077.9320068359,
+		"flow_rate_mmcfd" : 0.0,
+		"pressure" : 718.6370239258,
+		"id" : 2754097,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-14T12:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1087.9005126953,
+		"flow_rate_mmcfd" : 147.5767974854,
+		"pressure" : 936.9429321289,
+		"id" : 2754030,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-14T12:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1063.3494873047,
+		"flow_rate_mmcfd" : 653.6830444336,
+		"pressure" : 1377.7462158203,
+		"id" : 2754298,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-14T12:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1077.7708740234,
+		"flow_rate_mmcfd" : 896.2265625,
+		"pressure" : 1025.4035644531,
+		"id" : 2754164,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-14T12:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1034.4482421875,
+		"flow_rate_mmcfd" : 175.2522125244,
+		"pressure" : 1378.3994140625,
+		"id" : 2754231,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-14T11:00:00.000Z",
+		"ap_meter" : 230500,
+		"btu" : 1062.8831787109,
+		"flow_rate_mmcfd" : 670.3470458984,
+		"pressure" : 1379.2631835938,
+		"id" : 2754299,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1060
+	},
+	{
+		"timestamp" : "2025-10-14T11:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1035.0845947266,
+		"flow_rate_mmcfd" : 176.9945831299,
+		"pressure" : 1380.4582519531,
+		"id" : 2754232,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-14T11:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1077.9320068359,
+		"flow_rate_mmcfd" : 0.0,
+		"pressure" : 721.3245849609,
+		"id" : 2754098,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-14T11:00:00.000Z",
+		"ap_meter" : 220960,
+		"btu" : 1080.2840576172,
+		"flow_rate_mmcfd" : 879.0942993164,
+		"pressure" : 1029.9508056641,
+		"id" : 2754165,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	},
+	{
+		"timestamp" : "2025-10-14T11:00:00.000Z",
+		"ap_meter" : 220030,
+		"btu" : 1087.9005126953,
+		"flow_rate_mmcfd" : 146.7455291748,
+		"pressure" : 937.0388183594,
+		"id" : 2754031,
+		"current_daytotal_mmcf" : null,
+		"minop" : 712
+	},
+	{
+		"timestamp" : "2025-10-14T10:00:00.000Z",
+		"ap_meter" : 230240,
+		"btu" : 1034.3145751953,
+		"flow_rate_mmcfd" : 174.4464569092,
+		"pressure" : 1381.7921142578,
+		"id" : 2754233,
+		"current_daytotal_mmcf" : null,
+		"minop" : 1200
+	},
+	{
+		"timestamp" : "2025-10-14T10:00:00.000Z",
+		"ap_meter" : 220530,
+		"btu" : 1077.9320068359,
+		"flow_rate_mmcfd" : 0.0,
+		"pressure" : 722.9562988281,
+		"id" : 2754099,
+		"current_daytotal_mmcf" : null,
+		"minop" : 800
+	}
+]}
