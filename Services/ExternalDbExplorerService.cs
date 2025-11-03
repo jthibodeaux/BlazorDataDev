@@ -2,7 +2,7 @@ using System.Data;
 using Npgsql;
 using System.Text.Json;
 
-namespace BlazorDbEditor.Services;
+namespace BlazorDataDev.Services;
 
 public interface IExternalDbExplorerService
 {

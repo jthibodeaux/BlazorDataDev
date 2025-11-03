@@ -1,7 +1,7 @@
 @page "/offline-editor"
 @using System.Text
 @using System.Text.Json
-@using BlazorDbEditor.Services
+@using BlazorDataDev.Services
 @inject IJSRuntime JSRuntime
 @inject IInMemoryDataStore DataStore
 @inject ISqliteQueryService SqliteService
@@ -462,12 +462,12 @@
 
     protected override void OnInitialized()
     {
-        BlazorDbEditor.Components.NavMenu.OfflineEditorState.OnChange += OnSidebarTableSelected;
+        BlazorDataDev.Components.NavMenu.OfflineEditorState.OnChange += OnSidebarTableSelected;
    
         // Check if tables were already loaded (e.g., from Startup Wizard)
-        if (BlazorDbEditor.Components.NavMenu.OfflineEditorState.Tables.Any() && !tables.Any())
+        if (BlazorDataDev.Components.NavMenu.OfflineEditorState.Tables.Any() && !tables.Any())
         {
-            tables = new List<string>(BlazorDbEditor.Components.NavMenu.OfflineEditorState.Tables);
+            tables = new List<string>(BlazorDataDev.Components.NavMenu.OfflineEditorState.Tables);
      
    // Also restore schemas from DataStore if available
      foreach (var tableName in tables)
@@ -499,12 +499,12 @@ var schema = DataStore.GetTableSchema(tableName);
 
     public void Dispose()
     {
-        BlazorDbEditor.Components.NavMenu.OfflineEditorState.OnChange -= OnSidebarTableSelected;
+        BlazorDataDev.Components.NavMenu.OfflineEditorState.OnChange -= OnSidebarTableSelected;
     }
 
     private void OnSidebarTableSelected()
     {
-        var newSelection = BlazorDbEditor.Components.NavMenu.OfflineEditorState.SelectedTable;
+        var newSelection = BlazorDataDev.Components.NavMenu.OfflineEditorState.SelectedTable;
         if (!string.IsNullOrEmpty(newSelection) && newSelection != selectedTable)
         {            selectedTable = newSelection;
             showAddRowForm = false;
@@ -653,8 +653,8 @@ var schema = DataStore.GetTableSchema(tableName);
                 SyncSchemaToDataStore();
                 
                 // Update NavMenu
-                BlazorDbEditor.Components.NavMenu.OfflineEditorState.Tables = new List<string>(tables);
-                BlazorDbEditor.Components.NavMenu.OfflineEditorState.NotifyStateChanged();
+                BlazorDataDev.Components.NavMenu.OfflineEditorState.Tables = new List<string>(tables);
+                BlazorDataDev.Components.NavMenu.OfflineEditorState.NotifyStateChanged();
                 
                 statusMessage = $"Workspace loaded successfully! ({tables.Count} tables found, saved at {workspace.SavedAt:yyyy-MM-dd HH:mm:ss}). Import data separately if needed.";
             }
@@ -820,7 +820,7 @@ var schema = DataStore.GetTableSchema(tableName);
         tables.Clear();
         tableSchemas.Clear();
         originalSchemas.Clear();
-        BlazorDbEditor.Components.NavMenu.OfflineEditorState.Tables.Clear();
+        BlazorDataDev.Components.NavMenu.OfflineEditorState.Tables.Clear();
 
         var lines = ddlContent.Split('\n');
         string? currentTable = null;
@@ -891,8 +891,8 @@ var schema = DataStore.GetTableSchema(tableName);
         LoadSchemaIntoSqlite();
         
         // Notify NavMenu of table changes
-        BlazorDbEditor.Components.NavMenu.OfflineEditorState.Tables = new List<string>(tables);
-        BlazorDbEditor.Components.NavMenu.OfflineEditorState.NotifyStateChanged();
+        BlazorDataDev.Components.NavMenu.OfflineEditorState.Tables = new List<string>(tables);
+        BlazorDataDev.Components.NavMenu.OfflineEditorState.NotifyStateChanged();
     }
 
     private List<ColumnDefinition> GetTableColumns(string tableName)
@@ -904,8 +904,8 @@ var schema = DataStore.GetTableSchema(tableName);
     {
         showAddRowForm = false;
         showAddColumnForm = false;
-        BlazorDbEditor.Components.NavMenu.OfflineEditorState.SelectedTable = selectedTable;
-        BlazorDbEditor.Components.NavMenu.OfflineEditorState.NotifyStateChanged();
+        BlazorDataDev.Components.NavMenu.OfflineEditorState.SelectedTable = selectedTable;
+        BlazorDataDev.Components.NavMenu.OfflineEditorState.NotifyStateChanged();
     }
 
     private void ShowAddColumnForm()
@@ -1624,9 +1624,9 @@ var schema = DataStore.GetTableSchema(tableName);
         SqliteService.ClearAll();
             
             // Update NavMenu
-            BlazorDbEditor.Components.NavMenu.OfflineEditorState.Tables = new List<string>();
-            BlazorDbEditor.Components.NavMenu.OfflineEditorState.SelectedTable = "";
-            BlazorDbEditor.Components.NavMenu.OfflineEditorState.NotifyStateChanged();
+            BlazorDataDev.Components.NavMenu.OfflineEditorState.Tables = new List<string>();
+            BlazorDataDev.Components.NavMenu.OfflineEditorState.SelectedTable = "";
+            BlazorDataDev.Components.NavMenu.OfflineEditorState.NotifyStateChanged();
             
             statusMessage = "✓ Everything cleared! Start fresh by loading a DDL file.";
         }

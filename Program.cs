@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using BlazorDbEditor.Services;
+using BlazorDataDev.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

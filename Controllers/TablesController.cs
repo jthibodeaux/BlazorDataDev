@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using BlazorDbEditor.Services;
+using BlazorDataDev.Services;
 
-namespace BlazorDbEditor.Controllers;
+namespace BlazorDataDev.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]

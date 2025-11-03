@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 
-namespace BlazorDbEditor.Services;
+namespace BlazorDataDev.Services;
 
 /// <summary>
 /// Utility for shifting dates in imported data to be relative to today

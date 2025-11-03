@@ -1,4 +1,4 @@
-namespace BlazorDbEditor.Services;
+namespace BlazorDataDev.Services;
 
 /// <summary>
 /// Represents metadata about a database table column.

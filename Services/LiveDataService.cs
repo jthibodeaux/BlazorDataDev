@@ -1,7 +1,7 @@
 using Npgsql;
 using System.Data;
 
-namespace BlazorDbEditor.Services;
+namespace BlazorDataDev.Services;
 
 public interface ILiveDataService
 {

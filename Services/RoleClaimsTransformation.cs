@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 
-namespace BlazorDbEditor.Services;
+namespace BlazorDataDev.Services;
 
 /// <summary>
 /// Custom claims transformation that adds role claims based on user email mapping in appsettings.json

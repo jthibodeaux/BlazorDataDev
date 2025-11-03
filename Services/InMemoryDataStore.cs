@@ -1,6 +1,6 @@
 using System.Collections.Concurrent;
 
-namespace BlazorDbEditor.Services;
+namespace BlazorDataDev.Services;
 
 /// <summary>
 /// In-memory data store for offline testing.

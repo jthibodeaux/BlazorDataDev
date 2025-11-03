@@ -1,5 +1,5 @@
 @page "/startup"
-@using BlazorDbEditor.Services
+@using BlazorDataDev.Services
 @inject IStartupAutomationService StartupService
 @inject NavigationManager Navigation
 
@@ -228,8 +228,8 @@ else if (result != null)
         // Sync loaded tables to NavMenu state so Offline Editor can see them
       if (result.Success && result.TableSchemas.Any())
      {
-       BlazorDbEditor.Components.NavMenu.OfflineEditorState.Tables = result.TableSchemas.Keys.ToList();
-   BlazorDbEditor.Components.NavMenu.OfflineEditorState.NotifyStateChanged();
+       BlazorDataDev.Components.NavMenu.OfflineEditorState.Tables = result.TableSchemas.Keys.ToList();
+   BlazorDataDev.Components.NavMenu.OfflineEditorState.NotifyStateChanged();
         }
         
  isProcessing = false;

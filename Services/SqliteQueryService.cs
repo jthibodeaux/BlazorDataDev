@@ -2,7 +2,7 @@ using Microsoft.Data.Sqlite;
 using System.Data;
 using System.Text.RegularExpressions;
 
-namespace BlazorDbEditor.Services;
+namespace BlazorDataDev.Services;
 
 public interface ISqliteQueryService
 {

@@ -2,7 +2,7 @@ using System.Text.Json;
 using System.Text;
 using Microsoft.JSInterop;
 
-namespace BlazorDbEditor.Services;
+namespace BlazorDataDev.Services;
 
 public interface IStartupAutomationService
 {

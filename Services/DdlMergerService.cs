@@ -1,7 +1,7 @@
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace BlazorDbEditor.Services;
+namespace BlazorDataDev.Services;
 
 public interface IDdlMergerService
 {

@@ -1,4 +1,4 @@
-namespace BlazorDbEditor.Services
+namespace BlazorDataDev.Services
 {
     /// <summary>
     /// Wrapper around Dictionary that provides type-safe access to row data

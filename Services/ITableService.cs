@@ -1,4 +1,4 @@
-namespace BlazorDbEditor.Services
+namespace BlazorDataDev.Services
 {
     public interface ITableService
     {
